@@ -20,13 +20,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 // see http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 
-$conf['settings']['host'] = 'grrgrg'; // comma separated list of ldap servers such as mydomain1,localhost
+$conf['settings']['host'] = 'ldap.jumpcloud.com'; // comma separated list of ldap servers such as mydomain1,localhost
 $conf['settings']['port'] = '389';      // default ldap port 389 or 636 for ssl.
 $conf['settings']['version'] = '3';		// LDAP protocol version
 $conf['settings']['starttls'] = 'false';	// TLS is started after connecting
-$conf['settings']['binddn'] = 'cn=read-only-admin,dc=example,dc=com';	// The distinguished name to bind as (username). If you don't supply this, an anonymous bind will be established.
+$conf['settings']['binddn'] = 'uid=user1,ou=Users,o=56d6fc6e62695b7f543ae469,dc=jumpcloud,dc=com';	// The distinguished name to bind as (username). If you don't supply this, an anonymous bind will be established.
 $conf['settings']['bindpw'] = 'password';	// Password for the binddn. If the credentials are wrong, the bind will fail server-side and an anonymous bind will be established instead. An empty bindpw string requests an unauthenticated bind.
-$conf['settings']['basedn'] = 'dc=example,dc=com';	// LDAP base name (eg. dc=example,dc=com)
+$conf['settings']['basedn'] = 'ou=Users,o=56d6fc6e62695b7f543ae469,dc=jumpcloud,dc=com';	// LDAP base name (eg. dc=example,dc=com)
 $conf['settings']['filter'] = '';	// Default search filter
 $conf['settings']['scope'] = '';	// Search scope (eg. uid)
 $conf['settings']['required.group'] = '';	// Required group (empty if not necessary) (eg. cn=MyGroup,cn=Groups,dc=example,dc=com)
