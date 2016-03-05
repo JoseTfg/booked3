@@ -1,0 +1,23 @@
+My Work:
+
+-WebServiceExpiration.php		Unchanged*	Contains Expiration time
+-WebServiceSessionToken.php		Unchanged
+-WebServiceUserSession.php		Unchanged
+-AccountStatus.php			Unchanged*	Contains Account status
+-AttributeEntityValue.php		Unchanged
+-AttributeValue.php			Unchanged
+-CustomAttributes.php			Unchanged
+-DayOfWeek.php				Unchanged
+-EmailPreferences.php			Unchanged
+-FullName.php				Unchanged
+-InvitationAction.php			Unchanged*	Contains Actions
+-ReservationAccessory.php		Unchanged
+-ReservationReminder.php		Unchanged
+-ReservationStartTimeConstraint.php	Unchanged*	Contains Default Constraint
+-ReservationStatus.php			Unchanged	Contains Reservation Status
+-ReservationUserLevel.php		Unchanged*	Contains Res. User Level
+-ResourceLevel.php			Unchanged
+-ResourceStatus.php			Unchanged*	Contains Resource Status
+-RoleLevel.php				Unchanged*	Contains Role Level
+-SeriesUpdateScope.php			Unchanged
+-UserPreferences.php			Unchanged

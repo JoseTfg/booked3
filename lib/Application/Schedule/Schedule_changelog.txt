@@ -1,0 +1,31 @@
+My Work:
+
+-BlackoutSlot.php			Unchanged
+-BufferSlot.php				Unchanged
+-CalendarDay.php			Unchanged
+-CalendarFactory.php			Unchanged
+-CalendarMonth.php			Unchanged
+-CalendarReservation.php		Unchanged
+-CalendarSubscriptionService.php	Unchanged
+-CalendarSubscriptionUrl.php		Unchanged
+-CalendarSubscriptionValidator.php	Unchanged
+-CalendarWeek.php			Unchanged
+-ContrastingColor.php			Unchanged*	GetColor
+-DailyLayout.php			Unchanged
+-DailyReservationSummary.php		Unchanged
+-EmptyReservationSlot.php		Unchanged
+-iCalendarReservationView.php		Unchanged
+-ICalendarSegment.php			Unchanged
+-IReservationListing.php		Unchanged
+-IReservationSlot.php			Unchanged
+-ReservationListing.php			Unchanged
+-ReservationListingFactory.php		Unchanged
+-ReservationListItem.php		Unchanged
+-ReservationService.php			Unchanged
+-ReservationSlot.php			Unchanged
+-ResourceService.php			Unchanged
+-ScheduleLayoutSerializable.php		Unchanged
+-ScheduleReservationList.php		Unchanged
+-ScheduleResourceFilter.php		Unchanged
+-ScheduleService.php			Unchanged
+-SlotLabelFactory.php			Unchanged

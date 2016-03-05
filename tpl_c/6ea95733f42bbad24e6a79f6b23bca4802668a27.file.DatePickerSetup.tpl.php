@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-20 19:23:23
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 13:51:55
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Controls\DatePickerSetup.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:114156c8af1b38e974-31029487%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2531456d6e1eb6577d4-98703477%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '114156c8af1b38e974-31029487',
+  'nocache_hash' => '2531456d6e1eb6577d4-98703477',
   'function' => 
   array (
   ),
@@ -35,9 +35,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c8af1b3c5482_55397428',
+  'unifunc' => 'content_56d6e1eb6c0f74_18550838',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c8af1b3c5482_55397428')) {function content_56c8af1b3c5482_55397428($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d6e1eb6c0f74_18550838')) {function content_56d6e1eb6c0f74_18550838($_smarty_tpl) {?>
 <script type="text/javascript">
 $(function(){
   $("#<?php echo $_smarty_tpl->tpl_vars['ControlId']->value;?>

@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-21 16:15:45
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 01:17:38
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Calendar\calendar.common.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:764956c9d4a1465169-14380334%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:222456d631222afba8-12105802%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f4fef4fe3248fd0e6f1189c0e4785c9103453c2a' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\Calendar\\calendar.common.tpl',
-      1 => 1450328288,
+      1 => 1456501484,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '764956c9d4a1465169-14380334',
+  'nocache_hash' => '222456d631222afba8-12105802',
   'function' => 
   array (
   ),
@@ -27,6 +27,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'DisplayDate' => 0,
     'ScheduleId' => 0,
     'ResourceId' => 0,
+    'date' => 0,
     'DayNames' => 0,
     'DayNamesShort' => 0,
     'MonthNames' => 0,
@@ -34,14 +35,17 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'TimeFormat' => 0,
     'DateFormat' => 0,
     'FirstDay' => 0,
+    'minTime' => 0,
+    'maxTime' => 0,
+    'myCal' => 0,
     'ResourceGroupsAsJson' => 0,
     'SelectedGroupNode' => 0,
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c9d4a14d0e74_45627274',
+  'unifunc' => 'content_56d6312231d1b3_49613773',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c9d4a14d0e74_45627274')) {function content_56c9d4a14d0e74_45627274($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d6312231d1b3_49613773')) {function content_56d6312231d1b3_49613773($_smarty_tpl) {?>
 
 <?php if ($_smarty_tpl->tpl_vars['IsAccessible']->value) {?>
 	<div class="calendar-subscription">
@@ -128,10 +132,10 @@ $_smarty_tpl->tpl_vars['reservation']->_loop = true;
 ,
 					date: <?php echo $_smarty_tpl->tpl_vars['DisplayDate']->value->Day();?>
 ,
-					dayClickUrl: '<?php echo Pages::CALENDAR;?>
-?ct=<?php echo CalendarTypes::Day;?>
-&sid=<?php echo $_smarty_tpl->tpl_vars['ScheduleId']->value;?>
+					dayClickUrl: '<?php echo Pages::RESERVATION;?>
+?sid=<?php echo $_smarty_tpl->tpl_vars['ScheduleId']->value;?>
 &rid=<?php echo $_smarty_tpl->tpl_vars['ResourceId']->value;?>
+&rd=<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formatdate'][0][0]->FormatDate(array('date'=>$_smarty_tpl->tpl_vars['date']->value,'key'=>'url'),$_smarty_tpl);?>
 ',
 					dayNames: <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['js_array'][0][0]->CreateJavascriptArray(array('array'=>$_smarty_tpl->tpl_vars['DayNames']->value),$_smarty_tpl);?>
 ,
@@ -151,7 +155,13 @@ $_smarty_tpl->tpl_vars['reservation']->_loop = true;
 ?sid=<?php echo $_smarty_tpl->tpl_vars['ScheduleId']->value;?>
 &rid=<?php echo $_smarty_tpl->tpl_vars['ResourceId']->value;?>
 ',
-					reservable: true
+					reservable: true,
+					minTime: '<?php echo $_smarty_tpl->tpl_vars['minTime']->value;?>
+',
+					maxTime: '<?php echo $_smarty_tpl->tpl_vars['maxTime']->value;?>
+',
+					myCal: '<?php echo $_smarty_tpl->tpl_vars['myCal']->value;?>
+'
 				};
 
 	var calendar = new Calendar(options, reservations);

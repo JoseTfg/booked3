@@ -1,0 +1,59 @@
+v0.1	-	1/3/2016:
+
+-config_work:				Booked doesn't give date errors anymore.
+					Url set up to localhost for tests.
+					Home url is www.uniovi.es
+					SQL configured.
+					API is enabled.
+
+-ManageSchedulesPage.php: 		Several functions have been copied in other pages.
+
+
+-CalendarPage.php:			Now Obtains the minimun and maximun reservable times to display the calendar accordingly.
+					Now Gets a variable to differentiate from PersonalCalendarPage.
+
+-Pages.php:				Now Targets the correct pages with the new changes.
+
+-PersonalCalendarPage.php:		Now Obtains the minimun and maximun reservable times to display the calendar accordingly.
+					Now Gets a variable to differentiate from CalendarPage.
+
+-SchedulePage.php:			No longer in use.
+
+-CalendarPresenter.php:			Provides minTime, maxTime and myCal variables.
+
+-PersonalCalendarPresenter.php		Provides minTime, maxTime and myCal variables.
+
+-SchedulePageBuilder.php		No longer in use.
+
+-SchedulePresenter.php			No longer in use.
+
+-calendar.common.tpl:			Loads reservation screen on dayClick.
+
+-calendar.filter.tpl:			Only loads resources.
+					Includes a button to swap between my-calendar and calendar.					
+
+-mycalendar.common.tpl:			Loads reservation screen on dayClick.
+
+-globalheader.tpl:			Display correct targets for calendar page.
+
+-schedule.tpl:				No longer in use.
+
+-schedule-days-horizontal.tpl:		No longer in use.
+
+-schedule-flipped.tpl:			No longer in use.
+
+-schedule-week-condensed.tpl:		No longer in use.
+
+-calendar.css: 				Calendar is now smaller.
+
+-nav.css:				Navigation bar and logo are smaller.
+
+-style.css:				Several styles changes.
+
+-propio.css:				On/Off Switch css and Table css to reduce free space.
+
+-calendar.js				Calendar is now selectable.
+					Calendar now allows reservations by click and drag.
+					Calendar only shows reservable slots now.
+					Calendar has been resized.
+					DayClick event modified.

@@ -1,0 +1,18 @@
+My Work:
+
+-AddReservationNotificationService.php		Unchanged
+-AdminEmailNotification.php			Unchanged
+-ApproveReservationNotificationService.php	Unchanged*
+-DeleteReservationNotificationService.php	Unchanged
+-InviteeAddedEmailNotification.php		Unchanged
+-InviteeUpdatedEmailNotification.php		Unchanged
+-IReservationNotification.php			Unchanged
+-IReservationNotificationFactory.php		Unchanged
+-IReservationNotificationService.php		Unchanged
+-OwnerEmailNotification.php			Unchanged
+-ParticipantAddedEmailNotification.php		Unchanged
+-ParticipantDeletedEmailNotification.php	Unchanged
+-ParticipantUpdatedEmailNotification.php	Unchanged
+-PostReservationFactory.php			Unchanged
+-ReservationNotificationFactory.php		Unchanged
+-UpdateReservationNotificationService.php	Unchanged

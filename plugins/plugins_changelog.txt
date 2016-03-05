@@ -1,0 +1,51 @@
+My Work:
+
+Plugins implemented:	None
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////Authorization/////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+-ActiveDirectory.config.dist.php	Unchanged
+-ActiveDirectory.php			Unchanged
+-ActiveDirectoryConfig.php		Unchanged
+-ActiveDirectoryOptions.php		Unchanged
+-ActiveDirectoryUser.php		Unchanged
+-AdLdapWrapper.php			Unchanged
+-IActiveDirectory.php			Unchanged
+-Apache.php				Unchanged
+-CAS.config.dist.php			Unchanged
+-CAS.php				Unchanged
+-CASConfig.php				Unchanged
+-CASOptions.php				Unchanged
+-Drupal.config.dist.php			Unchanged
+-Drupal.php				Unchanged
+-Krb5.php				ToDo
+-Ldap.config.dist.php			Unchanged
+-Ldap.php				Unchanged
+-Ldap2Wrapper.php			Unchanged
+-LdapConfig.php				Unchanged
+-LdapOptions.php			Unchanged
+-LdapUser.php				Unchanged
+-AdSamlWrapper.php			Unchanged
+-ISaml.php				Unchanged
+-Saml.config.dist.php			Unchanged
+-Saml.php				Unchanged
+-SamlConfig.php				Unchanged
+-SamlOptions.php			Unchanged
+-SamlUser.php				Unchanged
+-Shibboleth.config.dist.php		Unchanged
+-Shibboleth.php				Unchanged
+-ShibbolethConfig.php			Unchanged
+-ShibbolethOptions.php			Unchanged
+-ShibbolethUser.php			Unchanged
+-WordPress.config.dist.php		Unchanged
+-WordPress.php				Unchanged
+-WordPressOptions.php			Unchanged
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+-PostReservationExample.php		Unchanged
+-PreReservationExample.php		Unchanged
+-PreReservationExampleValidation.php	Unchanged

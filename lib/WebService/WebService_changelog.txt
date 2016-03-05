@@ -1,0 +1,18 @@
+My Work:
+
+-SlimServer.php				Unchanged
+-SlimServiceRegistration.php		Unchanged
+-SlimWebServiceRegistry.php		Unchanged
+-SlimWebServiceRegistryCategory.php	Unchanged
+-DeletedResponse.php			Unchanged
+-FailedResponse.php			Unchanged
+-IRestServer.php			Unchanged
+-JsonRequest.php			Unchanged
+-RestResponse.php			Unchanged
+-RestServiceLink.php			Unchanged
+-WebServiceDate.php			Unchanged
+-WebServiceHeaders.php			Unchanged
+-WebServiceParams.php			Unchanged
+-WebServiceQueryStringKeys.php		Unchanged*
+-WebServices.php			Unchanged*
+-WebServiceSecurity.php			Unchanged

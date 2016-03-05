@@ -1,0 +1,24 @@
+My Work:
+
+-Accessory.php				Unchanged
+-Announcement.php			Unchanged
+-Blackout.php				Unchanged
+-BookableResource.php			Unchanged
+-CustomAttribute.php			Unchanged*
+-ExistingReservationSeries.php		Unchanged
+-Group.php				Unchanged
+-Quota.php				Unchanged
+-Reminder.php				Unchanged
+-ReminderNotice.php			Unchanged
+-RepeatOptions.php			Unchanged
+-Reservation.php			Unchanged
+-ReservationAttachment.php		Unchanged
+-ReservationSeries.php			Unchanged
+-ReservationTypes.php			Unchanged*	Contains Reservation Types
+-ResourceGroup.php			Unchanged
+-ResourceType.php			Unchanged
+-SavedReport.php			Unchanged
+-Schedule.php				Unchanged
+-ScheduleLayout.php			Unchanged
+-SchedulePeriod.php			Unchanged*	Contains Period Types
+-User.php				Unchanged

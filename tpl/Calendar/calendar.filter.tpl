@@ -16,12 +16,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+<table id="myTable">
+<tr>
+<td>
 <div id="filter">
 	{if $GroupName}
 		<span class="groupName">{$GroupName}</span>
 	{else}
-<label for="calendarFilter">{translate key="ChangeCalendar"}</label>
-<select id="calendarFilter" class="textbox">
+<label for="calendarFilter"></label>
+<select id="calendarFilter" class="styled-select2">
 {foreach from=$filters->GetFilters() item=filter}
 	{foreach from=$filter->GetFilters() item=subfilter}
 		<option value="{$subfilter->Id()}" class="resource" {if $subfilter->Selected()}selected="selected"{/if}>{$subfilter->Name()}</option>
@@ -29,9 +32,25 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/foreach}
 	{/if}
 </select>
-	<a href="#" id="showResourceGroups">{translate key=ResourceGroups}</a>
+</div>
+
+</td>
+<td>
+
+<link rel="stylesheet" type="text/css" href="css/propio.css">
+
+<div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner" ></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
 </div>
 
 <div id="resourceGroupsContainer">
 	<div id="resourceGroups"></div>
 </div>
+
+</td>
+</tr>
+</table>   

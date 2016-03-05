@@ -2,7 +2,7 @@
 	float:left;
 	color:#fff;
 	font-size:16pt;
-	height:63px;
+	height:40px;	/* My Code */
 }
 
 #logo img {
@@ -61,7 +61,7 @@
     margin-right: 10px;
     background: #3f3e49;
 	border-right: solid 1px #3f3e49;
-    height: 111px;
+    height: 60px;							/* My Code */
     -moz-border-radius-bottomleft: 3px;
     -moz-border-radius-bottomright: 3px;
 	-webkit-border-bottom-left-radius: 3px;
@@ -74,16 +74,17 @@
 }
 
 #header-top {
-    height:65px;
+    height:45px;							/* My Code */
 	background-color: #fff;
     border-bottom: solid 1px #272632;
 }
 
 #nav .menubaritem {
     font-size: 10pt;
-	height: 15px;
+	height: 15px;							/* My Code */
 	padding: 0 2px;
 	text-align: center;
+	font-style: italic; 					/* My Code */
 }
 
 li.menubaritem {
@@ -92,7 +93,7 @@ li.menubaritem {
 }
 
 li.menubaritem a {
-	line-height: 15px;
+	line-height: 15px;						/* My Code */
 	font-weight: bold;
 }
 
@@ -129,6 +130,7 @@ li.menubaritem ul li a:hover{
 	font-size: 11pt;
 	text-align: right;
 	vertical-align: middle;
+	font-style: italic;					/* My Code */
 }
 
 #signout a {

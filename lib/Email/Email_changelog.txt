@@ -1,0 +1,27 @@
+My Work:
+
+-AccountActivationEmail.php			Unchanged
+-AccountCreationEmail.php			Unchanged
+-AccountDeletedEmail.php			Unchanged
+-ForgotPasswordEmail.php			Unchanged
+-InviteeAddedEmail.php				Unchanged
+-ParticipantAddedEmail.php			Unchanged
+-ParticipantDeletedEmail.php			Unchanged
+-ReminderEmail.php				Unchanged
+-ReportEmailMessage.php				Unchanged
+-ReservationApprovedEmail.php			Unchanged
+-ReservationCreatedEmail.php			ToDo
+-ReservationCreatedEmailAdmin.php		ToDo
+-ReservationDeletedEmail.php			Unchanged
+-ReservationDeletedEmailAdmin.php		Unchanged
+-ReservationEmailMessage.php			Unchanged
+-ReservationRequiresApprovalEmailAdmin.php	Unchanged
+-ReservationUpdatedEmail.php			Unchanged
+-ReservationUpdatedEmailAdmin.php		Unchanged
+-EmailAddress.php				Unchanged
+-EmailLogger.php				Unchanged
+-EmailMessage.php				Unchanged
+-EmailService.php				Unchanged
+-IEmailMessage.php				Unchanged
+-IEmailService.php				Unchanged
+-SmartyEmail.php				ToDo

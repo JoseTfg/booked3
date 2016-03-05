@@ -18,11 +18,12 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once(ROOT_DIR . 'Pages/IPageable.php');
 require_once(ROOT_DIR . 'Pages/SecurePage.php');
 require_once(ROOT_DIR . 'Presenters/Calendar/CalendarPresenter.php');
 
 
-interface ICalendarPage extends IPage
+interface ICalendarPage extends IPage, IPageable
 {
 	public function GetDay();
 
@@ -105,13 +106,18 @@ class CalendarPage extends SecurePage implements ICalendarPage
 		$resourceService = new ResourceService($resourceRepository, PluginManager::Instance()->LoadPermission(), new AttributeService(new AttributeRepository()), $userRepository);
 		$subscriptionService = new CalendarSubscriptionService($userRepository, $resourceRepository, $scheduleRepository);
 		$privacyFilter = new PrivacyFilter(new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization()));
+		
+		$this->pageablePage = new PageablePage($this);
+		
 		$this->_presenter = new CalendarPresenter($this,
 												  new CalendarFactory(),
 												  new ReservationViewRepository(),
 												  $scheduleRepository,
 												  $resourceService,
 												  $subscriptionService,
-												  $privacyFilter);
+												  $privacyFilter,
+												  new ScheduleRepository(),
+										new ManageScheduleService(new ScheduleRepository(), new ResourceRepository()));
 	}
 
 	public function PageLoad()
@@ -250,6 +256,71 @@ class CalendarPage extends SecurePage implements ICalendarPage
 	{
 		$this->Set('GroupName', $selectedGroup->name);
 		$this->Set('SelectedGroupNode', $selectedGroup->id);
+	}
+	
+		//MyCode
+		public function GetBlockedSlots()
+	{
+		return $this->server->GetForm(FormKeys::SLOTS_BLOCKED);
+	}
+	
+		function GetPageNumber()
+	{
+		return $this->pageablePage->GetPageNumber();
+	}
+
+	/**
+	 * @return int
+	 */
+	function GetPageSize()
+	{
+		$pageSize = $this->pageablePage->GetPageSize();
+
+		if ($pageSize > 10)
+		{
+			return 10;
+		}
+		return $pageSize;
+	}	
+		/**
+	 * @param PageInfo $pageInfo
+	 * @return void
+	 */
+	function BindPageInfo(PageInfo $pageInfo)
+	{
+		$this->pageablePage->BindPageInfo($pageInfo);
+	}
+	
+		public function BindSchedules($schedules, $layouts, $sourceSchedules, $minTime, $maxTime, $myCal)
+	{
+		$this->Set('Schedules', $schedules);
+		$this->Set('Layouts', $layouts);
+		$this->Set('SourceSchedules', $sourceSchedules);
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		$this->Set('minTime', $minTime);
+		$this->Set('maxTime', $maxTime);
+		$this->Set('myCal', $myCal);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+	
+		public function BindGroups($groups)
+	{
+		$this->Set('AdminGroups', $groups);
+		$groupLookup = array();
+		foreach ($groups as $group)
+		{
+			$groupLookup[$group->Id] = $group;
+		}
+		$this->Set('GroupLookup', $groupLookup);
+	}
+	
+		public function SetTimezones($timezoneValues, $timezoneOutput)
+	{
+		$this->Set('TimezoneValues', $timezoneValues);
+		$this->Set('TimezoneOutput', $timezoneOutput);
 	}
 }
 

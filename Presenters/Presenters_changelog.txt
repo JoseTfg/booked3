@@ -1,0 +1,64 @@
+My Work:
+
+-ManageAccessoriesPresenter.php			Unchanged
+-ManageAnnouncementsPresenter.php		Unchanged
+-ManageAttributesPresenter.php			Unchanged
+-ManageBlackoutsPresenter.php			Unchanged
+-ManageConfigurationPresenter.php		Unchanged
+-ManageGroupsPresenter.php			Unchanged
+-ManageQuotasPresenter.php			Unchanged
+-ManageReservationsPresenter.php		Unchanged
+-ManageResourceGroupsPresenter.php		Unchanged
+-ManageResourcesPresenter.php			ToDo
+-ManageResourceStatusPresenter.php		Unchanged
+-ManageResourceTypesPresenter.php		Unchanged
+-ManageSchedulesPresenter.php			Unchanged
+-ManageThemePresenter.php			Unchanged
+-ManageUsersPresenter.php			Unchanged
+-CalendarFilters.php				Unchanged
+-AnnouncementPresenter.php			Unchanged
+-ResourceAvailabilityControlPresenter.php	Unchanged
+-UpcomingReservationsPresenter.php		Unchanged
+-ConfigurePresenter.php				Unchanged
+-InstallationResult.php				Unchanged
+-Installer.php					Unchanged
+-InstallPresenter.php				Unchanged
+-InstallSecurityGuard.php			Unchanged
+-MySqlScript.php				Unchanged
+-CommonReportsPresenter.php			Unchanged
+-GenerateReportPresenter.php			Unchanged
+-ReportActions.php				Unchanged
+-SavedReportsPresenter.php			Unchanged
+-ReservationApprovalPresenter.php		Unchanged
+-ReservationAttachmentPresenter.php		Unchanged
+-ReservationDeletePresenter.php			Unchanged
+-ReservationPresenter.php			Unchanged
+-ReservationPresenterFactory.php		Unchanged
+-ReservationSavePresenter.php			Unchanged
+-ReservationUpdatePresenter.php			Unchanged
+-ActionPresenter.php				Unchanged
+-ActivationPresenter.php			Unchanged
+-CalendarExportPresenter.php			Unchanged
+-CalendarSubscriptionPresenter.php		Unchanged
+-DashboardPresenter.php				Unchanged
+-ForgotPwdPresenter.php				Unchanged
+-LoginPresenter.php				Unchanged
+-NotificationPreferencesPresenter.php		Unchanged
+-ParticipationPresenter.php			Unchanged
+-PasswordPresenter.php				Unchanged
+-ProfilePresenter.php				Unchanged
+-RegistrationPresenter.php			Unchanged
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+2/3/2016
+
+Changed:
+
+-CalendarPresenter.php:			It provides minTime, maxTime and myCal variables.
+
+-PersonalCalendarPresenter.php		It provides minTime, maxTime and myCal variables.
+
+-SchedulePageBuilder.php		No longer in use.
+
+-SchedulePresenter.php			No longer in use.

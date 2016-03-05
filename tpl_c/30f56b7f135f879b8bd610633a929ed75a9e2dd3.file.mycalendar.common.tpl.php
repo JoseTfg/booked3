@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-20 19:23:20
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 01:12:41
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Calendar\mycalendar.common.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:468756c8af18163336-50368313%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:649356d62ff9633b52-41421931%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '30f56b7f135f879b8bd610633a929ed75a9e2dd3' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\Calendar\\mycalendar.common.tpl',
-      1 => 1455908875,
+      1 => 1456495804,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '468756c8af18163336-50368313',
+  'nocache_hash' => '649356d62ff9633b52-41421931',
   'function' => 
   array (
   ),
@@ -34,14 +34,17 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'TimeFormat' => 0,
     'DateFormat' => 0,
     'FirstDay' => 0,
+    'minTime' => 0,
+    'maxTime' => 0,
+    'myCal' => 0,
     'ResourceGroupsAsJson' => 0,
     'SelectedGroupNode' => 0,
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c8af181ccad6_84680186',
+  'unifunc' => 'content_56d62ff96955e2_24666291',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c8af181ccad6_84680186')) {function content_56c8af181ccad6_84680186($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d62ff96955e2_24666291')) {function content_56d62ff96955e2_24666291($_smarty_tpl) {?>
 <div class="calendar-subscription">
 <?php if ($_smarty_tpl->tpl_vars['IsSubscriptionAllowed']->value) {?>
 	<a href="#" id="turnOffSubscription"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"switch-minus.png"),$_smarty_tpl);?>
@@ -145,6 +148,12 @@ $_smarty_tpl->tpl_vars['reservation']->_loop = true;
 					subscriptionDisableUrl: '<?php echo Pages::MY_CALENDAR;?>
 ?<?php echo QueryStringKeys::ACTION;?>
 =<?php echo PersonalCalendarActions::ActionDisableSubscription;?>
+',
+					minTime: '<?php echo $_smarty_tpl->tpl_vars['minTime']->value;?>
+',
+					maxTime: '<?php echo $_smarty_tpl->tpl_vars['maxTime']->value;?>
+',
+					myCal: '<?php echo $_smarty_tpl->tpl_vars['myCal']->value;?>
 '
 				};
 
@@ -152,6 +161,7 @@ $_smarty_tpl->tpl_vars['reservation']->_loop = true;
 	calendar.init();
 	calendar.bindResourceGroups(<?php echo $_smarty_tpl->tpl_vars['ResourceGroupsAsJson']->value;?>
 , <?php echo (($tmp = @$_smarty_tpl->tpl_vars['SelectedGroupNode']->value)===null||$tmp==='' ? 0 : $tmp);?>
-);
+);	
 });
-</script><?php }} ?>
+</script>	
+<?php }} ?>

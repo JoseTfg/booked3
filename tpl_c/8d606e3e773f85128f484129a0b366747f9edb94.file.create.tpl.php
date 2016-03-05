@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-20 19:23:22
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 13:51:55
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Reservation\create.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:3161656c8af1aecd703-13136490%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1007056d6e1eb0ae308-41289764%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -13,11 +13,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '72f54f414668abf7f364d4573aac5820d4720af2' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\globalheader.tpl',
-      1 => 1455909669,
+      1 => 1456877548,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '3161656c8af1aecd703-13136490',
+  'nocache_hash' => '1007056d6e1eb0ae308-41289764',
   'function' => 
   array (
   ),
@@ -76,14 +76,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c8af1b2a4344_05143555',
+  'unifunc' => 'content_56d6e1eb3cf046_27991369',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c8af1b2a4344_05143555')) {function content_56c8af1b2a4344_05143555($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d6e1eb3cf046_27991369')) {function content_56d6e1eb3cf046_27991369($_smarty_tpl) {?>
 
 <?php /*  Call merged included template "globalheader.tpl" */
 $_tpl_stack[] = $_smarty_tpl;
- $_smarty_tpl = $_smarty_tpl->setupInlineSubTemplate('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('cssFiles'=>'css/reservation.css,css/jquery.qtip.min.css,scripts/css/jqtree.css'), 0, '3161656c8af1aecd703-13136490');
-content_56c8af1aef8692_94589149($_smarty_tpl);
+ $_smarty_tpl = $_smarty_tpl->setupInlineSubTemplate('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('cssFiles'=>'css/reservation.css,css/jquery.qtip.min.css,scripts/css/jqtree.css'), 0, '1007056d6e1eb0ae308-41289764');
+content_56d6e1eb0fc515_42681196($_smarty_tpl);
 $_smarty_tpl = array_pop($_tpl_stack); 
 /*  End of included template "globalheader.tpl" */?>
 
@@ -721,9 +721,9 @@ $_smarty_tpl->tpl_vars['accessory']->_loop = true;
 
 <?php echo $_smarty_tpl->getSubTemplate ('globalfooter.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 <?php }} ?>
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-20 19:23:22
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 13:51:55
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\globalheader.tpl" */ ?>
-<?php if ($_valid && !is_callable('content_56c8af1aef8692_94589149')) {function content_56c8af1aef8692_94589149($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_56d6e1eb0fc515_42681196')) {function content_56d6e1eb0fc515_42681196($_smarty_tpl) {?><!DOCTYPE html>
 
 <html lang="<?php echo $_smarty_tpl->tpl_vars['HtmlLang']->value;?>
 " dir="<?php echo $_smarty_tpl->tpl_vars['HtmlTextDirection']->value;?>
@@ -872,7 +872,8 @@ index.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FU
 						</li>
 						<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 <?php echo Pages::MY_CALENDAR;?>
-"> Prueba</a>
+"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"MyCalendar"),$_smarty_tpl);?>
+</a>
 							<ul>
 								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 <?php echo Pages::SCHEDULE;?>

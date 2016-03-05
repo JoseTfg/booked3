@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-20 19:23:20
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 01:12:41
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\globalheader.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:644156c8af1800f567-47653757%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1485556d62ff94eb903-58873122%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '72f54f414668abf7f364d4573aac5820d4720af2' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\globalheader.tpl',
-      1 => 1455909669,
+      1 => 1456877548,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '644156c8af1800f567-47653757',
+  'nocache_hash' => '1485556d62ff94eb903-58873122',
   'function' => 
   array (
   ),
@@ -49,9 +49,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c8af18134533_97294499',
+  'unifunc' => 'content_56d62ff95fd046_21090666',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c8af18134533_97294499')) {function content_56c8af18134533_97294499($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_56d62ff95fd046_21090666')) {function content_56d62ff95fd046_21090666($_smarty_tpl) {?><!DOCTYPE html>
 
 <html lang="<?php echo $_smarty_tpl->tpl_vars['HtmlLang']->value;?>
 " dir="<?php echo $_smarty_tpl->tpl_vars['HtmlTextDirection']->value;?>
@@ -200,7 +200,8 @@ index.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FU
 						</li>
 						<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 <?php echo Pages::MY_CALENDAR;?>
-"> Prueba</a>
+"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"MyCalendar"),$_smarty_tpl);?>
+</a>
 							<ul>
 								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 <?php echo Pages::SCHEDULE;?>

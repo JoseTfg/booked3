@@ -68,7 +68,7 @@ $(document).ready(function() {
 					year: {$DisplayDate->Year()},
 					month: {$DisplayDate->Month()},
 					date: {$DisplayDate->Day()},
-					dayClickUrl: '{Pages::CALENDAR}?ct={CalendarTypes::Day}&sid={$ScheduleId}&rid={$ResourceId}',
+					dayClickUrl: '{Pages::RESERVATION}?sid={$ScheduleId}&rid={$ResourceId}&rd={formatdate date=$date key=url}',
 					dayNames: {js_array array=$DayNames},
 					dayNamesShort: {js_array array=$DayNamesShort},
 					monthNames: {js_array array=$MonthNames},
@@ -77,7 +77,10 @@ $(document).ready(function() {
 					dayMonth: '{$DateFormat}',
 					firstDay: {$FirstDay},
 					reservationUrl: '{Pages::RESERVATION}?sid={$ScheduleId}&rid={$ResourceId}',
-					reservable: true
+					reservable: true,
+					minTime: '{$minTime}',
+					maxTime: '{$maxTime}',
+					myCal: '{$myCal}'
 				};
 
 	var calendar = new Calendar(options, reservations);

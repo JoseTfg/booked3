@@ -1,0 +1,111 @@
+My Work:
+
+-activation-error.tpl			Unchanged
+-activation-sent.tpl			Unchanged
+-attribute-list.tpl			Unchanged
+-manage_attributes.tpl			Unchanged
+-manage_blackouts.tpl			Unchanged
+-manage_blackouts_edit.tpl		Unchanged
+-manage_blackouts_response.tpl		Unchanged
+-change_theme.tpl			Unchanged
+-manage_configuration.tpl		Unchanged
+-manage_reservations.tpl		Unchanged
+-reservations_csv.tpl			Unchanged
+-manage_resource_groups.tpl		Unchanged
+-manage_resource_status.tpl		Unchanged
+-manage_resource_types.tpl		Unchanged
+-manage_resources.tpl			Unchanged
+-import_user_template_csv.tpl		Unchanged
+-manage_accessories.tpl			Unchanged
+-manage_announcements.tpl		Unchanged
+-manage_groups.tpl			Unchanged
+-manage_quotas.tpl			Unchanged
+-manage_schedules.tpl			Unchanged
+-manage_users.tpl			Unchanged
+-server_settings.tpl			Unchanged
+-delete_failed.tpl			Unchanged
+-delete_successful.tpl			Unchanged
+-reservation_error.tpl			Unchanged
+-save_failed.tpl			Unchanged
+-save_successful.tpl			Unchanged
+-update_successful.tpl			Unchanged
+-resourcedetails.tpl			Unchanged
+-respopup.tpl				Unchanged
+-user_details.tpl			Unchanged
+-calendar.day.tpl			Unchanged
+-calendar.month.tpl			Unchanged
+-calendar.week.tpl			Unchanged
+-mycalendar.day.tpl			Unchanged
+-mycalendar.month.tpl			Unchanged
+-mycalendar.week.tpl			Unchanged
+-Checkbox.tpl				Unchanged
+-Date.tpl				Unchanged
+-MultiLineTextbox.tpl			Unchanged
+-SelectList.tpl				Unchanged
+-SingleLineTextbox.tpl			Unchanged
+-DatePickerSetup.tpl			Unchanged
+-RecurrenceDiv.tpl			Unchanged
+-admin_upcoming_reservations.tpl	Unchanged
+-announcements.tpl			Unchanged
+-resource_availability.tpl		Unchanged
+-upcoming_reservations.tpl		Unchanged
+-emailfooter.tpl			Unchanged
+-emailheader.tpl			Unchanged
+-ical.tpl				Unchanged
+-configure.tpl				Unchanged
+-install.tpl				Unchanged
+-migrate.tpl				Unchanged
+-chart.tpl				Unchanged
+-common-reports.tpl			Unchanged
+-custom-csv.tpl				Unchanged
+-error.tpl				Unchanged
+-generate-report.tpl			Unchanged
+-print-custom-report.tpl		Unchanged
+-results-custom.tpl			Unchanged
+-saved-reports.tpl			Unchanged
+-approve.tpl				Unchanged
+-attachment-error.tpl			Unchanged
+-create.tpl				Unchanged
+-edit.tpl				Unchanged
+-participation.tpl			Unchanged
+-private-participation.tpl		Unchanged
+-view.tpl				Unchanged
+-dashboard.tpl				Unchanged
+-error.tpl				Unchanged
+-forgot_pwd.tpl				Unchanged
+-globalfooter.tpl			Unchanged
+-json_data.tpl				Unchanged
+-login.tpl				Unchanged
+-maintenance.tpl			Unchanged
+-notification-preferences.tpl		Unchanged
+-openings.tpl				Unchanged
+-participation.tpl			Unchanged
+-password.tpl				Unchanged
+-profile.tpl				Unchanged
+-register.tpl				Unchanged
+-support-and-credits.tpl		Unchanged
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+2/3/2016
+
+Changes:
+
+-calendar.common.tpl:			Loads reservation screen on dayClick.
+
+-calendar.filter.tpl:			Only loads reources.
+					Includes a button to swap between my-calendar and calendar.					
+
+-mycalendar.common.tpl:			Loads reservation screen on dayClick.
+
+-globalheader.tpl:			Display correct targets for calendar page.
+
+-schedule.tpl:				No longer in use.
+
+-schedule-days-horizontal.tpl:		No longer in use.
+
+-schedule-flipped.tpl:			No longer in use.
+
+-schedule-week-condensed.tpl:		No longer in use.
+
+-view-schedule.tpl:

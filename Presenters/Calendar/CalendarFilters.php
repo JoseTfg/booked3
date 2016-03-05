@@ -27,9 +27,6 @@ class CalendarFilters
 	 * @var array|CalendarFilter[]
 	 */
 	private $filters = array();
-	
-		
-	private $resources1 = array();
 
 	/**
 	 * @var ResourceGroupTree
@@ -69,7 +66,6 @@ class CalendarFilters
 			}
 
 			$this->filters[] = $filter;
-			$this->resources1[] = $resources;
 		}
 	}
 
@@ -89,11 +85,6 @@ class CalendarFilters
 		return $this->filters;
 	}
 
-	public function GetResources1()
-	{
-		return $this->resources1;
-	}
-	
 	/**
 	 * @return ResourceGroupTree
 	 */

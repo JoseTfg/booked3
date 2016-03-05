@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-21 16:12:16
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 13:49:54
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Dashboard\announcements.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2467756c9d3d0058352-02022827%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:68556d6e172f3d461-52749481%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2467756c9d3d0058352-02022827',
+  'nocache_hash' => '68556d6e172f3d461-52749481',
   'function' => 
   array (
   ),
@@ -22,9 +22,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c9d3d006cc69_95461238',
+  'unifunc' => 'content_56d6e173054df9_87793753',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c9d3d006cc69_95461238')) {function content_56c9d3d006cc69_95461238($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d6e173054df9_87793753')) {function content_56d6e173054df9_87793753($_smarty_tpl) {?>
 <div class="dashboard" id="announcementsDashboard">
 	<div id="announcementsHeader" class="dashboardHeader">
 		<a href="javascript:void(0);" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ShowHide'),$_smarty_tpl);?>

@@ -101,7 +101,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 									<li class="menuitem"><a href="{$Path}{Pages::PARTICIPATION}">{translate key="OpenInvitations"}</a></li>{/if}
 							</ul>
 						</li>
-						<li class="menubaritem"><a href="{$Path}{Pages::MY_CALENDAR}"> Prueba</a>
+						<li class="menubaritem"><a href="{$Path}{Pages::MY_CALENDAR}">{translate key="MyCalendar"}</a>
 							<ul>
 								<li class="menuitem"><a href="{$Path}{Pages::SCHEDULE}">{translate key="Bookings"}</a></li>
 								<li class="menuitem"><a href="{$Path}{Pages::MY_CALENDAR}">{translate key="MyCalendar"}</a></li>

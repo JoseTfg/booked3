@@ -1,0 +1,88 @@
+My Work:
+
+-AdminPage.php					Unchanged
+-GroupAdminManageGroupsPage.php			Unchanged
+-GroupAdminManageUsersPage.php			Unchanged
+-ManageAccessoriesPage.php			Unchanged
+-ManageAnnouncementsPage.php			Unchanged
+-ManageAttributesPage.php			Unchanged
+-ManageBlackoutsPage.php			Unchanged
+-ManageConfigurationPage.php			Unchanged
+-ManageGroupsPage.php				Unchanged
+-ManageQuotasPage.php				Unchanged
+-ManageReservationsPage.php			Unchanged
+-ManageResourceGroupsPage.php			Unchanged
+-ManageResourcesPage.php			Unchanged
+-ManageResourceStatusPage.php			Unchanged
+-ManageResourceTypesPage.php			Unchanged
+-ManageThemePage.php				Unchanged
+-ManageUsersPage.php				Unchanged
+-ResourceAdminManageReservationsPage.php	Unchanged
+-ResourceAdminManageResourcesPage.php		Unchanged
+-ScheduleAdminManageReservationsPage.php	Unchanged
+-ScheduleAdminManageSchedulesPage.php		Unchanged
+-ServerSettingsPage.php				Unchanged
+-AutoCompletePage.php				Unchanged
+-IReservationSaveResultsView.php		Unchanged
+-ReservationApprovalPage.php			Unchanged
+-ReservationDeletePage.php			Unchanged
+-ReservationPopupPage.php			Unchanged
+-ReservationSavePage.php			Unchanged
+-ReservationUpdatePage.php			Unchanged
+-ResourceDetailsPage.php			Unchanged
+-UserDetailsPopupPage.php			Unchanged
+-AtomSubscriptionPage.php			Unchanged
+-CalendarExportDisplay.php			Unchanged
+-CalendarExportPage.php				Unchanged
+-CalendarSubscriptionPage.php			Unchanged
+-ICalendarSubscriptionPage.php			Unchanged
+-ConfigurePage.php				Unchanged
+-InstallPage.php				Unchanged
+-CommonReportsPage.php				Unchanged
+-GenerateReportPage.php				Unchanged
+-IDisplayableReportPage.php			Unchanged
+-SavedReportsPage.php				Unchanged
+-ReservationAttachmentPage.php			Unchanged
+-ActionPage.php					Unchanged
+-ActivationPage.php				Unchanged
+-DashboardPage.php				Unchanged
+-ErrorPage.php					ToDo
+-ExistingReservationPage.php			Unchanged
+-ForgotPwdPage.php				Unchanged
+-HelpPage.php					Unchanged
+-IPage.php					Unchanged
+-IPageable.php					Unchanged
+-LoginPage.php					Unchanged
+-LogoutPage.php					Unchanged
+-NewReservationPage.php				Unchanged
+-NotificationPreferencesPage.php		Unchanged
+-OpeningsPage.php				Unchanged
+-Page.php					Unchanged
+-ParticipationPage.php				Unchanged
+-PasswordPage.php				Unchanged
+-ProfilePage.php				Unchanged
+-ReadOnlyReservationPage.php			Unchanged
+-RegistrationAdminPage.php			Unchanged
+-RegistrationPage.php				Unchanged
+-ReservationPage.php				Unchanged
+-SecurePage.php					Unchanged
+-ViewSchedulePage.php				Unchanged
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+2/3/2016
+
+Changed:
+
+-ManageSchedulesPage.php: 	Several functions have been copied in other pages.
+
+
+-CalendarPage.php:		Now it obtains the minimun and maximun reservable times to display the calendar accordingly.
+				Now it gets a variable to differentiate from PersonalCalendarPage.
+
+-Pages.php:			Now it targets the correct pages with the new changes.
+
+-PersonalCalendarPage.php:	Now it obtains the minimun and maximun reservable times to display the calendar accordingly.
+				Now it gets a variable to differentiate from CalendarPage.
+
+-SchedulePage.php:		No longer in use.

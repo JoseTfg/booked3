@@ -1,0 +1,23 @@
+My Work:
+
+-BlackoutFilter.php				Unchanged
+-CompositeResourceFilter.php			Unchanged
+-ExistingReservationInitializer.php		Unchanged
+-IReservationInitializer.php			Unchanged
+-IReservationInitializerFactory.php		Unchanged
+-ManageBlackoutsService.php			Unchanged
+-NewReservationInitializer.php			Unchanged
+-PrivacyFilter.php				Unchanged
+-ReservationAction.php				Unchanged
+-ReservationAuthorization.php			Unchanged
+-ReservationComponentBinder.php			Unchanged
+-ReservationConflictResolution.php		Unchanged
+-ReservationDetailsFilter.php			Unchanged
+-ReservationEvents.php				Unchanged
+-ReservationHandler.php				Unchanged
+-ReservationInitializerBase.php			Unchanged
+-ReservationInitializerFactory.php		Unchanged
+-ReservationPreconditionService.php		Unchanged
+-ReservationResource.php			Unchanged
+-ResourcePermissionFilter.php			Unchanged
+-ResourceStatusFilter.php			Unchanged

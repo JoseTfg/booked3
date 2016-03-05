@@ -1,0 +1,8 @@
+My Work:
+
+-AuthorizationService.php			Unchanged
+-AuthorizationServiceFactory.php		Unchanged
+-PermissionService.php				Unchanged
+-PermissionServiceFactory.php			Unchanged
+-ResourcePermissionStore.php			Unchanged
+-ViewSchedulePermissionServiceFactory.php	Unchanged

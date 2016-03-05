@@ -30,24 +30,36 @@ function Calendar(opts, reservations)
 			},
 			axisFormat: _options.timeFormat,
 			firstDay: _options.firstDay,
+			minTime: _options.minTime,
+			maxTime: _options.maxTime,
 			
-			//My code
+			contentHeight: $(window).height() - 100,		//To make it smaller
+			//Width: contentHeight,
+			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			//Making it selectable
 			selectable: true,
 			select: function (start, end, jsEvent, view) {
-				$(this).css('background-color', 'red');
 				var sd = '';
 				var ed = '';
-				//var dateVar = date;
-				//var month =  dateVar.getMonth()+1;
 				var url =  _options.dayClickUrl;
 				sd = getUrlFormattedDate(start);
 				ed = getUrlFormattedDate(end);
-				a = "&sd=" + sd + "&ed=" + ed;
-				//var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + a;
-				var url = url + a;
-				window.location = url;
-				alert("Hola");
+				addToUrl = "&sd=" + sd + "&ed=" + ed;
+				//var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + addToUrl;
+				var url = url + addToUrl;
+				
+				//Only in agendaDay
+				var view = $('#calendar').fullCalendar('getView');
+				if (view.name.substr(0,6) == "agenda"){
+					window.location = url;
+				}
 			}
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
 		});
 
 		$('.fc-widget-content').hover(
@@ -81,6 +93,31 @@ function Calendar(opts, reservations)
 			
 			window.location = url;
 		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//OnOff Switch
+		$('#myonoffswitch').change(function() {
+			var day = getQueryStringValue('d');
+			var month = getQueryStringValue('m');
+			var year = getQueryStringValue('y');
+			var type = getQueryStringValue('ct');
+
+			//Redirect to correct url
+			if (_options.myCal == 1){
+				var url = [location.protocol, '//', location.host, '/booked/Web/calendar.php'].join('');
+			}
+			else{
+				var url = [location.protocol, '//', location.host, '/booked/Web/my-calendar.php'].join('');
+			}
+			
+			//Send to url
+			url = url + '?ct=' + type + '&d=' + day + '&m=' + month + '&y=' + year;			
+			window.location = url;
+		});
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         $('#turnOffSubscription').click(function(e){
             e.preventDefault();
@@ -234,23 +271,10 @@ function Calendar(opts, reservations)
 	var dayClick = function(date, allDay, jsEvent, view)
 	{
 		dateVar = date;
-		
-				
-		//Mycode
-		$(this).css('background-color', 'red');
-		var sd = '';
-		var ed = '';
-
-		var start = dateVar;
-		sd = start;
-		var end = date;
-		ed = end;
-		a = "&sd=" + sd + "&ed=" + ed;
-		
-		//alert(sd);
-		prueba();		
+		myDayClick();		
 		return;
 
+		//Unused
 		if (!opts.reservable)
 		{
 			drillDownClick();
@@ -272,11 +296,13 @@ function Calendar(opts, reservations)
 		}
 	};
 
+	//Unused
 	var handleTimeClick = function()
 	{
 		openNewReservation();
 	};
 
+	//Unused
 	var drillDownClick = function()
 	{
 		var month =  dateVar.getMonth()+1;
@@ -286,6 +312,7 @@ function Calendar(opts, reservations)
 		window.location = url;
 	};
 
+	//Unused
 	var openNewReservation = function(){
 		var end = new Date(dateVar);
 		end.setMinutes(dateVar.getMinutes()+30);
@@ -301,15 +328,39 @@ function Calendar(opts, reservations)
 		return encodeURI(d.getFullYear() + "-" + month + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes());
 	}
 	
-	var prueba = function(){
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	var myDayClick = function(){
+		var view = $('#calendar').fullCalendar('getView');
 		var month =  dateVar.getMonth()+1;
-		var url =  _options.dayClickUrl;
-		var end = new Date(dateVar);
-		end.setMinutes(dateVar.getMinutes()+30);
+		
+		//Redirect to correct view
+		if (view.name != "agendaDay"){
+			var url = [location.protocol, '//', location.host, location.pathname].join('');
+			if (view.name == "agendaWeek"){
+				type = "day";
+			}
+			else{
+				type = "week";
+			}
+			
+			//Send to url
+			url = url + '?d=' + dateVar.getDate() + '&m=' + month + '&y=' + dateVar.getFullYear() + '&ct=' + type;			
+			window.location = url;
+			}
+			
+		//Open reservation menu	
+		else{		
+			var url =  _options.dayClickUrl;
+			var end = new Date(dateVar);
+			end.setMinutes(dateVar.getMinutes()+30);
 
-		var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + "&sd=" + getUrlFormattedDate(dateVar) + "&ed=" + getUrlFormattedDate(end);
-
-		window.location = url;
+			//Send to url
+			var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + "&sd=" + getUrlFormattedDate(dateVar) + "&ed=" + getUrlFormattedDate(end);
+			window.location = url;
+		}
 	};
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

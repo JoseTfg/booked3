@@ -1,0 +1,121 @@
+My Work:
+
+-manage_accessories.php			Unchanged
+-manage_admin_groups.php		Unchanged
+-manage_admin_resources.php		Unchanged
+-manage_admin_schedules.php		Unchanged
+-manage_announcements.php		Unchanged
+-manage_attributes.php			Unchanged
+-manage_blackouts.php			Unchanged
+-manage_configuration.php		Unchanged
+-manage_group_reservations.php		Unchanged
+-manage_group_users.php			Unchanged
+-manage_groups.php			Unchanged
+-manage_quotas.php			Unchanged
+-manage_reservations.php		Unchanged
+-manage_resource_groups.php		Unchanged
+-manage_resource_reservations.php	Unchanged
+-manage_resource_status.php		Unchanged
+-manage_resource_types.php		Unchanged
+-manage_resources.php			Unchanged
+-manage_schedule_reservations.php	Unchanged
+-manage_schedules.php			Unchanged
+-manage_theme.php			Unchanged
+-manage_users.php			Unchanged
+-server_settings.php			Unchanged
+-autocomplete.php			Unchanged
+-reservation_approve.php		Unchanged
+-reservation_delete.php			Unchanged
+-reservation_save.php			Unchanged
+-reservation_update.php			Unchanged
+-resource_details.php			Unchanged
+-respopup.php				Unchanged
+-user_details.php			Unchanged
+-reservation-file.php			Unchanged
+-atom-subscribe.php			Unchanged
+-ical.php				Unchanged
+-ical-subscribe.php			Unchanged
+-configure.php				Unchanged
+-index.php				Unchanged
+-migrate.php				Unchanged
+-common-reports.php			Unchanged
+-generate-report.php			Unchanged
+-saved-reports.php			Unchanged
+-show-captcha.php			Unchanged*
+-ApiHelpPage.php			Unchanged
+-index.php				Unchanged
+-activate.php				Unchanged
+-bookings.php				Unchanged
+-calendar.php				Unchanged
+-calendars.php				Unchanged
+-dashboard.php				Unchanged
+-error.php				Unchanged
+-forgot.php				Unchanged
+-help.php				Unchanged
+-index.php				Unchanged
+-logout.php				Unchanged
+-my-calendar.php			Unchanged
+-notification-preferences.php		Unchanged
+-openings.php				Unchanged
+-participation.php			Unchanged
+-password.php				Unchanged
+-profile.php				Unchanged
+-register.php				Unchanged
+-reports.php				Unchanged
+-reservation.php			Unchanged
+-schedule.php				Unchanged
+-view-reservation.php			Unchanged
+-view-schedule.php			Unchanged
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+css:
+
+-admin.css				Unchanged
+-dashboard.css				Unchanged
+-email.css				Unchanged
+-jquery.qtip.min.css			Unchanged
+-normalize.css				Unchanged
+-null-style.css				Unchanged
+-participation.css			Unchanged
+-reports.css				Unchanged
+-reservation.css			Unchanged
+-schedule.css				Unchanged
+-schedule-print.css			Unchanged
+-view-schedule.css			Unchanged
+
+2/3/2016
+
+Changed:
+
+-calendar.css: 		Calendar is now smaller.
+			Filters place is smaller.
+
+.monthCalendar td {
+	height: 120px;
+	vertical-align: top;
+	padding: 2px;
+}
+
+-nav.css:		Navigation bar and logo are smaller.
+
+-style.css:		Several styles changes.
+
+Added:
+
+-propio.css:		On/Off Switch css and Table css to reduce free space.
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+scripts:
+
+2/3/2016
+
+Changed:
+
+calendar.js		Calendar is now selectable.
+			Calendar now allows reservations by click and drag.
+			Calendar only shows reservable slots now.
+			Calendar has been resized.
+			DayClick event modified.

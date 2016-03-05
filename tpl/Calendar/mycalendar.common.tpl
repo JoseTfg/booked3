@@ -71,11 +71,14 @@ $(document).ready(function() {
 					dayMonth: '{$DateFormat}',
 					firstDay: {$FirstDay},
 					subscriptionEnableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionEnableSubscription}',
-					subscriptionDisableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionDisableSubscription}'
+					subscriptionDisableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionDisableSubscription}',
+					minTime: '{$minTime}',
+					maxTime: '{$maxTime}',
+					myCal: '{$myCal}'
 				};
 
 	var calendar = new Calendar(options, reservations);
 	calendar.init();
-	calendar.bindResourceGroups({$ResourceGroupsAsJson}, {$SelectedGroupNode|default:0});
+	calendar.bindResourceGroups({$ResourceGroupsAsJson}, {$SelectedGroupNode|default:0});	
 });
-</script>
+</script>	

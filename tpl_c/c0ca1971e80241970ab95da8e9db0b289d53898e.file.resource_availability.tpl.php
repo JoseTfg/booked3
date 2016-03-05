@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-21 16:12:16
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 13:49:55
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Dashboard\resource_availability.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:2506756c9d3d02ce359-26573780%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1675556d6e173686e63-35633152%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2506756c9d3d02ce359-26573780',
+  'nocache_hash' => '1675556d6e173686e63-35633152',
   'function' => 
   array (
   ),
@@ -26,9 +26,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c9d3d032ea63_38219821',
+  'unifunc' => 'content_56d6e17371b583_95288569',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c9d3d032ea63_38219821')) {function content_56c9d3d032ea63_38219821($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d6e17371b583_95288569')) {function content_56d6e17371b583_95288569($_smarty_tpl) {?>
 
 <div class="dashboard availabilityDashboard" id="availabilityDashboard">
 	<div class="dashboardHeader">

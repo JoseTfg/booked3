@@ -1,0 +1,22 @@
+My Work:
+
+-ColumnNames.php		Unchanged
+-Commands.php			Unchanged
+-ParameterNames.php		Unchanged
+-Queries.php			Unchanged
+-TableNames.php			Unchanged
+-Mdb2CommandAdapter.php		Unchanged
+-Mdb2Connection.php		Unchanged
+-Mdb2Reader.php			Unchanged
+-MySqlCommandAdapter.php	Unchanged
+-MySqlConnection.php		Unchanged
+-MySqlReader.php		Unchanged
+-Database.php			Unchanged
+-DatabaseFactory.php		Unchanged
+-IDbConnection.php		Unchanged
+-IReader.php			Unchanged
+-ISqlCommand.php		Unchanged
+-Parameter.php			Unchanged
+-Parameters.php			Unchanged
+-SqlCommand.php			Unchanged
+-SqlFilter.php			Unchanged

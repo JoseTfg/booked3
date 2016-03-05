@@ -43,9 +43,9 @@
 .calendarHeading {
 	color: #666666;
 	border-bottom: solid 1px #666666;
-	padding: 10px 0px 3px 5px;;
-	margin-bottom: 10px;
-	font-size: 16pt;
+	padding: 1px 0px 3px 5px;;	/* My Code */
+	margin-bottom: 3px;			/* My Code */
+	font-size: 12pt;			/* My Code */
 	font-weight: bold;
 }
 
@@ -64,7 +64,7 @@
 }
 
 #filter {
-	margin: 15px;
+	margin: 5px;				/* My Code */
 	text-align: center;
 }
 
@@ -78,7 +78,7 @@ option.resource {
 
 .calendar-subscription {
 	text-align: right;
-	padding: 10px 0px;
+	padding: 2px 0px;			/* My Code */
 }
 
 #calendar a, #calendar a:visited {

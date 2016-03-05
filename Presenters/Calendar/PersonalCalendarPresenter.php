@@ -22,6 +22,208 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Schedule/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 require_once(ROOT_DIR . 'Presenters/Calendar/CalendarFilters.php');
+require_once(ROOT_DIR . 'config/timezones.php');
+require_once(ROOT_DIR . 'lib/Common/Validators/namespace.php');
+require_once(ROOT_DIR . 'Domain/namespace.php');
+
+//MyCode
+class ManageSchedules
+{
+	const ActionAdd = 'add';
+	const ActionChangeLayout = 'changeLayout';
+	const ActionChangeSettings = 'settings';
+	const ActionMakeDefault = 'makeDefault';
+	const ActionRename = 'rename';
+	const ActionDelete = 'delete';
+	const ActionEnableSubscription = 'enableSubscription';
+	const ActionDisableSubscription = 'disableSubscription';
+	const ChangeAdminGroup = 'changeAdminGroup';
+}
+
+class ManageScheduleService
+{
+	/**
+	 * @var IScheduleRepository
+	 */
+	private $scheduleRepository;
+
+	/**
+	 * @var IResourceRepository
+	 */
+	private $resourceRepository;
+
+	/**
+	 * @var array|Schedule[]
+	 */
+	private $_all;
+
+	public function __construct(IScheduleRepository $scheduleRepository, IResourceRepository $resourceRepository)
+	{
+		$this->scheduleRepository = $scheduleRepository;
+		$this->resourceRepository = $resourceRepository;
+	}
+
+	/**
+	 * @return array|Schedule[]
+	 */
+	public function GetAll()
+	{
+		if (is_null($this->_all))
+		{
+			$this->_all = $this->scheduleRepository->GetAll();
+		}
+		return $this->_all;
+	}
+
+	/**
+	 * @return array|Schedule[]
+	 */
+	public function GetSourceSchedules()
+	{
+		return $this->GetAll();
+	}
+
+	/**
+	 * @param Schedule $schedule
+	 * @return IScheduleLayout
+	 */
+	public function GetLayout($schedule)
+	{
+		return $this->scheduleRepository->GetLayout($schedule->GetId(),
+													new ScheduleLayoutFactory($schedule->GetTimezone()));
+	}
+
+	/**
+	 * @param string $name
+	 * @param int $daysVisible
+	 * @param int $startDay
+	 * @param int $copyLayoutFromScheduleId
+	 */
+	public function Add($name, $daysVisible, $startDay, $copyLayoutFromScheduleId)
+	{
+		$schedule = new Schedule(null, $name, false, $startDay, $daysVisible);
+		$this->scheduleRepository->Add($schedule, $copyLayoutFromScheduleId);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 * @param string $name
+	 */
+	public function Rename($scheduleId, $name)
+	{
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$schedule->SetName($name);
+		$this->scheduleRepository->Update($schedule);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 * @param int $startDay
+	 * @param int $daysVisible
+	 */
+	public function ChangeSettings($scheduleId, $startDay, $daysVisible)
+	{
+		Log::Debug('Changing scheduleId %s, WeekdayStart: %s, DaysVisible %s', $scheduleId, $startDay, $daysVisible);
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$schedule->SetWeekdayStart($startDay);
+		$schedule->SetDaysVisible($daysVisible);
+
+		$this->scheduleRepository->Update($schedule);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 * @param string $timezone
+	 * @param string $reservableSlots
+	 * @param string $blockedSlots
+	 */
+	public function ChangeLayout($scheduleId, $timezone, $reservableSlots, $blockedSlots)
+	{
+		$layout = ScheduleLayout::Parse($timezone, $reservableSlots, $blockedSlots);
+		$this->scheduleRepository->AddScheduleLayout($scheduleId, $layout);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 * @param string $timezone
+	 * @param string[] $reservableSlots
+	 * @param string[] $blockedSlots
+	 */
+	public function ChangeDailyLayout($scheduleId, $timezone, $reservableSlots, $blockedSlots)
+	{
+		$layout = ScheduleLayout::ParseDaily($timezone, $reservableSlots, $blockedSlots);
+		$this->scheduleRepository->AddScheduleLayout($scheduleId, $layout);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 */
+	public function MakeDefault($scheduleId)
+	{
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$schedule->SetIsDefault(true);
+
+		$this->scheduleRepository->Update($schedule);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 * @param int $moveResourcesToThisScheduleId
+	 */
+	public function Delete($scheduleId, $moveResourcesToThisScheduleId)
+	{
+		$resources = $this->resourceRepository->GetScheduleResources($scheduleId);
+		foreach ($resources as $resource)
+		{
+			$resource->SetScheduleId($moveResourcesToThisScheduleId);
+			$this->resourceRepository->Update($resource);
+		}
+
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$this->scheduleRepository->Delete($schedule);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 */
+	public function EnableSubscription($scheduleId)
+	{
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$schedule->EnableSubscription();
+		$this->scheduleRepository->Update($schedule);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 */
+	public function DisableSubscription($scheduleId)
+	{
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$schedule->DisableSubscription();
+		$this->scheduleRepository->Update($schedule);
+	}
+
+	/**
+	 * @param int $scheduleId
+	 * @param int $adminGroupId
+	 */
+	public function ChangeAdminGroup($scheduleId, $adminGroupId)
+	{
+		$schedule = $this->scheduleRepository->LoadById($scheduleId);
+		$schedule->SetAdminGroupId($adminGroupId);
+		$this->scheduleRepository->Update($schedule);
+	}
+
+	/**
+	 * @param int $pageNumber
+	 * @param int $pageSize
+	 * @return PageableData|BookableResource[]
+	 */
+	public function GetList($pageNumber, $pageSize)
+	{
+		return $this->scheduleRepository->GetList($pageNumber, $pageSize);
+	}
+}
 
 class PersonalCalendarActions
 {
@@ -65,6 +267,14 @@ class PersonalCalendarPresenter extends ActionPresenter
 	 * @var IScheduleRepository
 	 */
 	private $scheduleRepository;
+	
+	//MyCode
+	private $manageSchedulesService;
+
+	/**
+	 * @var IGroupViewRepository
+	 */
+	private $groupViewRepository;
 
 	public function __construct(
 			IPersonalCalendarPage $page,
@@ -73,7 +283,8 @@ class PersonalCalendarPresenter extends ActionPresenter
 			ICalendarSubscriptionService $subscriptionService,
 			IUserRepository $userRepository,
 			IResourceService $resourceService,
-			IScheduleRepository $scheduleRepository)
+			IScheduleRepository $scheduleRepository,
+			ManageScheduleService $manageSchedulesService)
 	{
 		parent::__construct($page);
 
@@ -87,6 +298,9 @@ class PersonalCalendarPresenter extends ActionPresenter
 
 		$this->AddAction(PersonalCalendarActions::ActionEnableSubscription, 'EnableSubscription');
 		$this->AddAction(PersonalCalendarActions::ActionDisableSubscription, 'DisableSubscription');
+		
+		$this->manageSchedulesService = $manageSchedulesService;
+		$this->groupViewRepository = $groupViewRepository;	
 	}
 
 	/**
@@ -163,6 +377,67 @@ class PersonalCalendarPresenter extends ActionPresenter
 
 		$details = $this->subscriptionService->ForUser($userSession->UserId);
 		$this->page->BindSubscription($details);
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//Getting the schedules
+		$results = $this->manageSchedulesService->GetList($this->page->GetPageNumber(), $this->page->GetPageSize());
+		$schedules = $results->Results();
+		$sourceSchedules = $this->manageSchedulesService->GetSourceSchedules();
+
+		//Initializing arrays
+		$layouts = array();
+		$$periodStart = array();
+		$periodEnd = array();
+		
+		//Period count
+		$periodCount = 1;
+		
+		//Getting the periods
+		foreach ($schedules as $schedule)
+		{
+			$layout = $this->manageSchedulesService->GetLayout($schedule);
+			$layouts[$schedule->GetId()] = $layout;
+			$periods = $layout->GetSlots(null);
+			foreach ($periods as $period)
+		{
+			if ($period->IsReservable() && $schedule->GetId() == 1){
+			$periodStart[$periodCount] = $period->Start;
+			$periodEnd[$periodCount] = $period->End;
+			$periodCount = $periodCount + 1;			
+			}		
+		}		
+				
+		//Setting minTime and maxTime	
+		$minTime = $periodStart[1];
+		$maxTime = end($periodEnd);
+		
+		}
+
+		//Calendar is personal
+		$myCal = true;
+		
+		//Setting values
+		$this->page->BindSchedules($schedules, $layouts, $sourceSchedules, $minTime, $maxTime, $myCal);
+		$this->page->BindPageInfo($results->PageInfo());
+		$this->PopulateTimezones();
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+	}	
+	private function PopulateTimezones()
+	{
+		$timezoneValues = array();
+		$timezoneOutput = array();
+
+		foreach ($GLOBALS['APP_TIMEZONES'] as $timezone)
+		{
+			$timezoneValues[] = $timezone;
+			$timezoneOutput[] = $timezone;
+		}
+
+		$this->page->SetTimezones($timezoneValues, $timezoneOutput);
 	}
 
 	public function EnableSubscription()

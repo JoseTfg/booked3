@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-02-21 16:12:16
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 13:49:55
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Dashboard\upcoming_reservations.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:31456c9d3d01ddc54-51301567%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:253056d6e173314091-60198631%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '31456c9d3d01ddc54-51301567',
+  'nocache_hash' => '253056d6e173314091-60198631',
   'function' => 
   array (
     'displayReservation' => 
@@ -37,9 +37,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => 0,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56c9d3d0241899_47421149',
+  'unifunc' => 'content_56d6e17348b0f2_12078993',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56c9d3d0241899_47421149')) {function content_56c9d3d0241899_47421149($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_56d6e17348b0f2_12078993')) {function content_56d6e17348b0f2_12078993($_smarty_tpl) {?>
 
 <?php if (!function_exists('smarty_template_function_displayReservation')) {
     function smarty_template_function_displayReservation($_smarty_tpl,$params) {

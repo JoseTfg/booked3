@@ -1,0 +1,19 @@
+My Work:
+
+-AccountActivation.php			Unchanged
+-AuthenticatedUser.php			Unchanged
+-Authentication.php			Unchanged*
+-CaptchaService.php			Unchanged
+-IAccountActivation.php			Unchanged
+-IAuthentication.php			Unchanged
+-ILoginContext.php			Unchanged
+-IPostRegistration.php			Unchanged
+-IRegistration.php			Unchanged
+-LoginCookie.php			Unchanged
+-Password.php				Unchanged
+-PasswordEncryption.php			Unchanged
+-PostRegistration.php			Unchanged
+-Registration.php			Unchanged
+-WebAuthentication.php			Unchanged
+-WebLoginContext.php			Unchanged
+-WebServiceAuthentication.php		Unchanged
