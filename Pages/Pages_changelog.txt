@@ -27,8 +27,6 @@ My Work:
 -ReservationApprovalPage.php			Unchanged
 -ReservationDeletePage.php			Unchanged
 -ReservationPopupPage.php			Unchanged
--ReservationSavePage.php			Unchanged
--ReservationUpdatePage.php			Unchanged
 -ResourceDetailsPage.php			Unchanged
 -UserDetailsPopupPage.php			Unchanged
 -AtomSubscriptionPage.php			Unchanged
@@ -57,14 +55,12 @@ My Work:
 -NewReservationPage.php				Unchanged
 -NotificationPreferencesPage.php		Unchanged
 -OpeningsPage.php				Unchanged
--Page.php					Unchanged
 -ParticipationPage.php				Unchanged
 -PasswordPage.php				Unchanged
 -ProfilePage.php				Unchanged
 -ReadOnlyReservationPage.php			Unchanged
 -RegistrationAdminPage.php			Unchanged
 -RegistrationPage.php				Unchanged
--ReservationPage.php				Unchanged
 -SecurePage.php					Unchanged
 -ViewSchedulePage.php				Unchanged
 
@@ -86,3 +82,20 @@ Changed:
 				Now it gets a variable to differentiate from CalendarPage.
 
 -SchedulePage.php:		No longer in use.
+
+
+8/3/2016
+
+-Page.php			Pages now gets the announcements from server.
+				Pages now display new logo.
+
+14/3/2016
+
+-CalendarPage.php		Resource id is now an array.
+-PersonalCalendarPage.php	Resource id is now an array.
+
+15/3/2016
+-ReservationSavePage.php	Now returns to last page after success.
+-ReservationUpdatePage.php	Now returns to last page after success.
+-ReservationPage.php		Now returns to last page after success.
+

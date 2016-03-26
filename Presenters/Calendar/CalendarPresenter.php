@@ -332,6 +332,9 @@ class CalendarPresenter
 		$selectedGroupId = $this->page->GetGroupId();
 
 		$resourceGroups = $this->resourceService->GetResourceGroups($selectedScheduleId, $userSession);
+		
+		//MyCode
+		$selectedResourceIdA = $this->page->GetResourceArrayId();
 
 		if (!empty($selectedGroupId))
 		{
@@ -361,14 +364,40 @@ class CalendarPresenter
 		}
 
 		$calendar = $this->calendarFactory->Create($type, $year, $month, $day, $timezone, $selectedSchedule->GetWeekdayStart());
-		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1),
-																		 null, null, $selectedScheduleId,
-																		 $selectedResourceId);
-		$calendar->AddReservations(CalendarReservation::FromScheduleReservationList(
+		
+		
+		//MyCode
+		//$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1),
+		//																 null, null, $selectedScheduleId,
+		//																 $selectedResourceId);
+		//$calendar->AddReservations(CalendarReservation::FromScheduleReservationList(
+		//							   $reservations,
+		//							   $resources,
+		//							   $userSession,
+		//							   true));
+		
+		if (is_array($selectedResourceIdA) || is_object($selectedResourceIdA)){
+		foreach ($selectedResourceIdA as $selectedResourceId){
+		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1), null, null,
+		$selectedScheduleId, $selectedResourceId);
+		 $calendar->AddReservations(CalendarReservation::FromScheduleReservationList(
 									   $reservations,
 									   $resources,
 									   $userSession,
 									   true));
+		}
+		}
+		else{
+		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1),
+		null, null,	$selectedScheduleId, 0);
+		 $calendar->AddReservations(CalendarReservation::FromScheduleReservationList(
+									   $reservations,
+									   $resources,
+									   $userSession,
+									   true));
+		}
+		
+		
 		$this->page->BindCalendar($calendar);
 
 
@@ -421,7 +450,13 @@ class CalendarPresenter
 		}
 		
 		//All resources calendar
-		$myCal = false;		
+		$myCal = false;
+
+		//MyCode 14/3/2016
+		$username = $_SESSION['username'];
+		$password = $_SESSION['password'];
+		$this->page->Set('username', $username);
+		$this->page->Set('password', $password);		
 		
 		//Setting values
 		$this->page->BindSchedules($schedules, $layouts, $sourceSchedules, $minTime, $maxTime, $myCal);

@@ -24,18 +24,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <form id="reservationForm" method="post" enctype="multipart/form-data">
     {csrf_token}
-<div class="reservationSubmitButtons buttonsTop">
-	{block name="submitButtons"}
-		<button type="button" class="button save create">
-			{html_image src="tick-circle.png"}
-				{translate key='Create'}
-		</button>
-	{/block}
-	<button type="button" class="button" onclick="window.location='{$ReturnUrl}'">
-	{html_image src="slash.png"}
-		{translate key='Cancel'}
-	</button>
-</div>
 <div class="clear"></div>
 
 <div class="reservationHeader">
@@ -45,8 +33,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="reservationDetails">
     <ul class="no-style">
-        <li>
-            <a href="#" id="userName" data-userid="{$UserId}">{$ReservationUserName}</a> <input id="userId"
+		<li>
+            <aid="userName" data-userid="{$UserId}"></a> <input id="userId"
                                                                      type="hidden" {formname key=USER_ID}
                                                                      value="{$UserId}"/>
 		{if $CanChangeUser}
@@ -54,7 +42,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
             <div id="changeUserDialog" title="{translate key=ChangeUser}" class="dialog"></div>
 		{/if}
-        </li>
+        </li>	
         <li style="display:none;" id="changeUsers">
             <input type="text" id="changeUserAutocomplete" class="input" style="width:250px;"/>
             |
@@ -71,12 +59,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                     <label>{translate key="ResourceList"}</label><br/>
 
                     <div id="resourceNames" style="display:inline">
-                        <a href="#" class="resourceDetails">{$ResourceName}</a>
+                        <a>{$ResourceName}</a>
                         <input class="resourceId" type="hidden" {formname key=RESOURCE_ID} value="{$ResourceId}"/>
                         <input type="hidden" id="scheduleId" {formname key=SCHEDULE_ID} value="{$ScheduleId}"/>
                     </div>
 				{if $ShowAdditionalResources}
-                    <a id="btnAddResources" href="#" class="small-action">{translate key=MoreResources}{html_image src="plus-small-white.png"}</a>
+                    <a id="btnAddResources" href="#" class="small-action">{html_image src="plus-small-white.png"}</a>
 				{/if}
                     <div id="additionalResources">
 						{foreach from=$AvailableResources item=resource}
@@ -89,7 +77,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 <div style="float:right;">
 				{if $AvailableAccessories|count > 0}
                     <label>{translate key="Accessories"}</label>
-                    <a href="#" id="addAccessoriesPrompt" class="small-action">{translate key='Add'}{html_image src="plus-small-white.png"}</a>
+                    <a href="#" id="addAccessoriesPrompt" class="small-action">{html_image src="plus-small-white.png"}</a>
 
                     <div id="accessories"></div>
 				{/if}
@@ -97,7 +85,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             </div>
             <div style="clear:both;height:0;">&nbsp;</div>
         </li>
-        <li>
+        <li style="text-align: center">
             <label for="BeginDate" class="reservationDate">{translate key='BeginDate'}</label>
             <input type="text" id="BeginDate" class="dateinput" value="{formatdate date=$StartDate}"/>
             <input type="hidden" id="formattedBeginDate" {formname key=BEGIN_DATE}
@@ -114,7 +102,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/foreach}
             </select>
         </li>
-        <li>
+        <li style="text-align: center">
             <label for="EndDate" class="reservationDate">{translate key='EndDate'}</label>
             <input type="text" id="EndDate" class="dateinput" value="{formatdate date=$EndDate}"/>
             <input type="hidden" id="formattedEndDate" {formname key=END_DATE}
@@ -134,21 +122,22 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/foreach}
             </select>
         </li>
-        <li>
-            <label>{translate key=ReservationLength}</label>
-
+        <li id="yo">
             <div class="durationText">
-                <span id="durationDays">0</span> {translate key=days},
                 <span id="durationHours">0</span> {translate key=hours}
             </div>
         </li>
+	
+	
 	{if $HideRecurrence}
         <li style="display:none">
 			{else}
     <li>
 	{/if}
-	{control type="RecurrenceControl" RepeatTerminationDate=$RepeatTerminationDate}
+	{control type="RecurrenceControl" RepeatTerminationDate=$RepeatTerminationDate }
     </li>
+	
+	
         <li class="rsv-box-l">
             <label>{translate key="ReservationTitle"}<br/>
 			{textbox name="RESERVATION_TITLE" class="input" tabindex="100" value="ReservationTitle"}
@@ -163,6 +152,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     </ul>
 </div>
 
+{*
 {if $ShowParticipation && $AllowParticipation}
 	{include file="Reservation/participation.tpl"}
 {else}
@@ -199,6 +189,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div class="clear">&nbsp;</div>
 	</div>
 {/if}
+
+*}
 
 {if $Attributes|count > 0}
 <div class="customAttributes">

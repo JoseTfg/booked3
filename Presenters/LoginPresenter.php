@@ -62,7 +62,12 @@ class LoginPresenter
 	{
 		if ($this->authentication->IsLoggedIn())
 		{
-			$this->_Redirect();
+			//MyCode 8/3/2016
+			$id = $this->_page->GetEmailAddress();
+			$pass = $this->_page->GetPassword();
+			$_SESSION['username'] = $id;
+			$_SESSION['password'] = $pass;
+			$this->_page->Redirect(Pages::MY_CALENDAR);
 		}
 
 		$this->SetSelectedLanguage();
@@ -79,7 +84,7 @@ class LoginPresenter
 		{
 			if ($this->authentication->CookieLogin($loginCookie, new WebLoginContext(new LoginData(true))))
 			{
-				$this->_Redirect();
+				$this->_page->Redirect(Pages::MY_CALENDAR);				
 			}
 		}
 
@@ -106,8 +111,7 @@ class LoginPresenter
 		if ($this->authentication->Validate($id, $this->_page->GetPassword()))
 		{
 			$context = new WebLoginContext(new LoginData($this->_page->GetPersistLogin(), $this->_page->GetSelectedLanguage()));
-			$this->authentication->Login($id, $context);
-			$this->_Redirect();
+			$this->authentication->Login($id, $context);			
 		}
 		else
 		{

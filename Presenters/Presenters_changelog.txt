@@ -32,7 +32,6 @@ My Work:
 -ReservationApprovalPresenter.php		Unchanged
 -ReservationAttachmentPresenter.php		Unchanged
 -ReservationDeletePresenter.php			Unchanged
--ReservationPresenter.php			Unchanged
 -ReservationPresenterFactory.php		Unchanged
 -ReservationSavePresenter.php			Unchanged
 -ReservationUpdatePresenter.php			Unchanged
@@ -62,3 +61,16 @@ Changed:
 -SchedulePageBuilder.php		No longer in use.
 
 -SchedulePresenter.php			No longer in use.
+
+
+8/3/2016
+
+-LoginPresenter:			Stores login data.
+
+15/3/2016
+
+-PersonalCalendarPresenter.php:		Resource id is now an array. 
+
+-CalendarPresenter.php:			Resource id is now an array.
+
+-ReservationPresenter.php		Now obtains last page to return.

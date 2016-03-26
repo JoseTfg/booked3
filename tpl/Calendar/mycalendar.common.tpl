@@ -16,19 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
-<div class="calendar-subscription">
-{if $IsSubscriptionAllowed}
-	<a href="#" id="turnOffSubscription">{html_image src="switch-minus.png"} {translate key=TurnOffSubscription}</a>
-	{if $IsSubscriptionEnabled}
-		<a id="subscribeTocalendar" href="{$SubscriptionUrl}">{html_image src="calendar-share.png"} {translate key=SubscribeToCalendar}</a>
-		<br/>URL: <span class="note">{$SubscriptionUrl}</span>
-	{else}
-		<span class="note">{translate key=SubscriptionsAreDisabled}</span>
-	{/if}
-{else}
-	<a href="#" id="turnOnSubscription">{html_image src="switch-plus.png"} {translate key=TurnOnSubscription}</a>
-{/if}
-</div>
 
 <div id="calendar"></div>
 
@@ -38,6 +25,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="js/fullcalendar.min.js"}
 {jsfile src="admin/edit.js"}
 {jsfile src="js/tree.jquery.js"}
+
+{jsfile src="js/moment.min.js"}
+{*{jsfile src="js/jquery.min.js"}*}
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -53,7 +43,8 @@ $(document).ready(function() {
 			allDay: false,
 			color: '{$reservation->Color}',
 			textColor: '{$reservation->TextColor}',
-			className: '{$reservation->Class}'
+			className: '{$reservation->Class}',
+			colorID:'{$reservation->ResourceName}'
 		});
 	{/foreach}
 
@@ -74,7 +65,9 @@ $(document).ready(function() {
 					subscriptionDisableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionDisableSubscription}',
 					minTime: '{$minTime}',
 					maxTime: '{$maxTime}',
-					myCal: '{$myCal}'
+					myCal: '{$myCal}',
+					username: '{$username}',
+					password: '{$password}'
 				};
 
 	var calendar = new Calendar(options, reservations);

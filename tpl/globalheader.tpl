@@ -68,89 +68,78 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			initMenu();
 		});
 	</script>
+	<link rel="stylesheet" type="text/css" href="css/propio.css">
 </head>
 <body class="{$bodyClass}">
 <div id="wrapper">
 	<div id="doc">
-		<div id="logo"><a href="{$HomeUrl}">{html_image src="$LogoUrl"}</a></div>
+		<div id="logo"><a href="http://www.uniovi.es/">{html_image src="$LogoUrl"}</a></div>
 		<div id="header">
 			<div id="header-top">
+<table id="HeaderTable">
+<tr>
+<td>		
+<td>
+
+{*{if $CanViewAdmin}
+<div class="onoffswitch2">
+    <input type="checkbox" name="onoffswitch2" class="onoffswitch-checkbox2" id="myonoffswitch2" {if ($myCal != 1)}checked="checked"{/if}>
+    <label class="onoffswitch-label2" for="myonoffswitch2">
+        <span class="onoffswitch-inner2" ></span>
+        <span class="onoffswitch-switch2"></span>
+    </label>
+</div>
+{else}*}
+	<div ><a href="{$HomeUrl}">{html_image src="$Logo2"}</a></div>
+{*{/if}*}
+
+
+</td>
+	
 				<div id="signout">
 					{if $LoggedIn}
-						{translate key="SignedInAs"} {$UserName}
+						{translate key="SignedInAs"} <div id="HeaderUserName">{$UserName}</div>		
 						<br/>
 						<a
 								href="{$Path}logout.php">{translate key="SignOut"}</a>
 					{else}
-						{translate key="NotSignedIn"}
+						<div id="HeaderNotSignedIn">{translate key="NotSignedIn"}</div>
 						<br/>
 						<a href="{$Path}index.php">{translate key="LogIn"}</a>
 					{/if}
-				</div>
+				</div>				
+</td>
+</tr>
+</table>  
 			</div>
 			<div>
 				<ul id="nav" class="menubar">
 					{if $LoggedIn}
-						<li class="menubaritem first"><a href="{$Path}{Pages::DASHBOARD}">{translate key="Dashboard"}</a></li>
-						<li class="menubaritem"><a href="{$Path}{Pages::PROFILE}">{translate key="MyAccount"}</a>
-							<ul>
-								<li class="menuitem"><a href="{$Path}{Pages::PROFILE}">{translate key="Profile"}</a></li>
-								<li class="menuitem"><a href="{$Path}{Pages::PASSWORD}">{translate key="ChangePassword"}</a></li>
-								<li class="menuitem"><a href="{$Path}{Pages::NOTIFICATION_PREFERENCES}">{translate key="NotificationPreferences"}</a></li>
-								{if $ShowParticipation}
-									<li class="menuitem"><a href="{$Path}{Pages::PARTICIPATION}">{translate key="OpenInvitations"}</a></li>{/if}
-							</ul>
-						</li>
-						<li class="menubaritem"><a href="{$Path}{Pages::MY_CALENDAR}">{translate key="MyCalendar"}</a>
-							<ul>
-								<li class="menuitem"><a href="{$Path}{Pages::SCHEDULE}">{translate key="Bookings"}</a></li>
-								<li class="menuitem"><a href="{$Path}{Pages::MY_CALENDAR}">{translate key="MyCalendar"}</a></li>
-								<li class="menuitem"><a href="{$Path}{Pages::CALENDAR}">{translate key="ResourceCalendar"}</a></li>
-							</ul>
-						</li>
 						{if $CanViewAdmin}
-							<li class="menubaritem"><a href="#">{translate key=ApplicationManagement}</a>
+							<li class="menubaritem"><a href="{$Path}admin/manage_reservations.php">{translate key="ManageReservations"}</a>
 								<ul>
-									<li class="menuitem"><a
-												href="{$Path}admin/manage_reservations.php">{translate key="ManageReservations"}</a>
-										<ul>
-											<li class="menuitem"><a
-														href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>
-										</ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>										
+								</ul>
 									</li>
-									<li class="menuitem"><a
-												href="{$Path}admin/manage_schedules.php">{translate key="ManageSchedules"}</a></li>
-									<li class="menuitem"><a
-												href="{$Path}admin/manage_resources.php">{translate key="ManageResources"}</a>
-										<ul>
-											<li class="menuitem"><a
-														href="{$Path}admin/manage_resource_groups.php">{translate key="ManageGroups"}</a></li>
-											<li class="menuitem"><a
-														href="{$Path}admin/manage_accessories.php">{translate key="ManageAccessories"}</a></li>
-											<li class="menuitem"><a
-														href="{$Path}admin/manage_resource_types.php">{translate key="ManageResourceTypes"}</a></li>
-											<li class="menuitem"><a
-														href="{$Path}admin/manage_resource_status.php">{translate key="ManageResourceStatus"}</a></li>
-										</ul>
+							<li class="menubaritem"><a href="{$Path}admin/manage_resources.php">{translate key="ManageResources"}</a>
+								<ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_resource_groups.php">{translate key="ManageGroups"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_accessories.php">{translate key="ManageAccessories"}</a></li>
+								</ul>
 									</li>
-									<li class="menuitem"><a href="{$Path}admin/manage_users.php">{translate key="ManageUsers"}</a></li>
+							<li class="menubaritem"><a href="{$Path}admin/manage_users.php">{translate key="ManageUsers"}</a>
+								<ul>
 									<li class="menuitem"><a href="{$Path}admin/manage_groups.php">{translate key="ManageGroups"}</a></li>
 									<li class="menuitem"><a href="{$Path}admin/manage_quotas.php">{translate key="ManageQuotas"}</a></li>
-									<li class="menuitem"><a href="{$Path}admin/manage_announcements.php">{translate key="ManageAnnouncements"}</a></li>
-									<li class="menuitem"><a href="#">{translate key="Customization"}</a>
-										<ul>
-											<li class="menuitem"><a
-														href="{$Path}admin/manage_attributes.php">{translate key="Attributes"}</a></li>
-											{if $EnableConfigurationPage}
-												<li class="menuitem"><a
-														href="{$Path}admin/manage_configuration.php">{translate key="ManageConfiguration"}</a></li>
-											{/if}
-											<li class="menuitem"><a href="{$Path}admin/manage_theme.php">{translate key="LookAndFeel"}</a></li>
-										</ul>
-									</li>
-									<li class="menuitem"><a href="{$Path}admin/server_settings.php">{translate key="ServerSettings"}</a></li>
 								</ul>
-							</li>
+								</li>
+							<li class="menubaritem"><a href="{$Path}admin/manage_announcements.php">{translate key="ManageAnnouncements"}</a></li>
+							<li class="menubaritem"><a href="{$Path}admin/manage_configuration.php">{translate key="Customization"}</a>
+								<ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_attributes.php">{translate key="Attributes"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_theme.php">{translate key="LookAndFeel"}</a></li>
+								</ul>
+									</li>
 						{/if}
 						{if $CanViewResponsibilities}
 							<li class="menubaritem"><a href="#">{translate key=Responsibilities}</a>
@@ -185,15 +174,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 							</li>
 						{/if}
 					{/if}
-					<li class="menubaritem help"><a href="{$Path}help.php">{translate key=Help}</a>
-						<ul>
-							<li><a href="{$Path}help.php">{translate key=Help}</a></li>
-							{if $CanViewAdmin}
-								<li><a href="{$Path}help.php?ht=admin">{translate key=Administration}</a></li>
-							{/if}
-							<li><a href="{$Path}help.php?ht=about">{translate key=About}</a></li>
-						</ul>
-					</li>
+					<li class="menubaritem help"><a href="{$Path}help.php?ht=about">{translate key=About}</a></li>
+					<li class="menubaritem help"><a href="{$Path}help.php">{translate key=Help}</a>	</li>
+
 				</ul>
 			</div>
 			<!-- end #nav -->

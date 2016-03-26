@@ -20,29 +20,23 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <div id="reservationbox" class="readonly">
 	<div id="reservationFormDiv">
 		<div class="reservationHeader">
-			<h3>{translate key="ViewReservationHeading" args=$ReferenceNumber}</h3>
+			<h3>{translate key="ViewReservationHeading"}</h3>
 		</div>
 		<div id="reservationDetails">
-			<ul class="no-style">
+			<ul id="reservationDetailsLeft" class="no-style">				
 				<li>
-					<label>{translate key='User'}</label>
-				{if $ShowUserDetails && $ShowReservationDetails}
-					<a href="#" class="bindableUser" data-userid="{$UserId}">{$ReservationUserName}</a>
-				{else}
-					{translate key=Private}
-				{/if}
-				</li>
-				<li>
-					<label>{translate key='Resources'}</label> {$ResourceName}
+					<label>{translate key='Resources'}</label> <br/>{$ResourceName}					
 					{foreach from=$AvailableResources item=resource}
 						{if is_array($AdditionalResourceIds) && in_array($resource->Id, $AdditionalResourceIds)}
 							,{$resource->Name}
 						{/if}
 					{/foreach}
 				</li>
+				<br/>
 				<li>
 					{if $ShowReservationDetails}
-					<label>{translate key='Accessories'}</label>
+					<label>{translate key='Accessories'}</label><br/>
+					{if $Accessories|count > 0}
 					{foreach from=$Accessories item=accessory name=accessoryLoop}
 						({$accessory->QuantityReserved})
 						{if $smarty.foreach.accessoryLoop.last}
@@ -51,20 +45,22 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 							{$accessory->Name},
 						{/if}
 					{/foreach}
+					{else}
+							Ninguno
+					{/if}
 					{/if}
 				</li>
 				<li class="section">
-					<label>{translate key='BeginDate'}</label> {formatdate date=$StartDate}
+					{formatdate date=$StartDate}
 					<input type="hidden" id="formattedBeginDate" value="{formatdate date=$StartDate key=system}"/>
 					{foreach from=$StartPeriods item=period}
 						{if $period eq $SelectedStart}
-							{$period->Label()} <br/>
+							{$period->Label()}
 							<input type="hidden" id="BeginPeriod" value="{$period->Begin()}"/>
 						{/if}
 					{/foreach}
-				</li>
-				<li>
-					<label>{translate key='EndDate'}</label> {formatdate date=$EndDate}
+
+					<label> - </label> {formatdate date=$EndDate}
 					<input type="hidden" id="formattedEndDate" value="{formatdate date=$EndDate key=system}" />
 					{foreach from=$EndPeriods item=period}
 						{if $period eq $SelectedEnd}
@@ -74,38 +70,21 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{/foreach}
 				</li>
 				<li>
-					<label>{translate key=ReservationLength}</label>
-
 					<div class="durationText">
-						<span id="durationDays">0</span> {translate key='days'},
 						<span id="durationHours">0</span> {translate key='hours'}
 					</div>
 				</li>
-				<li>
-					<label>{translate key='RepeatPrompt'}</label> {translate key=$RepeatOptions[$RepeatType]['key']}
-					{if $IsRecurring}
-						<div class="repeat-details">
-							<label>{translate key='RepeatEveryPrompt'}</label> {$RepeatInterval} {$RepeatOptions[$RepeatType]['everyKey']}
-							{if $RepeatMonthlyType neq ''}
-								({$RepeatMonthlyType})
-							{/if}
-							{if count($RepeatWeekdays) gt 0}
-								<br/><label>{translate key='RepeatDaysPrompt'}</label> {foreach from=$RepeatWeekdays item=day}{translate key=$DayNames[$day]} {/foreach}
-							{/if}
-							<br/><label>{translate key='RepeatUntilPrompt'}</label> {formatdate date=$RepeatTerminationDate}
-						</div>
-					{/if}
-				</li>
+				
 				{if $ShowReservationDetails}
 					<li class="section">
 						<label>{translate key='ReservationTitle'}</label>
 						{if $ReservationTitle neq ''}
-							{$ReservationTitle}
+							<br/>{$ReservationTitle}
 						{else}
 							<span class="no-data">{translate key='None'}</span>
 						{/if}
 					</li>
-
+					<br/>
 					<li>
 						<label>{translate key='ReservationDescription'}</label>
 						{if $Description neq ''}
@@ -118,77 +97,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</ul>
 		</div>
 
-		{if $ShowParticipation && $ShowReservationDetails}
-		<div id="reservationParticipation">
-			<ul class="no-style">
-				{if $ShowUserDetails}
-					<li class="section">
-						<label>{translate key='ParticipantList'}</label>
-						{foreach from=$Participants item=participant}
-							<br/><a href="#" class="bindableUser" data-userid="{$participant->UserId}">{$participant->FullName}</a>
-						{foreachelse}
-							<span class="no-data">{translate key='None'}</span>
-						{/foreach}
-					</li>
-
-					<li>
-						<label>{translate key='InvitationList'}</label>
-						{foreach from=$Invitees item=invitee}
-							<br/><a href="#" class="bindableUser" data-userid="{$invitee->UserId}">{$invitee->FullName}</a>
-						{foreachelse}
-							<span class="no-data">{translate key='None'}</span>
-						{/foreach}
-					</li>
-				{/if}
-				<li style="padding-top:15px;">
-					{if $IAmParticipating}
-						{translate key=CancelParticipation}?
-						</li>
-						<li>
-						{if $IsRecurring}
-							<button value="{InvitationAction::CancelAll}" class="button participationAction">{html_image src="user-minus.png"} {translate key=AllInstances}</button>
-							<button value="{InvitationAction::CancelInstance}" class="button participationAction">{html_image src="user-minus.png"} {translate key=ThisInstance}</button>
-						{else}
-							<button value="{InvitationAction::CancelInstance}" class="button participationAction">{html_image src="user-minus.png"} {translate key=CancelParticipation}</button>
-						{/if}
-					{/if}
-
-					{if $IAmInvited}
-						{translate key=Attending}?
-						</li>
-						<li>
-						<button value="{InvitationAction::Accept}" class="button participationAction">{html_image src="ticket-plus.png"} {translate key=Yes}</button>
-						<button value="{InvitationAction::Decline}" class="button participationAction">{html_image src="ticket-minus.png"} {translate key=No}</button>
-					{/if}
-
-					{if $AllowParticipantsToJoin && !$IAmParticipating && !$IAmInvited}
-						</li>
-						<li id="joinReservation">
-							{translate key=JoinThisReservation}?
-							{if $IsRecurring}
-								<button value="{InvitationAction::JoinAll}" id="btnJoinSeries" class="button participationAction">{html_image src="ticket-plus.png"} {translate key=AllInstances}</button>
-								<button value="{InvitationAction::Join}" id="btnJoinInstance" class="button participationAction">{html_image src="ticket-plus.png"} {translate key=ThisInstance}</button>
-							{else}
-								<button value="{InvitationAction::Join}" id="btnJoin" class="button participationAction">{html_image src="ticket-plus.png"} {translate key=Yes}</button>
-							{/if}
-						</li>
-					{/if}
-					{html_image id="indicator" src="admin-ajax-indicator.gif" style="display:none;"}
-				</li>
-			</ul>
-		</div>
-		{/if}
-		<div style="clear:both;">&nbsp;</div>
+		
 
 		{if $ShowReservationDetails}
 			{if $Attributes|count > 0}
 			<div class="customAttributes">
-				<span>{translate key=AdditionalAttributes}</span>
 				<ul>
-				{foreach from=$Attributes item=attribute}
+				{foreach from=$Attributes item=attribute}				
 					<li class="customAttribute">
-						{control type="AttributeControl" attribute=$attribute readonly=true}
+						{control type="AttributeControl" attribute=$attribute readonly=true}						
 					</li>
+					<br/>
 				{/foreach}
 				</ul>
 			</div>
@@ -197,7 +116,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/if}
 
 		{if $ShowReservationDetails}
-			<div style="float:left;">
+			<div id="reservationDetailsLeft" style="float:left;">
 				{block name="deleteButtons"}
 					<a href="{$Path}export/{Pages::CALENDAR_EXPORT}?{QueryStringKeys::REFERENCE_NUMBER}={$ReferenceNumber}">
 					{html_image src="calendar-plus.png"}
@@ -205,18 +124,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				{/block}
 			</div>
 		{/if}
-		<div style="float:right;">
+		<div id="reservationDetailsRight" style="float:right;">
 			{block name="submitButtons"}
 				&nbsp
 			{/block}
 			<button type="button" class="button" onclick="window.location='{$ReturnUrl}'">
 				<img src="img/slash.png"/>
-				{translate key='Close'}
-			</button>
-					<button type="button" class="button">
-				<img src="img/printer.png" />
-				{translate key='Print'}
-			</button>
+				{translate key='Close'}			
 		</div>
 
 		{if $ShowReservationDetails}

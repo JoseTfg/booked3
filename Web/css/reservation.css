@@ -15,7 +15,7 @@
 }
 
 #reservationbox {
-	width: 100%;
+	width: 50%;					/*MyCode*/
 	margin: 3em auto 1em;
 }
 
@@ -58,9 +58,9 @@
 }
 
 #reservationDetails {
-	float: left;
-	width: 50%;
-	border-right: solid 1px #ccc;
+	margin: 0 auto;			/*MyCode*/
+	width: 100%;
+							/*MyCode*/
 	padding-right: 25px;
 }
 

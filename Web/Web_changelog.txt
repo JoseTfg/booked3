@@ -73,7 +73,7 @@ My Work:
 css:
 
 -admin.css				Unchanged
--dashboard.css				Unchanged
+-
 -email.css				Unchanged
 -jquery.qtip.min.css			Unchanged
 -normalize.css				Unchanged
@@ -106,6 +106,16 @@ Added:
 
 -propio.css:		On/Off Switch css and Table css to reduce free space.
 
+8/3/2016
+
+-propio.css:		Changed styles in header and footer.
+-dashboard.css		Changed margin-top
+
+13/3/2016
+-propio.css:		Changed styles in login page.
+-style.css:		Changed styles in login page.
+-reservation.css	Changed styles in reservation page.
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 scripts:
@@ -119,3 +129,12 @@ calendar.js		Calendar is now selectable.
 			Calendar only shows reservable slots now.
 			Calendar has been resized.
 			DayClick event modified.
+
+8/3/2016 - 16/3/2016
+
+calendar.js		Calendar can now show an array of resources.
+			Calendar now allows click and drag for reservation updating.
+			Calendar now changes view on click.
+			Calendar now connects with the API.
+			Calendar now presents events with colors.
+			Calendar now reacts to right click events.

@@ -44,12 +44,18 @@
     right: 0px; 
 }
 
-#myTable
+#CalendarFilterTable
 {
-	margin-left:40%; 
+	margin-left:38%; 
     margin-right:40%;
+	/*margin-bottom:50px;*/
 }
 
+#CalendarFilterTable.th, #CalendarFilterTable.td {
+    padding: 150px;
+}
+
+/*Not Used*/   
 .styled-select{
    background: transparent;
    width: 268px;
@@ -62,7 +68,7 @@
    -webkit-appearance: none;
    }
    
-   
+/*Not Used*/   
 .styled-select2{
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -92,3 +98,142 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+#HeaderTable
+{
+	margin-left:45%; 
+    margin-right:50%;
+}
+
+/*Login*/
+.column-left{ float: left; width: 25%; position: absolute;}
+.column-right{right: 3%; width: 25%; position: absolute;}
+.column-center{ margin: 0 auto; width: 33%;}
+.container{position:relative;}
+
+/* begin styles for RSS Feed */
+.rss-box {
+	 margin: 1em;
+	 width: 98%;
+	 background-color: #F0EBE1;
+	 border: 1px solid #DCC8AA;
+	 
+}
+.rss-items {
+	margin-top:0px;
+	padding:0.5em; 0.5em;
+	margin-left:0px;
+	color:#000000;
+}
+p.rss-title {padding:0.5em;}
+.rss-title {
+	font-size: 8pt;
+	background-color: #990000;
+	color: #FFFFFF;
+	font-weight:bold;
+	text-align: left;
+}
+
+.rss-item  {
+  font-size: 7pt;
+  list-style:none;
+  padding-bottom:1em;
+}
+
+.rss-item a {
+	color:navy;
+	font-size: 8pt;
+	font-weight:bold;
+	}
+	
+.rss-item a:visited {
+	color: black;
+}
+
+.rss-date {
+	font-size: 7pt;
+	color: #990033;
+	}
+ 
+/* buttons modeled from http://www.wellstyled.com/css-inline-buttons.html */
+
+.pod-play {
+   _width:12em;
+   margin: 0 0.2em; padding: 0.1em 0; _padding:0;
+   
+   white-space:nowrap;
+   text-decoration: none;
+   vertical-align:middle;
+   background: #fb6;
+   color: black;
+   }
+.pod-play em {
+   _width:1em; _cursor:hand;
+   font-style: normal;
+   margin:0; padding: 0.1em 0.5em;
+   background: white;
+   color: #222;
+   }
+.pod-play span {
+   _width:1em; _cursor:hand;
+   margin:0; padding: 0.1em 0.5em 0.1em 0.3em;
+   }
+.pod-play:hover {
+   background: #666;
+   color: white;
+   }
+.pod-play:hover em {
+   background: black;
+   color: white
+   }
+
+/*Reservation*/   
+.reservationHeader
+{
+	text-align: center;
+	color: #FF9933;
+}
+
+#reservationForm
+{
+	 background-color: #CC9966;
+}
+
+#reservationFormDiv
+{
+	 overflow:hidden;
+	 background-color: #CC9966;
+}
+
+#reservationDetailsRight{
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+#reservationDetailsLeft{
+	margin-left: 20px;
+}
+
+/*Login*/
+#login
+{
+	 background-color: #FFCC99;
+}
+
+/*Input*/
+#input
+{
+	background-color: #FF9966;
+}
+
+/*Header*/
+#HeaderUserName{
+	display:inline;
+	color: #000099;
+}
+
+#HeaderNotSignedIn{
+	display:inline;
+	color: #FF0000;
+}
+

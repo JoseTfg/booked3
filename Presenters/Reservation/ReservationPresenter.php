@@ -76,6 +76,7 @@ class ReservationPresenter extends ReservationPresenterBase
 		$this->preconditionService->CheckAll($this->_page, $user);
 		$initializer = $this->initializationFactory->GetNewInitializer($this->_page);
 		$initializer->Initialize();
+		$_SESSION['returnPage'] = $_SERVER['HTTP_REFERER'];
 	}
 }
 

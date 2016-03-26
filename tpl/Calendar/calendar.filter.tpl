@@ -16,18 +16,31 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
-<table id="myTable">
+
+<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.filter.css" />
+<link rel="stylesheet" type="text/css" href="prueba3/assets/style.css" />
+<link rel="stylesheet" type="text/css" href="prueba3/assets/prettify.css" />
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+{jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}
+{jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}
+{jsfile src="prueba3/src/jquery.multiselect.js"}
+{jsfile src="prueba3/assets/prettify.js"}
+{jsfile src="prueba3/src/jquery.multiselect.filter.js"}
+
+<table id="CalendarFilterTable">
 <tr>
 <td>
+
 <div id="filter">
 	{if $GroupName}
 		<span class="groupName">{$GroupName}</span>
 	{else}
 <label for="calendarFilter"></label>
-<select id="calendarFilter" class="styled-select2">
+<select id="calendarFilter"  multiple="multiple">
 {foreach from=$filters->GetFilters() item=filter}
 	{foreach from=$filter->GetFilters() item=subfilter}
-		<option value="{$subfilter->Id()}" class="resource" {if $subfilter->Selected()}selected="selected"{/if}>{$subfilter->Name()}</option>
+		<option value="{$subfilter->Id()}" class="resource" >{$subfilter->Name()}</option>
 	{/foreach}
 {/foreach}
 	{/if}
@@ -36,8 +49,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 </td>
 <td>
-
-<link rel="stylesheet" type="text/css" href="css/propio.css">
 
 <div class="onoffswitch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>

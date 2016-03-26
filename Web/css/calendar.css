@@ -40,12 +40,11 @@
 	background-color: #D9E9FA;
 }
 
-.calendarHeading {
-	color: #666666;
+.calendarHeading {	color: #666666;	
 	border-bottom: solid 1px #666666;
 	padding: 1px 0px 3px 5px;;	/* My Code */
 	margin-bottom: 3px;			/* My Code */
-	font-size: 12pt;			/* My Code */
+	font-size: 12pt;			/* My Code */	
 	font-weight: bold;
 }
 

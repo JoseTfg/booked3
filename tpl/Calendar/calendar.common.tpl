@@ -18,15 +18,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
 {if $IsAccessible}
-	<div class="calendar-subscription">
-	{if $IsSubscriptionAllowed && $IsSubscriptionEnabled}
-		<a id="subscribeTocalendar" href="{$SubscriptionUrl}">{html_image src="calendar-share.png"} {translate key=SubscribeToCalendar}</a>
-		<br/>URL: <span class="note">{$SubscriptionUrl}</span>
-	{else}
-		<span class="note">{translate key=SubscriptionsAreDisabled}</span>
-	{/if}
-	</div>
-
 	<div id="calendar"></div>
 
 	<div id="dayDialog" class="dialog">
@@ -59,7 +50,8 @@ $(document).ready(function() {
 			allDay: false,
 			color: '{$reservation->Color}',
 			textColor: '{$reservation->TextColor}',
-			className: '{$reservation->Class}'
+			className: '{$reservation->Class}',
+			colorID:'{$reservation->OwnerName}'
 		});
 	{/foreach}
 
@@ -80,7 +72,9 @@ $(document).ready(function() {
 					reservable: true,
 					minTime: '{$minTime}',
 					maxTime: '{$maxTime}',
-					myCal: '{$myCal}'
+					myCal: '{$myCal}',
+					username: '{$username}',
+					password: '{$password}'
 				};
 
 	var calendar = new Calendar(options, reservations);

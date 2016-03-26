@@ -24,54 +24,65 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 {/if}
 
-<div id="loginbox">
-	<!--This "$smarty.server.SCRIPT_NAME" sets up the form to post back to the same page that it is on.-->
-	<form name="login" id="login" class="login" method="post" action="{$smarty.server.SCRIPT_NAME}">
-		<div>
-			{if $ShowUsernamePrompt}
-			<p>
-				<label class="login">{translate key='UsernameOrEmail'}<br/>
-				{textbox name="EMAIL" class="input" size="20" tabindex="10"}</label>
-			</p>
-			{/if}
+<div class="container">
+   <div class="column-left">
+	<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=2&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+	</div>
+	
+   <div class="column-right">
+   <script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+   </div>
+   
 
-			{if $ShowPasswordPrompt}
-			<p>
-				<label class="login">{translate key='Password'}<br/>
-				{textbox type="password" name="PASSWORD" class="input" value="" size="20" tabindex="20"}</label>
-			</p>
-			{/if}
+<div class="column-center">
+	<div id="loginbox">
+		<!--This "$smarty.server.SCRIPT_NAME" sets up the form to post back to the same page that it is on.-->
+		<form name="login" id="login" class="login" method="post" action="{$smarty.server.SCRIPT_NAME}">
+			<div>
+				{if $ShowUsernamePrompt}
+				<p>
+					<label class="login">{translate key='UsernameOrEmail'}<br/>
+					{textbox name="EMAIL" class="input" size="20" tabindex="10"}</label>
+				</p>
+				{/if}
 
-			<p>
-				<label class="login">{translate key='Language'}<br/>
-					<select {formname key='LANGUAGE'} class="input-small" id="languageDropDown">
-					{object_html_options options=$Languages key='GetLanguageCode' label='GetDisplayName' selected=$SelectedLanguage}
-					</select>
-			</p>
+				{if $ShowPasswordPrompt}
+				<p>
+					<label class="login">{translate key='Password'}<br/>
+					{textbox type="password" name="PASSWORD" class="input" value="" size="20" tabindex="20"}</label>
+				</p>
+				{/if}
 
-			{if $ShowPersistLoginPrompt}
-			<p class="stayloggedin">
-				<label class="login"><input type="checkbox" name="{FormKeys::PERSIST_LOGIN}" value="true"
-											tabindex="30"/> {translate key='RememberMe'}</label>
+				<p>
+					<label class="login">{translate key='Language'}<br/>
+						<select {formname key='LANGUAGE'} class="input-small" id="languageDropDown">
+						{object_html_options options=$Languages key='GetLanguageCode' label='GetDisplayName' selected=$SelectedLanguage}
+						</select>
+				</p>
 
-			</p>
-			{/if}
+				{if $ShowPersistLoginPrompt}
+				<p class="stayloggedin">
+					<label class="login"><input type="checkbox" name="{FormKeys::PERSIST_LOGIN}" value="true"
+												tabindex="30"/> {translate key='RememberMe'}</label>
 
-			<p class="loginsubmit">
-				<button type="submit" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img
-						src="img/door-open-in.png"/> {translate key='LogIn'} </button>
-				<input type="hidden" name="{FormKeys::RESUME}" value="{$ResumeUrl}"/>
-			</p>
-		</div>
-		<div style="clear:both;">&nbsp;</div>
-	{if $ShowRegisterLink}
-		<h4 class="register">
-			{translate key='FirstTimeUser?'}
-			<a href="{$RegisterUrl}" {$RegisterUrlNew}>{translate key='CreateAnAccount'}</a>
-		</h4>
-	{/if}
-	</form>
+				</p>
+				{/if}
+
+				<p class="loginsubmit">
+					<button type="submit" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img
+							src="img/door-open-in.png"/> {translate key='LogIn'} </button>
+					<input type="hidden" name="{FormKeys::RESUME}" value="{$ResumeUrl}"/>
+				</p>
+			</div>
+			<div style="clear:both;">&nbsp;</div>
+		
+		</form>
+	</div>
 </div>
+
+
+</div>
+
 
 <div id="login-links">
 	<p>
@@ -79,9 +90,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<a href="view-schedule.php">{translate key='ViewSchedule'}</a>
 		{/if}
 		{if $ShowScheduleLink && $ShowForgotPasswordPrompt}|{/if}
-		{if $ShowForgotPasswordPrompt}
-			<a href="{$ForgotPasswordUrl}" {$ForgotPasswordUrlNew}>{translate key='ForgotMyPassword'}</a>
-		{/if}
+		
 	</p>
 </div>
 

@@ -43,11 +43,11 @@ $conf['settings']['registration.captcha.enabled'] = 'false';     // recommended.
 $conf['settings']['registration.require.email.activation'] = 'false';		// requires enable.email = true
 $conf['settings']['registration.auto.subscribe.email'] = 'false';			// requires enable.email = true
 $conf['settings']['registration.notify.admin'] = 'false';		// whether the registration of a new user sends an email to the admin (ala phpScheduleIt 1.2)
-$conf['settings']['inactivity.timeout'] = '30';     			// minutes before the user is automatically logged out
+$conf['settings']['inactivity.timeout'] = '';     			// minutes before the user is automatically logged out (8/3/2016)
 $conf['settings']['name.format'] = '{first} {last}';     		// display format when showing user names
 $conf['settings']['css.extension.file'] = ''; 			      	// full or relative url to an additional css file to include. this can be used to override the default style
 $conf['settings']['disable.password.reset'] = 'false'; 	      	// if the password reset functionality should be disabled
-$conf['settings']['home.url'] = 'http://www.uniovi.es/'; 	      					// the url to open when the logo is clicked
+$conf['settings']['home.url'] = 'http://localhost/booked/Web'; 	      					// the url to open when the logo is clicked
 $conf['settings']['logout.url'] = ''; 	      					// the url to be directed to after logging out
 $conf['settings']['default.homepage'] = '3'; 	      			// the default homepage to use when new users register (1 = Dashboard, 2 = Schedule, 3 = My Calendar, 4 = Resource Calendar)
 
@@ -122,7 +122,7 @@ $conf['settings']['phpmailer']['smtp.debug'] = 'false';
 /**
  * Plugin configuration.  For more on plugins, see readme_installation.html
  */
-$conf['settings']['plugins']['Authentication'] = 'ldap';		//My code
+$conf['settings']['plugins']['Authentication'] = '';		//My code
 $conf['settings']['plugins']['Authorization'] = '';
 $conf['settings']['plugins']['Permission'] = '';
 $conf['settings']['plugins']['PostRegistration'] = '';

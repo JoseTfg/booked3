@@ -339,6 +339,9 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$selectedScheduleId = $this->page->GetScheduleId();
 		$selectedSchedule = $this->GetDefaultSchedule($schedules);
 		$selectedResourceId = $this->page->GetResourceId();
+		
+		//MyCode
+		$selectedResourceIdA = $this->page->GetResourceArrayId();		
 
 		$resourceGroups = $this->resourceService->GetResourceGroups($selectedScheduleId, $userSession);
 
@@ -361,9 +364,25 @@ class PersonalCalendarPresenter extends ActionPresenter
 		}
 
 		$calendar = $this->calendarFactory->Create($type, $year, $month, $day, $timezone, $selectedSchedule->GetWeekdayStart());
+		
+		//MyCode
+		//$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1), $userSession->UserId,
+		//																 ReservationUserLevel::ALL, $selectedScheduleId, $selectedResourceId);
+		//$calendar->AddReservations(CalendarReservation::FromViewList($reservations, $timezone, $userSession, true));
+		
+		if (is_array($selectedResourceIdA) || is_object($selectedResourceIdA)){
+		foreach ($selectedResourceIdA as $selectedResourceId){
 		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1), $userSession->UserId,
-																		 ReservationUserLevel::ALL, $selectedScheduleId, $selectedResourceId);
-		$calendar->AddReservations(CalendarReservation::FromViewList($reservations, $timezone, $userSession, true));
+		 ReservationUserLevel::ALL, $selectedScheduleId, $selectedResourceId);
+		 $calendar->AddReservations(CalendarReservation::FromViewList($reservations, $timezone, $userSession, true));
+		}
+		}
+		else{
+		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1), $userSession->UserId,
+		 ReservationUserLevel::ALL, $selectedScheduleId, 0);
+		 $calendar->AddReservations(CalendarReservation::FromViewList($reservations, $timezone, $userSession, true));
+		}
+		
 		$this->page->BindCalendar($calendar);
 
 		$this->page->SetDisplayDate($calendar->FirstDay());
@@ -418,6 +437,12 @@ class PersonalCalendarPresenter extends ActionPresenter
 
 		//Calendar is personal
 		$myCal = true;
+		
+		//MyCode 14/3/2016
+		$username = $_SESSION['username'];
+		$password = $_SESSION['password'];
+		$this->page->Set('username', $username);
+		$this->page->Set('password', $password);	
 		
 		//Setting values
 		$this->page->BindSchedules($schedules, $layouts, $sourceSchedules, $minTime, $maxTime, $myCal);

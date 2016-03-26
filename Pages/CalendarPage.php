@@ -322,6 +322,19 @@ class CalendarPage extends SecurePage implements ICalendarPage
 		$this->Set('TimezoneValues', $timezoneValues);
 		$this->Set('TimezoneOutput', $timezoneOutput);
 	}
+	
+	//MyCode 14/3/2016
+	public function GetResourceArrayId()
+	{
+		$name = 'rid';
+		if (isset($_GET[$name]))
+			{
+				$value = explode(",", $_GET[$name]);
+				return $value;
+				
+			}
+        return null;
+	}
 }
 
 class CalendarUrl

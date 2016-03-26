@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 01:12:41
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-26 15:50:17
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\globalheader.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1485556d62ff94eb903-58873122%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1173156f6a1a9a113f4-19978818%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '72f54f414668abf7f364d4573aac5820d4720af2' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\globalheader.tpl',
-      1 => 1456877548,
+      1 => 1458997480,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1485556d62ff94eb903-58873122',
+  'nocache_hash' => '1173156f6a1a9a113f4-19978818',
   'function' => 
   array (
   ),
@@ -38,9 +38,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'HomeUrl' => 0,
     'LoggedIn' => 0,
     'UserName' => 0,
-    'ShowParticipation' => 0,
     'CanViewAdmin' => 0,
-    'EnableConfigurationPage' => 0,
     'CanViewResponsibilities' => 0,
     'CanViewGroupAdmin' => 0,
     'CanViewResourceAdmin' => 0,
@@ -49,9 +47,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56d62ff95fd046_21090666',
+  'unifunc' => 'content_56f6a1a9aefea1_30416361',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56d62ff95fd046_21090666')) {function content_56d62ff95fd046_21090666($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_56f6a1a9aefea1_30416361')) {function content_56f6a1a9aefea1_30416361($_smarty_tpl) {?><!DOCTYPE html>
 
 <html lang="<?php echo $_smarty_tpl->tpl_vars['HtmlLang']->value;?>
 " dir="<?php echo $_smarty_tpl->tpl_vars['HtmlTextDirection']->value;?>
@@ -137,163 +135,105 @@ $_smarty_tpl->tpl_vars['cssFile']->_loop = true;
 			initMenu();
 		});
 	</script>
+	<link rel="stylesheet" type="text/css" href="css/propio.css">
 </head>
 <body class="<?php echo $_smarty_tpl->tpl_vars['bodyClass']->value;?>
 ">
 <div id="wrapper">
 	<div id="doc">
-		<div id="logo"><a href="<?php echo $_smarty_tpl->tpl_vars['HomeUrl']->value;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>((string)$_smarty_tpl->tpl_vars['LogoUrl']->value)),$_smarty_tpl);?>
+		<div id="logo"><a href="http://www.uniovi.es/"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>((string)$_smarty_tpl->tpl_vars['LogoUrl']->value)),$_smarty_tpl);?>
 </a></div>
 		<div id="header">
 			<div id="header-top">
+<table id="HeaderTable">
+<tr>
+<td>		
+<td>
+
+
+	<div ><a href="<?php echo $_smarty_tpl->tpl_vars['HomeUrl']->value;?>
+"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>((string)$_smarty_tpl->tpl_vars['Logo2']->value)),$_smarty_tpl);?>
+</a></div>
+
+
+
+</td>
+	
 				<div id="signout">
 					<?php if ($_smarty_tpl->tpl_vars['LoggedIn']->value) {?>
 						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"SignedInAs"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->tpl_vars['UserName']->value;?>
-
+ <div id="HeaderUserName"><?php echo $_smarty_tpl->tpl_vars['UserName']->value;?>
+</div>		
 						<br/>
 						<a
 								href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 logout.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"SignOut"),$_smarty_tpl);?>
 </a>
 					<?php } else { ?>
-						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"NotSignedIn"),$_smarty_tpl);?>
-
+						<div id="HeaderNotSignedIn"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"NotSignedIn"),$_smarty_tpl);?>
+</div>
 						<br/>
 						<a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 index.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"LogIn"),$_smarty_tpl);?>
 </a>
 					<?php }?>
-				</div>
+				</div>				
+</td>
+</tr>
+</table>  
 			</div>
 			<div>
 				<ul id="nav" class="menubar">
 					<?php if ($_smarty_tpl->tpl_vars['LoggedIn']->value) {?>
-						<li class="menubaritem first"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::DASHBOARD;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Dashboard"),$_smarty_tpl);?>
-</a></li>
-						<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::PROFILE;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"MyAccount"),$_smarty_tpl);?>
-</a>
-							<ul>
-								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::PROFILE;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Profile"),$_smarty_tpl);?>
-</a></li>
-								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::PASSWORD;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ChangePassword"),$_smarty_tpl);?>
-</a></li>
-								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::NOTIFICATION_PREFERENCES;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"NotificationPreferences"),$_smarty_tpl);?>
-</a></li>
-								<?php if ($_smarty_tpl->tpl_vars['ShowParticipation']->value) {?>
-									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::PARTICIPATION;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"OpenInvitations"),$_smarty_tpl);?>
-</a></li><?php }?>
-							</ul>
-						</li>
-						<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::MY_CALENDAR;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"MyCalendar"),$_smarty_tpl);?>
-</a>
-							<ul>
-								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::SCHEDULE;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Bookings"),$_smarty_tpl);?>
-</a></li>
-								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::MY_CALENDAR;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"MyCalendar"),$_smarty_tpl);?>
-</a></li>
-								<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-<?php echo Pages::CALENDAR;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ResourceCalendar"),$_smarty_tpl);?>
-</a></li>
-							</ul>
-						</li>
 						<?php if ($_smarty_tpl->tpl_vars['CanViewAdmin']->value) {?>
-							<li class="menubaritem"><a href="#"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ApplicationManagement'),$_smarty_tpl);?>
-</a>
-								<ul>
-									<li class="menuitem"><a
-												href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+							<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_reservations.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageReservations"),$_smarty_tpl);?>
 </a>
-										<ul>
-											<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+								<ul>
+									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_blackouts.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageBlackouts"),$_smarty_tpl);?>
-</a></li>
-										</ul>
+</a></li>										
+								</ul>
 									</li>
-									<li class="menuitem"><a
-												href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-admin/manage_schedules.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageSchedules"),$_smarty_tpl);?>
-</a></li>
-									<li class="menuitem"><a
-												href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+							<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_resources.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageResources"),$_smarty_tpl);?>
 </a>
-										<ul>
-											<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+								<ul>
+									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_resource_groups.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageGroups"),$_smarty_tpl);?>
 </a></li>
-											<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_accessories.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageAccessories"),$_smarty_tpl);?>
 </a></li>
-											<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-admin/manage_resource_types.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageResourceTypes"),$_smarty_tpl);?>
-</a></li>
-											<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-admin/manage_resource_status.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageResourceStatus"),$_smarty_tpl);?>
-</a></li>
-										</ul>
+								</ul>
 									</li>
-									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+							<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_users.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageUsers"),$_smarty_tpl);?>
-</a></li>
+</a>
+								<ul>
 									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_groups.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageGroups"),$_smarty_tpl);?>
 </a></li>
 									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_quotas.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageQuotas"),$_smarty_tpl);?>
 </a></li>
-									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+								</ul>
+								</li>
+							<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_announcements.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageAnnouncements"),$_smarty_tpl);?>
 </a></li>
-									<li class="menuitem"><a href="#"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Customization"),$_smarty_tpl);?>
+							<li class="menubaritem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+admin/manage_configuration.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Customization"),$_smarty_tpl);?>
 </a>
-										<ul>
-											<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+								<ul>
+									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_attributes.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Attributes"),$_smarty_tpl);?>
 </a></li>
-											<?php if ($_smarty_tpl->tpl_vars['EnableConfigurationPage']->value) {?>
-												<li class="menuitem"><a
-														href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-admin/manage_configuration.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageConfiguration"),$_smarty_tpl);?>
-</a></li>
-											<?php }?>
-											<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_theme.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"LookAndFeel"),$_smarty_tpl);?>
 </a></li>
-										</ul>
-									</li>
-									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-admin/server_settings.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ServerSettings"),$_smarty_tpl);?>
-</a></li>
 								</ul>
-							</li>
+									</li>
 						<?php }?>
 						<?php if ($_smarty_tpl->tpl_vars['CanViewResponsibilities']->value) {?>
 							<li class="menubaritem"><a href="#"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Responsibilities'),$_smarty_tpl);?>
@@ -358,22 +298,12 @@ reports/<?php echo Pages::REPORTS_COMMON;?>
 						<?php }?>
 					<?php }?>
 					<li class="menubaritem help"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-help.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Help'),$_smarty_tpl);?>
-</a>
-						<ul>
-							<li><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-help.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Help'),$_smarty_tpl);?>
-</a></li>
-							<?php if ($_smarty_tpl->tpl_vars['CanViewAdmin']->value) {?>
-								<li><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-help.php?ht=admin"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Administration'),$_smarty_tpl);?>
-</a></li>
-							<?php }?>
-							<li><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 help.php?ht=about"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'About'),$_smarty_tpl);?>
 </a></li>
-						</ul>
-					</li>
+					<li class="menubaritem help"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
+help.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Help'),$_smarty_tpl);?>
+</a>	</li>
+
 				</ul>
 			</div>
 			<!-- end #nav -->

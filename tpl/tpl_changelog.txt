@@ -65,17 +65,12 @@ My Work:
 -saved-reports.tpl			Unchanged
 -approve.tpl				Unchanged
 -attachment-error.tpl			Unchanged
--create.tpl				Unchanged
--edit.tpl				Unchanged
 -participation.tpl			Unchanged
 -private-participation.tpl		Unchanged
--view.tpl				Unchanged
 -dashboard.tpl				Unchanged
 -error.tpl				Unchanged
 -forgot_pwd.tpl				Unchanged
--globalfooter.tpl			Unchanged
 -json_data.tpl				Unchanged
--login.tpl				Unchanged
 -maintenance.tpl			Unchanged
 -notification-preferences.tpl		Unchanged
 -openings.tpl				Unchanged
@@ -109,3 +104,26 @@ Changes:
 -schedule-week-condensed.tpl:		No longer in use.
 
 -view-schedule.tpl:
+
+8/3/2016
+
+-globalfooter.tpl:			Now display announcements while logged in.
+-globalheader.tpl			Now display 2 logos, one of them is homepage.
+
+12/3/2016
+
+-login.tpl				Removed "forgot password".
+					Now shows RSS feed in login page.
+
+-create.tpl				Several changes in structure. Removed participation.
+-edit.tpl				Several changes in structure. Removed participation.
+-view.tpl				Several changes in structure. Removed participation.
+
+13/3/2016
+
+-calendar.filter.tpl:			Now itnroduces a new multiselect list.
+
+15/3/2016
+
+-mycalendar.common.tpl:			Pass OwnerName parameter from presenter.
+-calendar.common.tpl:			Pass ResourceName parameter from presenter.

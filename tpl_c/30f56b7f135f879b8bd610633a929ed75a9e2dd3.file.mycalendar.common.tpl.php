@@ -1,25 +1,22 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-02 01:12:41
+<?php /* Smarty version Smarty-3.1.16, created on 2016-03-26 15:50:17
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Calendar\mycalendar.common.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:649356d62ff9633b52-41421931%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2048956f6a1a9b61348-48146438%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '30f56b7f135f879b8bd610633a929ed75a9e2dd3' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\Calendar\\mycalendar.common.tpl',
-      1 => 1456495804,
+      1 => 1459003808,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '649356d62ff9633b52-41421931',
+  'nocache_hash' => '2048956f6a1a9b61348-48146438',
   'function' => 
   array (
   ),
   'variables' => 
   array (
-    'IsSubscriptionAllowed' => 0,
-    'IsSubscriptionEnabled' => 0,
-    'SubscriptionUrl' => 0,
     'Calendar' => 0,
     'reservation' => 0,
     'view' => 0,
@@ -37,36 +34,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'minTime' => 0,
     'maxTime' => 0,
     'myCal' => 0,
+    'username' => 0,
+    'password' => 0,
     'ResourceGroupsAsJson' => 0,
     'SelectedGroupNode' => 0,
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56d62ff96955e2_24666291',
+  'unifunc' => 'content_56f6a1a9bbef56_40695254',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56d62ff96955e2_24666291')) {function content_56d62ff96955e2_24666291($_smarty_tpl) {?>
-<div class="calendar-subscription">
-<?php if ($_smarty_tpl->tpl_vars['IsSubscriptionAllowed']->value) {?>
-	<a href="#" id="turnOffSubscription"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"switch-minus.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'TurnOffSubscription'),$_smarty_tpl);?>
-</a>
-	<?php if ($_smarty_tpl->tpl_vars['IsSubscriptionEnabled']->value) {?>
-		<a id="subscribeTocalendar" href="<?php echo $_smarty_tpl->tpl_vars['SubscriptionUrl']->value;?>
-"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"calendar-share.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'SubscribeToCalendar'),$_smarty_tpl);?>
-</a>
-		<br/>URL: <span class="note"><?php echo $_smarty_tpl->tpl_vars['SubscriptionUrl']->value;?>
-</span>
-	<?php } else { ?>
-		<span class="note"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'SubscriptionsAreDisabled'),$_smarty_tpl);?>
-</span>
-	<?php }?>
-<?php } else { ?>
-	<a href="#" id="turnOnSubscription"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"switch-plus.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'TurnOnSubscription'),$_smarty_tpl);?>
-</a>
-<?php }?>
-</div>
+<?php if ($_valid && !is_callable('content_56f6a1a9bbef56_40695254')) {function content_56f6a1a9bbef56_40695254($_smarty_tpl) {?>
 
 <div id="calendar"></div>
 
@@ -81,6 +58,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/edit.js"),$_smarty_tpl);?>
 
 <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"js/tree.jquery.js"),$_smarty_tpl);?>
+
+
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"js/moment.min.js"),$_smarty_tpl);?>
+
 
 
 <script type="text/javascript">
@@ -109,6 +90,8 @@ $_smarty_tpl->tpl_vars['reservation']->_loop = true;
 			textColor: '<?php echo $_smarty_tpl->tpl_vars['reservation']->value->TextColor;?>
 ',
 			className: '<?php echo $_smarty_tpl->tpl_vars['reservation']->value->Class;?>
+',
+			colorID:'<?php echo $_smarty_tpl->tpl_vars['reservation']->value->ResourceName;?>
 '
 		});
 	<?php } ?>
@@ -154,6 +137,10 @@ $_smarty_tpl->tpl_vars['reservation']->_loop = true;
 					maxTime: '<?php echo $_smarty_tpl->tpl_vars['maxTime']->value;?>
 ',
 					myCal: '<?php echo $_smarty_tpl->tpl_vars['myCal']->value;?>
+',
+					username: '<?php echo $_smarty_tpl->tpl_vars['username']->value;?>
+',
+					password: '<?php echo $_smarty_tpl->tpl_vars['password']->value;?>
 '
 				};
 

@@ -173,7 +173,11 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 				$this->Set('Resources', $reservation->AllResources());
 				$this->Set('Instances', $reservation->Instances());
 				$this->Set('Timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);
-				$this->Display('Ajax/reservation/save_successful.tpl');
+				//$this->Display('Ajax/reservation/save_successful.tpl');
+				$returnPage = $_SESSION['returnPage'];
+				echo "<script type=\"text/javascript\">
+				window.location = '$returnPage';
+				</script>";  
 			}
 			else
 			{

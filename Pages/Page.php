@@ -26,6 +26,9 @@ require_once(ROOT_DIR . 'lib/Common/namespace.php');
 require_once(ROOT_DIR . 'lib/Server/namespace.php');
 require_once(ROOT_DIR . 'lib/Config/namespace.php');
 
+//MyCode 8/3/2016
+require_once(ROOT_DIR . 'Domain/Access/namespace.php');
+
 abstract class Page implements IPage
 {
 	/**
@@ -120,6 +123,15 @@ abstract class Page implements IPage
 		}
 		$this->smarty->assign('HomeUrl', $logoUrl);
 		$this->smarty->assign('GoogleAnalyticsTrackingId', Configuration::Instance()->GetSectionKey(ConfigSection::GOOGLE_ANALYTICS, ConfigKeys::GOOGLE_ANALYTICS_TRACKING_ID));
+	
+		//MyCode 8/3/2016
+		$this->_announcements = $announcements;
+		if (is_null($announcements))
+		{
+			$this->_announcements = new AnnouncementRepository();
+		}
+		$this->smarty->assign('Announcements', $this->GetFuture());
+		$this->smarty->assign('Logo2', 'booked_prueba.png');
 	}
 
 	protected function SetTitle($title)
@@ -396,4 +408,21 @@ abstract class Page implements IPage
 			header('Content-Security-Policy: ' . $config->GetSectionKey(ConfigSection::SECURITY, ConfigKeys::SECURITY_CONTENT_SECURITY_POLICY));
 		}
 	}
+	
+	//MyCode 8/3/2016
+	public function GetFuture()
+    {
+        $announcements = array();
+
+        $reader = ServiceLocator::GetDatabase()->Query(new GetDashboardAnnouncementsCommand(Date::Now()));
+
+        while ($row = $reader->GetRow())
+        {
+            $announcements[] = $row[ColumnNames::ANNOUNCEMENT_TEXT];
+        }
+
+        $reader->Free();
+
+        return $announcements;
+    }
 }

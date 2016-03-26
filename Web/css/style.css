@@ -36,7 +36,7 @@ h1 {
 .button {
 	display: inline;
 	margin: 0 7px 0 0;
-	background-color: #f0f0f0;
+	background-color: #FFFFFF;	/*MyCode*/
 	border: 1px solid #bbb;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
@@ -150,6 +150,9 @@ div.error li {
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -40px;
+	/*background-image: url("aa.jpg");	  MyCode*/ 
+	background-repeat: repeat-x;		/*MyCode*/
+	background-position: center; 		/*MyCode*/
 }
 
 div.page-footer {
@@ -162,8 +165,9 @@ div.page-footer {
 	background: url(../img/footer-gradient.png) repeat;
 	padding-top: 1px;
 	border-top: solid 1px #333333;
-	font-size: 8pt;
+	font-size: 12pt;
 	font-weight: normal;
+	font-style: oblique;					/* My Code */
 }
 
 div.push {
@@ -263,7 +267,7 @@ form.box-form li {
 	padding: 3px;
 	margin: 2px 6px 20px 0;
 	border: 1px solid #e0e0e0;
-	background: #fbfbfb;
+	background: #FFFFFF;		/*MyCode*/
 	color: #777
 }
 
@@ -273,7 +277,7 @@ form.box-form li {
 	padding: 3px;
 	margin: 2px 6px 20px 0;
 	border: 1px solid #e0e0e0;
-	background: #fbfbfb;
+	background: #FFFFFF;		/*MyCode*/
 	color: #777
 }
 

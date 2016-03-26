@@ -77,10 +77,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{translate key='Update'}
 		</button>
 	{/if}
-	<button type="button" class="button btnPrint">
-		<img src="img/printer.png" />
-		{translate key='Print'}
-	</button>
 {/block}
 
 {block name="ajaxMessage"}

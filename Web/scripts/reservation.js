@@ -312,7 +312,8 @@ function Reservation(opts)
 					resourceIdHdn.val(checkedResourceId);
 					return true;
 				}
-				displayDiv.append('<p><a href="#" class="resourceDetails">' + checkedResourceName + '</a><input class="resourceId" type="hidden" name="additionalResources[]" value="' + checkedResourceId + '"/></p>');
+				//MyCode
+				displayDiv.append('<p><a>' + checkedResourceName + '</a><input class="resourceId" type="hidden" name="additionalResources[]" value="' + checkedResourceId + '"/></p>');
 			});
 
 		}
