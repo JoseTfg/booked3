@@ -62,7 +62,9 @@ class Date
 		$this->timezone = $timezone;
 		if (empty($timezone))
 		{
-			$this->timezone = date_default_timezone_get();
+			//MyCode (29/3/2016)
+			//Prevents warnings from timezone.
+			$this->timezone = 'Europe/Madrid'; 
 		}
 	}
 

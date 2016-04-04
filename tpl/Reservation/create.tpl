@@ -52,12 +52,24 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             </button>
         </li>
     </ul>
-    <ul class="no-style">
+    <ul class="no-style" style="text-align: center">
         <li class="inline">
-            <div>
+			
+		<label for="calendarFilter"></label>
+		<select id="calendarFilter">
+		{foreach from=$AvailableResources item=resource}
+			<option value="{$resource->Id}">{$resource->Name}</option>
+		{/foreach}
+		</select>
+		
+		
+		<input id="resourceId" class="resourceId" type="hidden" {formname key=RESOURCE_ID} value="{$ResourceId}"/>
+		<input type="hidden" id="scheduleId" {formname key=SCHEDULE_ID} value="{$ScheduleId}"/>
+		
+{*
+			<div>
                 <div style="float:left;">
                     <label>{translate key="ResourceList"}</label><br/>
-
                     <div id="resourceNames" style="display:inline">
                         <a>{$ResourceName}</a>
                         <input class="resourceId" type="hidden" {formname key=RESOURCE_ID} value="{$ResourceId}"/>
@@ -74,18 +86,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{/foreach}
                     </div>
                 </div>
-                <div style="float:right;">
-				{if $AvailableAccessories|count > 0}
-                    <label>{translate key="Accessories"}</label>
-                    <a href="#" id="addAccessoriesPrompt" class="small-action">{html_image src="plus-small-white.png"}</a>
-
-                    <div id="accessories"></div>
-				{/if}
-                </div>
+                
             </div>
             <div style="clear:both;height:0;">&nbsp;</div>
+*}
         </li>
         <li style="text-align: center">
+		<br/>
             <label for="BeginDate" class="reservationDate">{translate key='BeginDate'}</label>
             <input type="text" id="BeginDate" class="dateinput" value="{formatdate date=$StartDate}"/>
             <input type="hidden" id="formattedBeginDate" {formname key=BEGIN_DATE}
@@ -122,7 +129,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/foreach}
             </select>
         </li>
-        <li id="yo">
+        <li style="text-align: center">
             <div class="durationText">
                 <span id="durationHours">0</span> {translate key=hours}
             </div>
@@ -145,7 +152,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         </li>
         <li class="rsv-box-l">
             <label>{translate key="ReservationDescription"}<br/>
-                <textarea id="description" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52"
+                <textarea id="description" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="resize:vertical;"
                           tabindex="110">{$Description}</textarea>
             </label>
         </li>
@@ -348,7 +355,22 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="reservation-reminder.js"}
 {jsfile src="js/tree.jquery.js"}
 
+
+{*MyCode*}
+<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.filter.css" />
+<link rel="stylesheet" type="text/css" href="prueba3/assets/style.css" />
+<link rel="stylesheet" type="text/css" href="prueba3/assets/prettify.css" />
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+{jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}
+{jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}
+{jsfile src="prueba3/src/jquery.multiselect.js"}
+{jsfile src="prueba3/assets/prettify.js"}
+{jsfile src="prueba3/src/jquery.multiselect.filter.js"}
+
 <script type="text/javascript">
+
+var isOpenedFirstTime = true;
 
     $(document).ready(function ()
     {
@@ -423,6 +445,38 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	$('#description').TextAreaExpander();
 
 	$('#userName').bindUserDetails();
+
+
+$('#calendarFilter').multiselect({
+			header: false,
+			multiple: false,
+			selectedList: 1,
+			autoOpen: true,
+			open: function(){		   
+			  if (isOpenedFirstTime){
+				 $('#calendarFilter').multiselect("close");
+			  }		
+			},
+			 close: function(event, ui){
+			 if (isOpenedFirstTime){
+				isOpenedFirstTime = false;
+				var url = document.URL;
+				rid = url.substr(url.indexOf("rid"));
+				if (rid.indexOf("&") != -1){
+					rid = rid.substr(0,rid.indexOf("&"));
+					}
+				  rid = rid.substr(4);
+				  $(this).val(rid);
+				  $(this).multiselect("refresh");
+				}
+			else{
+				$ResourceId = $(this).val();
+				document.getElementById("resourceId").value = $ResourceId;
+				}
+			}
+		});
+
+	
 });
 </script>
 

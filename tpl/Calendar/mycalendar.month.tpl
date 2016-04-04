@@ -29,9 +29,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 
 	<div style="float:right;">
-		<a href="{PersonalCalendarUrl::Create($Today, CalendarTypes::Day)}" alt="Today" title="Today">{translate key=Today} {html_image src="calendar-day.png"}</a>
-		<a href="{PersonalCalendarUrl::Create($Today, CalendarTypes::Week)}" alt="Week" title="Week">{translate key=Week} {html_image src="calendar-select-week.png"}</a>
-		<a href="{PersonalCalendarUrl::Create($DisplayDate, CalendarTypes::Month)}" alt="View Month" title="View Month">{translate key=Month} {html_image src="calendar-select-month.png"}</a>
+		<a href="#" id="goToday" alt="Today" title="Today">{translate key=Today} {html_image src="calendar-day.png"}</a>
+		<a href="#" id="goList" alt="List" title="List">Lista {html_image src="calendar-select-month.png"}</a>
+		<a href="#" id="goDay" alt="Today" title="Today">Dia {html_image src="calendar-day.png"}</a>
+		<a href="#" id="goWeek" alt="Week" title="Week">{translate key=Week} {html_image src="calendar-select-week.png"}</a>
+		<a href="#" id="goMonth" alt="View Month" title="View Month">{translate key=Month} {html_image src="calendar-select-month.png"}</a>
 	</div>
 
 	<div class="clear">&nbsp;</div>

@@ -1,59 +1,86 @@
 function Calendar(opts, reservations)
 {
-	var _options = opts;
-	var _reservations = reservations;
+	//Variable Declaration
+	_options = opts;					//Options
+	_reservations = reservations;		//Events
 
-	var dayDialog = $('#dayDialog');
-	
-	//MyCode
-	var isOpenedFirstTime = true;
-	var userId = "";
-	var idArray = [];
-	var colorArray = [];
-
+	//Calendar init
 	Calendar.prototype.init = function()
 	{
+		//Calendar definition
 		$('#calendar').fullCalendar({
+			
+			//Header
 			header: '',
 			//center: 'today',
-        //right: 'prevYear,prev,agendaDay,agendaWeek,month,next,nextYear' // buttons for switching between views
-   //},	
+			//right: 'prevYear,prev,agendaDay,agendaWeek,month,next,nextYear' // buttons for switching between views
 			//editable: false,
+			
+			//View Options
 			defaultView: _options.view,
 			year: _options.year,
 			month: _options.month-1,
 			date: _options.date,
+			
+			//Events
 			events: _reservations,
 			eventRender: function(event, element) { 
 			element.attachReservationPopup(event.id);
-				if (idArray.indexOf(event.colorID) == -1){
-					idArray.push(event.colorID)
-					colorArray.push('#'+Math.floor(Math.random()*16777215).toString(16));	
-					$(element).css('background-color',colorArray[colorArray.length-1]);					
+			
+				//Color assign
+				if (colorArray.indexOf(event.colorID) == -1){
+					colorArray.push(event.colorID);					
+					document.getElementById('legend').innerHTML += "<input type='button' onchange=\"changeColor(this.id,this.value)\" id='"+event.colorID+"' class=\"jscolor\">"+event.colorID+'</input> &nbsp &nbsp &nbsp';
+					//document.getElementById(event.colorID).style.color = "#FFFFFF";
+					//document.getElementById(event.colorID).color.fromString("#FFFFFF");
+					//document.getElementById('prueba').innerHTML += "<button onclick=\"prueba3()\" id='"+event.colorID+"' class=\"jscolor {valueElement:'valueInput',onchange:'prueba3()',value:''}\">"+event.colorID+'</button> &nbsp &nbsp &nbsp';
+					//colorArray.push('#'+Math.floor(Math.random()*16777215).toString(16));	
+					
+					if (sessionStorage.getItem(event.colorID) != null){
+					$(element).css('background-color',"#"+sessionStorage.getItem(event.colorID));
+					document.getElementById(event.colorID).value = sessionStorage.getItem(event.colorID);					
+					}					
 				}
 				else{
-				colorPosition = idArray.indexOf(event.colorID);
-				$(element).css('background-color',colorArray[colorPosition]);
-				}
-			element.bind('mousedown', function (e) {
-			if (e.which == 3) {
-				$('#calendar').fullCalendar( 'removeEvents', event.id )
-			}
-			});				
-			},
-			dayRender: function(date, element) {			
-				element.bind('mousedown', function (e) {
-					if (e.which == 3) {
-						$(element).css('background-color','#C8C8C8');
+				if (sessionStorage.getItem(event.colorID) != null){
+					$(element).css('background-color',"#"+sessionStorage.getItem(event.colorID));	
 					}
-				});		
+				//colorPosition = idArray.indexOf(event.colorID);
+				//$(element).css('background-color',colorArray[colorPosition]);
+				}			
 			},
+			
+			
+			
+			//DayRender
+			//dayRender: function(date, element) {			
+			//	element.bind('mousedown', function (e) {
+			//		if (e.which == 3) {
+			//			$(element).css('background-color','#C8C8C8');
+			//		}
+			//	});		
+			//},
+			
+			//ClickEvents
 			dayClick: dayClick,
+			eventClick: function(event) {
+				//Obtains click data
+				mouseInput(null,null,event.id);
+				
+				//Reacts to double click
+				$(this).dblclick(function(){
+					window.location = event.refNumber;
+				});
+			},
+			
+			//Names
 			dayNames: _options.dayNames,
 			dayNamesShort: _options.dayNamesShort,
 			monthNames: _options.monthNames,
 			monthNamesShort: _options.monthNamesShort,
 			weekMode: 'variable',
+			
+			//Formats
 			timeFormat: _options.timeFormat,
 			columnFormat:  {
 				month: 'dddd',
@@ -61,23 +88,27 @@ function Calendar(opts, reservations)
 			    day: 'dddd ' + _options.dayMonth
 			},
 			axisFormat: _options.timeFormat,
+			
+			//Min and Max Time
 			firstDay: _options.firstDay,
 			minTime: _options.minTime,
 			maxTime: _options.maxTime,
 			
+			//Size
 			contentHeight: $(window).height() - 100,		//To make it smaller
 			//Width: contentHeight,
-			editable: true,
+			
+			//Sensitivity
+			editable: true,					// Is editable
 			//eventDurationEditable: true,
-            droppable: true, // this allows things to be dropped onto the calendar
-			
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			
-			//Making it selectable
-			selectable: true,
+            droppable: true, 				// Is droppable
+			disableResizing:true,
+			selectable: true,				// Is selectable
+
+			//Selection event
 			select: function (start, end, jsEvent, view) {
+				
+				//Variables
 				var sd = '';
 				var ed = '';
 				var url =  _options.dayClickUrl;
@@ -85,44 +116,60 @@ function Calendar(opts, reservations)
 				ed = getUrlFormattedDate(end);
 				addToUrl = "&sd=" + sd + "&ed=" + ed;
 				//var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + addToUrl;
-				var url = url + addToUrl;
-				
-				//Only in agendaDay
+				url = url + addToUrl;
+
+				//Checking the view.
 				var view = $('#calendar').fullCalendar('getView');
 				if (view.name.substr(0,6) == "agenda"){
 					//d = sd.substr(12,2).localeCompare(ed.substr(12,2));
 					//d = ed.substr(12,2) - sd.substr(12,2);
 					hourDifference = ed.slice(ed.lastIndexOf("%")+1,ed.lastIndexOf(":")) - sd.slice(sd.lastIndexOf("%")+1,sd.lastIndexOf(":"));
 					minDifference = sd.substr(15).localeCompare(ed.substr(15));
+					 
+					 //Checking if it was a single click.
 					 if (hourDifference == 0  || hourDifference == 1 && minDifference != 0){
 					 }
+					 
+					 //If it was a true selection, executes this code.
 					 else{
 						window.location = url;
 					}
 				}
+				
 			},
 			
+			//Drag Event
 			eventDragStop: function(event, jsEvent, ui, view) {
+			
+			//Variables
 			var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
 			var header = null;
 			var username = _options.username;
-			var password = _options.password;
+			var password = _options.password;			
+			
+			//API: Authentication
 			$.post(url, JSON.stringify({username: username, password: password}), function(data, status){
+					
+					//Authentication Successful.
 					if (data.isAuthenticated)
 						{
+							//Gets the data
 							header = {"X-Booked-SessionToken": data.sessionToken, "X-Booked-UserId": data.userId}
-							userId = data.userId;
-							
-							reservationID = event.url.substr(19);
+							userId = data.userId;							
+							reservationID = event.refNumber.substr(19);
 							url = [location.protocol, '//', location.host, "/booked/Web/Services/Reservations/",reservationID].join('');
 							
+							//API: GetReservation
 							$.ajax({
 							 url: url,
 							 type: "GET",
 							 headers: header,
 							 dataType: "json",
+							 
+							 //if Success
 							 success: function(data) {
-							 //c = data;
+							 
+							 //Gets the Data
 							 existingReservation = data;
 							 var request = {     
 								accessories: $.map(existingReservation.accessories, function (n)
@@ -154,52 +201,58 @@ function Calendar(opts, reservations)
 								userId: existingReservation.owner.userId,
 								startReminder: existingReservation.startReminder,
 								endReminder: existingReservation.endReminder
-							};
-							
-							 //alert(userId);
-							 //alert(existingReservation.owner.userId);
+							};	//request
 							 
-							 request.startDateTime = event.start.toISOString().substr(0,25)+"-0600";
-							 request.endDateTime = event.end.toISOString().substr(0,25)+"-0600";
+							 //Modifies
+							 var d = new Date(event.start);
+							 //d.setHours(d.getHours()+4);
+							 request.startDateTime = d.toISOString();
+							 var e = new Date(event.end);
+							 //e.setHours(e.getHours()+4);
+							 request.endDateTime = e.toISOString();
 							 
-							 //if (userId == existingReservation.owner.userId){}							 
+
+							 //request.startDateTime = event.start.toUTCString();
+							 //alert(event.start);
+							 //var a = event.start.toString().substr(0,21).toISOString();
+							 
+							//Check permissions
+							if (userId == existingReservation.owner.userId){
+							//if(false){
+								//API: Update Rservation
 								$.ajax({
 							 url: url,
 							 type: "POST",
 							 headers: header,
 							 data: JSON.stringify(request),
 							 dataType: "json",
+							 
+							 //if Success
 							 success: function(data) {
 								var type = viewGetter();
 								url = document.URL;
-								alert("Update Sucessful");
+								//$( "#dialog1" ).dialog('open');
 								window.location = url;
-							 },
-							 error: function (xhr, ajaxOptions, thrownError) {
-								var type = viewGetter();
-								url = document.URL;
-								url = url.substr(0,url.lastIndexOf("&"))+"&ct="+type;
-								alert("Cannot Update");
-								window.location = url;
-							  }
-						  });						  
-							 }
-						  });
-
-							
-						}
+							 }	//	(function) 	Update success
+						  });	//	(ajax) 		Update Reservation
+							}	// 	(if) 		Check Permissions
+							else{
+							url = document.URL;
+							window.location = url;}
+							 }, //	(function) 	Get Reservation success
+						  });	// 	(ajax)		Get Reservation							
+						}		//	(if) 		Authentication
 						else
 						{
 							alert(data.message);
 						}
-				}, "json" );
-				
+				}, "json" );	//	(ajax)		Authentication				
 		
-			}
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			}					//	(function)	EventDragStop	
 			
 		});
 
+		//Fullcalendar Widget Content
 		$('.fc-widget-content').hover(
 			function() {
 				$(this).addClass('hover');
@@ -210,130 +263,13 @@ function Calendar(opts, reservations)
 			}
 		);
 
+		//Reservation Popup
 		$(".reservation").each(function(index, value) {
 			var refNum = $(this).attr('refNum');
 			value.attachReservationPopup(refNum);
-		});
-
-		
-		//MyCode
-		$('#calendarFilter').multiselect({
-			beforeopen: function(){
-			if (isOpenedFirstTime == false){
-				$('#calendar').fullCalendar('destroy');
-				document.body.style.background = "url('css/loading.gif') no-repeat center";
-			}
-				//$(".ui-multiselect-all").hide();
-				//$(".ui-multiselect-none").hide();
-			},
-			header: true,
-			autoOpen: true,
-			selectedText: function () {
-				inputs = this.inputs;
-				checked = inputs.filter(':checked');
-				numChecked = checked.length;
-				return numChecked + ' selected';
-                },
-		   open: function(){		   
-			  if (isOpenedFirstTime){
-				 $('#calendarFilter').multiselect("close");
-			  }			
-				
-			  var url = document.URL;
-			  //Make an array
-			  if (url.indexOf("rid") == -1){
-				//no-op
-			  }
-			  else{
-			  ridArray = url.substr(url.indexOf("rid"));
-			  if (ridArray.indexOf("&") != -1){
-				ridArray = ridArray.substr(0,ridArray.indexOf("&"));
-			  }
-			  ridArray = ridArray.substr(4);
-			  var dataarray = ridArray.split(",");
-			  $(this).val(dataarray);
-			  $(this).multiselect("refresh");
-			  }
-		   },
-		   
-		   close: function(){
-			var day = getQueryStringValue('d');
-			var month = getQueryStringValue('m');
-			var year = getQueryStringValue('y');
-			var type = getQueryStringValue('ct');
-			var scheduleId = '';
-			var resourceId = '';
-
-			resourceId = '&rid=' + $(this).val();
-
-
-			var url = [location.protocol, '//', location.host, location.pathname].join('');
-			url = url + '?ct=' + type + '&d=' + day + '&m=' + month + '&y=' + year + '&sid=' + resourceId;			
-			
-			if (isOpenedFirstTime){
-				isOpenedFirstTime = false;
-				}
-				else{
-			window.location = url;		
-			}			
-			
-			},
-			selectedList: 4		
-		}).multiselectfilter();
-		
-		//$('#calendarFilter').multiselect().multiselectfilter();
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		//OnOff Switch
-		$('#myonoffswitch').change(function() {
-			var day = getQueryStringValue('d');
-			var month = getQueryStringValue('m');
-			var year = getQueryStringValue('y');
-			var type = getQueryStringValue('ct');
-
-			//Redirect to correct url
-			if (_options.myCal == 1){
-				var url = [location.protocol, '//', location.host, '/booked/Web/calendar.php'].join('');
-			}
-			else{
-				var url = [location.protocol, '//', location.host, '/booked/Web/my-calendar.php'].join('');
-			}
-			
-			//Send to url
-			url = url + '?ct=' + type + '&d=' + day + '&m=' + month + '&y=' + year;			
-			window.location = url;
-		});
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        $('#turnOffSubscription').click(function(e){
-            e.preventDefault();
-            PerformAsyncAction($(this), function(){return opts.subscriptionDisableUrl;});
-        });
-
-        $('#turnOnSubscription').click(function(e){
-            e.preventDefault();
-            PerformAsyncAction($(this), function(){return opts.subscriptionEnableUrl;});
-        });
-
-		dayDialog.find('a').click(function(e){
-			e.preventDefault();
-		});
-
-		$('#dayDialogCancel').click(function(e){
-			dayDialog.dialog('close');
-		});
-
-		$('#dayDialogView').click(function(e){
-			drillDownClick();
-		});
-
-		$('#dayDialogCreate').click(function(e){
-			openNewReservation();
-		});
-
+		});			
+       
+		//Resource Groups
 		$('#showResourceGroups').click(function(e){
 			e.preventDefault();
 
@@ -355,6 +291,7 @@ function Calendar(opts, reservations)
 		})
 	};
 
+	//BindResourceGroups
 	Calendar.prototype.bindResourceGroups = function(resourceGroups, selectedNode)
 	{
 		if (!resourceGroups || resourceGroups.length == 0)
@@ -453,112 +390,8 @@ function Calendar(opts, reservations)
 		{
 			groupDiv.tree('openNode', groupDiv.tree('getNodeById', selectedNode));
 		}
-	};
+	};		//BindResourceGroups	
+}			//Calendar
 
-	var dateVar = null;
-
-	var dayClick = function(date, allDay, jsEvent, view)
-	{
-		dateVar = date;
-		myDayClick();		
-		return;
-
-		//Unused
-		if (!opts.reservable)
-		{
-			drillDownClick();
-			return;
-		}
-
-		if (view.name.indexOf("Day") > 0)
-		{
-			handleTimeClick();
-		}
-		else
-		{
-			dayDialog.dialog({modal: false, height: 70, width: 'auto'});
-			dayDialog.dialog("widget").position({
-						       my: 'left top',
-						       at: 'left bottom',
-						       of: jsEvent
-						    });
-		}
-	};
-
-	var handleTimeClick = function()
-	{
-		openNewReservation();
-	};
-
-	var drillDownClick = function()
-	{
-		var month =  dateVar.getMonth()+1;
-		var url =  _options.dayClickUrl;
-		url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate();
-
-		window.location = url;
-	};
-
-	//Unused
-	var openNewReservation = function(){
-		var end = new Date(dateVar);
-		end.setMinutes(dateVar.getMinutes()+30);
-
-		var url = _options.reservationUrl + "&sd=" + getUrlFormattedDate(dateVar) + "&ed=" + getUrlFormattedDate(end);
-
-		window.location = url;
-	};
-
-	var getUrlFormattedDate = function(d)
-	{
-		var month =  d.getMonth()+1;
-		return encodeURI(d.getFullYear() + "-" + month + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes());
-	}
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var myDayClick = function(){
-		var view = $('#calendar').fullCalendar('getView');
-		var month =  dateVar.getMonth()+1;
-		
-		//Redirect to correct view
-		if (view.name != "agendaDay"){
-			var url = [location.protocol, '//', location.host, location.pathname].join('');
-			if (view.name == "agendaWeek"){
-				type = "day";
-			}
-			else{
-				type = "week";
-			}
-			
-			//Send to url
-			url = url + '?d=' + dateVar.getDate() + '&m=' + month + '&y=' + dateVar.getFullYear() + '&ct=' + type;			
-			window.location = url;
-			}
-			
-		//Open reservation menu	
-		else{		
-			var url =  _options.dayClickUrl;
-			var end = new Date(dateVar);
-			end.setMinutes(dateVar.getMinutes()+30);
 
-			//Send to url
-			var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + "&sd=" + getUrlFormattedDate(dateVar) + "&ed=" + getUrlFormattedDate(end);
-			window.location = url;
-		}
-	};
-	
-	var viewGetter = function(){
-		var view = $('#calendar').fullCalendar('getView');
-		if (view.name == "agendaDay"){
-			return "day";
-		} else if (view.name == "agendaWeek") {
-			return "week";		
-		}
-		else{
-		return "month"}
-	};
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-}

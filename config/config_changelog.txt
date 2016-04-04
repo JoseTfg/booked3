@@ -1,8 +1,14 @@
-My Work:
+Unchanged:
 
--config.dist.php:	Unchanged
 -timezones.php:		Unchanged
--index.html:		Unchanged
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+Erased:
+
+-config.dist.php:
+-index.html:
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -41,3 +47,7 @@ $conf['settings']['api']['enabled'] = 'true';
 8/3/2016
 
 -config.php:		Session time expiration is now unlimited.
+
+30/3/2016
+
+-config.php:		Is generated automatically.

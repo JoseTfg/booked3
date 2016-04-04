@@ -26,7 +26,7 @@ require_once(ROOT_DIR . 'lib/Common/namespace.php');
 require_once(ROOT_DIR . 'lib/Server/namespace.php');
 require_once(ROOT_DIR . 'lib/Config/namespace.php');
 
-//MyCode 8/3/2016
+//MyCode (8/3/2016)
 require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 
 abstract class Page implements IPage
@@ -124,7 +124,8 @@ abstract class Page implements IPage
 		$this->smarty->assign('HomeUrl', $logoUrl);
 		$this->smarty->assign('GoogleAnalyticsTrackingId', Configuration::Instance()->GetSectionKey(ConfigSection::GOOGLE_ANALYTICS, ConfigKeys::GOOGLE_ANALYTICS_TRACKING_ID));
 	
-		//MyCode 8/3/2016
+		//MyCode (8/3/2016)
+		//This code allows showing a new logo and announcements in all pages.
 		$this->_announcements = $announcements;
 		if (is_null($announcements))
 		{
@@ -409,7 +410,8 @@ abstract class Page implements IPage
 		}
 	}
 	
-	//MyCode 8/3/2016
+	//MyCode (8/3/2016)
+	//This function allows getting the announcements to display.
 	public function GetFuture()
     {
         $announcements = array();

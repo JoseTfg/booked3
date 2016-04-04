@@ -38,6 +38,7 @@ class Time
 
     private function GetDate()
     {
+		date_default_timezone_set('Europe/Madrid');
     	$parts = getdate(strtotime("$this->_hour:$this->_minute:$this->_second"));
     	return new Date("{$parts['year']}-{$parts['mon']}-{$parts['mday']} $this->_hour:$this->_minute:$this->_second", $this->_timezone);
     }

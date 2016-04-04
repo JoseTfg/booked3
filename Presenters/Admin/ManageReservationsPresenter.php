@@ -239,7 +239,9 @@ class ManageReservationsPresenter extends ActionPresenter
 		{
 			return null;
 		}
-
+		
+		date_default_timezone_set('Europe/Madrid');
+		
 		$today = Date::Create(Date('Y'), Date('m'), Date('d'), 0, 0, 0, $timezone);
 		$diff = DateDiff::BetweenDates($today, $date);
 		return $diff->Days();

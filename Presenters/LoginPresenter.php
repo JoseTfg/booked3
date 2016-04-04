@@ -62,7 +62,8 @@ class LoginPresenter
 	{
 		if ($this->authentication->IsLoggedIn())
 		{
-			//MyCode 8/3/2016
+			//MyCode (8/3/2016)
+			//This code allows the connection with the API using the credentials input.
 			$id = $this->_page->GetEmailAddress();
 			$pass = $this->_page->GetPassword();
 			$_SESSION['username'] = $id;

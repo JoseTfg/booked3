@@ -26,7 +26,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div class="container">
    <div class="column-left">
-	<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=2&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+	<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
 	</div>
 	
    <div class="column-right">

@@ -231,7 +231,7 @@ abstract class ReservationPage extends Page implements IReservationPage
 							 )
 		);
 
-		$_SESSION['abc3'] = $_SERVER['HTTP_REFERER'];
+		$_SESSION['returnPage'] = $_SERVER['HTTP_REFERER'];
 		$this->Display($this->GetTemplateName());
 	}
 

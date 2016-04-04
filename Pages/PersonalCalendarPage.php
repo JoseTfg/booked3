@@ -18,11 +18,10 @@
  * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once(ROOT_DIR . 'Pages/IPageable.php');
 require_once(ROOT_DIR . 'Pages/SecurePage.php');
 require_once(ROOT_DIR . 'Presenters/Calendar/PersonalCalendarPresenter.php');
 
-interface IPersonalCalendarPage extends IActionPage, IPageable
+interface IPersonalCalendarPage extends IActionPage
 {
 	public function GetDay();
 
@@ -98,8 +97,6 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 		$resourceRepository = new ResourceRepository();
 		$resourceService = new ResourceService($resourceRepository, PluginManager::Instance()
 																				 ->LoadPermission(), new AttributeService(new AttributeRepository()), $userRepository);
-		$this->pageablePage = new PageablePage($this);
-		
 		$this->presenter = new PersonalCalendarPresenter(
 				$this,
 				new ReservationViewRepository(),
@@ -108,7 +105,8 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 				$userRepository,
 				$resourceService,
 				new ScheduleRepository(),
-				new ManageScheduleService(new ScheduleRepository(), new ResourceRepository()));
+				new Configurator()
+				);
 	}
 
 	public function ProcessPageLoad()
@@ -120,13 +118,17 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 		$this->Set('Today', Date::Now()->ToTimezone($user->Timezone));
 		$this->Set('TimeFormat', Resources::GetInstance()->GetDateFormat('calendar_time'));
 		$this->Set('DateFormat', Resources::GetInstance()->GetDateFormat('calendar_dates'));
-		
-		//MyCode
-		$this->Set('pruebaBlock', $this->server->GetForm(FormKeys::SLOTS_BLOCKED));
 		$daynames = Resources::GetInstance()->GetDays('full');
 		$this->Set('DayNames', $daynames);		
 		
-		$this->Display('Calendar/' . $this->template);
+		//MyCode (31/3/2016)
+		$somevar4 = $_GET["ct"]; 
+		if ($somevar4 == "list"){
+			$this->Display('Calendar/' . "mycalendar.list.tpl");
+		}
+		else{		
+		$this->Display('Calendar/' . $this->template);	
+		}		
 	}
 
 	public function GetDay()
@@ -155,12 +157,12 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 
 		$prev = $calendar->GetPreviousDate();
 		$next = $calendar->GetNextDate();
-
+	
 		$calendarType = $calendar->GetType();
-
+		
 		$this->Set('PrevLink', PersonalCalendarUrl::Create($prev, $calendarType));
 		$this->Set('NextLink', PersonalCalendarUrl::Create($next, $calendarType));
-
+		
 		$this->template = sprintf('mycalendar.%s.tpl', strtolower($calendarType));
 	}
 
@@ -239,86 +241,7 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 	{
 		$this->Set('GroupName', $selectedGroup->name);
 		$this->Set('SelectedGroupNode', $selectedGroup->id);
-	}
-	
-		//MyCode
-		public function GetBlockedSlots()
-	{
-		return $this->server->GetForm(FormKeys::SLOTS_BLOCKED);
-	}
-	
-		function GetPageNumber()
-	{
-		return $this->pageablePage->GetPageNumber();
-	}
-
-	/**
-	 * @return int
-	 */
-	function GetPageSize()
-	{
-		$pageSize = $this->pageablePage->GetPageSize();
-
-		if ($pageSize > 10)
-		{
-			return 10;
-		}
-		return $pageSize;
 	}	
-		/**
-	 * @param PageInfo $pageInfo
-	 * @return void
-	 */
-	function BindPageInfo(PageInfo $pageInfo)
-	{
-		$this->pageablePage->BindPageInfo($pageInfo);
-	}
-	
-		public function BindSchedules($schedules, $layouts, $sourceSchedules, $minTime, $maxTime, $myCal)
-	{
-		$this->Set('Schedules', $schedules);
-		$this->Set('Layouts', $layouts);
-		$this->Set('SourceSchedules', $sourceSchedules);
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////////////////MyCode/////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		$this->Set('minTime', $minTime);
-		$this->Set('maxTime', $maxTime);
-		$this->Set('myCal', $myCal);
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	}
-	
-		public function BindGroups($groups)
-	{
-		$this->Set('AdminGroups', $groups);
-		$groupLookup = array();
-		foreach ($groups as $group)
-		{
-			$groupLookup[$group->Id] = $group;
-		}
-		$this->Set('GroupLookup', $groupLookup);
-	}
-	
-		public function SetTimezones($timezoneValues, $timezoneOutput)
-	{
-		$this->Set('TimezoneValues', $timezoneValues);
-		$this->Set('TimezoneOutput', $timezoneOutput);
-	}
-	
-	//MyCode 14/3/2016
-	public function GetResourceArrayId()
-	{
-		$name = 'rid';
-		if (isset($_GET[$name]))
-			{
-				$value = explode(",", $_GET[$name]);
-				return $value;
-				
-			}
-        return null;
-	}
-	
 }
 
 class PersonalCalendarUrl

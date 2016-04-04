@@ -32,7 +32,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{/if}
 					{/foreach}
 				</li>
-				<br/>
+				
+				{*
+				<br/>				
 				<li>
 					{if $ShowReservationDetails}
 					<label>{translate key='Accessories'}</label><br/>
@@ -50,7 +52,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{/if}
 					{/if}
 				</li>
+				*}
 				<li class="section">
+					<label>Periodo</label><br/>
 					{formatdate date=$StartDate}
 					<input type="hidden" id="formattedBeginDate" value="{formatdate date=$StartDate key=system}"/>
 					{foreach from=$StartPeriods item=period}
@@ -69,11 +73,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{/if}
 					{/foreach}
 				</li>
+				{*
 				<li>
 					<div class="durationText">
 						<span id="durationHours">0</span> {translate key='hours'}
 					</div>
 				</li>
+				*}
 				
 				{if $ShowReservationDetails}
 					<li class="section">

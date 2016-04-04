@@ -65,7 +65,13 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 
 			if ($this->reservationSavedSuccessfully)
 			{
-				$this->Display('Ajax/reservation/delete_successful.tpl');
+				//MyCode  (29/3/1026)
+				//Returns directly without sending any message.				
+				//$this->Display('Ajax/reservation/delete_successful.tpl');				
+				$returnPage = $_SESSION['returnPage'];
+				echo "<script type=\"text/javascript\">
+				window.location = '$returnPage';
+				</script>";  
 			}
 			else
 			{

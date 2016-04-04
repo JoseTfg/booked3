@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-26 15:53:26
+<?php /* Smarty version Smarty-3.1.16, created on 2016-04-03 19:19:16
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\login.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:669356f6a2661c74a9-54205079%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:20724570150947fdec8-18200778%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '295c10e3b5931ad464f882364b8fdb8b51633671' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\login.tpl',
-      1 => 1457730069,
+      1 => 1459703946,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '669356f6a2661c74a9-54205079',
+  'nocache_hash' => '20724570150947fdec8-18200778',
   'function' => 
   array (
   ),
@@ -29,9 +29,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56f6a266267746_10674171',
+  'unifunc' => 'content_57015094867659_38610087',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56f6a266267746_10674171')) {function content_56f6a266267746_10674171($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_57015094867659_38610087')) {function content_57015094867659_38610087($_smarty_tpl) {?>
 <?php echo $_smarty_tpl->getSubTemplate ('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 
 
@@ -44,7 +44,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <div class="container">
    <div class="column-left">
-	<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=2&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+	<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
 	</div>
 	
    <div class="column-right">

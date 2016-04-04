@@ -1,3 +1,106 @@
+<h4>v0.4	-	3/4/2016:</h4>
+
+-config.php:				Is generated automatically.
+
+-ReservationDeletePage.php:		Now returns to last page after success.
+-CalendarPage.php:			No longer in use.
+-ManageSchedulesPage.php:		No longer in use.
+
+-PersonalCalendarPage.php:		Targets the list view correctly.
+
+-CalendarPresenter.php:			No longer in use.
+-PersonalCalendarPresenter.php:		Now correctly interacts with the new list view.
+
+-PersonalCalendarPresenter.php:		Fixed several issues.
+
+
+-mycalendar.common.tpl:			Displays color legend.
+
+-create.tpl:				New list to select resource. Removed accesories.
+
+-view.tpl				Removed accesories.
+
+-mycalendar.x.tpl:			Several changes, includes list view.
+
+-mycalendar.common.tpl:			Icludes new popups and a new filter.
+
+-calendar.js				Calendar now allowsreservations delete by keyboard input.
+					Calendar can have its boundaries changed by keyboard input.
+					Calendar now have a color legend.
+					Calendar click events are now dif
+
+-myScript.js:				Several functions from calendar.js are now here.
+					Supports new popups.
+					Supports new list view.	
+
+Created:
+-mycalendar.list.tpl:			List view.
+
+<h4>v0.3	-	25/3/2016:</h4>
+
+-propio.css:				Changed styles in header and footer.
+
+-dashboard.css				Changed margin-top.
+
+-propio.css:				Changed styles in login page.
+
+-style.css:				Changed styles in login page.
+
+-reservation.css			Changed styles in reservation page.
+
+-Page.php				Pages now gets the announcements from server.
+					Pages now display new logo.
+
+-CalendarPage.php			Resource id is now an array.
+
+-PersonalCalendarPage.php		Resource id is now an array.
+
+-ReservationSavePage.php		Now returns to last page after success.
+
+-ReservationUpdatePage.php		Now returns to last page after success.
+
+-ReservationPage.php			Now returns to last page after success.
+
+-config.php:				Session time expiration is now unlimited.
+
+-globalfooter.tpl:			Now display announcements while logged in.
+
+-globalheader.tpl			Now display 2 logos, one of them is homepage.
+
+-login.tpl				Removed "forgot password".
+					Now shows RSS feed in login page.
+
+-create.tpl				Several changes in structure. Removed participation.
+-edit.tpl				Several changes in structure. Removed participation.
+-view.tpl				Several changes in structure. Removed participation.
+
+-calendar.filter.tpl:			Now introduces a new multiselect list.
+
+-mycalendar.common.tpl:			Pass OwnerName parameter from presenter.
+
+-calendar.common.tpl:			Pass ResourceName parameter from presenter.
+
+-LoginPresenter:			Stores login data.
+
+-PersonalCalendarPresenter.php:		Resource id is now an array. 
+
+-CalendarPresenter.php:			Resource id is now an array.
+
+-ReservationPresenter.php		Now obtains last page to return.
+
+calendar.js				Calendar can now show an array of resources.
+					Calendar now allows click and drag for reservation updating.
+					Calendar now changes view on click.
+					Calendar now connects with the API.
+					Calendar now presents events with colors.
+					Calendar now reacts to right click events.
+
+<h4>v0.2	-	5/3/2016:</h4>
+
+-config.php:				LDAP authentication enabled.
+
+-Ldap.config.php:			Sucessfully connects with jumpcloud system.
+
 v0.1	-	1/3/2016:
 
 -config_work:				Booked doesn't give date errors anymore.

@@ -1,6 +1,9 @@
-My Work:
+//////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////Web////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
--manage_accessories.php			Unchanged
+Unchanged:
+
 -manage_admin_groups.php		Unchanged
 -manage_admin_resources.php		Unchanged
 -manage_admin_schedules.php		Unchanged
@@ -15,11 +18,8 @@ My Work:
 -manage_reservations.php		Unchanged
 -manage_resource_groups.php		Unchanged
 -manage_resource_reservations.php	Unchanged
--manage_resource_status.php		Unchanged
--manage_resource_types.php		Unchanged
 -manage_resources.php			Unchanged
 -manage_schedule_reservations.php	Unchanged
--manage_schedules.php			Unchanged
 -manage_theme.php			Unchanged
 -manage_users.php			Unchanged
 -server_settings.php			Unchanged
@@ -32,9 +32,6 @@ My Work:
 -respopup.php				Unchanged
 -user_details.php			Unchanged
 -reservation-file.php			Unchanged
--atom-subscribe.php			Unchanged
--ical.php				Unchanged
--ical-subscribe.php			Unchanged
 -configure.php				Unchanged
 -index.php				Unchanged
 -migrate.php				Unchanged
@@ -46,41 +43,51 @@ My Work:
 -index.php				Unchanged
 -activate.php				Unchanged
 -bookings.php				Unchanged
--calendar.php				Unchanged
--calendars.php				Unchanged
--dashboard.php				Unchanged
 -error.php				Unchanged
--forgot.php				Unchanged
 -help.php				Unchanged
 -index.php				Unchanged
 -logout.php				Unchanged
 -my-calendar.php			Unchanged
--notification-preferences.php		Unchanged
 -openings.php				Unchanged
--participation.php			Unchanged
--password.php				Unchanged
--profile.php				Unchanged
--register.php				Unchanged
 -reports.php				Unchanged
 -reservation.php			Unchanged
--schedule.php				Unchanged
 -view-reservation.php			Unchanged
 -view-schedule.php			Unchanged
+-atom-subscribe.php			Re-added
+-ical.php				Re-added
+-ical-subscribe.php			Re-added
 
+
+Erased:
+
+-manage_accessories.php	
+-manage_resource_status.php
+-manage_resource_types.php
+-manage_schedules.php
+-calendar.php
+-calendars.php
+-dashboard.php
+-forgot.php
+-notification-preferences.php
+-participation.php
+-password.php
+-profile.php
+-register.php
+-schedule.php
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////css/////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
-css:
+Unchanged:
 
 -admin.css				Unchanged
--
 -email.css				Unchanged
 -jquery.qtip.min.css			Unchanged
 -normalize.css				Unchanged
 -null-style.css				Unchanged
 -participation.css			Unchanged
 -reports.css				Unchanged
--reservation.css			Unchanged
 -schedule.css				Unchanged
 -schedule-print.css			Unchanged
 -view-schedule.css			Unchanged
@@ -117,14 +124,65 @@ Added:
 -reservation.css	Changed styles in reservation page.
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////scripts/////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
-scripts:
+Unchanged:
 
-2/3/2016
+-announcements.js			Unchanged
+-attributes.js				Unchanged
+-blackouts.js				Unchanged
+-configuration.js			Unchanged
+-edit.js				Unchanged
+-group.js				Unchanged
+-help.js				Unchanged
+-quota.js				Unchanged
+-reminder.js				Unchanged
+-reservations.js			Unchanged
+-resource.js				Unchanged
+-resource-groups.js			Unchanged
+-user.js				Unchanged
+-canned-reports.js			Unchanged
+-chart.js				Unchanged
+-common.js				Unchanged
+-generate-reports.js			Unchanged
+-saved-reports.js			Unchanged
+-ajax-form-submit.js			Unchanged
+-ajax-helpers.js			Unchanged
+-approval.js				Unchanged
+-autocomplete.js			Unchanged
+-calendar_backup.js			Unchanged
+-date-helper.js				Unchanged
+-force-numeric.js			Unchanged
+-menubar.js				Unchanged
+-phpscheduleit.js			Unchanged
+-recurrence.js				Unchanged
+-reservation.js				Unchanged
+-reservation.js				Unchanged
+-reservationPopup.js			Unchanged
+-reservation-reminders.js		Unchanged
+-resourcePopip.js			Unchanged
+-userPopup.js				Unchanged
+-dashboard.js				Re-added
+
+
+Erased:
+
+-accesory.js
+-resource-status.js
+-resource-types.js
+-schedule.js
+-participation.js
+-profile.js
+-registration.js
+-schedule.js
+
 
 Changed:
 
-calendar.js		Calendar is now selectable.
+2/3/2016
+
+-calendar.js		Calendar is now selectable.
 			Calendar now allows reservations by click and drag.
 			Calendar only shows reservable slots now.
 			Calendar has been resized.
@@ -132,9 +190,21 @@ calendar.js		Calendar is now selectable.
 
 8/3/2016 - 16/3/2016
 
-calendar.js		Calendar can now show an array of resources.
+-calendar.js		Calendar can now show an array of resources.
 			Calendar now allows click and drag for reservation updating.
 			Calendar now changes view on click.
 			Calendar now connects with the API.
 			Calendar now presents events with colors.
 			Calendar now reacts to right click events.
+
+29/3/2016
+
+-calendar.js		Calendar now allowsreservations delete by keyboard input.
+			Calendar can have its boundaries changed by keyboard input.
+			Calendar now have a color legend.
+			Calendar click events are now different.
+
+Created:
+-myScript.js:		Several functions from calendar.js are now here.
+			Supports new popups.
+			Supports new list view.			

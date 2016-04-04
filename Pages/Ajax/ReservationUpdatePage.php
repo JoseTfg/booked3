@@ -71,9 +71,10 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 			{
 				$this->Set('Resources', $reservation->AllResources());
 				$this->Set('Instances', $reservation->Instances());
-				$this->Set('Timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);
-				
-				//MyCode
+				$this->Set('Timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);				
+
+				//MyCode  (29/3/1026)
+				//Returns directly without sending any message.	
 				$returnPage = $_SESSION['returnPage'];
 				echo "<script type=\"text/javascript\">
 				window.location = '$returnPage';

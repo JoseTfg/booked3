@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-03-26 15:50:17
+<?php /* Smarty version Smarty-3.1.16, created on 2016-04-03 19:19:16
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\globalheader.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1173156f6a1a9a113f4-19978818%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:29570150948731d8-62337658%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '72f54f414668abf7f364d4573aac5820d4720af2' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\globalheader.tpl',
-      1 => 1458997480,
+      1 => 1459271361,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1173156f6a1a9a113f4-19978818',
+  'nocache_hash' => '29570150948731d8-62337658',
   'function' => 
   array (
   ),
@@ -47,9 +47,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_56f6a1a9aefea1_30416361',
+  'unifunc' => 'content_570150949a3d24_27593867',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_56f6a1a9aefea1_30416361')) {function content_56f6a1a9aefea1_30416361($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_570150949a3d24_27593867')) {function content_570150949a3d24_27593867($_smarty_tpl) {?><!DOCTYPE html>
 
 <html lang="<?php echo $_smarty_tpl->tpl_vars['HtmlLang']->value;?>
 " dir="<?php echo $_smarty_tpl->tpl_vars['HtmlTextDirection']->value;?>
@@ -201,9 +201,6 @@ admin/manage_resources.php"><?php echo $_smarty_tpl->smarty->registered_plugins[
 								<ul>
 									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
 admin/manage_resource_groups.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageGroups"),$_smarty_tpl);?>
-</a></li>
-									<li class="menuitem"><a href="<?php echo $_smarty_tpl->tpl_vars['Path']->value;?>
-admin/manage_accessories.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ManageAccessories"),$_smarty_tpl);?>
 </a></li>
 								</ul>
 									</li>

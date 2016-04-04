@@ -49,6 +49,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 </td>
 <td>
+{if ($myCal != 1)}
+<div id="filter2">
+<label for="calendarFilter"></label>
+<select id="calendarFilter2"  multiple="multiple">
+{foreach from=$filters->GetFilters() item=filter}
+	{foreach from=$filter->GetFilters() item=subfilter}
+		<option value="{$subfilter->Id()}" class="resource" >{$subfilter->Name()}</option>
+	{/foreach}
+{/foreach}
+</select>
+</div>
+{/if}
+</td>
+<td>
 
 <div class="onoffswitch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>

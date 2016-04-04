@@ -31,7 +31,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
 	var reservations = [];
 	{foreach from=$Calendar->Reservations() item=reservation}
 		reservations.push({
@@ -39,13 +39,15 @@ $(document).ready(function() {
 			title: '{$reservation->DisplayTitle|escape:javascript}',
 			start: '{format_date date=$reservation->StartDate key=fullcalendar}',
 			end: '{format_date date=$reservation->EndDate key=fullcalendar}',
-			url: 'reservation.php?rn={$reservation->ReferenceNumber}',
+			/*url: 'reservation.php?rn={$reservation->ReferenceNumber}',*/
 			allDay: false,
 			color: '{$reservation->Color}',
 			textColor: '{$reservation->TextColor}',
 			className: '{$reservation->Class}',
-			colorID:'{$reservation->ResourceName}'
+			colorID:'{$reservation->ResourceName}',
+			refNumber: 'reservation.php?rn={$reservation->ReferenceNumber}'
 		});
+		
 	{/foreach}
 
 	var options = {
@@ -70,8 +72,55 @@ $(document).ready(function() {
 					password: '{$password}'
 				};
 
+				
+	myScript(options, reservations);
 	var calendar = new Calendar(options, reservations);
 	calendar.init();
 	calendar.bindResourceGroups({$ResourceGroupsAsJson}, {$SelectedGroupNode|default:0});	
 });
 </script>	
+
+{jsfile src="jscolor-2.0.4/jscolor.js"}
+
+<div id="legend" style="text-align: center"></div>
+
+{*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*}
+  {jsfile src="//code.jquery.com/jquery-1.10.2.js"}
+ {jsfile src="//code.jquery.com/ui/1.11.4/jquery-ui.js"}
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+<div id="dialog-confirm" title="Basic dialog">
+  <p>¿Estás seguro de que quieres borrar?</p>
+</div>
+
+<div id="dialog-form" title="Calendar Boundaries">
+  <p>Select calendar boundaries.</p>
+  
+  <div id="selects" style="text-align: center">
+  <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+  </select>
+  
+  <select id="EndPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+  </select>
+  </div>
+  
+  <div id="dialog1" title="Basic dialog">
+  <p>Update Sucessful</p>
+  </div>
+  
+  <div id="dialog2" title="Basic dialog">
+  <p>Couldn't Update</p>
+  </div>
+
+</div>
+  
+</div>
+
+<div id="hidden" style="visibility: hidden;">
+<form id='myform' method="post">
+<input id="a1" name="a1" type="text" value="">
+<input id="a2" name="a2" type="text" value="">
+<input id="a3" name="a2" type="text" value="">
+</form>
+</div>
+{jsfile src="myScript.js"}

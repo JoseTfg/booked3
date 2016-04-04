@@ -1,4 +1,4 @@
-My Work:
+Unchanged:
 
 -activation-error.tpl			Unchanged
 -activation-sent.tpl			Unchanged
@@ -12,32 +12,19 @@ My Work:
 -manage_reservations.tpl		Unchanged
 -reservations_csv.tpl			Unchanged
 -manage_resource_groups.tpl		Unchanged
--manage_resource_status.tpl		Unchanged
--manage_resource_types.tpl		Unchanged
 -manage_resources.tpl			Unchanged
 -import_user_template_csv.tpl		Unchanged
--manage_accessories.tpl			Unchanged
 -manage_announcements.tpl		Unchanged
 -manage_groups.tpl			Unchanged
 -manage_quotas.tpl			Unchanged
--manage_schedules.tpl			Unchanged
 -manage_users.tpl			Unchanged
 -server_settings.tpl			Unchanged
 -delete_failed.tpl			Unchanged
--delete_successful.tpl			Unchanged
 -reservation_error.tpl			Unchanged
 -save_failed.tpl			Unchanged
--save_successful.tpl			Unchanged
--update_successful.tpl			Unchanged
 -resourcedetails.tpl			Unchanged
 -respopup.tpl				Unchanged
 -user_details.tpl			Unchanged
--calendar.day.tpl			Unchanged
--calendar.month.tpl			Unchanged
--calendar.week.tpl			Unchanged
--mycalendar.day.tpl			Unchanged
--mycalendar.month.tpl			Unchanged
--mycalendar.week.tpl			Unchanged
 -Checkbox.tpl				Unchanged
 -Date.tpl				Unchanged
 -MultiLineTextbox.tpl			Unchanged
@@ -45,13 +32,8 @@ My Work:
 -SingleLineTextbox.tpl			Unchanged
 -DatePickerSetup.tpl			Unchanged
 -RecurrenceDiv.tpl			Unchanged
--admin_upcoming_reservations.tpl	Unchanged
--announcements.tpl			Unchanged
--resource_availability.tpl		Unchanged
--upcoming_reservations.tpl		Unchanged
 -emailfooter.tpl			Unchanged
 -emailheader.tpl			Unchanged
--ical.tpl				Unchanged
 -configure.tpl				Unchanged
 -install.tpl				Unchanged
 -migrate.tpl				Unchanged
@@ -65,20 +47,45 @@ My Work:
 -saved-reports.tpl			Unchanged
 -approve.tpl				Unchanged
 -attachment-error.tpl			Unchanged
--participation.tpl			Unchanged
--private-participation.tpl		Unchanged
--dashboard.tpl				Unchanged
 -error.tpl				Unchanged
--forgot_pwd.tpl				Unchanged
 -json_data.tpl				Unchanged
 -maintenance.tpl			Unchanged
--notification-preferences.tpl		Unchanged
 -openings.tpl				Unchanged
--participation.tpl			Unchanged
--password.tpl				Unchanged
--profile.tpl				Unchanged
--register.tpl				Unchanged
 -support-and-credits.tpl		Unchanged
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+Erased:
+
+-manage_resource_status.tpl
+-manage_resource_types.tpl
+-manage_accessories.tpl
+-manage_schedules.tpl
+-delete_successful.tpl
+-save_successful.tpl
+-update_successful.tpl
+-calendar.day.tpl
+-calendar.month.tpl
+-calendar.week.tpl
+-admin_upcoming_reservations.tpl
+-announcements.tpl
+-resource_availability.tpl
+-upcoming_reservations.tpl
+-ical.tpl
+-participation.tpl
+-private-participation.tpl
+-schedule.tpl
+-schedule-days-horizontal.tpl
+-schedule-flipped.tpl
+-schedule-week-condensed.tpl
+-view-schedule.tpl
+-dashboard.tpl
+-forgot_pwd.tpl
+-notification-preferences.tpl
+-participation.tpl
+-password.tpl
+-profile.tpl
+-register.tpl
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -127,3 +134,16 @@ Changes:
 
 -mycalendar.common.tpl:			Pass OwnerName parameter from presenter.
 -calendar.common.tpl:			Pass ResourceName parameter from presenter.
+
+29/3/2016
+
+-mycalendar.common.tpl:			Displays color legend.
+-create.tpl:				New list to select resource. Removed accesories.
+-view.tpl				Removed accesories.
+
+Created:
+-mycalendar.list.tpl:			List view.
+
+31/3/2016
+-mycalendar.x.tpl:			Several changes, includes list view.
+-mycalendar.common.tpl:			Icludes new popups and a new filter.

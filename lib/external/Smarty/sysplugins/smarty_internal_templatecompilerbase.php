@@ -215,6 +215,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function compileTemplate(Smarty_Internal_Template $template, $nocache = false)
     {
+	date_default_timezone_set('Europe/Madrid');  
         if (empty($template->properties['nocache_hash'])) {
             $template->properties['nocache_hash'] = $this->nocache_hash;
         } else {
