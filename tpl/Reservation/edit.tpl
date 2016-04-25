@@ -39,9 +39,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</a>
 	{/if}
 
-	<a style='margin-left:10px;' href="{$Path}export/{Pages::CALENDAR_EXPORT}?{QueryStringKeys::REFERENCE_NUMBER}={$ReferenceNumber}">
-		{html_image src="calendar-plus.png"}
-		{translate key=AddToOutlook}</a>
+
 
 {/block}
 
@@ -72,7 +70,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</div>
 		</div>
 	{else}
-		<button type="button" class="button save update btnCreate">
+		<button type="button" id="submitButton" class="button save update btnCreate">
 			<img src="img/disk-black.png" />
 			{translate key='Update'}
 		</button>

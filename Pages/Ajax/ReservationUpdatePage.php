@@ -77,7 +77,8 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 				//Returns directly without sending any message.	
 				$returnPage = $_SESSION['returnPage'];
 				echo "<script type=\"text/javascript\">
-				window.location = '$returnPage';
+				//window.location = '$returnPage';
+				sessionStorage.setItem('popup_status', 'update');
 				</script>";  
 			}
 			else

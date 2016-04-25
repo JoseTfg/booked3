@@ -68,6 +68,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			initMenu();
 		});
 	</script>
+	<link rel="stylesheet" type="text/css" href="../css/propio.css">
 	<link rel="stylesheet" type="text/css" href="css/propio.css">
 </head>
 <body class="{$bodyClass}">
@@ -81,17 +82,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <td>		
 <td>
 
-{*{if $CanViewAdmin}
-<div class="onoffswitch2">
-    <input type="checkbox" name="onoffswitch2" class="onoffswitch-checkbox2" id="myonoffswitch2" {if ($myCal != 1)}checked="checked"{/if}>
-    <label class="onoffswitch-label2" for="myonoffswitch2">
-        <span class="onoffswitch-inner2" ></span>
-        <span class="onoffswitch-switch2"></span>
-    </label>
-</div>
-{else}*}
-	<div ><a href="{$HomeUrl}">{html_image src="$Logo2"}</a></div>
-{*{/if}*}
+
+	<div><a href="{$HomeUrl}">{html_image src="$Logo2"}</a></div>
+
 
 
 </td>
@@ -100,8 +93,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{if $LoggedIn}
 						{translate key="SignedInAs"} <div id="HeaderUserName">{$UserName}</div>		
 						<br/>
-						<a
-								href="{$Path}logout.php">{translate key="SignOut"}</a>
+						<a href="{$Path}logout.php">{translate key="SignOut"}</a>
 					{else}
 						<div id="HeaderNotSignedIn">{translate key="NotSignedIn"}</div>
 						<br/>
@@ -115,28 +107,50 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<div>
 				<ul id="nav" class="menubar">
 					{if $LoggedIn}
+					<li class="menubaritem"><a href="#"> Calendario</a>
+						<ul>
+							<li class="menuitem"><a href="{$HomeUrl}">Ir a Calendario</a></li>
+							<li class="menuitem"><a onClick="menuClick(1);">Crear Reserva</a></li>
+							<li class="menuitem"><a onClick="menuClick(2);">Exportar</a></li>	
+							<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>								
+						</ul>
+					</li>
+					<li class="menubaritem"><a href="#"> Preferencias</a>
+						<ul>
+							<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">Horarios</a></li>
+							<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">Leyenda</a></li>							
+						</ul>
+					</li>					
+					<ul>
+							<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">Crear Reserva</a></li>										
+						</ul>
+									</li>
 						{if $CanViewAdmin}
-							<li class="menubaritem"><a href="{$Path}admin/manage_reservations.php">{translate key="ManageReservations"}</a>
+							<li class="menubaritem"><a href="#">{translate key="ManageReservations"}</a>
 								<ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_reservations.php">{translate key="ManageReservations"}</a>
 									<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>										
 								</ul>
 									</li>
-							<li class="menubaritem"><a href="{$Path}admin/manage_resources.php">{translate key="ManageResources"}</a>
+							<li class="menubaritem"><a href="#">{translate key="ManageResources"}</a>
 								<ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_resources.php">{translate key="ManageResources"}</a>
 									<li class="menuitem"><a href="{$Path}admin/manage_resource_groups.php">{translate key="ManageGroups"}</a></li>
 								</ul>
 									</li>
-							<li class="menubaritem"><a href="{$Path}admin/manage_users.php">{translate key="ManageUsers"}</a>
+							<li class="menubaritem"><a href="#">{translate key="ManageUsers"}</a>
 								<ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_users.php">{translate key="ManageUsers"}</a>
 									<li class="menuitem"><a href="{$Path}admin/manage_groups.php">{translate key="ManageGroups"}</a></li>
 									<li class="menuitem"><a href="{$Path}admin/manage_quotas.php">{translate key="ManageQuotas"}</a></li>
 								</ul>
 								</li>
 							<li class="menubaritem"><a href="{$Path}admin/manage_announcements.php">{translate key="ManageAnnouncements"}</a></li>
-							<li class="menubaritem"><a href="{$Path}admin/manage_configuration.php">{translate key="Customization"}</a>
+							<li class="menubaritem"><a href="#">{translate key="Customization"}</a>
 								<ul>
+									<li class="menuitem"><a href="{$Path}admin/manage_configuration.php">{translate key="Customization"}</a>
 									<li class="menuitem"><a href="{$Path}admin/manage_attributes.php">{translate key="Attributes"}</a></li>
-									<li class="menuitem"><a href="{$Path}admin/manage_theme.php">{translate key="LookAndFeel"}</a></li>
+									{*<li class="menuitem"><a href="{$Path}admin/manage_theme.php">{translate key="LookAndFeel"}</a></li>*}
 								</ul>
 									</li>
 						{/if}
@@ -164,7 +178,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 							</li>
 						{/if}
 						{if $CanViewReports}
-							<li class="menubaritem"><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{translate key=Reports}</a>
+							<li class="menubaritem"><a href="#">{translate key=Reports}</a>
 								<ul>
 									<li><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{translate key=GenerateReport}</a></li>
 									<li><a href="{$Path}reports/{Pages::REPORTS_SAVED}">{translate key=MySavedReports}</a></li>

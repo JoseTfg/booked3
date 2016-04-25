@@ -17,9 +17,10 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-<h3>{$Attributes|count} {translate key=Attributes}</h3>
+{*<h3>{$Attributes|count} {translate key=Attributes}</h3>*}
 {if $Attributes|count > 0}
-<table class="list">
+<table class="list" id="attributesTable">
+	<thead>
 	<tr>
 		<th>ID</th>
 		<th>{translate key=SortOrder}</th>
@@ -31,33 +32,36 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<th>{translate key=PossibleValues}</th>
 		<th>{translate key=Delete}</th>
 	</tr>
+	</thead>
+	<tbody>
 	{foreach from=$Attributes item=attribute}
 		{cycle values='row0,row1' assign=rowCss}
 		<tr class="{$rowCss} editable" attributeId="{$attribute->Id()}">
-			<td>{$attribute->Id()}</td>
-			<td>{$attribute->SortOrder()}</td>
-			<td>{$attribute->Label()}</td>
-			<td>{translate key=$Types[$attribute->Type()]}</td>
-			<td>{if $attribute->Required()}
+			<td align="center">{$attribute->Id()}</td>
+			<td align="center">{$attribute->SortOrder()}</td>
+			<td align="center">{$attribute->Label()}</td>
+			<td align="center">{translate key=$Types[$attribute->Type()]}</td>
+			<td align="center">{if $attribute->Required()}
 				{translate key=Yes}
 				{else}
 				{translate key=No}
 			{/if}</td>
-			<td>{if $attribute->UniquePerEntity()}
+			<td align="center">{if $attribute->UniquePerEntity()}
 				{$attribute->EntityDescription()}
 				{else}
 				{translate key=All}
 			{/if}</td>
-			<td>{$attribute->Regex()}</td>
-			<td>{$attribute->PossibleValues()}</td>
+			<td align="center">{$attribute->Regex()}</td>
+			<td align="center">{$attribute->PossibleValues()}</td>
 			<td align="center"><a href="#" class="update delete" attributeId="{$attribute->Id()}">{html_image src='cross-button.png'}</a></td>
 		</tr>
 	{/foreach}
+	</tbody>
 </table>
 {/if}
 
 <script type="text/javascript">
-	var attributeList = new Object();
+	var attributeList = new Object(); 
 
 	{foreach from=$Attributes item=attribute}
 		attributeList[{$attribute->Id()}] = {

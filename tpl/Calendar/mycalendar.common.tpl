@@ -17,6 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
+<link rel="stylesheet" href="scripts/Popup-master/assets/css/popup.css">
+{jsfile src="Popup-master/assets/js/jquery.popup.js"}
+<link rel="stylesheet" href="css/aa.css">
+
+
 <div id="calendar"></div>
 
 {jsfile src="js/jquery.qtip.min.js"}
@@ -82,12 +87,12 @@ $(document).ready(function() {
 
 {jsfile src="jscolor-2.0.4/jscolor.js"}
 
-<div id="legend" style="text-align: center"></div>
+<div id="legend" style="text-align: center;display:none;"></div>
 
 {*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*}
-  {jsfile src="//code.jquery.com/jquery-1.10.2.js"}
+ {* {jsfile src="//code.jquery.com/jquery-1.10.2.js"}*}
  {jsfile src="//code.jquery.com/ui/1.11.4/jquery-ui.js"}
-  <link rel="stylesheet" href="/resources/demos/style.css">
+{*  <link rel="stylesheet" href="/resources/demos/style.css">*}
 
 <div id="dialog-confirm" title="Basic dialog">
   <p>¿Estás seguro de que quieres borrar?</p>
@@ -113,14 +118,21 @@ $(document).ready(function() {
   </div>
 
 </div>
-  
-</div>
 
 <div id="hidden" style="visibility: hidden;">
 <form id='myform' method="post">
 <input id="a1" name="a1" type="text" value="">
 <input id="a2" name="a2" type="text" value="">
-<input id="a3" name="a2" type="text" value="">
+<input id="a3" name="a3" type="text" value="">
+<input id="a4" name="a4" type="text" value="">
 </form>
 </div>
+	
+	  <div id="dialog3" title="Basic dialog">
+  <p>Subscribe to calendar?</p>
+  </div>
+	
+{jsfile src="ics/ics.js"}	
 {jsfile src="myScript.js"}
+
+

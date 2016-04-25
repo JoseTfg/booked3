@@ -33,6 +33,7 @@ Unchanged:
 -ActivationPresenter.php			Unchanged
 -LoginPresenter.php				Unchanged
 -CalendarExportPresenter.php			Re-added
+-CalendarSubscriptionPresenter.php		Re-added
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +45,6 @@ Erased:
 -AnnouncementPresenter.php
 -ResourceAvailabilityControlPresenter.php
 -UpcomingReservationsPresenter.php
--CalendarSubscriptionPresenter.php
 -DashboardPresenter.php
 -ForgotPwdPresenter.php	
 -NotificationPreferencesPresenter.php

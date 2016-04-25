@@ -60,8 +60,8 @@ function BlackoutManagement(opts)
 					{   inline: false,
 						href: opts.editUrl + id,
 						transition: "none",
-						width: "75%",
-						height: "75%",
+						width: "30%",	/*MyCode*/
+						height: "70%",	/*MyCode*/
 						overlayClose: false,
 						onComplete: function ()
 						{

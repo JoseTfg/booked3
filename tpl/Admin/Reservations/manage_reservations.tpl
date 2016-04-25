@@ -21,12 +21,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="{$PageId}">
 
-<h1>{translate key=ManageReservations} {html_image src="question-button.png" id="help-prompt" ref="help-reservations"}</h1>
+<h1>{translate key=ManageReservations} {*{html_image src="question-button.png" id="help-prompt" ref="help-reservations"}*}</h1>
 
-<div class="filterTable horizontal-list label-top main-div-shadow" id="filterTable">
+<div class="filterTable horizontal-list label-top main-div-shadow" id="filterTable" style="background-color:#FFCC99;">
 	<form id="filterForm">
-		<div class="main-div-header">{translate key=Filter}</div>
-		<ul>
+		<div class="main-div-header"> <a href="#" id="myFilterLabel"> {translate key=Filter} </a></div>
+		<ul id="ulFilter"  style="display:none;">
 			<li class="filter-dates">
 				<label for="startDate">{translate key=Between}</label>
 				<input id="startDate" type="text" class="textbox" value="{formatdate date=$StartDate}" size="10"
@@ -42,7 +42,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<input id="userFilter" type="text" class="textbox" value="{$UserNameFilter}"/>
 				<input id="userId" type="hidden" value="{$UserIdFilter}"/>
 			</li>
-			<li class="filter-schedule">
+			<li class="filter-schedule" style="display:none;">
 				<label for="scheduleId">{translate key=Schedule}</label>
 				<select id="scheduleId" class="textbox">
 					<option value="">{translate key=AllSchedules}</option>
@@ -68,7 +68,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<label for="referenceNumber">{translate key=ReferenceNumber}</label>
 				<input id="referenceNumber" type="text" class="textbox" value="{$ReferenceNumber}"/>
 			</li>
-			<li class="filter-resourceStatus">
+			<li class="filter-resourceStatus" style="display:none;>
 				<label for="resourceStatusIdFilter">{translate key=ResourceStatus}</label>
 				<select id="resourceStatusIdFilter" class="textbox">
 					<option value="">{translate key=All}</option>
@@ -77,30 +77,31 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					<option value="{ResourceStatus::HIDDEN}">{translate key=Hidden}</option>
 				</select>
 			</li>
-			<li class="filter-resourceStatusReason">
+			<li class="filter-resourceStatusReason" style="display:none;>
 				<label for="resourceReasonIdFilter">{translate key=Reason}</label>
 				<select id="resourceReasonIdFilter" class="textbox"></select>
 			</li>
 			{foreach from=$AttributeFilters item=attribute}
-				<li class="customAttribute filter-customAttribute{$attribute->Id()}">
+				<li class="customAttribute filter-customAttribute{$attribute->Id()}" style="display:none;>
 					{control type="AttributeControl" attribute=$attribute searchmode=true idPrefix="search"}
 				</li>
 			{/foreach}
+
+
+		<button id="filter" class="button" style="float:right">{html_image src="search.png"} {translate key=Filter}</button>
+		<button id="clearFilter" class="button" style="float:right"> {translate key=Reset}</button>
+		{*<a href="#" id="clearFilter">{translate key=Reset}</a>*}
 		</ul>
 	</form>
-	<div class="clear">&nbsp;</div>
-	<div id="adminFilterButtons">
-		<button id="filter" class="button">{html_image src="search.png"} {translate key=Filter}</button>
-		<a href="#" id="clearFilter">{translate key=Reset}</a>
-	</div>
 </div>
 
 <div>&nbsp;</div>
 
 <p>
-	<a href="{$CsvExportUrl}">{translate key=ExportToCSV}</a>
+	<a href="{$CsvExportUrl}" style="float:right">{translate key=ExportToCSV} {html_image src="calendar-plus.png"}</a>
 </p>
 <table class="list" id="reservationTable">
+<thead> 
 	<tr>
 		<th class="id">&nbsp;</th>
 		<th style="max-width: 120px;">{translate key='User'}</th>
@@ -112,13 +113,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<th>{translate key='Duration'}</th>
 		<th class="date">{translate key='Created'}</th>
 		<th class="date">{translate key='LastModified'}</th>
-		<th>{translate key='ReferenceNumber'}</th>
-		{foreach from=$ReservationAttributes item=attr}
+		{*<th>{translate key='ReferenceNumber'}</th>*}
+		{*{foreach from=$ReservationAttributes item=attr}
 			<th>{$attr->Label()}</th>
-		{/foreach}
+		{/foreach}*}
 		<th class="action">{translate key='Delete'}</th>
 		<th class="action">{translate key='Approve'}</th>
 	</tr>
+	</thead> 
+	<tbody> 
 	{foreach from=$reservations item=reservation}
 		{cycle values='row0,row1' assign=rowCss}
 		{if $reservation->RequiresApproval}
@@ -126,31 +129,31 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/if}
 		<tr class="{$rowCss} editable" seriesId="{$reservation->SeriesId}">
 			<td class="id">{$reservation->ReservationId}</td>
-			<td>{fullname first=$reservation->FirstName last=$reservation->LastName ignorePrivacy=true}</td>
-			<td>{$reservation->ResourceName}
+			<td align="center">{fullname first=$reservation->FirstName last=$reservation->LastName ignorePrivacy=true}</td>
+			<td align="center">{$reservation->ResourceName}
 				<div>{if $reservation->ResourceStatusId == ResourceStatus::AVAILABLE}
-						{html_image src="status.png"}
+						{*{html_image src="status.png"}*}
 						{*{if $CanUpdateResourceStatus}*}
 						{*<a class="changeStatus" href="#"*}
 						{*resourceId="{$reservation->ResourceId}">{translate key='Available'}</a>*}
 						{*{else}*}
-						{translate key='Available'}
+						{*{translate key='Available'}*}
 						{*{/if}*}
 					{elseif $reservation->ResourceStatusId == ResourceStatus::UNAVAILABLE}
-						{html_image src="status-away.png"}
+						{*{html_image src="status-away.png"}*}
 						{*{if $CanUpdateResourceStatus}*}
 						{*<a class="changeStatus" href="#"*}
 						{*resourceId="{$reservation->ResourceId}">{translate key='Unavailable'}</a>*}
 						{*{else}*}
-						{translate key='Unavailable'}
+						{*{translate key='Unavailable'}*}
 						{*{/if}*}
 					{else}
-						{html_image src="status-busy.png"}
+						{*{html_image src="status-busy.png"}*}
 						{*{if $CanUpdateResourceStatus}*}
 						{*<a class="changeStatus" href="#"*}
 						{*resourceId="{$reservation->ResourceId}">{translate key='Hidden'}</a>*}
 						{*{else}*}
-						{translate key='Hidden'}
+						{*{translate key='Hidden'}*}
 						{*{/if}*}
 					{/if}
 					{if array_key_exists($reservation->ResourceStatusReasonId,$StatusReasons)}
@@ -158,15 +161,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{/if}
 				</div>
 			</td>
-			<td>{$reservation->Title}</td>
-			<td>{$reservation->Description}</td>
-			<td>{formatdate date=$reservation->StartDate timezone=$Timezone key=res_popup}</td>
-			<td>{formatdate date=$reservation->EndDate timezone=$Timezone key=res_popup}</td>
-			<td>{$reservation->GetDuration()->__toString()}</td>
-			<td>{formatdate date=$reservation->CreatedDate timezone=$Timezone key=general_datetime}</td>
-			<td>{formatdate date=$reservation->ModifiedDate timezone=$Timezone key=general_datetime}</td>
-			<td class="referenceNumber">{$reservation->ReferenceNumber}</td>
-			{foreach from=$ReservationAttributes item=attribute}
+			<td align="center">{$reservation->Title}</td>
+			<td align="center">{$reservation->Description}</td>
+			<td align="center">{formatdate date=$reservation->StartDate timezone=$Timezone key=res_popup}</td>
+			<td align="center">{formatdate date=$reservation->EndDate timezone=$Timezone key=res_popup}</td>
+			<td align="center">{$reservation->GetDuration()->__toString()}</td>
+			<td align="center">{formatdate date=$reservation->CreatedDate timezone=$Timezone key=general_datetime}</td>
+			<td align="center">{formatdate date=$reservation->ModifiedDate timezone=$Timezone key=general_datetime}</td>
+			<td class="referenceNumber" style="display:none">{$reservation->ReferenceNumber}</td>
+			{*{foreach from=$ReservationAttributes item=attribute}
 				<td class="update inlineUpdate updateCustomAttribute" attributeId="{$attribute->Id()}" attributeType="{$attribute->Type()}">
 					{assign var=attrVal value=$reservation->Attributes->Get($attribute->Id())}
 					{if $attribute->Type() == CustomAttributeTypes::CHECKBOX}
@@ -181,7 +184,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{$attrVal}
 					{/if}
 				</td>
-			{/foreach}
+			{/foreach}*}
 			<td class="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
 			<td class="center">
 				{if $reservation->RequiresApproval}
@@ -192,6 +195,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</td>
 		</tr>
 	{/foreach}
+	</tbody>
 </table>
 
 {pagination pageInfo=$PageInfo}
@@ -309,6 +313,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	$(document).ready(function ()
 	{
+		$("#myFilterLabel").on('click', function() {
+		   if (document.getElementById("ulFilter").style.display == "none"){
+				document.getElementById("ulFilter").style.display = "initial";
+		   }
+		   else{
+				document.getElementById("ulFilter").style.display = "none";
+			}
+		});
+		
+		$("#reservationTable").tablesorter(); 
 
 		var updateScope = {
 
@@ -324,7 +338,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		var resOpts = {
 			autocompleteUrl: "{$Path}ajax/autocomplete.php?type={AutoCompleteType::User}",
 			reservationUrlTemplate: "{$Path}reservation.php?{QueryStringKeys::REFERENCE_NUMBER}=[refnum]",
-			popupUrl: "{$Path}ajax/respopup.php",
+			{*popupUrl: "{$Path}ajax/respopup.php",*}
 			updateScope: updateScope,
 			actions: actions,
 			deleteUrl: '{$Path}ajax/reservation_delete.php?{QueryStringKeys::RESPONSE_TYPE}=json',
@@ -373,3 +387,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 </div>
 {include file='globalfooter.tpl'}
+
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+<link rel="stylesheet" href="../css/table_sorter.css">
+
+

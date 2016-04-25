@@ -1,24 +1,7 @@
 Unchanged:
 
--activation-error.tpl			Unchanged
--activation-sent.tpl			Unchanged
--attribute-list.tpl			Unchanged
--manage_attributes.tpl			Unchanged
--manage_blackouts.tpl			Unchanged
--manage_blackouts_edit.tpl		Unchanged
--manage_blackouts_response.tpl		Unchanged
--change_theme.tpl			Unchanged
--manage_configuration.tpl		Unchanged
--manage_reservations.tpl		Unchanged
 -reservations_csv.tpl			Unchanged
--manage_resource_groups.tpl		Unchanged
--manage_resources.tpl			Unchanged
 -import_user_template_csv.tpl		Unchanged
--manage_announcements.tpl		Unchanged
--manage_groups.tpl			Unchanged
--manage_quotas.tpl			Unchanged
--manage_users.tpl			Unchanged
--server_settings.tpl			Unchanged
 -delete_failed.tpl			Unchanged
 -reservation_error.tpl			Unchanged
 -save_failed.tpl			Unchanged
@@ -29,9 +12,7 @@ Unchanged:
 -Date.tpl				Unchanged
 -MultiLineTextbox.tpl			Unchanged
 -SelectList.tpl				Unchanged
--SingleLineTextbox.tpl			Unchanged
 -DatePickerSetup.tpl			Unchanged
--RecurrenceDiv.tpl			Unchanged
 -emailfooter.tpl			Unchanged
 -emailheader.tpl			Unchanged
 -configure.tpl				Unchanged
@@ -51,7 +32,6 @@ Unchanged:
 -json_data.tpl				Unchanged
 -maintenance.tpl			Unchanged
 -openings.tpl				Unchanged
--support-and-credits.tpl		Unchanged
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -86,6 +66,10 @@ Erased:
 -password.tpl
 -profile.tpl
 -register.tpl
+-change_theme.tpl
+-server_settings.tpl
+-activation-error.tpl
+-activation-sent.tpl
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -147,3 +131,47 @@ Created:
 31/3/2016
 -mycalendar.x.tpl:			Several changes, includes list view.
 -mycalendar.common.tpl:			Icludes new popups and a new filter.
+
+7/4/2016
+-mycalendar.common.tpl:			Updated for new popup system.
+-create.tpl:				Updated for new popup system.
+-edit.tpl:				Updated for new popup system.
+
+8/4/2016
+-globalheader.tpl:			Updated for new popup system.
+
+9/4/2016
+-mycalendar.list.tpl:			Updated to make use of TableSorter.
+
+10/4/2016
+-view.tpl:				Updated for new popup system.
+
+17/4/2016
+-single line textbox.tpl		View scaled in multireservations display.
+-create.tpl				View scaled in multireservations display.
+-recurrencediv.tpl			View scaled in multireservations display.
+
+18/4/2016
+-globalheader.tpl			Updated nav bar.
+
+19/4/2016
+-manage_reservations.tpl		Several display changes.
+
+20/4/2016
+-manage_resource_groups.tpl		Several display changes.
+-manage_announcements.tpl		Several display changes.
+
+21/4/2016
+-manage_configuration.tpl		Several display changes.
+-support-and-credits.tpl		Several display changes.
+
+22/4/2016
+-manage_quotas.tpl			Several display changes.
+-manage_groups.tpl			Several display changes.
+
+23/4/2016
+-manage_users.tpl			Several display changes.
+
+25/4/2016
+-manage_resources.tpl			Several display changes.
+-manage_resources_table.tpl		Several display changes.

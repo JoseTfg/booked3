@@ -17,15 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.css" />
-<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.filter.css" />
-<link rel="stylesheet" type="text/css" href="prueba3/assets/style.css" />
-<link rel="stylesheet" type="text/css" href="prueba3/assets/prettify.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.filter.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/style.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/prettify.css" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
-{jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}
-{jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}
+{*{jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}*}
+{*{jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}*}
 {jsfile src="prueba3/src/jquery.multiselect.js"}
-{jsfile src="prueba3/assets/prettify.js"}
+{jsfile src="scripts/prueba3/demos/assets/prettify.js"}
 {jsfile src="prueba3/src/jquery.multiselect.filter.js"}
 
 <table id="CalendarFilterTable">

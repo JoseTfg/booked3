@@ -32,9 +32,9 @@ function GroupManagement(opts) {
 
 	GroupManagement.prototype.init = function() {
 
-		ConfigureAdminDialog(elements.membersDialog, 420, 500);
+		ConfigureAdminDialog(elements.membersDialog, 420, 200);
 		ConfigureAdminDialog(elements.permissionsDialog, 400, 300);
-		ConfigureAdminDialog(elements.deleteDialog,  400, 300);
+		ConfigureAdminDialog(elements.deleteDialog,  400, 200); /*MyCode*/
 		ConfigureAdminDialog(elements.renameDialog, 500, 100);
 		ConfigureAdminDialog(elements.browseUserDialog, 500, 100);
 		ConfigureAdminDialog(elements.rolesDialog, 500, 300);
@@ -152,6 +152,7 @@ function GroupManagement(opts) {
 		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.browseUserDialog);
 
 		elements.browseUserDialog.dialog('open');
+		elements.browseUserDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var getSubmitCallback = function(action) {
@@ -171,6 +172,8 @@ function GroupManagement(opts) {
 
 	var renameGroup = function() {
 		elements.renameDialog.dialog('open');
+		elements.renameDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		elements.renameDialog.css('overflow', 'hidden'); /*MyCode*/
 	};
 
 	var changeMembers = function() {
@@ -193,6 +196,7 @@ function GroupManagement(opts) {
 
 			$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.groupUserList);
 			elements.membersDialog.dialog('open');
+			elements.membersDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 	};
 
@@ -217,11 +221,13 @@ function GroupManagement(opts) {
 			});
 
 			elements.permissionsDialog.dialog('open');
+			elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 	};
 
 	var deleteGroup = function() {
 		elements.deleteDialog.dialog('open');
+		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var changeRoles = function() {
@@ -235,6 +241,7 @@ function GroupManagement(opts) {
 			});
 
 			elements.rolesDialog.dialog('open');
+			elements.rolesDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 	};
 
@@ -244,5 +251,6 @@ function GroupManagement(opts) {
 		elements.groupAdminForm.find('select').val('');
 		
 		elements.groupAdminDialog.dialog('open');
+		elements.groupAdminDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 }

@@ -109,6 +109,10 @@ Changed:
 31/3/2016
 -PersonalCalendarPage.php:	Targets the list view correctly.
 
+10/4/2016
+-ReservationSavePage.php	Updated for new pop up system.
+-ReservationUpdatePage.php	Updated for new pop up system.
+-ReservationDeletePage.php	Updated for new pop up system.
 
 Currently changed:
 -ReservationSavePage.php

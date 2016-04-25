@@ -74,6 +74,7 @@ function UserManagement(opts) {
 			var user = getActiveUser();
 			elements.colorValue.val(user.reservationColor);
 			elements.colorDialog.dialog('open');
+			elements.colorDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 
 		elements.userList.delegate('.editable', 'click', function () {
@@ -271,6 +272,7 @@ function UserManagement(opts) {
 		});
 
 		elements.groupsDialog.dialog('open');
+		elements.groupsDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var changeGroup = function (action, groupId) {
@@ -290,6 +292,7 @@ function UserManagement(opts) {
 			});
 
 			elements.permissionsDialog.dialog('open');
+			elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 	};
 
@@ -316,7 +319,7 @@ function UserManagement(opts) {
 		$('#organization').val(user.organization);
 		$('#position').val(user.position);
 
-		elements.userDialog.dialog('open');
+		//elements.userDialog.dialog('open');
 	};
 
 	var deleteUser = function () {

@@ -397,11 +397,13 @@ function ResourceManagement(opts) {
 
 	var showChangeImage = function (e) {
 		elements.imageDialog.dialog("open");
+		elements.imageDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showRename = function (e) {
 		$('#editName').val(getActiveResource().name);
 		elements.renameDialog.dialog("open");
+		elements.renameDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showScheduleMove = function (e) {
@@ -423,6 +425,7 @@ function ResourceManagement(opts) {
 	var showChangeDescription = function (e) {
 		$('#editDescription').val(HtmlDecode(getActiveResource().description));
 		elements.descriptionDialog.dialog("open");
+		elements.descriptionDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showChangeNotes = function (e) {
@@ -433,10 +436,12 @@ function ResourceManagement(opts) {
 	var showResourceAdmin = function (e) {
 		$('#adminGroupId').val(getActiveResource().adminGroupId);
 		elements.groupAdminDialog.dialog("open");
+		elements.groupAdminDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showDeletePrompt = function (e) {
 		elements.deleteDialog.dialog("open");
+		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showConfigurationPrompt = function (e) {
@@ -471,6 +476,7 @@ function ResourceManagement(opts) {
 		});
 
 		elements.configurationDialog.dialog("open");
+		elements.configurationDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showSortPrompt = function (e) {
@@ -487,6 +493,7 @@ function ResourceManagement(opts) {
 		elements.statusReasons.val(resource.reasonId);
 
 		elements.statusDialog.dialog("open");
+		elements.statusDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	function populateReasonOptions(statusId, reasonsElement){
@@ -571,6 +578,7 @@ function ResourceManagement(opts) {
 
 			$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.resourceUserList);
 			elements.userDialog.dialog('open');
+			elements.userDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 	};
 
@@ -616,6 +624,7 @@ function ResourceManagement(opts) {
 		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.browseUserDialog);
 
 		elements.browseUserDialog.dialog('open');
+		elements.browseDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var changeGroups = function() {
@@ -638,6 +647,7 @@ function ResourceManagement(opts) {
 
 			$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.resourceGroupList);
 			elements.groupDialog.dialog('open');
+			elements.groupDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 	};
 
@@ -683,6 +693,7 @@ function ResourceManagement(opts) {
 		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.browseGroupDialog);
 
 		elements.browseGroupDialog.dialog('open');
+		elements.browseGroupDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 }

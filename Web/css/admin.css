@@ -170,6 +170,10 @@ tr.pending {
 	display:none !important;
 }
 
+#cboxContent{
+	background-color: #FFCC99;
+}
+
 .wideLabel { display:inline-block; min-width: 100px;}
 
 /*#addAttribute {*/

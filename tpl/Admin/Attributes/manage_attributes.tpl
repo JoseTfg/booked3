@@ -19,9 +19,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {include file='globalheader.tpl' cssFiles='css/admin.css'}
 
-<h1>{translate key=CustomAttributes} {html_image src="question-button.png" id="help-prompt" ref="help-attributes"}</h1>
+<h1>{translate key=CustomAttributes} {*{html_image src="question-button.png" id="help-prompt" ref="help-attributes"}*}</h1>
 
-<div id="customAttributeHeader">
+<div id="customAttributeHeader" style="position:absolute;left:33%;">
 
 <label>{translate key=Category}:
 	<select id="attributeCategory">
@@ -31,11 +31,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<option value="{CustomAttributeCategory::RESOURCE_TYPE}">{translate key=ResourceType}</option>
 	</select>
 </label>
-
+|
 <a href="#" id="addAttributeButton">{html_image src='plus-circle-frame.png'} {translate key=AddAttribute}</a>
 </div>
 
-<div id="addAttributeDialog" class="dialog attributeDialog" title="{translate key=AddAttribute}">
+</br>
+</br>
+</br>
+</br>
+
+<div id="addAttributeDialog" class="dialog attributeDialog" title="{translate key=AddAttribute}" style="background-color:#FFCC99">
 
 	<form id="addAttributeForm" ajaxAction="{ManageAttributesActions::AddAttribute}" method="post">
 		<span class="wideLabel">{translate key=Type}:</span>
@@ -75,8 +80,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</div>
 		</div>
 
-		<button type="button" class="button save">{html_image src="plus-button.png"} {translate key=Add}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="plus-button.png"} {translate key=Add}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 
 		<input type="hidden" {formname key=ATTRIBUTE_CATEGORY}  id="addCategory" value="" />
 	</form>
@@ -87,12 +92,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div class="error" style="margin-bottom: 25px;">
 			<h3>{translate key=DeleteWarning}</h3>
 		</div>
-		<button type="button" class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
 </div>
 
-<div id="editAttributeDialog" class="dialog attributeDialog" title="{translate key=EditAttribute}">
+<div id="editAttributeDialog" class="dialog attributeDialog" title="{translate key=EditAttribute}"  style="background-color:#FFCC99">
 
 	<form id="editAttributeForm" ajaxAction="{ManageAttributesActions::UpdateAttribute}" method="post">
 		<span class="wideLabel">{translate key=Type}:</span>
@@ -134,13 +139,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</div>
 		</div>
 
-		<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key=Update}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key=Cancel}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key=Update}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key=Cancel}</button>
 	</form>
 </div>
 <div style="clear:both"></div>
 
-<div id="attributeList">
+<div id="attributeList" style="position:absolute;left:20%;">
 </div>
 
 <div id="entityChoices">
@@ -181,6 +186,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	var attributeManagement = new AttributeManagement(attributeOptions);
 	attributeManagement.init();
+	
+	//$("#attributesTable").tablesorter();	
+	setTimeout(function(){ $("#attributesTable").tablesorter(); }, 2000);
+	
 	});
 </script>
 {include file='globalfooter.tpl'}
+
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+<link rel="stylesheet" href="../css/table_sorter.css">

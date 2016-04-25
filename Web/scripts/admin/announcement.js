@@ -75,10 +75,12 @@ function AnnouncementManagement(opts) {
 		elements.editPriority.val(announcement.priority);
 
 		elements.editDialog.dialog('open');
+		elements.editDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var deleteAnnouncement = function() {
 		elements.deleteDialog.dialog('open');
+		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var getActiveAnnouncement = function ()

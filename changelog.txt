@@ -1,3 +1,69 @@
+<h4>v0.6	-	25/4/2016:</h4
+
+-single line textbox.tpl		View scaled in multireservations display.
+
+-create.tpl				View scaled in multireservations display.
+
+-recurrencediv.tpl			View scaled in multireservations display.
+
+-globalheader.tpl			Updated nav bar.
+
+-manage_reservations.tpl		Several display changes.
+
+-manage_resource_groups.tpl		Several display changes.
+
+-manage_announcements.tpl		Several display changes.
+
+-manage_configuration.tpl		Several display changes.
+
+-support-and-credits.tpl		Several display changes.
+
+-manage_quotas.tpl			Several display changes.
+
+-manage_groups.tpl			Several display changes.
+
+-manage_users.tpl			Several display changes.
+
+-manage_resources.tpl			Several display changes.
+
+-manage_resources_table.tpl		Several display changes.
+
+-myScript.js				Updated drag events.
+
+-calendar.js				Updated drag events.
+
+<h4>v0.5	-	11/4/2016:</h4
+
+-ReservationSavePage.php		Updated for new pop up system.
+
+-ReservationUpdatePage.php		Updated for new pop up system.
+
+-ReservationDeletePage.php		Updated for new pop up system.
+
+-mycalendar.common.tpl:			Updated for new popup system.
+
+-create.tpl:				Updated for new popup system.
+
+-edit.tpl:				Updated for new popup system.
+
+-globalheader.tpl:			Updated for new popup system.
+
+-mycalendar.list.tpl:			Updated to make use of TableSorter.
+
+-view.tpl:				Updated for new popup system.
+
+-style.css:				Updated for new popup system.
+
+-popup.css:				Updated for new popup system.
+
+-myScript.js				Updated for new popup system.
+
+-calendar.js				Updated for new popup system.
+
+-myScript.js				Fixed multiselect.
+
+
+
 <h4>v0.4	-	3/4/2016:</h4>
 
 -config.php:				Is generated automatically.

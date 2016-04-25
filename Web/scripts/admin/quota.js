@@ -19,6 +19,7 @@ function QuotaManagement(opts)
 			e.preventDefault();
 			setActiveQuotaId($(this).attr('quotaId'));
 			elements.deleteDialog.dialog('open');
+			elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 
 		$(".save").click(function() {

@@ -28,7 +28,7 @@
 }
 
 #reservationbox .input {
-	font-size: 16px;
+	font-size: 12px;		/*MyCode*/
 	width: 98%;
 	padding: 3px;
 	margin: 2px 0 5px 0;
@@ -54,7 +54,7 @@
 
 #reservationbox.readonly .repeat-details, #reservationbox.readonly .repeat-details label {
 	margin-left: 10px;
-	font-size: 15px;
+	font-size: 14px;
 }
 
 #reservationDetails {

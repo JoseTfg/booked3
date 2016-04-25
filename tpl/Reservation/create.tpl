@@ -33,25 +33,28 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="reservationDetails">
     <ul class="no-style">
-		<li>
-            <aid="userName" data-userid="{$UserId}"></a> <input id="userId"
+
+            <a id="userName" data-userid="{$UserId}"></a> <input id="userId"
                                                                      type="hidden" {formname key=USER_ID}
                                                                      value="{$UserId}"/>
 		{if $CanChangeUser}
-            <a href="#" id="showChangeUsers" class="small-action">{translate key=Change}{html_image src="user-small.png"}</a>
+            <button id="promptForChangeUsers" type="button" class="button" style="display:inline">
+                {html_image src="users.png"}
+			{*{translate key='ChangeUser'}*}
+            </button>
 
             <div id="changeUserDialog" title="{translate key=ChangeUser}" class="dialog"></div>
 		{/if}
-        </li>	
-        <li style="display:none;" id="changeUsers">
+
+       {* <li style="display:none;" id="changeUsers">
             <input type="text" id="changeUserAutocomplete" class="input" style="width:250px;"/>
-            |
             <button id="promptForChangeUsers" type="button" class="button" style="display:inline">
                 {html_image src="users.png"}
 			{translate key='AllUsers'}
             </button>
-        </li>
+        </li>*}
     </ul>
+	<br/>
     <ul class="no-style" style="text-align: center">
         <li class="inline">
 			
@@ -97,7 +100,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             <input type="text" id="BeginDate" class="dateinput" value="{formatdate date=$StartDate}"/>
             <input type="hidden" id="formattedBeginDate" {formname key=BEGIN_DATE}
                    value="{formatdate date=$StartDate key=system}"/>
-            <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+            <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px;font-size: 14px;">
 			{foreach from=$StartPeriods item=period}
 				{if $period->IsReservable()}
 					{assign var='selected' value=''}
@@ -114,7 +117,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             <input type="text" id="EndDate" class="dateinput" value="{formatdate date=$EndDate}"/>
             <input type="hidden" id="formattedEndDate" {formname key=END_DATE}
                    value="{formatdate date=$EndDate key=system}"/>
-            <select id="EndPeriod" {formname key=END_PERIOD} class="pulldown input" style="width:150px">
+            <select id="EndPeriod" {formname key=END_PERIOD} class="pulldown input" style="width:150px;font-size: 14px;">
 			{foreach from=$EndPeriods item=period name=endPeriods}
 				{if $period->BeginDate()->IsMidnight()}
                     <option value="{$period->Begin()}"{$selected}>{$period->Label()}</option>
@@ -146,13 +149,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	
 	
         <li class="rsv-box-l">
-            <label>{translate key="ReservationTitle"}<br/>
-			{textbox name="RESERVATION_TITLE" class="input" tabindex="100" value="ReservationTitle"}
+			{textbox name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
             </label>
         </li>
         <li class="rsv-box-l">
-            <label>{translate key="ReservationDescription"}<br/>
-                <textarea id="description" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="resize:vertical;"
+                <textarea id="description" placeholder="{translate key="ReservationDescription"}" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="resize:vertical;"
                           tabindex="110">{$Description}</textarea>
             </label>
         </li>
@@ -200,11 +201,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
 {if $Attributes|count > 0}
-<div class="customAttributes">
+<div class="customAttributes" style="text-align: center;">
     <span>{translate key=AdditionalAttributes}</span>
     <ul>
 		{foreach from=$Attributes item=attribute}
-            <li class="customAttribute">
+            <li class="customAttribute" style="text-align: center;">
 				{control type="AttributeControl" attribute=$attribute}
             </li>
 		{/foreach}
@@ -247,12 +248,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 	<div class="reservationSubmitButtons">
 		{block name="submitButtons"}
-			<button type="button" class="button save create">
+			<button id="submitButton" type="button" class="button save create">
 				{html_image src="tick-circle.png"}
 					{translate key='Create'}
 			</button>
 		{/block}
-		<button type="button" class="button" onclick="window.location='{$ReturnUrl}'">
+		<button type="button" class="button" onclick="prueba()">
 		{html_image src="slash.png"}
 			{translate key='Cancel'}
 		</button>
@@ -357,10 +358,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 
 {*MyCode*}
-<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.css" />
-<link rel="stylesheet" type="text/css" href="prueba3/jquery.multiselect.filter.css" />
-<link rel="stylesheet" type="text/css" href="prueba3/assets/style.css" />
-<link rel="stylesheet" type="text/css" href="prueba3/assets/prettify.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.filter.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/style.css" />
+<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/prettify.css" />
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
 {jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}
 {jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}
@@ -371,6 +372,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <script type="text/javascript">
 
 var isOpenedFirstTime = true;
+
+	var prueba = function(){
+	sessionStorage.setItem("popup_status", "close");
+	};
 
     $(document).ready(function ()
     {
@@ -444,7 +449,7 @@ var isOpenedFirstTime = true;
 	});
 	$('#description').TextAreaExpander();
 
-	$('#userName').bindUserDetails();
+	//$('#userName').bindUserDetails();
 
 
 $('#calendarFilter').multiselect({
@@ -475,9 +480,35 @@ $('#calendarFilter').multiselect({
 				}
 			}
 		});
-
+		
+	document.body.style.overflow = "hidden";
+	//document.getElementById('header').style.visibility="hidden";
+	$('#header').hide();
+	$('#logo').hide();
+	
+	popup_status = sessionStorage.getItem("popup_status");
+	sd = sessionStorage.getItem("start");
+	ed = sessionStorage.getItem("end");
+	day = sessionStorage.getItem("day");
+	if(popup_status == "drag"){	
+		sessionStorage.setItem("popup_status", "none");
+		//alert(document.getElementById("formattedBeginDate").value);
+		setTimeout(function() {
+		//document.getElementById("BeginPeriod").value = sd;
+		//alert("hola");
+		 }, 1000);
+		document.getElementById("BeginPeriod").value = sd;
+		document.getElementById("EndPeriod").value = ed;
+		
+		if(day != ""){
+		document.getElementById("BeginDate").value = document.getElementById("BeginDate").value.substr(0,3)+day+document.getElementById("BeginDate").value.substr(5);
+		document.getElementById("EndDate").value = document.getElementById("EndDate").value.substr(0,3)+day+document.getElementById("EndDate").value.substr(5);
+		document.getElementById("formattedBeginDate").value = document.getElementById("formattedBeginDate").value.substr(0,document.getElementById("formattedBeginDate").value.lastIndexOf("-")+1)+day;
+		document.getElementById("formattedEndDate").value = document.getElementById("formattedEndDate").value.substr(0,document.getElementById("formattedEndDate").value.lastIndexOf("-")+1)+day;
+		}
+		//alert(document.getElementById("formattedBeginDate").value);
+		document.getElementsByTagName('button')[1].click();
+	}
 	
 });
 </script>
-
-{include file='globalfooter.tpl'}

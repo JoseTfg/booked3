@@ -46,14 +46,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 <div id="reservationList" class="dashboardContents">
-<table>
+<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
+<thead> 
 <tr class="timespan">
-				<td>Title</td>
-				<td>User</td>
-				<td>Start</td>
-				<td>End</td>
-				<td>Resource</td>
+				<th>Title</th>
+				<th>User</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>Resource</th>
 			</tr>
+</thead> 
+<tbody> 			
 {foreach from=$reservations2 item=reservation2}
 			{foreach from=$reservation2 item=reservation}
                 {displayReservation reservation=$reservation}
@@ -65,6 +68,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 {displayReservation reservation=$reservation}
 			{/foreach}
 			*}
+	</tbody> 
 	</table>		
 </div>
 
@@ -113,6 +117,7 @@ $(document).ready(function() {
 
 				
 	myScript(options, reservations);
+	 $("#myTable").tablesorter(); 
 		
 });
 </script>	
@@ -161,6 +166,12 @@ $(document).ready(function() {
 </form>
 </div>
 {jsfile src="myScript.js"}
+{*{jsfile src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.7/js/jquery.tablesorter.js"}*}
+{*<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.7/js/jquery.tablesorter.js"></script>*}
+{*{jsfile src="TableSorter/jquery-latest.js"}*}
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+<link rel="stylesheet" href="css/table_sorter.css">
+
 
 {include file='globalfooter.tpl'}
 

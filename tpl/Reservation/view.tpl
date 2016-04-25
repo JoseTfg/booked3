@@ -16,7 +16,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+{block name="header"}
 {include file='globalheader.tpl' TitleKey='ViewReservationHeading' TitleArgs=$ReferenceNumber cssFiles='css/reservation.css'}
+{/block}
+
 <div id="reservationbox" class="readonly">
 	<div id="reservationFormDiv">
 		<div class="reservationHeader">
@@ -134,7 +137,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{block name="submitButtons"}
 				&nbsp
 			{/block}
-			<button type="button" class="button" onclick="window.location='{$ReturnUrl}'">
+			<button type="button" class="button" onclick="prueba()">
 				<img src="img/slash.png"/>
 				{translate key='Close'}			
 		</div>
@@ -182,8 +185,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="userPopup.js"}
 
 	<script type="text/javascript">
-
-	$(document).ready(function() {
+	
+	var prueba = function(){
+	sessionStorage.setItem("popup_status", "close");
+	};
+	
+	$(document).ready(function() {	
+	document.body.style.overflow = "hidden";
+	//document.getElementById('header').style.visibility="hidden";
+	$('#header').remove();
+	$('#logo').remove();
 
 		var participationOptions = {
 			responseType: 'json'
@@ -227,8 +238,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			return false;
 		});
 
-		$('.bindableUser').bindUserDetails();
+		$('.bindableUser').bindUserDetails();	
+	
 	});
 
 	</script>
-{include file='globalfooter.tpl'}

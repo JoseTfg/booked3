@@ -20,7 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <h1>{translate key=GenerateReport}</h1>
 <a href="#" id="showHideCustom">{translate key=ShowHide}</a>
-<fieldset id="customReportInput-container">
+<fieldset id="customReportInput-container" style="background-color:#FFCC99;">
 	<form id="customReportInput">
 		<div id="custom-report-input">
 			<div class="input-set" id="selectDiv">

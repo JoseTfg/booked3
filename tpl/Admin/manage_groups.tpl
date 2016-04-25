@@ -18,12 +18,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='globalheader.tpl' cssFiles='css/admin.css'}
 
-<h1>{translate key=ManageGroups} {html_image src="question-button.png" id="help-prompt" ref="help-groups"}</h1>
+<h1>{translate key=ManageGroups} {*{html_image src="question-button.png" id="help-prompt" ref="help-groups"}*}</h1>
 
-<div style="padding: 10px 0px;">
+{*<div style="padding: 10px 0px;">
 	{translate key='FindGroup'}:<br/>
 	<input type="text" id="groupSearch" class="textbox" size="40"/> {html_link href=$smarty.server.SCRIPT_NAME key=AllGroups}
-</div>
+</div>*}
+<div style="position:relative;left:20%;">
 <table class="list">
 	<tr>
 		<th class="id">&nbsp;</th>
@@ -52,24 +53,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/foreach}
 </table>
 
-{pagination pageInfo=$PageInfo}
 
+{pagination pageInfo=$PageInfo}
+</div>
 <input type="hidden" id="activeId" />
 
-<div id="membersDialog" class="dialog" style="display:none;" title="{translate key=GroupMembers}">
-	{translate key=AddUser}: <input type="text" id="userSearch" class="textbox" size="40" /> <a href="#" id="browseUsers">{translate key=Browse}</a>
+<div id="membersDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=GroupMembers}">
+	{translate key=AddUser}: <input type="text" id="userSearch" class="textbox" size="40" />{* <a href="#" id="browseUsers">{translate key=Browse}</a>*}
+	<div style="visibility:hidden;">prueba</div>
 	<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>
 	<h4><span id="totalUsers"></span> {translate key=UsersInGroup}</h4>
 	<div id="groupUserList"></div>
 </div>
 
-<div id="permissionsDialog" class="dialog" style="display:none;" title="{translate key=Permissions}">
+<div id="permissionsDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Permissions}">
 	<form id="permissionsForm" method="post">
 		{foreach from=$resources item=resource}
 			<label><input {formname key=RESOURCE_ID  multi=true} class="resourceId" type="checkbox" value="{$resource->GetResourceId()}"> {$resource->GetName()}</label><br/>
 		{/foreach}
-		<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
 </div>
 
@@ -81,27 +84,27 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<input type="hidden" id="addUserId" {formname key=USER_ID} />
 </form>
 
-<div id="deleteDialog" class="dialog" style="display:none;" title="{translate key=Delete}">
+<div id="deleteDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Delete}">
 	<form id="deleteGroupForm" method="post">
 		<div class="error" style="margin-bottom: 25px;">
 			<h3>{translate key=DeleteWarning}</h3>
 			<div>{translate key=DeleteGroupWarning}</div>
 		</div>
-		<button type="button" class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
 </div>
 
-<div id="renameDialog" class="dialog" style="display:none;" title="{translate key=Rename}">
+<div id="renameDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Rename}">
 	<form id="renameGroupForm" method="post">
 		<label>{translate key=Name}<br/> <input type="text" class="textbox required" {formname key=GROUP_NAME} /></label>
-		<button type="button" class="button save">{html_image src="disk-black.png"} {translate key=Rename}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key=Cancel}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="disk-black.png"} {translate key=Rename}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key=Cancel}</button>
 	</form>
 </div>
 
 {if $CanChangeRoles}
-<div id="rolesDialog" class="dialog" title="{translate key=WhatRolesApplyToThisGroup}">
+<div id="rolesDialog" class="dialog" title="{translate key=WhatRolesApplyToThisGroup}" style="background-color:#FFCC99">
 	<form id="rolesForm" method="post">
 		<ul>
 		{foreach from=$Roles item=role}
@@ -109,13 +112,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/foreach}
 		</ul>
 
-		<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
 </div>
 {/if}
 
-<div id="groupAdminDialog" class="dialog" title="{translate key=WhoCanManageThisGroup}">
+<div id="groupAdminDialog" class="dialog" title="{translate key=WhoCanManageThisGroup}" style="background-color:#FFCC99">
 	<form method="post" id="groupAdminForm">
 		<select {formname key=GROUP_ADMIN} class="textbox">
 			<option value="">-- {translate key=None} --</option>
@@ -124,24 +127,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/foreach}
 		</select>
 
-		<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
 </div>
 
+		<form id="addGroupForm" method="post">
+			{*Name<br/> *}<input style="float:right;" type="text" class="textbox required" {formname key=GROUP_NAME} />
+			<button type="button" class="button save" style="float:right;">{html_image src="plus-button.png"} {translate key=AddGroup}</button>
+		</form>
+{*
 <div class="admin" style="margin-top:30px">
 	<div class="title">
 		{translate key=AddGroup}
 	</div>
 	<div>
 		<div id="addGroupResults" class="error" style="display:none;"></div>
-		<form id="addGroupForm" method="post">
-			Name<br/> <input type="text" class="textbox required" {formname key=GROUP_NAME} />
-			<button type="button" class="button save">{html_image src="plus-button.png"} {translate key=AddGroup}</button>
-		</form>
+
 	</div>
 </div>
-
+*}
 {csrf_token}
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
 

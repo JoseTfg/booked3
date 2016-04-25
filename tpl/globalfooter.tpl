@@ -22,6 +22,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div><!-- close wrapper-->
 
 <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+<link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 {jsfile src="js/jquery.qtip.min.js"}
 {jsfile src="dashboard.js"}
 

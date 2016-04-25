@@ -18,7 +18,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
 <form id="editBlackoutForm" method="post">
-	<div id="updateBlackout">
+	<div id="updateBlackout" style="  position: absolute;
+  ">
 		<ul>
 			<li>
 				<label for="updateStartDate" class="wideLabel">{translate key=BeginDate}</label>
@@ -38,8 +39,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<input {formname key=END_TIME} type="text" id="updateEndTime" class="textbox" size="7"
 											   value="{formatdate date=$BlackoutEndDate format='h:i A'}"/>
 			</li>
-			<li class="blackoutResources">
-				<label for="addResourceId" class="wideLabel">{translate key=Resources}</label>
+			</br>
+			<label for="addResourceId" class="wideLabel"> <a href="#" id="myLabel">{translate key=Resources}</a></label>
+			<li class="blackoutResources" id="myResourceList" style="display:none;">
 				{foreach from=$Resources item=resource}
 					{assign var=checked value=""}
 					{if in_array($resource->GetId(), $BlackoutResourceIds)}
@@ -49,19 +51,23 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				{/foreach}
 			</li>
 			<li>
+						</br>
 				<label for="blackoutReason" class="wideLabel">{translate key=Reason}</label>
-				<input {formname key=SUMMARY} type="text" id="blackoutReason" class="textbox required" size="100"
+				<input {formname key=SUMMARY} type="text" id="blackoutReason" class="textbox required" size="35"
 											  maxlength="85" value="{$BlackoutTitle}"/>
 			</li>
 			<li>
+			</br>
 				{control type="RecurrenceControl" RepeatTerminationDate=$RepeatTerminationDate prefix='edit'}
 			</li>
 			<li>
+			</br>
 				<input {formname key=CONFLICT_ACTION} type="radio" id="notifyExisting" name="existingReservations"
 													  checked="checked"
 													  value="{ReservationConflictResolution::Notify}"/>
 				<label for="notifyExisting">{translate key=BlackoutShowMe}</label>
-
+			</li>
+			<li>
 				<input {formname key=CONFLICT_ACTION} type="radio" id="deleteExisting" name="existingReservations"
 													  value="{ReservationConflictResolution::Delete}"/>
 				<label for="deleteExisting">{translate key=BlackoutDeleteConflicts}</label>
@@ -70,22 +76,22 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 		{if $IsRecurring}
 			<div>{translate key=ApplyUpdatesTo}</div>
-			<button type="button" class="button save btnUpdateThisInstance">
+			<button type="button" class="button save btnUpdateThisInstance" style="float:right;">
 				{html_image src="disk-black.png"}
 				{translate key='ThisInstance'}
 			</button>
-			<button type="button" class="button save btnUpdateAllInstances">
+			<button type="button" class="button save btnUpdateAllInstances" style="float:right;">
 				{html_image src="disks-black.png"}
 				{translate key='AllInstances'}
 			</button>
 		{else}
-			<button type="button" class="button save update btnUpdateAllInstances">
+			<button type="button" class="button save update btnUpdateAllInstances" style="float:right;">
 				{html_image src="disk-black.png"}
 				{translate key='Update'}
 			</button>
 		{/if}
 
-		<button type="button" class="button" id="cancelUpdate">
+		<button type="button" class="button" id="cancelUpdate" style="float:right;">
 			{html_image src="slash.png"}
 			{translate key='Cancel'}
 		</button>
@@ -97,6 +103,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </form>
 
 <script type="text/javascript">
+
+	$("#myLabel").on('click', function() {
+		   if (document.getElementById("myResourceList").style.display == "none"){
+				document.getElementById("myResourceList").style.display = "initial";
+		   }
+		   else{
+				document.getElementById("myResourceList").style.display = "none";
+			}
+		});
+	
 	var recurOpts = {
 		repeatType: '{$RepeatType}',
 		repeatInterval: '{$RepeatInterval}',

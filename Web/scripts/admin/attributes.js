@@ -83,6 +83,7 @@ function AttributeManagement(opts)
 			elements.appliesTo.text(options.allText);
 			elements.appliesToId.val('');
 			elements.addDialog.dialog('open');
+			elements.addDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		});
 
 		elements.attributeType.change(function ()
@@ -218,12 +219,14 @@ function AttributeManagement(opts)
 		setActiveId(selectedAttribute.id);
 
 		elements.editDialog.dialog('open');
+		elements.editDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var showDeleteDialog = function (selectedAttributeId)
 	{
 		setActiveId(selectedAttributeId);
 		elements.deleteDialog.dialog('open');
+		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	var defaultSubmitCallback = function (form)

@@ -65,3 +65,7 @@ Plugins implemented:	Authentication
 5/3/2016
 
 -Ldap.config.php:	Sucessfully connects with jumpcloud system.
+
+12/4/2016
+
+-Ldap.config.php:	First Test with uniovi LDAP.

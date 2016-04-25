@@ -70,7 +70,8 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 				//$this->Display('Ajax/reservation/delete_successful.tpl');				
 				$returnPage = $_SESSION['returnPage'];
 				echo "<script type=\"text/javascript\">
-				window.location = '$returnPage';
+				//window.location = '$returnPage';
+				sessionStorage.setItem('popup_status', 'update');
 				</script>";  
 			}
 			else

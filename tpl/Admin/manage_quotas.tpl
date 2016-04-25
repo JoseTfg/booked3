@@ -18,74 +18,23 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='globalheader.tpl' cssFiles='css/admin.css'}
 
-<h1>{translate key=ManageQuotas} {html_image src="question-button.png" id="help-prompt" ref="help-quotas"}</h1>
-
-<div class="admin">
-	<div class="title">
-		{translate key=AllQuotas}
-	</div>
-	<div class="list" id="quotaList">
-		{foreach from=$Quotas item=quota}
-			{capture name="scheduleName" assign="scheduleName"}
-				<h4>{if $quota->ScheduleName ne ""}
-					{$quota->ScheduleName|replace:',':' '}
-				{else}
-					{translate key="AllSchedules"}
-				{/if}
-				</h4>
-			{/capture}
-			{capture name="resourceName" assign="resourceName"}
-				<h4>{if $quota->ResourceName ne ""}
-					{$quota->ResourceName|replace:',':' '}
-				{else}
-					{translate key="AllResources"}
-				{/if}
-				</h4>
-			{/capture}
-			{capture name="groupName" assign="groupName"}
-				<h4>
-				{if $quota->GroupName ne ""}
-					{$quota->GroupName|replace:',':' '}
-				{else}
-					{translate key="AllGroups"}
-				{/if}
-				</h4>
-			{/capture}
-			{capture name="amount" assign="amount"}
-				<h4>{$quota->Limit}</h4>
-			{/capture}
-			{capture name="unit" assign="unit"}
-				<h4>{translate key=$quota->Unit}</h4>
-			{/capture}
-			{capture name="duration" assign="duration"}
-				<h4>{translate key=$quota->Duration}</h4>
-			{/capture}
-			{cycle values='row0,row1' assign=rowCss}
-
-			<div class="{$rowCss}">
-				<a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a>
-				{translate key=QuotaConfiguration args="$scheduleName,$resourceName,$groupName,$amount,$unit,$duration"}
-			</div>
-		{foreachelse}
-			{translate key=None}
-		{/foreach}
-	</div>
-</div>
+<h1>{translate key=ManageQuotas} {*{html_image src="question-button.png" id="help-prompt" ref="help-quotas"}*}</h1>
 
 <div class="admin" style="margin-top:30px">
 	<div class="title">
+		{*<a href="#" id="addDivLabel"> {translate key=AddQuota} </a>*}
 		{translate key=AddQuota}
 	</div>
-	<div>
+	<div id="addDiv" style="background-color:#FFCC99">
 		<form id="addQuotaForm" method="post">
-		{capture name="schedules" assign="schedules"}
+		{*{capture name="schedules" assign="schedules"}
 			<select class='textbox' {formname key=SCHEDULE_ID}>
 				<option selected='selected' value=''>{translate key=AllSchedules}</option>
 			{foreach from=$Schedules item=schedule}
 				<option value='{$schedule->GetId()}'>{$schedule->GetName()|replace:',':' '}</option>
 			{/foreach}
 			</select>
-		{/capture}
+		{/capture}*}
 
 		{capture name="resources" assign="resources"}
 			<select class='textbox' {formname key=RESOURCE_ID}>
@@ -127,11 +76,69 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 		{translate key=QuotaConfiguration args="$schedules,$resources,$groups,$amount,$unit,$duration"}
 
-		<button type="button" class="button save">{html_image src="plus-circle.png"} {translate key="Add"}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="plus-circle.png"} {translate key="Add"}</button>
+		
 		{html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
 		</form>
+		</br>
 	</div>
-	<div class="note">{translate key=QuotaReminder}</div>
+	{*<div class="note">{translate key=QuotaReminder}</div>*}
+</div>
+
+</br>
+</br>
+
+<div class="admin">
+	<div class="title">
+		{*<a id="quotaListLabel" href="#"> {translate key=AllQuotas} </a>*}
+		{translate key=AllQuotas}
+	</div>
+	<div class="list" id="quotaList" style="background-color:#FFCC99">
+		{foreach from=$Quotas item=quota}
+			{*{capture name="scheduleName" assign="scheduleName"}
+				<h4>{if $quota->ScheduleName ne ""}
+					{$quota->ScheduleName|replace:',':' '}
+				{else}
+					{translate key="AllSchedules"}
+				{/if}
+				</h4>
+			{/capture}*}
+			{capture name="resourceName" assign="resourceName"}
+				<h4>{if $quota->ResourceName ne ""}
+					{$quota->ResourceName|replace:',':' '}
+				{else}
+					{translate key="AllResources"}
+				{/if}
+				</h4>
+			{/capture}
+			{capture name="groupName" assign="groupName"}
+				<h4>
+				{if $quota->GroupName ne ""}
+					{$quota->GroupName|replace:',':' '}
+				{else}
+					{translate key="AllGroups"}
+				{/if}
+				</h4>
+			{/capture}
+			{capture name="amount" assign="amount"}
+				<h4>{$quota->Limit}</h4>
+			{/capture}
+			{capture name="unit" assign="unit"}
+				<h4>{translate key=$quota->Unit}</h4>
+			{/capture}
+			{capture name="duration" assign="duration"}
+				<h4>{translate key=$quota->Duration}</h4>
+			{/capture}
+			{cycle values='row0,row1' assign=rowCss}
+
+			<div class="{$rowCss}">
+				<a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a>
+				{translate key=QuotaConfiguration args="$scheduleName,$resourceName,$groupName,$amount,$unit,$duration"}
+			</div>
+		{foreachelse}
+			{translate key=None}
+		{/foreach}
+	</div>
 </div>
 
 <div id="deleteDialog" class="dialog" style="display:none;" title="{translate key=Delete}">
@@ -139,8 +146,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div class="error" style="margin-bottom: 25px;">
 			<h3>{translate key=DeleteWarning}</h3>
 		</div>
-		<button type="button" class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
 </div>
 
@@ -153,6 +160,24 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <script type="text/javascript">
 	$(document).ready(function() {
 
+	$("#addDivLabel").on('click', function() {
+		   if (document.getElementById("addDiv").style.display == "none"){
+				document.getElementById("addDiv").style.display = "inline";
+		   }
+		   else{
+				document.getElementById("addDiv").style.display = "none";
+			}
+		});
+		
+	$("#quotaListLabel").on('click', function() {
+		   if (document.getElementById("quotaList").style.display == "none"){
+				document.getElementById("quotaList").style.display = "initial";
+		   }
+		   else{
+				document.getElementById("quotaList").style.display = "none";
+			}
+		});	
+	
 	var actions = {
 		addQuota: '{ManageQuotasActions::AddQuota}',
 		deleteQuota: '{ManageQuotasActions::DeleteQuota}'

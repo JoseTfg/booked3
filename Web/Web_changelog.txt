@@ -123,6 +123,10 @@ Added:
 -style.css:		Changed styles in login page.
 -reservation.css	Changed styles in reservation page.
 
+7/4/2016
+-style.css:		Updated for new popup system.
+-popup.css:		Updated for new popup system.
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////scripts/////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,6 +207,17 @@ Changed:
 			Calendar can have its boundaries changed by keyboard input.
 			Calendar now have a color legend.
 			Calendar click events are now different.
+
+7/4/2016
+-myScript.js		Updated for new popup system.
+-calendar.js		Updated for new popup system.
+
+8/4/2016
+-myScript.js		Fixed multiselect.
+
+17/4/2016
+-myScript.js		Updated drag events.
+-calendar.js		Updated drag events.		
 
 Created:
 -myScript.js:		Several functions from calendar.js are now here.

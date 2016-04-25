@@ -65,7 +65,7 @@ $conf['settings']['schedule']['hide.blocked.periods'] = 'true';    		// if block
  * ical integration configuration
  */
 $conf['settings']['ics']['require.login'] = 'true';             		// recommended, if the user must be logged in to access ics files
-$conf['settings']['ics']['subscription.key'] = '';              		// must be set to allow webcal subscriptions
+$conf['settings']['ics']['subscription.key'] = 'abc';              		// must be set to allow webcal subscriptions
 $conf['settings']['ics']['import'] = 'false';							// enable iCal import
 $conf['settings']['ics']['import.key'] = '';							// it's recommended  to set this key when iCal import is enabled
 /**

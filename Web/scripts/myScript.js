@@ -4,7 +4,7 @@
 	var colorArray = [];					//Related to event colors.
 	var info1 = "my-calendar.php?";			//Related to events
 	var info2 = "";							//Related to events
-	var dateVar = null;						//Date		
+	var dateVar = null;						//Date
 
 var myScript = function(opts, reservations) {
 
@@ -112,7 +112,34 @@ var myScript = function(opts, reservations) {
 	
 	//Tests dialogs
 	$( "#dialog1" ).dialog();
-	$( "#dialog2" ).dialog();	
+	$( "#dialog2" ).dialog();
+	$( "#dialog3" ).dialog({
+		buttons: {
+        "Download": function() {		
+
+		//alert("hola");
+		var cal = ics();
+		cal.addEvent('Demo Event', 'This is an all day event', 'Nome, AK', '8/7/2013', '8/7/2013');
+		cal.addEvent('Demo Event', 'This is thirty minut event', 'Nome, AK', '8/7/2013 5:30 pm', '8/9/2013 6:00 pm');
+		cal.download();	
+			
+        },
+		
+		"Upload": function() {
+		var cal = ics();
+		cal.addEvent('Demo Event', 'This is an all day event', 'Nome, AK', '8/7/2013', '8/7/2013');
+		cal.addEvent('Demo Event', 'This is thirty minut event', 'Nome, AK', '8/7/2013 5:30 pm', '8/9/2013 6:00 pm');
+		var toUpload = cal.upload();
+		document.getElementById("a4").value = toUpload;
+		//alert(document.getElementById("a4").value);
+		document.getElementById("myform").submit();  
+		},		
+		
+        "Cancelar": function() {
+            $( this ).dialog( "close" );
+        }
+      }
+	});		
 	
 		//OnOff Switch
 		$('#myonoffswitch').change(function() {			
@@ -150,33 +177,22 @@ var myScript = function(opts, reservations) {
 			
 			//Before Open: used to fix bugs.
 			beforeopen: function(){
-			if (isOpenedFirstTime == false){				
-				url = document.URL;
-				if (url.indexOf("ct=list") == -1){
-					$('#calendar').fullCalendar('destroy');
-				}
-				else{
-					$('#reservationList').hide();
-				}
-				
-				document.body.style.background = "url('css/loading.gif') no-repeat center";
-				document.getElementById("legend").style.display="none";				
-			}
 				$( "#dialog-confirm" ).dialog('close');
 				$( "#dialog-form" ).dialog('close');
 				$( "#dialog1" ).dialog('close');
 				$( "#dialog2" ).dialog('close');
+				$( "#dialog3" ).dialog('close');
 			},
 			
 			//Options
 			header: true,
 			autoOpen: true,
-			selectedText: function () {
-				inputs = this.inputs;
-				checked = inputs.filter(':checked');
-				numChecked = checked.length;
-				return numChecked + ' selected';
-                },
+			// selectedText: function () {
+				// inputs = this.inputs;
+				// checked = inputs.filter(':checked');
+				// numChecked = checked.length;
+				// return numChecked + ' selected';
+                // },
 			
 			//Open	
 		    open: function(){		   
@@ -232,7 +248,7 @@ var myScript = function(opts, reservations) {
 				}			
 			
 			},
-			selectedList: 4		
+			selectedList: 1		
 		}).multiselectfilter();
 		
 		$('#calendarFilter2').multiselect({
@@ -263,14 +279,45 @@ var myScript = function(opts, reservations) {
 			$( '#dialog-confirm' ).dialog("open");	
 		}
 		
-		if (info2 == "day"){
-		$( "#dialog-confirm" ).dialog("open");
+		//if (info2 == "day"){
+		//$( "#dialog-confirm" ).dialog("open");
 		//$(element).css('background-color','#C8C8C8');
-		}		
+		//}		
         break;		
 		
 		case 65: // a
 		$( '#dialog-form' ).dialog("open");
+		break;
+		
+		// case 66: // b
+		//alert("Hola");
+		// $('#calendar').fullCalendar('destroy');
+		// $('#element_to_pop_up').bPopup({
+			// content:'iframe',
+			// loadData: true,
+			// contentContainer:'.content',
+			// modal: true,
+			// modalClose: false,
+			// loadUrl: 'http://localhost/booked/Web/reservation.php?sid=&rid=&rd=&sd=2016-4-8%2010:0&ed=2016-4-8%2014:30' 
+		// });     
+		// break;
+		
+		case 68: // d
+		//alert("Hola");
+		
+		$( '#dialog3' ).dialog("open");	
+		
+		//var options = { content : $('#content_div') };
+		//$('a.popup').popup(options);
+		//var popup = new $.Popup({
+		//modal:true
+		//});
+		//popup.open('http://localhost/booked/Web/reservation.php?sid=&rid=&rd=&sd=2016-4-7%2010:30&ed=2016-4-7%2014:0');
+		//$('.popup_close').hide();
+		//interval = setInterval(function(){
+		//popup_status = sessionStorage.getItem("popup_status");
+		//popupCheck();
+		//},100);
 		break;
 		
         default: return; // exit this handler for other keys
@@ -321,6 +368,7 @@ var myScript = function(opts, reservations) {
 			$(this).dblclick(function(){
 			if (view.name == "month"){
 				info = info + '&ct=' + "day";
+				window.location = info;
 			}
 			else{
 				var url =  _options.dayClickUrl;
@@ -328,8 +376,16 @@ var myScript = function(opts, reservations) {
 				var end = new Date(dateVar);
 				end.setMinutes(dateVar.getMinutes()+30);
 				info = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + "&sd=" + getUrlFormattedDate(dateVar) + "&ed=" + getUrlFormattedDate(end);
-			}			
-				window.location = info;
+				var popup = new $.Popup({
+				modal:true
+				});
+				popup.open(info);
+				$('.popup_close').hide();
+				interval = setInterval(function(){
+				popup_status = sessionStorage.getItem("popup_status");
+				popupCheck();
+				},100);
+			}				
 			});
 			info1 = info;
 		}
@@ -401,5 +457,48 @@ var myScript = function(opts, reservations) {
 	
 	document.getElementsByTagName('body').onclick = function (){
 		info1 = "my-calendar.php?";
-	}	
+	}
+
+	var popupCheck = function(){
+		if(popup_status == "close"){
+			sessionStorage.setItem("popup_status", "none");
+			popup.close();
+			clearInterval(interval);
+		}
+		if(popup_status == "update"){
+			sessionStorage.setItem("popup_status", "none");
+			popup.close();
+			clearInterval(interval);
+			location.reload();
+		}
+		
+	}
 	
+	var menuClick = function(menuItem){
+	switch(menuItem) {
+	case 1:
+		popup = new $.Popup({
+		modal:true
+		});
+		popup.open('http://localhost/booked/Web/reservation.php');
+		$('.popup_close').hide();
+		interval = setInterval(function(){
+		popup_status = sessionStorage.getItem("popup_status");
+		if(popup_status == "close"){
+			sessionStorage.setItem("popup_status", "none");
+			popup.close();
+			clearInterval(interval);
+		}
+		if(popup_status == "update"){
+			sessionStorage.setItem("popup_status", "none");
+			popup.close();
+			clearInterval(interval);
+			location.reload();
+		}
+		},100);
+		break;
+	case 2:	
+		$( '#dialog3' ).dialog("open");	
+		break;
+	}
+	}

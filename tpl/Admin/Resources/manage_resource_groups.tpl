@@ -18,27 +18,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='globalheader.tpl' cssFiles='scripts/css/jquery.contextMenu.css,scripts/css/jqtree.css,css/admin.css'}
 
-<h1>{translate key='ManageResourceGroups'} {html_image src="question-button.png" id="help-prompt" ref="help-resource-groups"}</h1>
+<h1>{translate key='ManageResourceGroups'} {*{html_image src="question-button.png" id="help-prompt" ref="help-resource-groups"}*}</h1>
 
 <div id="globalError" class="error" style="display:none"></div>
 <div class="admin">
-	<div class="title">
+	<div class="title" style="display:none">
 		{translate key='ResourceGroups'}
 		{*<div id="help-button" class="help" help-ref="help">&nbsp;</div>*}
 	</div>
 
 	<div id="manage-resource-groups-container">
-		<div id="new-group">
-			<form method="post" id="addGroupForm" ajaxAction="{ManageResourceGroupsActions::AddGroup}">
-				<input type="text" name="{FormKeys::GROUP_NAME}" class="textbox new-group" size="30"/>
-				<input type="hidden" name="{FormKeys::PARENT_ID}" />
-				{html_image src="plus-circle.png" class="image-button" id="btnAddGroup"}
-			</form>
-		</div>
-		<div id="group-tree"></div>
-		<div id="resource-list">
-			<h4>{translate key=Resources}</h4>
-			<ul>
+		<div id="group-tree" style="position:relative; left:33%;"></div>
+		<div id="resource-list" style="position:relative; left:33%;">
+			<h4> <a href="#" id="myResourcesLabel">{translate key=Resources}</a></h4>
+			<ul id="myResources" style="display:none">
 				{foreach from=$Resources item=resource}
 					<li class="resource-draggable" resource-name="{$resource->GetName()|escape:javascript}"
 						resource-id="{$resource->GetId()}">{$resource->GetName()}</li>
@@ -46,10 +39,18 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</ul>
 		</div>
 		<div class="clear">&nbsp;</div>
+
 	</div>
+			<div id="new-group" style="float:right">
+			<form method="post" id="addGroupForm" ajaxAction="{ManageResourceGroupsActions::AddGroup}">
+				<input type="text" name="{FormKeys::GROUP_NAME}" class="textbox new-group" size="30"/>
+				<input type="hidden" name="{FormKeys::PARENT_ID}" />
+				{html_image src="plus-circle.png" class="image-button" id="btnAddGroup"}
+			</form>
+		</div>
 </div>
 
-<div class="warning" id="resourceGroupWarning">
+<div class="warning" id="resourceGroupWarning" style="display:none">
 	{translate key=ResourceGroupWarning}
 </div>
 
@@ -110,6 +111,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	$(document).ready(function ()
 	{
+	
+		$("#myResourcesLabel").on('click', function() {
+		   if (document.getElementById("myResources").style.display == "none"){
+				document.getElementById("myResources").style.display = "initial";
+		   }
+		   else{
+				document.getElementById("myResources").style.display = "none";
+			}
+		});
+		
 		var actions = {
 			addResource: '{ManageResourceGroupsActions::AddResource}',
 			removeResource: '{ManageResourceGroupsActions::RemoveResource}',

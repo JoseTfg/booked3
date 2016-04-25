@@ -25,6 +25,9 @@ function Calendar(opts, reservations)
 			//Events
 			events: _reservations,
 			eventRender: function(event, element) { 
+			
+			//cal.addEvent(event.title, event.description, '', event.start, event.end); //newcode
+			
 			element.attachReservationPopup(event.id);
 			
 				//Color assign
@@ -69,7 +72,27 @@ function Calendar(opts, reservations)
 				
 				//Reacts to double click
 				$(this).dblclick(function(){
-					window.location = event.refNumber;
+					//window.location = event.refNumber;
+					var popup = new $.Popup({
+					modal:true
+					});
+					popup.open('http://localhost/booked/Web/'+event.refNumber);
+					$('.popup_close').hide();
+					interval = setInterval(function(){
+						popup_status = sessionStorage.getItem("popup_status");
+						if(popup_status == "close"){
+							sessionStorage.setItem("popup_status", "none");
+							popup.close();
+							clearInterval(interval);
+						}
+						if(popup_status == "update"){
+							sessionStorage.setItem("popup_status", "none");
+							popup.close();
+							clearInterval(interval);
+							location.reload();
+						}
+						},100);
+				sleep(1000);
 				});
 			},
 			
@@ -132,14 +155,100 @@ function Calendar(opts, reservations)
 					 
 					 //If it was a true selection, executes this code.
 					 else{
-						window.location = url;
+						popup = new $.Popup({
+						modal:true
+						});
+						popup.open('http://localhost/booked/Web/'+url);
+						$('.popup_close').hide();
+						interval = setInterval(function(){
+						popup_status = sessionStorage.getItem("popup_status");
+						if(popup_status == "close"){
+							sessionStorage.setItem("popup_status", "none");
+							popup.close();
+							clearInterval(interval);
+						}
+						if(popup_status == "update"){
+							sessionStorage.setItem("popup_status", "none");
+							popup.close();
+							clearInterval(interval);
+							location.reload();
+						}
+						},100);
 					}
 				}
 				
 			},
 			
 			//Drag Event
-			eventDragStop: function(event, jsEvent, ui, view) {
+			//eventDragStop: function(event, jsEvent, ui, view) {
+			eventDrop: function(event, dayDelta, minuteDelta, jsEvent, ui, view ){
+			
+			var sd = '';
+			var ed = '';
+			var day = '';
+			
+			//sd = getUrlFormattedDate(event.start);
+			//ed = getUrlFormattedDate(event.end);
+			
+			var coeff = 1000 * 60 * 1;
+			
+			sd = event.start.getTime() + minuteDelta*60;
+			//sd = new Date(sd);
+			sd = new Date(Math.round(sd / coeff) * coeff);
+			sd = getUrlFormattedDate(sd);
+			ed = event.end.getTime() + minuteDelta*60;
+			//ed = new Date(ed);
+			ed = new Date(Math.round(ed / coeff) * coeff);
+			ed = getUrlFormattedDate(ed);
+
+			if (dayDelta != 0){
+				//alert(sd.substr(sd.lastIndexOf("-")+1,2));
+				day = sd.substr(sd.lastIndexOf("-")+1,2);
+				if (day.indexOf("%") != -1){ day = "0"+day.substr(0,1)}
+			}
+			
+			//alert(sd.substr(sd.indexOf("%")+3));
+			sd = sd.substr(sd.indexOf("%")+3);
+			sd2 = sd.substr(sd.indexOf(":")+1);
+			if(sd.substr(0,1) != 1){
+				//alert(sd2.substr(0,1));
+				sd = "0"+sd;
+			}
+			if(sd2 == 0){
+				//alert(sd2.substr(0,1));
+				sd = sd+"0";
+			}
+			ed = ed.substr(ed.indexOf("%")+3);
+			ed2 = ed.substr(ed.indexOf(":")+1);
+			if(ed.substr(0,1) != 1){
+				//alert(ed2.substr(0,1));
+				ed = "0"+ed;
+			}
+			if(ed2 == 0){
+				//alert(ed2.substr(0,1));
+				ed = ed+"0";
+			}
+			
+			sd = sd+":00"
+			ed = ed+":00"
+			
+			var popup = new $.Popup({
+					modal:true,
+					backOpacity: 0
+					});
+					popup.open('http://localhost/booked/Web/'+event.refNumber);
+					$('.popup').hide();
+					sessionStorage.setItem("popup_status", "drag");
+					sessionStorage.setItem("start", sd);
+					sessionStorage.setItem("end", ed);
+					sessionStorage.setItem("day", day);
+					interval = setInterval(function(){
+						popup.close();
+						clearInterval(interval);
+						location.reload();	
+						},1000);				
+			
+			return;
 			
 			//Variables
 			var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
@@ -390,7 +499,7 @@ function Calendar(opts, reservations)
 		{
 			groupDiv.tree('openNode', groupDiv.tree('getNodeById', selectedNode));
 		}
-	};		//BindResourceGroups	
+	};		//BindResourceGroups
 }			//Calendar
 
 	

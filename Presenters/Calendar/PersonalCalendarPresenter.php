@@ -279,6 +279,15 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$this->page->Set('minTime', $minTime);
 		$this->page->Set('maxTime', $maxTime);
 		$this->page->Set('myCal', $myCal);
+		
+		//MyCode (17/4/2016)
+		$somevar3 = $_POST["a4"];
+		if ($somevar3 != ""){
+			echo '<script type="text/javascript">alert("hola");</script>';
+			$myfile = fopen("prueba/"+$username+".ics", "w") or die("Unable to open file!");
+			fwrite($myfile, $somevar3);
+			fclose($myfile);
+		}
 	}	
 
 	/**

@@ -179,7 +179,8 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 				//$this->Display('Ajax/reservation/save_successful.tpl');
 				$returnPage = $_SESSION['returnPage'];
 				echo "<script type=\"text/javascript\">
-				window.location = '$returnPage';
+				//window.location = '$returnPage';
+				sessionStorage.setItem('popup_status', 'update');
 				</script>";  
 			}
 			else
