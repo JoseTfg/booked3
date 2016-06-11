@@ -20,8 +20,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'Controls/Control.php');
 
+//Class: Allows recurrence
 class RecurrenceControl extends Control
 {
+	//Sends recurrence options to the Smarty page
 	public function PageLoad()
 	{
 		$this->Set('RepeatEveryOptions', range(1, 20));

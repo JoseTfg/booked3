@@ -61,8 +61,15 @@ class PageableDataStore
 
 		while ($row = $resultReader->GetRow())
 		{
+			//MyCode
+			if ($listBuilder == "announce"){
+				$results = $resultReader;
+				$totalCounter++;
+			}
+			else{
 			$results[] = call_user_func($listBuilder, $row);
 			$totalCounter++;
+			}
 		}
 		$resultReader->Free();
 

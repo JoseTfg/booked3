@@ -73,20 +73,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <table id="resourceTable" class="list">
 <thead>
 <th>{translate key='Name'}</th>
-<td class="action">{translate key='Image'}</th>
-<td class="action">{translate key='Status'}</th>
+{*<td class="action">{translate key='Image'}</th>*}
 <th>{translate key='Description'}</th>
 <th>{translate key='Location'}</th>
-<td class="action">{translate key='ResourceAdministrator'}</th>
+<td class="action">{translate key='RequiresApproval'}</th>
+<td class="action">{translate key='WhoApproves'}</th>
 <td class="action">{translate key='UsageConfiguration'}</th>
-<td class="action">{translate key='Approving'}</th>
 <td class="action">{translate key='Permissions'}</th>
+<td class="action">{translate key='Status'}</th>
 <td class="action">{translate key='Delete'}</th>
 </thead>
 <tbody>
 {foreach from=$Resources item=resource}
 {cycle values='row0,row1' assign=rowCss}
-<tr class="{$rowCss}">
+<tr {*class="{$rowCss}"*}>
 <td>
 	{assign var=id value=$resource->GetResourceId()}
 	<div class="resourceDetails" resourceId="{$id}" style="text-align:center">
@@ -96,79 +96,80 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 
 				
-					<a class="update renameButton" href="javascript:void(0);">{$resource->GetName()|escape}  {html_image src='my_edit.png'}{*{translate key='Rename'}*}</a>
+					<a class="update renameButton" href="javascript:void(0);">{$resource->GetName()|escape}</a>
 
 	</div>
 		</td>
-		<td align="center">
+	{*	<td align="center">
 	<div  class="resourceDetails" resourceId="{$id}"  style="display: inline-block;min-width: 100px;">
 	<input type="hidden" class="id" value="{$id}"/>
-	{*<h4>Imagen</h4>*}
 	{if $resource->HasImage()}
-				{*<img src="{resource_image image=$resource->GetImage()}" alt="Resource Image" class="image"/>*}				
-				<a class="update imageButton" href="javascript: void(0);">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a>
+				<img id="{$id}" style="display:none;" src="{resource_image image=$resource->GetImage()}" alt="Resource Image" class="{$id}"/>			
+				<a class="update imageButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
 				|
-				<a class="update removeImageButton" href="javascript: void(0);">{html_image src="cross-button.png"}{*{translate key='Remove'}*}</a>
+				<a class="update removeImageButton" href="javascript: void(0);">{html_image src="cross-button.png"}</a>
+				|
+				<a class="update view" href="javascript: void(0);">{html_image src="eye.png"}</a>
 			{else}
-				{*<div class="noImage">{translate key='NoImage'}</div>*}
-				<a class="update imageButton" href="javascript: void(0);">{html_image src="plus-circle.png"}{*{translate key='AddImage'}*}</a>
+				<div class="noImage">{translate key='NoImage'}</div>
+				<a class="update imageButton" href="javascript: void(0);">{html_image src="plus-circle.png"}</a>
 			{/if}
 	</div>
-	</td align="center">
-	<td align="center">
-	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;">
-	<input type="hidden" class="id" value="{$id}"/>
-	{*<h4>{translate key='Status'}</h4>*}
-					{if $resource->IsAvailable()}
-						{*{html_image src="status.png"}*}
-						<a class="update changeStatus"
-						   href="javascript: void(0);">{html_image src='status.png'}{*{translate key='Available'}*}</a>
-					{elseif $resource->IsUnavailable()}
-						{*{html_image src="status-away.png"}*}
-						<a class="update changeStatus"
-						   href="javascript: void(0);">{html_image src='status-busy.png'}{*{translate key='Unavailable'}*}</a>
-					{else}
-						{*{html_image src="status-busy.png"}*}
-						<a class="update changeStatus"
-						   href="javascript: void(0);">{html_image src='status-offline.png'}{*{translate key='Hidden'}*}</a>
-					{/if}
-	</div>
-	</td>
+	</td>*}	
 	<td align="center">
 	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;min-width: 120px;">
 	<input type="hidden" class="id" value="{$id}"/>
 	{*<h4>{translate key='Description'}</h4></br>*}
 					{if $resource->HasDescription()}
-						<span class="resourceValue">{$resource->GetDescription()|truncate:19:".."}</span>
+						<span class="resourceValue"><a class="update descriptionButton" href="javascript: void(0);">{$resource->GetDescription()|truncate:20:"...":true}</a></span>
 					{else}
-						<span class="note">{translate key='NoDescriptionLabel'}</span>
+						<a class="update descriptionButton" href="javascript: void(0);">{html_image src='my_edit.png'}{*{translate key='Edit'}*}</a>
 					{/if}
-					<a class="update descriptionButton" href="javascript: void(0);">{html_image src='my_edit.png'}{*{translate key='Edit'}*}</a>
+					{*<a class="update descriptionButton" href="javascript: void(0);">{html_image src='my_edit.png'}{translate key='Edit'}</a>*}
 	</div>
 	</td>
 		<td align="center">
 	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;min-width: 120px;">
 	<input type="hidden" class="id" value="{$id}"/>
 						{if $resource->HasLocation()}
-						<span class="resourceValue">{$resource->GetLocation()}</span>
+						<span class="resourceValue"><a class="update changeLocationButton" href="javascript: void(0);">{$resource->GetLocation()}</a></span>
 					{else}
-						<span class="note">{translate key='NoLocationLabel'}</span>
+						<a class="update changeLocationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
 					{/if}
-					<a class="update changeLocationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
+					{*<a class="update changeLocationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>*}
 		</div>
 	</td>
+	
+	<td align="center">
+	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;">	
+	<input type="hidden" class="id" value="{$id}"/>	
+					{if $resource->GetRequiresApproval()}
+						<a class="update approve" href="javascript: void(0);">{translate key='Yes'}</a>
+						{else}
+						<a class="update approve" href="javascript: void(0);">{translate key='No'}</a>
+						{/if}
+
+															 </div>
+															 </td>
+	
 	<td align="center">
 	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;">
 		<input type="hidden" class="id" value="{$id}"/>
 	{*<h4>{translate key='ResourceAdministrator'}</h4></br>*}
+	{if $resource->GetRequiresApproval()}
 					{if $resource->HasAdminGroup()}
-						<span class="resourceValue">{$GroupLookup[$resource->GetAdminGroupId()]->Name}</span>
+						<a class="update adminButton" href="javascript: void(0);">{$GroupLookup[$resource->GetAdminGroupId()]->Name}</a>
 					{else}
-						<span class="note">{translate key='NoResourceAdministratorLabel'}</span>
+						{if $AdminGroups|count > 0}
+							<a class="update adminButton" href="javascript: void(0);">{html_image src='my_edit.png'}{*{translate key='Edit'}*}</a>
+						{else}
+						{translate key='Superuser'}
+						{/if}
 					{/if}
-					{if $AdminGroups|count > 0}
-						<a class="update adminButton" href="javascript: void(0);">{html_image src='my_edit.png'}{*{translate key='Edit'}*}</a>
-					{/if}
+
+	{else}
+	--
+	{/if}
 	</div>
 	</td>
 	<td align="center">
@@ -181,17 +182,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 															 </td>
 															 
 															 
-														 	<td align="center">
-	<div resourceId="{$id}" style="display: inline-block;">	
-	<input type="hidden" class="id" value="{$id}"/>	
-					{if $resource->GetRequiresApproval()}
-						{html_image src='lock_on.png'}
-						{else}
-						{html_image src='lock_off.png'}
-						{/if}
 
-															 </div>
-															 </td>
 															 
 	<td align="center">
 	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;">
@@ -213,7 +204,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{*<div style="display: inline-block;visibility:hidden;">	
 	aaaaa
 	</div>*}
-		<td align="center">
+	<td align="center">
+	<div class="resourceDetails" resourceId="{$id}" style="display: inline-block;">
+	<input type="hidden" class="id" value="{$id}"/>
+	{*<h4>{translate key='Status'}</h4>*}
+					{if $resource->IsAvailable()}
+						{*{html_image src="status.png"}*}
+						<a class="update changeStatus"
+						   href="javascript: void(0);">{html_image src='status.png'}{*{translate key='Available'}*}</a>
+					{elseif $resource->IsUnavailable()}
+						{*{html_image src="status-away.png"}*}
+						<a class="update changeStatus"
+						   href="javascript: void(0);">{html_image src='status-busy.png'}{*{translate key='Unavailable'}*}</a>
+					{else}
+						{*{html_image src="status-busy.png"}*}
+						<a class="update changeStatus"
+						   href="javascript: void(0);">{html_image src='status-offline.png'}{*{translate key='Hidden'}*}</a>
+					{/if}
+	</div>
+	</td>
+	<td align="center">
 	<div class="resourceDetails" resourceId="{$id}" >	
 						<a class="update deleteButton" href="javascript:void(0);">{html_image src="cross-button.png"}{*{translate key='Delete'}*}</a>
 						<input type="hidden" class="id" value="{$id}"/>	
@@ -326,6 +336,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 
+<div id="viewImageDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=ViewImage}">
+	<div id="imageFile"> </div>
+</div>
+
 <div id="renameDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="{translate key=Rename}">
 	<form id="renameForm" method="post" ajaxAction="{ManageResourcesActions::ActionRename}">
 		{*{translate key='Name'}:*} <input id="editName" placeholder="{translate key='Name'}" type="text" class="textbox required" maxlength="85"
@@ -377,14 +391,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="locationDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Location}">
 	<form id="locationForm" method="post" ajaxAction="{ManageResourcesActions::ActionChangeLocation}">
-		{translate key=Location}:<br/>
-		<input id="editLocation" type="text" class="textbox" maxlength="85"
+		{*{translate key=Location}:<br/>*}
+		<input placeholder="{translate key=Location}" id="editLocation" type="text" class="textbox" maxlength="85"
 			   style="width:250px" {formname key=RESOURCE_LOCATION} /><br/>
-		{translate key=Contact}:<br/>
+		{*{translate key=Contact}:<br/>
 		<input id="editContact" type="text" class="textbox" maxlength="85"
-			   style="width:250px" {formname key=RESOURCE_CONTACT} />
+			   style="width:250px" {formname key=RESOURCE_CONTACT} />*}
 
-		<div class="admin-update-buttons">
+		<div class="admin-update-buttons" style="float:right;">
 			<button type="button"
 					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			{*<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
@@ -394,7 +408,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="descriptionDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="{translate key=Description}">
 	<form id="descriptionForm" method="post" ajaxAction="{ManageResourcesActions::ActionChangeDescription}">
-		{translate key=Description}:<br/>
+		{*{translate key=Description}:<br/>*}
 		<textarea id="editDescription" class="textbox"
 				  style="width:460px;height:150px;resize: none;" {formname key=RESOURCE_DESCRIPTION}></textarea>
 
@@ -486,13 +500,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<fieldset>
 				<legend>{translate key=Access}</legend>*}
 				<ul>
-					<li>
+					{*<li>
 						{translate key='ResourceRequiresApproval'}
 						<select id="requiresApproval" class="textbox" {formname key=REQUIRES_APPROVAL}>
 							<option value="1">{translate key='Yes'}</option>
 							<option value="0">{translate key='No'}</option>
 						</select>
-					</li>
+					</li>*}
 				{*	<li>
 						{translate key='ResourcePermissionAutoGranted'}
 						<select id="autoAssign" class="textbox" {formname key=AUTO_ASSIGN}>
@@ -564,8 +578,18 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 
-<div id="groupAdminDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="{translate key=WhoCanManageThisResource}">
-	<form method="post" id="groupAdminForm" ajaxAction="{ManageResourcesActions::ActionChangeAdmin}">
+<div id="approveDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=UsageConfiguration}">
+	<form id="approveForm" method="post" ajaxAction="{ManageResourcesActions::ActionChangeConfiguration}">
+						{translate key='ResourceRequiresApproval'}
+						<select id="requiresApproval2" class="textbox" {formname key=REQUIRES_APPROVAL}>
+							<option value="1">{translate key='Yes'}</option>
+							<option value="0">{translate key='No'}</option>
+						</select>		
+	</form>
+</div>
+
+<div id="groupAdminDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="{translate key=WhoApproves}">
+	<form method="post" style="display:none;" id="groupAdminForm" ajaxAction="{ManageResourcesActions::ActionChangeAdmin}">
 		<select id="adminGroupId" {formname key=RESOURCE_ADMIN_GROUP_ID} class="textbox">
 			<option value="">-- {translate key=None} --</option>
 			{foreach from=$AdminGroups item=adminGroup}
@@ -579,6 +603,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{*<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 		</div>
 	</form>
+		<div id="roleList" class="hidden">
+		{foreach from=$AdminGroups item=adminGroup}
+		<div class="role-item" roleId="{$adminGroup->Id}"><a href="#">&nbsp;</a> <span>{$adminGroup->Name}</span></div>
+		{/foreach}
+	</div>
+
+	<div id="addedRoles">
+	</div>
+
+	<div id="removedRoles">
+	</div>
 </div>
 
 <div id="deleteDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="{translate key=Delete}">
@@ -597,7 +632,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div class="admin-update-buttons">
 			<button type="button"
 					class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-			<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
+			{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 		</div>
 	</form>
 </div>
@@ -616,8 +651,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 
-<div id="statusDialog" class="dialog" title="{translate key=Status}">
-	<form id="statusForm" method="post" ajaxAction="{ManageResourcesActions::ActionChangeStatus}">
+<div id="statusDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Status}">
+	<form id="statusForm" style="display:none;" method="post" ajaxAction="{ManageResourcesActions::ActionChangeStatus}">
 
 		<select id="statusId" {formname key=RESOURCE_STATUS_ID} class="textbox">
 			<option value="{ResourceStatus::AVAILABLE}">{translate key=Available}</option>
@@ -640,6 +675,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
+	<div id="statusList" class="hidden">
+		<div class="status-item" statusId="{ResourceStatus::AVAILABLE}"><a href="#">&nbsp;</a> <span>{translate key=Available}</span></div>
+		<div class="status-item" statusId="{ResourceStatus::UNAVAILABLE}"><a href="#">&nbsp;</a> <span>{translate key=Unavailable}</span></div>
+		<div class="status-item" statusId="{ResourceStatus::HIDDEN}"><a href="#">&nbsp;</a> <span>{translate key=Hidden}</span></div>
+	</div>
+
+	<div id="addedStatus">
+	</div>
+
+	<div id="removedStatus">
+	</div>
 </div>
 
 <div id="bulkUpdateDialog" class="hidden horizontal-list label-top" title="{translate key=BulkResourceUpdate}">
@@ -879,11 +925,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 
-<div id="userDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="{translate key=Users}">
-	{*<label>{translate key=AddUser}*} <input type="text" placeholder="{translate key=AddUser}" id="userSearch" class="textbox" size="40" /></label> {*<a href="#" id="browseUsers">{translate key=Browse}</a>*}
+<div id="userDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="{translate key=User}">
+	{*<label>{translate key=AddUser} <input type="text" placeholder="{translate key=AddUser}" id="userSearch" class="textbox" size="40" /></label> <a href="#" id="browseUsers">{translate key=Browse}</a>
 	<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>
 	<h4>		</br><span id="totalUsers"></span> {translate key=Users}</h4>
-	<div id="resourceUserList"></div>
+	<div id="resourceUserList"></div>*}
+	<div id="addedMembers"></div>
+	<div id="removedMembers"></div>
 </div>
 
 <form id="removeUserForm" method="post" ajaxAction="{ManageResourcesActions::ActionRemoveUserPermission}">
@@ -895,11 +943,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </form>
 
 <div id="groupDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="{translate key=Groups}">
-	{*<label>{translate key=AddGroup}*} <input type="text"  placeholder="{translate key=AddGroup}" id="groupSearch" class="textbox" size="40"/> {*<a href="#" id="browseGroups">{translate key=AllGroups}</a></label>*}
+	{*<label>{translate key=AddGroup} <input type="text"  placeholder="{translate key=AddGroup}" id="groupSearch" class="textbox" size="40"/> <a href="#" id="browseGroups">{translate key=AllGroups}</a></label>
 	<div id="allGroups" style="display:none;" class="dialog" title="{translate key=AllGroups}"></div>
 
 	<h4>		</br><span id="totalGroups"></span> {translate key=Groups}</h4>
-	<div id="resourceGroupList"></div>
+	<div id="resourceGroupList"></div>*}
+	<div id="addedGroups"></div>
+	<div id="removedGroups"></div>
 </div>
 
 <form id="removeGroupForm" method="post" ajaxAction="{ManageResourcesActions::ActionRemoveGroupPermission}">
@@ -1027,7 +1077,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 		resourceManagement.initializeStatusFilter('{$ResourceStatusFilterId}', '{$ResourceStatusReasonFilterId}');
 		
-		$('#resourceTable').tablesorter();
+		$('#resourceTable').tablesorter({
+			widgets: ["zebra"],
+			widgetOptions : {
+			zebra : [ "normal-row", "alt-row" ]}
+		});
 	});
 
 </script>

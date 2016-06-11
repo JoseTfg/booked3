@@ -64,7 +64,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 </div>
 *}
-<table class="list" id="announcements" style="width: 50%;margin: 0 auto;">
+<table id="announceTable" class="list" id="announcements" style="width: 50%;margin: 0 auto;">
 	<thead>
 	<tr>
 		<th class="id">&nbsp;</th>
@@ -83,8 +83,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<td class="id"><input type="hidden" class="id" value="{$announcement->Id()}"/></td>
 		<td style="width:300px;">{$announcement->Text()|nl2br}</td>
 		<td align="center"style="width: 100px;">{$announcement->Priority()}</td>
-		<td align="center" style="width: 100px;">{formatdate date=$announcement->Start()->ToTimezone($timezone)}</td>
-		<td align="center" style="width: 100px;">{formatdate date=$announcement->End()->ToTimezone($timezone)}</td>
+		<td align="center" style="width: 100px;">{formatdate date=$announcement->Start()}</td>
+		<td align="center" style="width: 100px;">{formatdate date=$announcement->End()}</td>
+		{*<td align="center" style="width: 100px;">{formatdate date=$announcement->Start()->ToTimezone($timezone)}</td>
+		<td align="center" style="width: 100px;">{formatdate date=$announcement->End()->ToTimezone($timezone)}</td>*}
 		<td align="center" style="width: 100px;"><a href="#" class="update edit">{html_image src='my_edit.png'}</a> </td>
 		<td align="center" style="width: 100px;"> <a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
 	</tr>
@@ -99,23 +101,24 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div class="error" style="margin-bottom: 15px;">
 			<h3>{translate key=DeleteWarning}</h3>
 		</div>
-		<button type="button" class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+		<button type="button" class="button delete" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
 		{*<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 	</form>
 </div>
 
 <div id="editDialog" class="dialog" style="display:none;background-color:#FFCC99" title="{translate key=Edit}">
+	<div class="warning">{translate key=FieldWarning}</div>
 	<form id="editForm" method="post">
 		{*{translate key=Announcement}<br/>*}
-        <textarea id="editText" class="textbox required" placeholder="{translate key=Announcement}" style="width:500px;resize: none;" {formname key=ANNOUNCEMENT_TEXT}></textarea><br/>
+        <textarea rows="4" id="editText" class="textbox required" placeholder="{translate key=Announcement}" style="width:500px;resize: none;" {formname key=ANNOUNCEMENT_TEXT}></textarea><br/>
 		<br/>
 		<div align="center">
         {*{translate key='BeginDate'}*}
-        <input type="text" id="editBegin" class="textbox" />
+        <input  style="text-align:center;width:100px;" type="text" id="editBegin" class="textbox" />
         <input type="hidden" id="formattedEditBegin" {formname key=ANNOUNCEMENT_START} />
 		-
         {*{translate key='EndDate'}<br/>*}
-        <input type="text" id="editEnd" class="textbox" />
+        <input style="text-align:center;width:100px;" type="text" id="editEnd" class="textbox" />
         <input type="hidden" id="formattedEditEnd" {formname key=ANNOUNCEMENT_END} />
 		<br/><br/>
         {translate key='Priority'} <br/>
@@ -124,21 +127,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             {html_options values=$priorities output=$priorities}
         </select><br/>
 				</div>
-		<button type="button" class="button save" style="float:right;">{html_image src="disk-black.png"} {translate key='Update'}</button>
+		<button type="button" class="button edit" style="float:right;">{html_image src="disk-black.png"} {translate key='Update'}</button>
 		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 	</form>
 </div>
 
+<div style="text-align:center;">
+{pagination pageInfo=$PageInfo}
+</div>
+
 <div id="newDialog" class="dialog" style="display:none;background-color:#FFCC99" title="{translate key=AddAnnouncement}">
+	<div class="warning">{translate key=FieldWarning}</div>
 	<form id="addForm" method="post">
 		{*{translate key=Announcement}<br/>*}
-        <textarea class="textbox required" placeholder="{translate key=Announcement}" style="width:500px;resize: none;" {formname key=ANNOUNCEMENT_TEXT}></textarea><br/>
+        <textarea rows="4" class="textbox required" placeholder="{translate key=Announcement}" style="width:500px;resize: none;" {formname key=ANNOUNCEMENT_TEXT}></textarea><br/>
 		<br/>
 		<div align="center">
-        <input type="text" placeholder="{translate key=BeginDate}" id="BeginDate" class="textbox" {formname key=ANNOUNCEMENT_START} />
+        <input  style="text-align: center;width:100px;" type="text" placeholder="{translate key=BeginDate}" id="BeginDate" class="textbox" {formname key=ANNOUNCEMENT_START} />
 		<input type="hidden" id="formattedBeginDate" {formname key=ANNOUNCEMENT_START} />
 		-
-        <input type="text" placeholder="{translate key=EndDate}" id="EndDate" class="textbox" {formname key=ANNOUNCEMENT_END} />
+        <input  style="text-align: center;width:100px;" type="text" placeholder="{translate key=EndDate}" id="EndDate" class="textbox" {formname key=ANNOUNCEMENT_END} />
 		<input type="hidden" id="formattedEndDate" {formname key=ANNOUNCEMENT_END} />
 		<br/><br/>
         {translate key='Priority'} <br/>
@@ -167,17 +175,18 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="js/jquery.form-3.09.min.js"}
 {*{jsfile src="admin/help.js"}*}
 
+{*Enhance*}
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+
 {*Code*}
 <script type="text/javascript">
 	$(document).ready(function() {
 
-	$("#myLabel").on('click', function() {
-		   if (document.getElementById("announcementsTable").style.display == "none"){
-				document.getElementById("announcementsTable").style.display = "initial";
-		   }
-		   else{
-				document.getElementById("announcementsTable").style.display = "none";
-			}
+	$("#announceTable").tablesorter({
+			widgets: ["zebra"],
+			widgetOptions : {
+				zebra : [ "normal-row", "alt-row" ]
+				}
 		});
 	
 	var actions = {
@@ -199,8 +208,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     announcementManagement.addAnnouncement(
         '{$announcement->Id()}',
         '{$announcement->Text()|escape:"quotes"|regex_replace:"/[\n]/":"\\n"}',
-        '{formatdate date=$announcement->Start()->ToTimezone($timezone)}',
-        '{formatdate date=$announcement->End()->ToTimezone($timezone)}',
+		'{formatdate date=$announcement->Start()}',
+        '{formatdate date=$announcement->End()}',
+        {*'{formatdate date=$announcement->Start()->ToTimezone($timezone)}',
+        '{formatdate date=$announcement->End()->ToTimezone($timezone)}',*}
         '{$announcement->Priority()}'
     );
 	{/foreach}	

@@ -1,4 +1,27 @@
-<h4>v0.7	-	10/5/2016:</h4
+<h4>v0.8	-	20/5/2016:</h4>
+
+-Ldap.config.php:					Jumpcloud established as the final authentication server.
+-ManageBlackoutsPresenter:			Changed filter default values.
+-ManageGroupsPresenter:				Changed available roles.
+-manage_reservations.tpl			Changed table and filter.
+-manage_announcements.tpl			Update popup style.
+-manage_configuration.tpl			Updated showing options.
+-manage_quotas.tpl					Update popup style. New add button.
+-manage_groups.tpl					Update popup and table style.
+-manage_users.tpl					Update popup and table style.
+-manage_resources.tpl				Update table content.
+-mycalendar.common.tpl:				New user preferences display.
+-calendarEnhancement.js:			Groups all the functions related to calendar.
+									New selection option.
+									New colors per resource for each user option.
+									New Export/GCalendar option.
+
+-createEnhance.js:					Groups all the functions related to reservations.
+-manageBlackoutsEnhance.js:			Initial support for blackout in calendar.
+-manageReservationsEnhance.js: 		Group all functions related to reservations manage.
+-userEnhance.js:					Groups all functions related to user management.
+
+<h4>v0.7	-	10/5/2016:</h4>
 
 -config.php:						New parameters to define schedule time and resource colors per user.
 									Configured for emails notifications.
@@ -27,7 +50,7 @@
 -css_enhancemenet:				New file, groups all the css created by Jose.
 -dashboard.css:					No longer in use.
 
-<h4>v0.6	-	25/4/2016:</h4
+<h4>v0.6	-	25/4/2016:</h4>
 
 -single line textbox.tpl		View scaled in multireservations display.
 
@@ -61,7 +84,7 @@
 
 -calendar.js					Updated drag events.
 
-<h4>v0.5	-	11/4/2016:</h4
+<h4>v0.5	-	11/4/2016:</h4>
 
 -ReservationSavePage.php		Updated for new pop up system.
 

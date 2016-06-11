@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'Controls/Control.php');
 
+//Class: Supports attributes control
 class AttributeControl extends Control
 {
 	public function __construct(SmartyPage $smarty)
@@ -27,6 +28,7 @@ class AttributeControl extends Control
 		parent::__construct($smarty);
 	}
 
+	//Loads attributes
 	public function PageLoad()
 	{
 		$templates[CustomAttributeTypes::CHECKBOX] = 'Checkbox.tpl';

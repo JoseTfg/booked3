@@ -19,6 +19,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 require_once(ROOT_DIR . 'Pages/Admin/AdminPage.php');
+require_once(ROOT_DIR . 'Pages/IPageable.php'); //MyCode
 require_once(ROOT_DIR . 'Presenters/Admin/ManageAnnouncementsPresenter.php');
 
 interface IManageAnnouncementsPage extends IActionPage
@@ -68,12 +69,16 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
 	 * @var ManageAnnouncementsPresenter
 	 */
 	private $presenter;
+	
+	//MyCode
+	private $pageable;
 
 	//Contruct
 	public function __construct()
 	{
 		parent::__construct('ManageAnnouncements', 1);
 		$this->presenter = new ManageAnnouncementsPresenter($this, new AnnouncementRepository());
+		$this->pageable = new PageablePage($this);
 	}
 
 	//Process the page load
@@ -85,6 +90,24 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
         $this->Set('timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);
 
 		$this->Display('Admin/manage_announcements.tpl');
+	}
+	
+	//Sends the page information to the smarty page
+	public function BindPageInfo(PageInfo $pageInfo)
+	{
+		$this->pageable->BindPageInfo($pageInfo);
+	}
+
+	//Gets page number
+	public function GetPageNumber()
+	{
+		return $this->pageable->GetPageNumber();
+	}
+
+	//Gets page size
+	public function GetPageSize()
+	{
+		return $this->pageable->GetPageSize();
 	}
 
 	//Sends the announcements to the smarty template

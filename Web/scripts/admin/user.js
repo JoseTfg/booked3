@@ -35,11 +35,19 @@ function UserManagement(opts) {
 		importUsersForm: $('#importUsersForm'),
 
 		deleteDialog: $('#deleteDialog'),
-		deleteUserForm: $('#deleteUserForm')
+		deleteUserForm: $('#deleteUserForm'),
+		
+		//MyCode
+		addedResources: $('#addedResources'),
+		removedResources: $('#removedResources'),
+		resourceList: $('#resourceList')
 	};
 
 	var users = {};
-
+	
+	//MyCode
+	var originalTitle = "";
+	
 	//Initialization
 	UserManagement.prototype.init = function () {
 		ConfigureAdminDialog(elements.permissionsDialog);
@@ -111,7 +119,6 @@ function UserManagement(opts) {
 			$('#removeGroupId').val($(this).attr('groupId'));
 			$('#removeGroupUserId').val(getActiveUserId());
 			elements.removeGroupForm.submit();
-
 			$(this).appendTo(elements.removedGroups);
 		});
 
@@ -122,6 +129,29 @@ function UserManagement(opts) {
 			elements.addGroupForm.submit();
 			$(this).appendTo(elements.addedGroups);
 		});
+		
+		//MyCode
+		elements.addedResources.delegate('div', 'click', function (e) {
+			e.preventDefault();
+			$('#removeResourceId').val($(this).attr('resourceId'));
+			$('#removeResourceUserId').val(getActiveUserId());
+			elements.permissionsForm.find(':checkbox[value="' + $(this).attr('resourceId') + '"]').attr('checked', false);
+			$(this).appendTo(elements.removedResources);
+		});
+
+		elements.removedResources.delegate('div', 'click', function (e) {
+			e.preventDefault();
+			$('#addResourceId').val($(this).attr('resourceId'));
+			$('#addResourceUserId').val(getActiveUserId());
+			elements.permissionsForm.find(':checkbox[value="' + $(this).attr('resourceId') + '"]').attr('checked', true);
+			$(this).appendTo(elements.addedResources);
+		});		
+
+		elements.permissionsDialog.on( "dialogclose", function( event, ui ) {
+			elements.permissionsDialog.dialog("option", "title", originalTitle);
+			elements.permissionsForm.submit();
+		});
+
 
 		elements.userList.delegate('.changeAttributes, .customAttributes .cancel', 'click', function (e) {
 			var user = getActiveUser();
@@ -144,6 +174,10 @@ function UserManagement(opts) {
 
 		$('.clearform').click(function () {
 			$(this).closest('form')[0].reset();
+		});
+		
+		elements.groupsDialog.on( "dialogclose", function( event, ui ) {
+			elements.groupsDialog.dialog("option", "title", originalTitle);
 		});
 
 		var hidePermissionsDialog = function () {
@@ -284,10 +318,18 @@ function UserManagement(opts) {
 
 		elements.groupsDialog.dialog('open');
 		elements.groupsDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		
 		/*MyCode*/
 		var id = getActiveUserId();
-		var a = document.getElementById(id).innerText;
-		elements.groupsDialog.dialog("option", "title", a);
+		var newTitle = document.getElementById(id).innerText;
+		originalTitle = elements.groupsDialog.dialog("option", "title");
+			if (newTitle.length > 10){
+				shortText = jQuery.trim(newTitle).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			else{
+				shortText = newTitle;
+			}
+		elements.groupsDialog.dialog("option", "title", elements.groupsDialog.dialog("option", "title") + ": " + shortText);
 	};
 
 	//Change group
@@ -300,21 +342,49 @@ function UserManagement(opts) {
 
 	//open change permission dialog
 	var changePermissions = function () {
+		// var user = getActiveUser();
+		// var data = {dr: 'permissions', uid: user.id};
+		// $.get(opts.permissionsUrl, data, function (resourceIds) {
+			// elements.permissionsForm.find(':checkbox').attr('checked', false);
+			// $.each(resourceIds, function (index, value) {
+				// elements.permissionsForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
+			// });
+
+			// elements.permissionsDialog.dialog('open');
+			// elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			/*MyCode*/
+			// var id = getActiveUserId();
+			// var a = document.getElementById(id).innerText;
+			// elements.permissionsDialog.dialog("option", "title", a);
+			// });
+
+		var user = getActiveUser();
+		elements.addedResources.find('.resource-item').remove();
+		elements.removedResources.find('.resource-item').remove();
+
+		elements.resourceList.find('.resource-item').clone().appendTo(elements.removedResources);
 		var user = getActiveUser();
 		var data = {dr: 'permissions', uid: user.id};
 		$.get(opts.permissionsUrl, data, function (resourceIds) {
-			elements.permissionsForm.find(':checkbox').attr('checked', false);
 			$.each(resourceIds, function (index, value) {
 				elements.permissionsForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
+				var resourceLine = elements.removedResources.find('div[resourceId=' + value + ']');
+				resourceLine.appendTo(elements.addedResources);
 			});
-
-			elements.permissionsDialog.dialog('open');
-			elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
-			/*MyCode*/
-			var id = getActiveUserId();
-			var a = document.getElementById(id).innerText;
-			elements.permissionsDialog.dialog("option", "title", a);
 		});
+
+		elements.permissionsDialog.dialog('open');
+		elements.permissionsDialog.dialog( "option", "resizable", false );
+		var id = getActiveUserId();
+		var newTitle = document.getElementById(id).innerText;		
+		originalTitle = elements.permissionsDialog.dialog("option", "title");
+			if (newTitle.length > 10){
+				shortText = jQuery.trim(newTitle).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			else{
+				shortText = newTitle;
+			}
+		elements.permissionsDialog.dialog("option", "title", elements.permissionsDialog.dialog("option", "title") + ": " + shortText);		
 	};
 
 	//Unused

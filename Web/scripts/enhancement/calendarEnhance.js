@@ -14,82 +14,192 @@ var enhanceCalendar = function(opts, reservations) {
 	
 	readOnly = opts.readOnly;
 	
-	//TimeTable
-	$("#timeTable").on('click', function() {
-		$( '#dialogBoundaries' ).dialog("open");
-		document.getElementById("selects").style.visibility = "visible";	
+	ConfigureAdminDialog($('#dialogBoundaries'));
+	ConfigureAdminDialog($('#dialogSubscribe'));
+	ConfigureAdminDialog($('#dialogColors'));
+	ConfigureAdminDialog($('#dialogDeleteReservation'));
+	ConfigureAdminDialog($('#dialogDeleteBlackout'));
+	//ConfigureAdminDialog($('#reservationColorbox'));
+	//$('#dialogColors').dialog("option","modal",false);
+	
+		
+	$(".dayMenu").contextmenu({
+		//delegate: ".dayMenu",
+		menu: [
+			{title: document.getElementById("createString").value, cmd: document.getElementById("createString").value, uiIcon: "ui-icon-circle-plus"},
+			{title: "----"},
+			{title: document.getElementById("goDayString").value, cmd: document.getElementById("goDayString").value, uiIcon: "ui-icon-arrowthick-1-e"}
+			],
+		select: function(event, ui) {
+			alert("select " + ui.cmd + " on " + ui.target.text());
+		}
 	});
-
-	//Legend
-	$("#legendHide").on('click', function() {
-		if (document.getElementById("legend").style.display == "none"){
-			document.getElementById("legend").style.display = "block";	
+	
+	$(".reservationMenu").contextmenu({
+		//delegate: ".reservationMenu",
+		menu: [
+			{title: document.getElementById("editString").value, cmd: document.getElementById("editString").value, uiIcon: "ui-icon-wrench"},
+			{title: "----"},
+			{title: document.getElementById("deleteString").value, cmd: document.getElementById("deleteString").value, uiIcon: "ui-icon-trash"}
+			],
+		select: function(event, ui) {
+			alert("select " + ui.cmd + " on " + ui.target.text());
+		}
+	});
+	
+	$(".timeTable").click(function (){
+		//Get Variables
+		start = document.getElementById("BeginPeriod").value;
+		end =  document.getElementById("EndPeriod").value;
+			
+		//Check
+		if (end>start){
+			//Submits
+			document.getElementById("minTime").value = start;
+			document.getElementById("maxTime").value = end;
+			document.getElementById("myform").submit();
 		}
 		else{
-			document.getElementById("legend").style.display = "none";				
+			alert("Error")
 		}
 	});
 	
-	//ExportDialog
-	$("#export").on('click', function() {
-			$('#dialogSubscribe').dialog("open");	
-		});
+	$(".export").click(function (){
+		window.open("uploads/calendars/"+opts.filename+".ics");
+		$("#dialogSubscribe").dialog('close');
+	});
 	
-	//Erase Reservation Dialog
-	$("#dialogDeleteReservation").dialog({
-		buttons: {
-        "Delete": function() {
-            $(this).dialog("close");
-			
-			//Variables
+	$(".gcalendar").click(function (){
+		window.open("http://www.google.com/calendar/render?cid=webcal://156.35.41.127/booked/Web/uploads/calendars/"+opts.filename+".ics");
+		$("#dialogSubscribe").dialog('close');
+		alert("yo");
+	});
+	
+	$(".deleteReservation").click(function (){
+		//Variables
 			var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
 			var header = null;
 			var username = opts.username;
 			var password = opts.password;		
 			var isAdmin = sessionStorage.getItem('isAdmin');
 			
+			//alert(username);
+			//alert(password);
+			alert(url);
+			url = "http://localhost/booked/Web/Services/Authentication/Authenticate";
+			
 			//API: Authentication
 			$.post(url, JSON.stringify({username: username, password: password}), function(data, status){
 
 				//Authentication Successful
 				if (data.isAuthenticated){
-					//Gets the data
+					
+					alert("1");
+					////Gets the data
 					header = {"X-Booked-SessionToken": data.sessionToken, "X-Booked-UserId": data.userId};						
 					reservationID = info2;
 					url = [location.protocol, '//', location.host, "/booked/Web/Services/Reservations/",reservationID].join('');
 					
-					//Check permissions
+					////Check permissions
 					if ((opts.myCal == 1) || (isAdmin == "1")){
-						//API: Delete Reservation
+						////API: Delete Reservation
 						$.ajax({
 							url: url,
 							type: "DELETE",
 							headers: header,
 							dataType: "json",
 							 
-							//if Success
+							////if Success
 							success: function(data) {
 								location.reload();
 							}
 						});
 					}
+					//$("#dialogDeleteReservation").dialog('close');
 				}
+				alert("yo");
 			});
-        }
-        // "Cancelar": function() {
-            // $( this ).dialog( "close" );
-        // }
-      }
 	});
 	
-	//Colors
-	$("#dialogColors").dialog({
-		buttons: {
-         "Actualizar": function() {
-             $(this).dialog("close");
+	//TimeTable
+	$("#timeTable").on('click', function() {
+		//Create and append the options
+		for (i = 0; i < 23; i++) {
+			
+			//Variables
+			var option1 = document.createElement("option");
+			var option2 = document.createElement("option");
+			k = i;
+			
+			//Always 2 ciphers
+			if (i<10){
+				k ="0"+i;
 			}
+			
+			//Generates options
+			option1.value = k+":00";
+			option1.text = k+":00";
+			option2.value = k+":00";
+			option2.text = k+":00";
+			document.getElementById("BeginPeriod").appendChild(option1);
+			document.getElementById("EndPeriod").appendChild(option2);
 		}
+		$('#dialogBoundaries').dialog("open");
+		document.getElementById("selects").style.visibility = "visible";	
 	});
+	
+	//Erase Reservation Dialog
+	// $("#dialogDeleteReservation").dialog({
+		// buttons: {
+        // "Delete": function() {
+            // $(this).dialog("close");
+			
+			// Variables
+			// var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
+			// var header = null;
+			// var username = opts.username;
+			// var password = opts.password;		
+			// var isAdmin = sessionStorage.getItem('isAdmin');
+			
+			// API: Authentication
+			// $.post(url, JSON.stringify({username: username, password: password}), function(data, status){
+
+				// Authentication Successful
+				// if (data.isAuthenticated){
+					// Gets the data
+					// header = {"X-Booked-SessionToken": data.sessionToken, "X-Booked-UserId": data.userId};						
+					// reservationID = info2;
+					// url = [location.protocol, '//', location.host, "/booked/Web/Services/Reservations/",reservationID].join('');
+					
+					// Check permissions
+					// if ((opts.myCal == 1) || (isAdmin == "1")){
+						// API: Delete Reservation
+						// $.ajax({
+							// url: url,
+							// type: "DELETE",
+							// headers: header,
+							// dataType: "json",
+							 
+							// if Success
+							// success: function(data) {
+								// location.reload();
+							// }
+						// });
+					// }
+				// }
+			// });
+        // }
+      // }
+	// });
+	
+	//Colors
+	// $("#dialogColors").dialog({
+		// buttons: {
+         // "Actualizar": function() {
+             // $(this).dialog("close");
+			// }
+		// }
+	// });
 	
 	//Delete BlackoutDialog
 	$("#dialogDeleteBlackout").dialog({
@@ -110,85 +220,8 @@ var enhanceCalendar = function(opts, reservations) {
 				location.reload();	
 			},1000);			
 		}
-        // "Cancelar": function() {
-            // $(this).dialog("close");
-        // }
       }
 	});	
-	
-	//Change Boundaries Dialog
-	$( "#dialogBoundaries" ).dialog({
-		buttons: {
-        "Update": function() {			
-			//Get Variables
-			start = document.getElementById("BeginPeriod").value;
-			end =  document.getElementById("EndPeriod").value;
-			
-			//Check
-			if (end>start){
-				//Submits
-				document.getElementById("minTime").value = start;
-				document.getElementById("maxTime").value = end;
-				document.getElementById("myform").submit();
-			}
-			else{
-				alert("Error")
-			}
-			
-			
-        }
-        // "Cancelar": function() {
-            // $( this ).dialog( "close" );
-        // }
-      }
-	});	
-	
-	//Create and append the options
-	for (var i = 0; i < 23; i++) {
-		
-		//Variables
-		var option1 = document.createElement("option");
-		var option2 = document.createElement("option");
-		k = i;
-		
-		//Always 2 ciphers
-		if (i<10){
-			k ="0"+i;
-		}
-		
-		//Generates options
-		option1.value = k+":00";
-		option1.text = k+":00";
-		option2.value = k+":00";
-		option2.text = k+":00";
-		document.getElementById("BeginPeriod").appendChild(option1);
-		document.getElementById("EndPeriod").appendChild(option2);
-	}
-	
-	//Informative Dialogs
-	$( "#dialogSucessful" ).dialog();
-	$( "#dialogFailed" ).dialog();
-	
-	//Subscription dialog
-	$( "#dialogSubscribe" ).dialog({
-		buttons: {
-		
-		//Download
-        "Download": function() {
-			window.open("uploads/calendars/"+opts.filename+".ics");
-			$(this).dialog("close");
-        },
-		
-		"Upload": function() {
-			window.open("uploads/calendars/"+opts.filename+".ics");
-			$(this).dialog("close");
-		}		
-		
-        // "Cancelar": function() {
-            // $( this ).dialog( "close" );
-        // }
-      }
-	});		
 	
 	//OnOff Switch
 	$('#myonoffswitch').change(function() {			
@@ -221,19 +254,20 @@ var enhanceCalendar = function(opts, reservations) {
 			
 		//Before Open: used to fix bugs.
 		beforeopen: function(){
-			$("#dialogDeleteReservation").dialog('close');
-			$("#dialogDeleteBlackout").dialog('close');
-			$("#dialogBoundaries").dialog('close');
-			$("#dialogSucessful").dialog('close');
-			$("#dialogFailed").dialog('close');
-			$("#dialogSubscribe").dialog('close');
-			$("#dialogColors").dialog('close');
+			//$("#dialogDeleteReservation").dialog('close');
+			//$("#dialogDeleteBlackout").dialog('close');
+			//$("#dialogSucessful").dialog('close');
+			//$("#dialogFailed").dialog('close');
 		},
 			
 		//Options
 		header: true,
 		autoOpen: true,
 		height: 'auto',
+		checkAllText: document.getElementById("checkAllString").value,
+		uncheckAllText:  document.getElementById("uncheckAllString").value,
+		noneSelectedText:  document.getElementById("selectOptionsString").value,
+		selectedText: '# '+document.getElementById("selectTextString").value,
 			
 		//Open	
 	    open: function(){		   
@@ -310,6 +344,23 @@ var enhanceCalendar = function(opts, reservations) {
 			//$('#calendar').fullCalendar('disableResizing','false');
 			//sessionStorage.setItem('resize','true');
 			//$('#calendar').fullCalendar('rerenderEvents');
+			var url =  [location.protocol, '//', location.host, "/booked/Web/reservation.php"].join('');
+			//$('#reservationColorbox').colorbox();
+			//$('#reservationColorbox').colorbox({href:url});
+			
+			//var a = $('<div></div>')
+			var a = $('#reservationColorbox')
+			 .html('<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+               .dialog({
+                   autoOpen: false,
+                   modal: true,
+                   height: 500,
+                   width: 400
+                   //title: "Some title"
+               });
+			a.dialog("open");
+			
+			//$('#reservationColorbox').dialog("open");			
 			break;
 		
 			case 46: // delete
@@ -330,9 +381,9 @@ var enhanceCalendar = function(opts, reservations) {
 		switch(e.which) {
 			case 16: // shift
 			//$('#calendar').fullCalendar('disableResizing','false');
-			sessionStorage.removeItem('resize');
-			$('#calendar').fullCalendar('rerenderEvents');
-			alert("adios");
+			//sessionStorage.removeItem('resize');
+			//$('#calendar').fullCalendar('rerenderEvents');
+			//alert("adios");
 			//document.getElementById("fc-resizer").style.display = "none";
 			//$( ".fc-resizer" ).resizable( "enable" );
 			//$('#calendar').fullCalendar();
@@ -503,7 +554,7 @@ var enhanceCalendar = function(opts, reservations) {
 		//EventDoubleClick
 		else if (event == "eventDoubleClick"){
 			var popup = new $.Popup({modal:true});
-			popup.open('reservation.php?rn='+data.id);
+			popup.open('http://156.35.41.127/booked/Web/reservation.php?rn='+data.id);
 			$('.popup_close').hide();
 			interval = setInterval(function(){
 				popup_status = sessionStorage.getItem("popup_status");
@@ -594,7 +645,7 @@ var enhanceCalendar = function(opts, reservations) {
 			// if (numLegend < maxLegend){
 				// document.getElementById('legend').innerHTML += "<input type='button' onchange=\"changeColor(this.id,this.value)\" id='"+event.colorID+"' class=\"jscolor\">"+shortStringToDisplay+'</input> &nbsp &nbsp &nbsp';
 			// }
-			document.getElementById('legend').innerHTML += "<input type='button' onchange=\"changeColor(this.id,this.value)\" id='"+event.colorID+"' class=\"jscolor\">"+shortStringToDisplay+'</input> </br> </br>';
+			//document.getElementById('legend').innerHTML += "<input type='button' onchange=\"changeColor(this.id,this.value)\" id='"+event.colorID+"' class=\"jscolor\">"+"&nbsp"+event.colorID+'</input> </br> </br>';
 			// else{
 				// document.getElementById('legend').innerHTML += "<input type='button' onchange=\"changeColor(this.id,this.value)\" id='"+event.colorID+"' style=\"display:none;\" class=\"jscolor\">"+'</input> &nbsp &nbsp &nbsp';
 			// }			
@@ -677,3 +728,7 @@ var enhanceCalendar = function(opts, reservations) {
 		prevColor = object.css("background-color");
 		object.css('background-color', '#CCFFFF');
 	}
+	
+	$( ".jscolor" ).change(function() {
+	  changeColor(this.id,this.value);
+	});

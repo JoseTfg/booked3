@@ -146,10 +146,10 @@ div.error li {
 }
 
 #wrapper {
-	min-height: 100%;
+	min-height: 97%;				/*MyCode*/
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -40px;
+	margin: 0 auto 0; /*MyCode*/
 	/*background-image: url("aa.jpg");	  MyCode*/ 
 	background-repeat: repeat-x;		/*MyCode*/
 	background-position: center; 		/*MyCode*/
@@ -160,10 +160,10 @@ div.page-footer {
 	vertical-align: bottom;
 	width: 100%;
 	text-align: center;
-	height: 38px;
+	height: 18px;						/*MyCode (38px)*/
 	background-color: #e3f2ff;
 	background: url(../img/footer-gradient.png) repeat;
-	padding-top: 1px;
+
 	border-top: solid 1px #333333;
 	font-size: 12pt;
 	font-weight: normal;
@@ -171,7 +171,7 @@ div.page-footer {
 }
 
 div.push {
-	height: 20px;							/* My Code */
+	height: 0;							/* My Code (20px)*/
 }
 
 .page-footer a, .page-footer a:visited {
@@ -187,7 +187,7 @@ div.push {
 	color: #aaa;
 }
 
-form.login, form.forgot, form.register, #reservationForm, form.box-form, #activation-body {
+form.login, form.forgot, form.register, /*#reservationForm,*/ form.box-form, #activation-body {
 	margin: 0 0 0 8px;
 	padding: 20px 16px 48px 16px;
 	font-weight: normal;

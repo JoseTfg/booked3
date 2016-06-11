@@ -333,9 +333,10 @@ var jsc = {
 	getElementPos : function (e, relativeToViewport) {
 		var x=0, y=0;
 		var rect = e.getBoundingClientRect();
-		x = rect.left-60;
-		//y = rect.top-200;
-		y = 80;
+		x = rect.left;
+		//MyCode
+		y = rect.top;
+		//y = 80;
 		if (!relativeToViewport) {
 			var viewPos = jsc.getViewPos();
 			x += viewPos[0];
@@ -1026,7 +1027,7 @@ var jsc = {
 		this.pointerBorderColor = '#FFFFFF'; // px
         this.pointerBorderWidth = 1; // px
         this.pointerThickness = 2; // px
-		this.zIndex = 1000;
+		this.zIndex = 9999;
 		this.container = null; // where to append the color picker (BODY element by default)
 
 

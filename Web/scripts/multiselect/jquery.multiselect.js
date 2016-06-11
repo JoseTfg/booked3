@@ -31,10 +31,10 @@
       height: 175,
       minWidth: 225,
       classes: '',
-      checkAllText: 'Check all',
-      uncheckAllText: 'Uncheck all',
-      noneSelectedText: 'Select options',
-      selectedText: '# selected',
+      checkAllText: 'Check all',//document.getElementById("checkAll").value,
+      uncheckAllText:  'Uncheck all',//document.getElementById("uncheckAll").value,
+      noneSelectedText:  'Select options',//document.getElementById("selectOptions").value,
+      selectedText: '# selected',//+document.getElementById("selectText").value,
       selectedList: 0,
       show: null,
       hide: null,
@@ -74,7 +74,9 @@
 
         header = (this.header = $('<div />'))
           .addClass('ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix')
-          .appendTo(menu),
+          .appendTo(menu)
+		  //MyCode
+		  .append('<a style="float:right;" href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a>'),
 
         headerLinkContainer = (this.headerLinkContainer = $('<ul />'))
           .addClass('ui-helper-reset')
@@ -277,11 +279,11 @@
         },
         mouseenter: function() {
           if(!button.hasClass('ui-state-disabled')) {
-            $(this).addClass('ui-state-hover');
+            //$(this).addClass('ui-state-hover');
           }
         },
         mouseleave: function() {
-          $(this).removeClass('ui-state-hover');
+          //$(this).removeClass('ui-state-hover');
         },
         focus: function() {
           if(!button.hasClass('ui-state-disabled')) {
@@ -335,8 +337,8 @@
       })
       .delegate('label', 'mouseenter.multiselect', function() {
         if(!$(this).hasClass('ui-state-disabled')) {
-          self.labels.removeClass('ui-state-hover');
-          $(this).addClass('ui-state-hover').find('input').focus();
+          //self.labels.removeClass('ui-state-hover');
+          //$(this).addClass('ui-state-hover').find('input').focus();
         }
       })
       .delegate('label', 'keydown.multiselect', function(e) {

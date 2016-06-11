@@ -36,7 +36,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<label for="results_count">{translate key=Count}</label>
 			</div>
 
-			<div class="input-set select-toggle" id="listOfDiv">
+			{*<div class="input-set select-toggle" style="display:none;" id="listOfDiv">
 				<span class="label">{translate key=Usage}</span>
 				<input type="radio" {formname key=REPORT_USAGE} value="{Report_Usage::RESOURCES}" id="usage_resources"
 					   checked="checked">
@@ -44,7 +44,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<input type="radio" {formname key=REPORT_USAGE} value="{Report_Usage::ACCESSORIES}"
 					   id="usage_accessories">
 				<label for="usage_accessories">{translate key=Accessories}</label>
-			</div>
+			</div>*}
 
 			<div class="input-set select-toggle" id="aggregateDiv" style="display:none;">
 				<span class="label">{translate key=AggregateBy}</span>
@@ -54,9 +54,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<input type="radio" {formname key=REPORT_GROUPBY} value="{Report_GroupBy::RESOURCE}"
 					   id="groupby_resource"/>
 				<label for="groupby_resource">{translate key=Resource}</label>
-				<input type="radio" {formname key=REPORT_GROUPBY} value="{Report_GroupBy::SCHEDULE}"
+				{*<input type="radio" {formname key=REPORT_GROUPBY} value="{Report_GroupBy::SCHEDULE}"
 					   id="groupby_schedule"/>
-				<label for="groupby_schedule">{translate key=Schedule}</label>
+				<label for="groupby_schedule">{translate key=Schedule}</label>*}
 				<input type="radio" {formname key=REPORT_GROUPBY} value="{Report_GroupBy::USER}"
 					   id="groupby_user"/>
 				<label for="groupby_user">{translate key=User}</label>
@@ -82,7 +82,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<input type="input" class="textbox dateinput" id="endDate"/>
 				<input type="hidden" id="formattedEndDate" {formname key=REPORT_END} />
 			</div>
-			<div class="input-set">
+			<div class="input-set" style="display:none;">
 				<span class="label">{translate key=FilterBy}</span>
 				<select class="textbox" {formname key=RESOURCE_ID}>
 					<option value="">{translate key=AllResources}</option>
@@ -127,7 +127,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				</div>
 			</div>
 		</div>
-		<input type="submit" value="{translate key=GetReport}" class="button" id="btnCustomReport" asyncAction=""/>
+		<input type="submit"style="float:right;" value="{translate key=GetReport}" class="button" id="btnCustomReport" asyncAction=""/>
+		{*<input type="submit" style="background-color: #f5f5f5;text-align: right;width:145px;float:right;background:url('../img/arrow-circle-135.png');background-position:left;
+background-repeat:no-repeat;" value="{translate key=GetReport}" class="button" id="btnCustomReport" asyncAction=""/>*}
 		{csrf_token}
 	</form>
 </fieldset>

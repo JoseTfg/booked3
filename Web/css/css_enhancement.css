@@ -213,7 +213,16 @@ p.rss-title {padding:0.5em;}
 
 #reservationForm
 {
-	 background-color: #CC9966;
+	/*background-color: #FFCC99;*/
+	 /*background-color: #CC9966;*/
+	 margin: 0 0 0 8px;
+	padding: 20px 16px 48px 16px;
+	font-weight: normal;
+}
+
+.reservationButtons{
+position: fixed;
+	left: 770px;
 }
 
 #reservationFormDiv
@@ -253,7 +262,7 @@ p.rss-title {padding:0.5em;}
     border-bottom: solid 1px #666633;
     font-size: 12px;
     font-weight: bold;
-    padding: 2px 0px 2px 10px;
+    /*padding: 2px 0px 2px 10px;*/
     letter-spacing: 1px;
     -moz-border-radius-topleft: 5px;
     -moz-border-radius-topright: 5px;
@@ -295,12 +304,19 @@ p.rss-title {padding:0.5em;}
 
 /*Popups*/
 iframe{
-min-width:800px;
+/*min-width:800px;
 height:100vh;
 position:fixed;
 margin-left: auto;
 margin-right: auto;
+*/
+position:fixed;
+left:0;
+top: 100px;
+}
 
+.ui-dialog-titlebar{
+z-index:999;
 }
 
 /*TableSorter*/
@@ -395,3 +411,10 @@ table.list thead td {
 	font-weight: bold;
 }
 
+.ui-state-hover{
+	background: #8dbdd8;
+}
+
+.ui-menu{
+z-index:99999;
+}

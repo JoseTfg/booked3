@@ -253,6 +253,94 @@ tr.pending {
 	background: url('../img/plus-button.png') no-repeat;
 }
 
+/*MyCode*/
+#removedResources {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: solid 1px #777777;
+}
+
+#addedResources a, #removedResources a {
+	width:30px;
+	display:block;
+	float: left;;
+	text-decoration: none;
+}
+
+#addedResources a {
+	background: url('../img/minus-gray.png') no-repeat;
+}
+
+#removedResources a {
+	background: url('../img/plus-button.png') no-repeat;
+}
+
+
+#removedMembers {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: solid 1px #777777;
+}
+
+#addedMembers a, #removedMembers a {
+	width:30px;
+	display:block;
+	float: left;;
+	text-decoration: none;
+}
+
+#addedMembers a {
+	background: url('../img/minus-gray.png') no-repeat;
+}
+
+#removedMembers a {
+	/*background: url('../img/plus-button.png') no-repeat;*/
+}
+
+#removedRoles {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: solid 1px #777777;
+}
+
+#addedRoles a, #removedRoles a {
+	width:30px;
+	display:block;
+	float: left;;
+	text-decoration: none;
+}
+
+#addedRoles a {
+	background: url('../img/minus-gray.png') no-repeat;
+}
+
+#removedRoles a {
+	background: url('../img/plus-button.png') no-repeat;
+}
+
+#removedStatus {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: solid 1px #777777;
+}
+
+#addedStatus a, #removedStatus a {
+	width:30px;
+	display:block;
+	float: left;;
+	text-decoration: none;
+}
+
+#addedStatus a {
+	background: url('../img/minus-gray.png') no-repeat;
+}
+
+#removedStatus a {
+	background: url('../img/plus-button.png') no-repeat;
+}
+
+/**/
+
 #group-tree {
 	width:auto;
 	float:left;

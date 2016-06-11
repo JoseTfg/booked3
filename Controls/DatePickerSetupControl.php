@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'Controls/Control.php');
 
+//Class: Supports date picker panels
 class DatePickerSetupControl extends Control
 {
 	public function __construct(SmartyPage $smarty)
@@ -27,6 +28,7 @@ class DatePickerSetupControl extends Control
 		parent::__construct($smarty);
 	}
 
+	//Loads the panel
 	public function PageLoad()
 	{
 		$this->SetDefault('NumberOfMonths', 1);
@@ -62,6 +64,7 @@ class DatePickerSetupControl extends Control
 		$this->Display('Controls/DatePickerSetup.tpl');
 	}
 
+	//Sets default
 	private function SetDefault($key, $value)
 	{
 		$item = $this->Get($key);
@@ -70,16 +73,20 @@ class DatePickerSetupControl extends Control
 			$this->Set($key, $value);
 		}
 	}
+	
+	//Gets the days array
 	private function GetJsDayNames($dayKey)
 	{
 		return $this->GetJsArrayValues(Resources::GetInstance()->GetDays($dayKey));
 	}
 
+	//Gets month values
 	private function GetJsMonthNames($monthKey)
 	{
 		return $this->GetJsArrayValues(Resources::GetInstance()->GetMonths($monthKey));
 	}
 
+	//Concatenates the values
 	private function GetJsArrayValues($values)
 	{
 		return "['" . implode("','", $values) . "']";

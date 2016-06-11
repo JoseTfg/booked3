@@ -43,7 +43,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	{capture "resources"}
 	<div class="resources">
-	{translate key="Resources"} ({$resources|@count}):
+	{*{translate key="Resources"} ({$resources|@count}):*}
 	{foreach from=$resources item=resource name=resource_loop}
 		{$resource->Name()}
 		{if !$smarty.foreach.resource_loop.last}, {/if}

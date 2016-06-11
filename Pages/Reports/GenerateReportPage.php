@@ -127,6 +127,7 @@ interface IGenerateReportPage extends IDisplayableReportPage, IActionPage
 	public function BindGroups($groups);
 }
 
+//Class: Allows reports generaton
 class GenerateReportPage extends ActionPage implements IGenerateReportPage
 {
 	/**
@@ -134,6 +135,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	 */
 	private $presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('Reports', 1);
@@ -149,6 +151,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return void
 	 */
+	//Process an action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
@@ -166,6 +169,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return void
 	 */
+	//Loads Smarty template
 	public function ProcessPageLoad()
 	{
 		$this->presenter->PageLoad();
@@ -175,6 +179,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return string|Report_Usage
 	 */
+	//Gets the usage
 	public function GetUsage()
 	{
 		return $this->GetValue(FormKeys::REPORT_USAGE);
@@ -183,6 +188,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return string|Report_ResultSelection
 	 */
+	//Gets the results
 	public function GetResultSelection()
 	{
 		return $this->GetValue(FormKeys::REPORT_RESULTS);
@@ -191,6 +197,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return string|Report_GroupBy
 	 */
+	//Gets agrupation
 	public function GetGroupBy()
 	{
 		return $this->GetValue(FormKeys::REPORT_GROUPBY);
@@ -199,6 +206,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return string|Report_Range
 	 */
+	//Gets range
 	public function GetRange()
 	{
 		return $this->GetValue(FormKeys::REPORT_RANGE);
@@ -207,6 +215,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return string
 	 */
+	//Gets start date
 	public function GetStart()
 	{
 		return $this->GetValue(FormKeys::REPORT_START);
@@ -215,6 +224,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return string
 	 */
+	//Gets end date
 	public function GetEnd()
 	{
 		return $this->GetValue(FormKeys::REPORT_END);
@@ -223,6 +233,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return int
 	 */
+	//Gets resource identifier
 	public function GetResourceId()
 	{
 		return $this->GetValue(FormKeys::RESOURCE_ID);
@@ -231,6 +242,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return int
 	 */
+	//Unused
 	public function GetScheduleId()
 	{
 		return $this->GetValue(FormKeys::SCHEDULE_ID);
@@ -239,6 +251,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return int
 	 */
+	//Gets user identifier
 	public function GetUserId()
 	{
 		return $this->GetValue(FormKeys::USER_ID);
@@ -247,6 +260,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return int
 	 */
+	//Unused
 	public function GetParticipantId()
 	{
 		return $this->GetValue(FormKeys::PARTICIPANT_ID);
@@ -255,11 +269,13 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return int
 	 */
+	//Gets group identifier
 	public function GetGroupId()
 	{
 		return $this->GetValue(FormKeys::GROUP_ID);
 	}
 
+	//Sends report data to the Smarty page
 	public function BindReport(IReport $report, IReportDefinition $definition)
 	{
 		$this->Set('Definition', $definition);
@@ -269,6 +285,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @param array|BookableResource[] $resources
 	 */
+	//Sends resources data to the Smarty page
 	public function BindResources($resources)
 	{
 		$this->Set('Resources', $resources);
@@ -277,6 +294,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @param array|AccessoryDto[] $accessories
 	 */
+	//Unused
 	public function BindAccessories($accessories)
 	{
 		$this->Set('Accessories', $accessories);
@@ -285,6 +303,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @param array|Schedule[] $schedules
 	 */
+	//Unused
 	public function BindSchedules($schedules)
 	{
 		$this->Set('Schedules', $schedules);
@@ -293,17 +312,20 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @return int
 	 */
+	//Unused
 	public function GetAccessoryId()
 	{
 		return $this->GetValue(FormKeys::ACCESSORY_ID);
 	}
 
 
+	//Unused
 	public function GetReportName()
 	{
 		return $this->GetForm(FormKeys::REPORT_NAME);
 	}
 
+	//Unused
 	private function GetValue($key)
 	{
 		$postValue = $this->GetForm($key);
@@ -316,21 +338,25 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 		return $postValue;
 	}
 
+	//Unused
 	public function ShowCsv()
 	{
 		$this->DisplayCsv('Reports/custom-csv.tpl', 'report.csv');
 	}
 
+	//Unused
 	public function DisplayError()
 	{
 		$this->Display('Reports/error.tpl');
 	}
 
+	//Shows results
 	public function ShowResults()
 	{
 		$this->Display('Reports/results-custom.tpl');
 	}
 
+	//Shows printable report
 	public function PrintReport()
 	{
 		$this->Display('Reports/print-custom-report.tpl');
@@ -339,6 +365,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	/**
 	 * @param array|GroupItemView[] $groups
 	 */
+	//Sends groups information to Smarty page
 	public function BindGroups($groups)
 	{
 		$this->Set('Groups', $groups);

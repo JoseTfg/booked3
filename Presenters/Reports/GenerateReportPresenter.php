@@ -22,6 +22,7 @@ require_once(ROOT_DIR . 'Presenters/Reports/ReportActions.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 require_once(ROOT_DIR . 'lib/Application/Reporting/namespace.php');
 
+//Class: Supports reports controller
 class GenerateReportPresenter extends ActionPresenter
 {
 	/**
@@ -59,6 +60,7 @@ class GenerateReportPresenter extends ActionPresenter
 	 * @param IScheduleRepository $scheduleRepo
 	 * @param IGroupViewRepository $groupRepo
 	 */
+	//Construct
 	public function __construct(
 		IGenerateReportPage $page,
 		UserSession $user,
@@ -81,6 +83,7 @@ class GenerateReportPresenter extends ActionPresenter
 		$this->AddAction(ReportActions::Save, 'SaveReport');
 	}
 
+	//Sends the information of the reports to the Smarty page
 	public function PageLoad()
 	{
 		$this->page->BindResources($this->resourceRepo->GetResourceList());
@@ -89,6 +92,7 @@ class GenerateReportPresenter extends ActionPresenter
 		$this->page->BindGroups($this->groupRepo->GetList()->Results());
 	}
 
+	//Process action or display error if failed
 	public function ProcessAction()
 	{
 		try
@@ -102,24 +106,28 @@ class GenerateReportPresenter extends ActionPresenter
 		}
 	}
 
+	//Prints the report
 	public function PrintReport()
 	{
 		$this->BindReport();
 		$this->page->PrintReport();
 	}
 
+	//Generate report
 	public function GenerateCustomReport()
 	{
 		$this->BindReport();
 		$this->page->ShowResults();
 	}
 
+	//Unused
 	public function ExportToCsv()
 	{
 		$this->BindReport();
 		$this->page->ShowCsv();
 	}
 
+	//Unused
 	public function SaveReport()
 	{
 		$reportName = $this->page->GetReportName();
@@ -134,6 +142,7 @@ class GenerateReportPresenter extends ActionPresenter
 		$this->reportingService->Save($reportName, $userId, $usage, $selection, $groupBy, $range, $filter);
 	}
 
+	//Sends the information of the report to the Smarty page
 	private function BindReport()
 	{
 		$usage = $this->GetUsage();
@@ -151,6 +160,7 @@ class GenerateReportPresenter extends ActionPresenter
 	/**
 	 * @return Report_Usage
 	 */
+	//Gets usage
 	private function GetUsage()
 	{
 		return new Report_Usage($this->page->GetUsage());
@@ -159,6 +169,7 @@ class GenerateReportPresenter extends ActionPresenter
 	/**
 	 * @return Report_ResultSelection
 	 */
+	//Gets selection
 	private function GetSelection()
 	{
 		return new Report_ResultSelection($this->page->GetResultSelection());
@@ -167,6 +178,7 @@ class GenerateReportPresenter extends ActionPresenter
 	/**
 	 * @return Report_GroupBy
 	 */
+	//Gets agrupation
 	private function GetGroupBy()
 	{
 		return new Report_GroupBy($this->page->GetGroupBy());
@@ -175,6 +187,7 @@ class GenerateReportPresenter extends ActionPresenter
 	/**
 	 * @return Report_Range
 	 */
+	//Gets range
 	private function GetRange()
 	{
 		$startString = $this->page->GetStart();
@@ -186,6 +199,7 @@ class GenerateReportPresenter extends ActionPresenter
 	/**
 	 * @return Report_Filter
 	 */
+	//Unused
 	private function GetFilter()
 	{
 		return new Report_Filter($this->page->GetResourceId(), $this->page->GetScheduleId(), $this->page->GetUserId(), $this->page->GetGroupId(), $this->page->GetAccessoryId(), $this->page->GetParticipantId());

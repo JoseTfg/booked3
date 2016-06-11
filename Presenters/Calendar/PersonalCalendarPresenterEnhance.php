@@ -15,6 +15,14 @@
 	function APIconnection($presenter){
 		$username = $_SESSION['username'];
 		$password = $_SESSION['password'];
+		//if(isset($username)){
+		if ($username == ""){
+			$username = 'blank';
+			$password = 'blank';
+		}
+		else{
+			//no-op
+		}
 		$presenter->page->Set('username', $username);
 		$presenter->page->Set('password', $password);
 		return;
@@ -24,7 +32,8 @@
 	function calendarBoundaries($presenter, $userSession){		
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);		
 		$minTimeNew = $_POST["minTime"];
-		$maxTimeNew = $_POST["maxTime"];		
+		$maxTimeNew = $_POST["maxTime"];
+		$changedSetting = '';		
 	
 		if ($minTimeNew != "" && $maxTimeNew != ""){		
 			$newSettings = array();
@@ -32,8 +41,9 @@
 			$newSettings[$userSession->FirstName."_".$userSession->LastName.'#maxTime'] = $maxTimeNew;			
 			$mergedSettings = array_merge($existingSettings, $newSettings);
 			$presenter->configSettings->WriteSettings($presenter->configFilePath, $mergedSettings);
+			$changedSetting = $minTimeNew."#".$maxTimeNew;
 			}
-		return;
+		return $changedSetting;
 	}
 	
 	//Gets blackouts
@@ -82,6 +92,7 @@
 		//MyCode 4/5/2016
 		//Test
 		$colors = $_POST['colors'];
+		$changedSetting = '';
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);
 		//echo '<script type="text/javascript">alert("'.var_dump($existingSettings).'");</script>';
 		if ($colors != ""){
@@ -91,12 +102,13 @@
 			$newSettings[$userSession->FirstName."_".$userSession->LastName."#color#".$colors[0]] = $colors[1];		
 			$mergedSettings = array_merge($existingSettings, $newSettings);
 			$presenter->configSettings->WriteSettings($presenter->configFilePath, $mergedSettings);
+			$changedSetting = $colors[0]."#".$colors[1];
 		}
-		return;
+		return $changedSetting;
 	}
 	
 	//Sends config file settings
-	function sendSettings($presenter, $userSession){
+	function sendSettings($presenter, $userSession, $settingType, $changedSetting){
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);
 		$settingsKeys = array_keys($existingSettings);		
 		foreach ($settingsKeys as $setKey){
@@ -111,6 +123,19 @@
 				$maxTime = $existingSettings[$setKey];
 			}				
 		}
+		
+		if ($settingType != ""){
+			if ($settingType == "color"){
+				$changedSetting = explode("#",$changedSetting);
+				$colorsToSend[$changedSetting[0]] = $changedSetting[1];
+			}
+			elseif ($settingType == "time"){
+				$changedSetting = explode("#",$changedSetting);
+				$minTime = $changedSetting[0];
+				$maxTime = $changedSetting[1];
+			}
+		}
+		
 		$presenter->page->Set('colorsToSend', $colorsToSend);
 		$presenter->page->Set('minTime', $minTime);
 		$presenter->page->Set('maxTime', $maxTime);

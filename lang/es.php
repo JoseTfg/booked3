@@ -601,14 +601,27 @@ class es extends en_us
        
 	    //Enhance
 	    $strings['Day'] = 'Dia';
-		$strings['Legend'] = 'Leyenda';
+		$strings['Colors'] = 'Colores';
 		$strings['TimeTable'] = 'Horarios';
-		$strings['TimeTableBoundaries'] = 'Horario de visualización';
+		$strings['TimeTableBoundaries'] = 'Seleccione el horario de visualización de las vistas diaria y semanal';
 		$strings['Export'] = 'Exportar';
 		$strings['DeleteReservation'] = '¿Estas seguro de que deseas borrar este elemento?';
 		$strings['Download'] = 'Descargar';
 		$strings['Subscribe'] = '¿Suscribirse al calendario?';
-		$strings['Subscription'] = 'Suscripcion';
+		$strings['Subscription'] = 'Suscripción';
+		$strings['ViewAsList'] = 'Ver como lista';
+		$strings['Columns'] = 'Columnas';
+		$strings['Amount'] = 'Cantidad';
+		$strings['Unit'] = 'Unidad';
+		$strings['Roles'] = 'Roles';
+		$strings['RequiresApproval'] = 'Requiere aprobación';
+		$strings['WhoApproves'] = '¿Quién aprueba?';
+		$strings['FieldWarning'] = 'Hay campos vacíos';
+		$strings['checkAll'] = 'Marcar todos';
+		$strings['uncheckAll'] = 'Desmarcar todos';
+		$strings['selectOptions'] = 'Selección de recursos';
+		$strings['selectText'] = 'seleccionados';
+		$strings['GoDay'] = 'Ir al día';
 				
         $this->Strings = $strings;
     }

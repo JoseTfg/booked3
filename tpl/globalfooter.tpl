@@ -35,16 +35,17 @@ $(document).ready(function() {
 });
 </script>
 {if $LoggedIn}
-<div class="dashboard" id="announcementsDashboard">
+{*<div class="dashboard" id="announcementsDashboard">*}
 	<div id="announcementsHeader" class="dashboardHeader">
 		{*<a href="javascript:void(0);" title="{translate key='ShowHide'}">{translate key="Announcements"} {html_image src="announce.png"}</a>*}
-		<marquee id="marquee" behavior="scroll" scrollamount="5" direction="left" onmousedown="this.stop();" onmouseup="this.start();">{foreach from=$Announcements item=each}
+		<marquee id="marquee" behavior="scroll" scrollamount="5" direction="left" onmousedown="this.stop();" onmouseup="this.start();">
+		{foreach from=$Announcements item=each}
 			   ||| {$each|html_entity_decode|url2link|nl2br}
 			{foreachelse}
 				{translate key="NoAnnouncements"}
 			{/foreach}</marquee>
 	</div>
-	<div class="dashboardContents" style="display:none">
+	{*<div class="dashboardContents" style="display:none">
 		<ul>
 			{foreach from=$Announcements item=each}
 			    <li>{$each|html_entity_decode|url2link|nl2br}</li>
@@ -52,12 +53,12 @@ $(document).ready(function() {
 				<div class="noresults">{translate key="NoAnnouncements"}</div>
 			{/foreach}
 		</ul>
-	</div>
-</div>
-	</body>
+	</div>*}
+{*</div>*}
+	{*</body>*}
 	{else}
 	<div class="page-footer">
-			&copy; 2015 <a href="http://www.twinkletoessoftware.com">Twinkle Toes Software</a> <br/><a href="http://www.bookedscheduler.com">Booked Scheduler v{$Version}</a>
+			&copy; 2015 <a href="http://www.twinkletoessoftware.com">Twinkle Toes Software</a> &nbsp;<a href="http://www.bookedscheduler.com">Booked Scheduler v{$Version}</a>
     	</div>
 	{/if}
 </html>

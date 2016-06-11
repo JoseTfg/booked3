@@ -23,12 +23,15 @@ function AnnouncementManagement(opts) {
 
 	var announcements = new Object();
 
+	//MyCode
+	var originalTitle = "";
+	
 	//Initialization
     AnnouncementManagement.prototype.init = function() {
 
-		ConfigureAdminDialog(elements.editDialog, 550, 230);
-		ConfigureAdminDialog(elements.deleteDialog,  500, 140);
-		ConfigureAdminDialog(elements.newDialog,  550, 230);
+		ConfigureAdminDialog(elements.editDialog);
+		ConfigureAdminDialog(elements.deleteDialog);
+		ConfigureAdminDialog(elements.newDialog);
 
 		elements.announcementList.delegate('a.update', 'click', function(e) {
 			setActiveId($(this));
@@ -36,21 +39,52 @@ function AnnouncementManagement(opts) {
 		});
 
 		elements.announcementList.delegate('.edit', 'click', function() {
+			$(".warning").hide();
 			editAnnouncement();
 		});
 		elements.announcementList.delegate('.delete', 'click', function() {
 			deleteAnnouncement();
 		});
-		$('#newButton').click(function()  {
-			newAnnouncement();
-		});
 
 		$(".save").click(function() {
+			var canSubmit = submitCheck();
+			if (canSubmit){
+				$(this).closest('form').submit();
+			}
+			else{
+			$(".warning").show();
+			}
+		});
+		
+		$('#newButton').click(function()  {
+			$(".warning").hide();
+			newAnnouncement();
+		});
+		
+		$(".edit").click(function() {
+			var canSubmit = submitCheck();
+			if (canSubmit){
+			$(this).closest('form').submit();
+			}
+			else{
+			$(".warning").show();
+			}
+		});
+		
+		$(".delete").click(function() {
 			$(this).closest('form').submit();
 		});
 
 		$(".cancel").click(function() {
 			$(this).closest('.dialog').dialog("close");
+		});
+		
+		elements.editDialog.on( "dialogclose", function( event, ui ) {
+			elements.editDialog.dialog("option", "title", originalTitle);
+		});
+		
+		elements.deleteDialog.on( "dialogclose", function( event, ui ) {
+			elements.deleteDialog.dialog("option", "title", originalTitle);
 		});
 
 		ConfigureAdminForm(elements.addForm, getSubmitCallback(options.actions.add));
@@ -88,12 +122,30 @@ function AnnouncementManagement(opts) {
 
 		elements.editDialog.dialog('open');
 		elements.editDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		originalTitle = elements.editDialog.dialog("option", "title");
+		if (announcement.text.length > 10){
+			shortText = jQuery.trim(announcement.text).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+		}
+		else{
+			shortText = announcement.text;
+		}
+		elements.editDialog.dialog("option", "title", elements.editDialog.dialog("option", "title") + ": " + shortText);
 	};
 
 	//Opens delete announcement dialog
 	var deleteAnnouncement = function() {
 		elements.deleteDialog.dialog('open');
 		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		
+		var announcement = getActiveAnnouncement();
+		originalTitle = elements.deleteDialog.dialog("option", "title");
+		if (announcement.text.length > 10){
+			shortText = jQuery.trim(announcement.text).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+		}
+		else{
+			shortText = announcement.text;
+		}
+		elements.deleteDialog.dialog("option", "title", elements.deleteDialog.dialog("option", "title") + ": " + shortText);
 	};
 	
 	//Opens new announcement dialog
@@ -112,5 +164,13 @@ function AnnouncementManagement(opts) {
 	AnnouncementManagement.prototype.addAnnouncement = function(id, text, start, end, priority)
 	{
 		announcements[id] = {id: id, text: text, start: start, end: end, priority: priority};
+	};
+	
+	//MyCode
+	var submitCheck = function(){
+		if ((document.getElementById("BeginDate").value != "") && (document.getElementById("EndDate").value != "")){
+			return true;
+		}
+		return false;
 	}
 }

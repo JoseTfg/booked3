@@ -61,7 +61,13 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 	//Sends the announcements information
 	public function PageLoad()
 	{
-		$this->page->BindAnnouncements($this->announcementRepository->GetAll());
+		//$this->page->BindAnnouncements($this->announcementRepository->GetAll());
+		
+		//MyCode		
+		$page_information = $this->announcementRepository->GetList($this->page->GetPageNumber(), $this->page->GetPageSize(), null, null, null);
+		$this->page->BindAnnouncements($page_information->Results());
+		//$page_information = $this->announcementRepository->GetList();		
+		$this->page->BindPageInfo($page_information->PageInfo());
 	}
 
 	//Adds new announcement
@@ -73,6 +79,17 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 		$end = Date::Parse($this->page->GetEnd(), $user->Timezone);
 		$priority = $this->page->GetPriority();
 
+		//MyCode
+		if ($this->page->GetStart() == ""){			
+			//$timezone = new DateTimeZone("Europe/Madrid");
+			//$date = DateTime('now');
+			// date_default_timezone_set("Europe/Madrid");
+			//$d=strtotime("10:30pm April 15 2014");
+			//$start = new date();
+			//$end = new date("Y-m-d h:i:sa",$d);			
+			//$start = new date('Y-m-d', strtotime("+30 days"));
+			//$end = new date()
+		}
 		Log::Debug('Adding new Announcement');
 
 		$this->announcementRepository->Add(Announcement::Create($text, $start, $end, $priority));

@@ -28,29 +28,51 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <table id="groupTable" class="list">
 	<thead>
 		<th class="id">&nbsp;</th>
-		<th>{translate key='GroupName'}</th>
+		<th>{translate key='Name'}</th>
 		{*<th>{translate key='GroupAdmin'}</th>*}
-		<td class="action">{translate key='GroupMembers'}</th>		
+		<td class="action">{translate key='Members'}</th>		
 		{if $CanChangeRoles}
-		<td class="action">{translate key='GroupRoles'}</th>
+		<td class="action">{translate key='Roles'}</th>
 		{/if}	
 		<td class="action">{translate key='Permissions'}</th>
-		<td class="action">Renombrar</th>
 		<td class="action">Borrar</th>
 	</thead>
 {foreach from=$groups item=group}
 	{cycle values='row0,row1' assign=rowCss}
-	<tr class="{$rowCss}">
+	<tr {*class="{$rowCss}"*}>
 		<td class="id">{$group->Id}<input type="hidden" class="id" value="{$group->Id}"/></td>
-		<td id="{$group->Id}" >{$group->Name}</td>
+		<td align="center" id="{$group->Id}" ><a href="#" class="update rename">{$group->Name}</a></td>
 		{*<td align="center"><a href="#" class="update groupAdmin">{$group->AdminGroupName|default:"Ninguno"}</a></td>*}
-		<td align="center"><a href="#" class="update members">{html_image src='my_edit.png'}{*{translate key='Manage'}*}</a></td>		
+		<td align="center">
+		{if {$group->Id} != "2"}
+		<a href="#" class="update members">{html_image src='my_edit.png'}{*{translate key='Manage'}*}</a>
+		{else}
+		--
+		{/if}
+		</td>		
 		{if $CanChangeRoles}
-		<td align="center"><a href="#" class="update roles">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a></td>
+		<td align="center">
+		{if {$group->Id} != "2"}
+		<a href="#" class="update roles">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a>
+		{else}
+		--
+		{/if}
+		</td>
 		{/if}		
-		<td align="center"><a href="#" class="update permissions">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a></td>
-		<td align="center"><a href="#" class="update rename">{html_image src='my_edit.png'}</a></td>
-		<td align="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+		<td align="center">
+		{if {$group->Id} != "2"}
+		<a href="#" class="update permissions">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a>
+		{else}
+		--
+		{/if}
+		</td>
+		<td align="center">
+		{if {$group->Id} != "2"}
+		<a href="#" class="update delete">{html_image src='cross-button.png'}</a>
+		{else}
+		--
+		{/if}
+		</td>
 	</tr>
 {/foreach}
 </table>
@@ -60,16 +82,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 </div>
 <input type="hidden" id="activeId" />
-
+{*
 <div id="membersDialog" class="dialog" style="display:none;background-color:#FFCC99;overflow:hidden;" title="{translate key=GroupMembers}">
-	{*{translate key=AddUser}:*} <input type="text" placeholder="{translate key=AddUser}" id="userSearch" class="textbox" size="40" />{* <a href="#" id="browseUsers">{translate key=Browse}</a>*}
+	{translate key=AddUser}: <input type="text" placeholder="{translate key=AddUser}" id="userSearch" class="textbox" size="40" /> <a href="#" id="browseUsers">{translate key=Browse}</a>
 	<div style="visibility:hidden;">prueba</div>
 	<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>
 	<h4><span id="totalUsers"></span> {translate key=UsersInGroup}</h4>
 	<div id="groupUserList"></div>
 </div>
+*}
 
-<div id="permissionsDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Permissions}">
+<div id="membersDialog" class="dialog" style="display:none;background-color:#FFCC99;overflow:hidden;" title="{translate key=GroupMembers}">
+	{*{translate key=AddUser}: <input type="text" placeholder="{translate key=AddUser}" id="userSearch" class="textbox" size="40" /> <a href="#" id="browseUsers">{translate key=Browse}</a>
+	<div style="visibility:hidden;">prueba</div>*}
+	{*<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>*}
+	{*<h4><span id="totalUsers"></span> {translate key=UsersInGroup}</h4>*}
+	{*<div id="groupUserList"></div>*}<div id="addedMembers"></div>
+	{*<div id="allUsers"></div>*}<div id="removedMembers"></div>
+</div>
+
+{*<div id="permissionsDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Permissions}">
 	<form id="permissionsForm" method="post">
 		{foreach from=$resources item=resource}
 			<label><input {formname key=RESOURCE_ID  multi=true} class="resourceId" type="checkbox" value="{$resource->GetResourceId()}"> {$resource->GetName()}</label><br/>
@@ -77,6 +109,37 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
 		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</form>
+</div>
+*}
+
+<div id="permissionsDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Permissions}">
+	<form style="display:none" id="permissionsForm" method="post">
+		<div class="warning">{translate key=UserPermissionInfo}</div>
+		{foreach from=$resources item=resource}
+			<label><input {formname key=RESOURCE_ID  multi=true} class="resourceId" type="checkbox"
+																 value="{$resource->GetResourceId()}"> {$resource->GetName()}
+			</label>
+			<br/>
+		{/foreach}
+		<div class="admin-update-buttons">
+			<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
+			<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		</div>
+	</form>
+	
+	{*<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>*}
+
+	<div id="resourceList" class="hidden">
+		{foreach from=$resources item=resource}
+			<div class="resource-item" resourceId="{$resource->GetResourceId()}"><a href="#">&nbsp;</a> <span>{$resource->GetName()}</span></div>
+		{/foreach}
+	</div>
+
+	<div id="addedResources">
+	</div>
+
+	<div id="removedResources">
+	</div>
 </div>
 
 <form id="removeUserForm" method="post">
@@ -107,17 +170,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 <div id="addDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=AddGroup}">
-	<form id="renameGroupForm" method="post">
-		<form id="addGroupForm" method="post" style="margin-top:-30px">
+		<div id="addGroupResults" class="error" style="display:none;"></div>
+		<form id="addGroupForm" method="post">
 			{*Name<br/> *}<input placeholder="{translate key=GroupName}" type="text" class="textbox required" {formname key=GROUP_NAME} />
 			<button type="button" class="button save" style="float:right;">{html_image src="plus-button.png"} {translate key=AddGroup}</button>
 		</form>
-	</form>
 </div>
 
 {if $CanChangeRoles}
-<div id="rolesDialog" class="dialog" title="{translate key=WhatRolesApplyToThisGroup}" style="background-color:#FFCC99">
-	<form id="rolesForm" method="post">
+<div id="rolesDialog" class="dialog" title="{translate key=GroupRoles}" style="background-color:#FFCC99">
+	<form  style="display:none"  id="rolesForm" method="post">
 		<ul>
 		{foreach from=$Roles item=role}
 			<li><label><input type="checkbox" {formname key=ROLE_ID multi=true}" value="{$role->Id}" /> {$role->Name}</label></li>
@@ -126,6 +188,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 		</ul>
 	</form>
+	<div id="roleList" class="hidden">
+		{foreach from=$Roles item=role}
+			<div class="role-item" roleId="{$role->Id}"><a href="#">&nbsp;</a> <span>{$role->Name}</span></div>
+		{/foreach}
+	</div>
+	{*<div id="groupUserList"></div>*}<div id="addedRoles"></div>
+	{*<div id="allUsers"></div>*}<div id="removedRoles"></div>
 </div>
 {/if}
 

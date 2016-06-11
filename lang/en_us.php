@@ -689,15 +689,28 @@ class en_us extends Language
 		
 		//Enhance
 		$strings['Day'] = 'Day';
-		$strings['Legend'] = 'Legend';
+		$strings['Colors'] = 'Colors';
 		$strings['TimeTable'] = 'TimeTable';
-		$strings['TimeTableBoundaries'] = 'Timetable Boundaries';
+		$strings['TimeTableBoundaries'] = 'Select the boundaries in week and day views';
 		$strings['Export'] = 'Exportar';
-		$strings['DeleteReservation'] = '¿Are you sure you want to delete this element?';
+		$strings['DeleteReservation'] = 'Are you sure you want to delete this element?';
 		$strings['Download'] = 'Download';
 		$strings['Subscribe'] = 'Subscribe to calendar?';
 		$strings['Subscription'] = 'Subscription';
-
+		$strings['ViewAsList'] = 'View as list';
+		$strings['Columns'] = 'Columns';
+		$strings['Amount'] = 'Amount';
+		$strings['Unit'] = 'Unit';
+		$strings['Roles'] = 'Roles';
+		$strings['RequiresApproval'] = 'RequiresApproval';
+		$strings['WhoApproves'] = 'Who approves?';
+		$strings['FieldWarning'] = 'There are empty fields';
+		$strings['checkAll'] = 'Check all';
+		$strings['uncheckAll'] = 'Uncheck all';
+		$strings['selectOptions'] = 'Select resources';
+		$strings['selectText'] = 'selected';
+		$strings['GoDay'] = 'Go to day';
+		
 		$this->Strings = $strings;
 
 		return $this->Strings;

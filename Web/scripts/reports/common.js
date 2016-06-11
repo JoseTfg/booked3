@@ -80,7 +80,15 @@ var colSelector = 'td:nth-child(' + normalIndex + ')';
 				var allColumns = getAllColumnTitles();
 				$.each(allColumns, function(i, title){
 					var checked = savedCols.length == 0 || $.inArray(title, savedCols) != -1 ? ' checked="checked" ' : '';
+					//MyCode
+					if (title == "Participants" || title == "ReferenceNumber" || title.indexOf("Mod") != -1 || title.indexOf("Test") != -1){
+						//items.push('<div><label><input type="checkbox"' + checked + 'value="' + title + '"/> ' + title + '</label></div>');
+						items.push('<div style="display:none" ><label><input type="checkbox"' + 'value="' + title + '"/> ' + title + '</label></div>');
+						showColumn(title, false);
+					}
+					else{
 					items.push('<div><label><input type="checkbox"' + checked + 'value="' + title + '"/> ' + title + '</label></div>');
+					}
 				});
 
 				var customizeColumns = $('#customize-columns');

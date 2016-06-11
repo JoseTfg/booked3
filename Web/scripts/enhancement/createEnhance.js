@@ -58,7 +58,7 @@ var blackoutPopup = function(){
 		modal:true,
 		backOpacity: 0
 	});
-	popup.open('admin/manage_blackouts.php');
+	popup.open('http://localhost/booked/Web/admin/manage_blackouts.php');
 	$('.popup').hide();
 	popup_status = sessionStorage.getItem("popup_status");
 	if (popup_status.indexOf("blackoutWait") != 0){

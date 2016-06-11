@@ -6,5 +6,9 @@ var reset = function(){
 }
 
 var sorting = function(){
-	$("#userTable").tablesorter();	
+	$("#userTable").tablesorter({
+	widgets: ["zebra"],
+	widgetOptions : {
+	zebra : [ "normal-row", "alt-row" ]}
+	});	
 }

@@ -22,8 +22,8 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Schedule/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 require_once(ROOT_DIR . 'Presenters/Calendar/CalendarFilters.php');
-require_once(ROOT_DIR . 'lib/Config/Configurator.php');					//MyCode (29/3/2016)
-require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php'); 	//MyCode (28/4/2016)
+require_once(ROOT_DIR . 'lib/Config/Configurator.php');									//MyCode (29/3/2016)
+require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php');					//MyCode (28/4/2016)
 require_once(ROOT_DIR . 'Presenters/Calendar/PersonalCalendarPresenterEnhance.php'); 	//MyCode (7/5/2016)
 
 class PersonalCalendarActions
@@ -145,10 +145,12 @@ class PersonalCalendarPresenter extends ActionPresenter
 										 ->GetSectionKey(ConfigSection::SCHEDULE, ConfigKeys::SCHEDULE_SHOW_INACCESSIBLE_RESOURCES, new BooleanConverter());
 		$resources = $this->resourceService->GetAllResources($showInaccessible, $userSession);
 
+		//MyCode
+		$this->page->Set('resources', $resources);
+		
 		$selectedScheduleId = $this->page->GetScheduleId();
 		
 		//MyCode
-		//$selectedSchedule = $this->GetDefaultSchedule($schedules);
 		foreach ($schedules as $schedule){
 			if ($schedule->GetIsDefault())
 			{
@@ -183,6 +185,10 @@ class PersonalCalendarPresenter extends ActionPresenter
 
 		////////////////////////////////////////////////////////////////Enhance////////////////////////////////////////////////////////////////////////////////
 		
+		//MyCode 4/5/2016
+		//Colors
+		$newColor = colors($this, $userSession);
+		
 		//MyCode (14/3/2016)
 		//Array of selected resources.		
 		$selectedResourceArrayId = getResourceArrayId();
@@ -199,7 +205,20 @@ class PersonalCalendarPresenter extends ActionPresenter
 
 		//MyCode (29/3/2016)
 		//This code sets the minTime and maxTime of the calendar.
-		calendarBoundaries($this, $userSession);	
+		$newTime = calendarBoundaries($this, $userSession);	
+		
+		//MyCode
+		//settings
+		$settingType = "";
+		if ($newColor != ""){
+			$settingType = "color";
+			$changedSetting = $newColor;
+		}
+		if ($newTime != ""){
+			$settingType = "time";
+			$changedSetting = $newTime;
+		}
+		sendSettings($this, $userSession, $settingType, $changedSetting);
 
 		//MyCode
 		//Blackouts
@@ -215,42 +234,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 		
 		googleCalendar($this, $userSession,$calendar_export);
 		
-		//MyCode 4/5/2016
-		//Colors
-		colors($this, $userSession);
-		
-		//MyCode
-		//settings
-		sendSettings($this, $userSession);
-		//$this->page->Set('filename', $filename);
-		
 		APIconnection($this);
 
-	}	
-
-	/**
-	 * @param array|Schedule[] $schedules
-	 * @return Schedule
-	 */
-	// private function GetDefaultSchedule($schedules)
-	// {
-		// $default = null;
-		// $scheduleId = $this->page->GetScheduleId();
-
-		/** @var $schedule Schedule */
-		// foreach ($schedules as $schedule)
-		// {
-			// if (!empty($scheduleId) && $schedule->GetId() == $scheduleId)
-			// {
-				// return $schedule;
-			// }
-
-			// if ($schedule->GetIsDefault())
-			// {
-				// $default = $schedule;
-			// }
-		// }
-
-		// return $default;
-	// }
+	}
 }

@@ -70,6 +70,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</script>
 	<link rel="stylesheet" type="text/css" href="../css/css_enhancement.css">
 	<link rel="stylesheet" type="text/css" href="css/css_enhancement.css">
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
 </head>
 <body oncontextmenu="return false;"  class="{$bodyClass}">
 <div id="wrapper">
@@ -110,23 +111,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{if $CanViewAdmin}
 					<li class="menubaritem"><a href="{$HomeUrl}">{html_image src="folder.png"}{* Calendario*}</a>						
 						<ul>						
-							<li class="menuitem"><a href="{$HomeUrl}">{html_image src="calendar.png"} Calendario</a></li>
+							<li class="menuitem"><a href="{$Path}my-calendar.php">{html_image src="calendar.png"} Calendario</a></li>
 							<li class="menuitem"><a href="{$Path}admin/manage_resources.php">{html_image src="resource.png"} {translate key="ManageResources"}</a></li>
 							<li class="menuitem"><a href="{$Path}admin/manage_users.php">{html_image src="user-small.png"} {translate key="ManageUsers"}</a></li>
 							<li class="menuitem"><a href="{$Path}admin/manage_groups.php">{html_image src="users.png"} {translate key="ManageGroups"}</a></li>
+							<li class="menuitem"><a href="{$Path}admin/manage_quotas.php">{html_image src="quotas.png"}  {translate key="ManageQuotas"}</a></li>
 							<li class="menuitem"><a href="{$Path}admin/manage_announcements.php">{html_image src="announce2.png"} {translate key="ManageAnnouncements"}</a></li>			
-							{*<li class="menuitem"><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{html_image src="chart.png"} {translate key=Reports}</a></li>*}	
+							<li class="menuitem"><a	href="{$Path}admin/manage_schedules.php">{html_image src="schedule.jpg"} {translate key="ManageSchedules"}</a></li>
+							<li class="menuitem"><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{html_image src="chart.png"} {translate key=Reports}</a></li>	
+							<li class="menuitem"><a href="{$Path}admin/manage_configuration.php">{html_image src="tools-icon.jpg"} {translate key="Customization"}</a></li>
 						</ul>
 						{else}
-						<li class="menubaritem"><a href="{$HomeUrl}">{html_image src="calendar.png"}{* Calendario*}</a> </li>
+						<li class="menubaritem"><a href="{$Path}">{html_image src="calendar.png"}{* Calendario*}</a> </li>
 						{/if}						
 					</li>
 					{if ( $pageTile eq "Mi Calendario" or $pageTile eq "My Calendar" ) && ( $UserId neq "1" )}
 					<li class="menubaritem"><a href="#">{html_image src="tools.png"}{* Preferencias*}</a>
 						<ul>
-							<li class="menuitem"><a href="#" onclick="$( '#dialogBoundaries' ).dialog('open')"> {html_image src="horario.png"} {translate key="TimeTable"}</a></li>
-							<li class="menuitem"><a href="#" onclick="$( '#dialogColors' ).dialog('open')"> {html_image src="paint2.png"} {translate key="Colors"}</a></li>
-							<li class="menuitem"><a href="#" onclick="$( '#dialogSubscribe' ).dialog('open')"> {html_image src="cloud.png"} {translate key="Subscription"}</a></li>								
+							<li class="menuitem"><a href="#" id="timeTable"> {html_image src="horario.png"} {translate key="TimeTable"}</a></li>
+							<li class="menuitem"><a href="#" onclick="$('#dialogColors').dialog('open')"> {html_image src="paint2.png"} {translate key="Colors"}</a></li>
+							<li class="menuitem"><a href="#" onclick="$('#dialogSubscribe').dialog('open')"> {html_image src="cloud.png"} {translate key="Subscription"}</a></li>								
 						</ul>
 					</li>
 					{/if}

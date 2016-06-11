@@ -27,21 +27,37 @@ function GroupManagement(opts) {
 		rolesForm: $('#rolesForm'),
 		groupAdminForm: $('#groupAdminForm'),
 
-		addForm: $('#addGroupForm')
+		addForm: $('#addGroupForm'),
+		
+		//MyCode
+		addedResources: $('#addedResources'),
+		removedResources: $('#removedResources'),
+		resourceList: $('#resourceList'),
+		
+		addedMembers: $('#addedMembers'),
+		removedMembers: $('#removedMembers'),
+		memberList: $('#memberList'),
+		
+		addedRoles: $('#addedRoles'),
+		removedRoles: $('#removedRoles'),
+		roleList: $('#roleList')
 	};
 
-	var allUserList = null;
+	var allUserList = null;	
+	
+	//MyCode
+	var originalTitle = "";
 
 	//Initialization
 	GroupManagement.prototype.init = function() {
 
 		ConfigureAdminDialog(elements.membersDialog);/*MyCode*/
-		ConfigureAdminDialog(elements.permissionsDialog, 400, 180); /*MyCode*/
+		ConfigureAdminDialog(elements.permissionsDialog); /*MyCode*/
 		ConfigureAdminDialog(elements.deleteDialog,  400, 200); /*MyCode*/
 		ConfigureAdminDialog(elements.renameDialog, 500, 100);
 		ConfigureAdminDialog(elements.addDialog, 500, 100);
 		ConfigureAdminDialog(elements.browseUserDialog, 500, 100);
-		ConfigureAdminDialog(elements.rolesDialog, 500, 150); /*MyCode*/
+		ConfigureAdminDialog(elements.rolesDialog); /*MyCode*/
 		ConfigureAdminDialog(elements.groupAdminDialog, 500, 100);
 
 		elements.groupList.delegate('a.update', 'click', function(e) {
@@ -82,6 +98,20 @@ function GroupManagement(opts) {
 			var userId = $(this).siblings('.id').val();
 			removeUserFromGroup($(this), userId);
 		});
+		
+		//MyCode
+		elements.removedMembers.delegate('.add', 'click', function() {
+			var link = $(this);
+			var userId = link.siblings('.id').val();
+			addUserToGroup(userId);
+			link.find('img').attr('src', '../img/plus-button.png');
+		});
+
+		elements.addedMembers.delegate('.delete', 'click', function() {
+			var userId = $(this).siblings('.id').val();
+			removeUserFromGroup($(this), userId);
+			$(this).appendTo(elements.removedMembers);
+		});
 
 		elements.autocompleteSearch.groupAutoComplete(options.groupAutocompleteUrl, function(ui){
 			window.location.href = options.selectGroupUrl + ui.item.value
@@ -95,6 +125,44 @@ function GroupManagement(opts) {
 		elements.groupList.delegate('.groupAdmin', 'click', function() {
 			changeGroupAdmin();
 		});
+		
+		//MyCode
+		elements.addedResources.delegate('div', 'click', function (e) {
+			e.preventDefault();
+			$('#removeResourceId').val($(this).attr('resourceId'));
+			$('#removeResourceUserId').val(getActiveId());
+			elements.permissionsForm.find(':checkbox[value="' + $(this).attr('resourceId') + '"]').attr('checked', false);
+			$(this).appendTo(elements.removedResources);
+		});
+
+		elements.removedResources.delegate('div', 'click', function (e) {
+			e.preventDefault();
+			$('#addResourceId').val($(this).attr('resourceId'));
+			$('#addResourceUserId').val(getActiveId());
+			elements.permissionsForm.find(':checkbox[value="' + $(this).attr('resourceId') + '"]').attr('checked', true);
+			$(this).appendTo(elements.addedResources);
+		});		
+
+		elements.permissionsDialog.on( "dialogclose", function( event, ui ) {
+			elements.permissionsForm.submit();
+		});
+		
+		//MyCode
+		elements.addedRoles.delegate('div', 'click', function (e) {
+			e.preventDefault();
+			$('#removeRoleId').val($(this).attr('roleId'));
+			$('#removeRoleUserId').val(getActiveId());
+			elements.rolesForm.find(':checkbox[value="' + $(this).attr('roleId') + '"]').attr('checked', false);
+			$(this).appendTo(elements.removedRoles);
+		});
+
+		elements.removedRoles.delegate('div', 'click', function (e) {
+			e.preventDefault();
+			$('#addRoleId').val($(this).attr('roleId'));
+			$('#addRoleUserId').val(getActiveId());
+			elements.rolesForm.find(':checkbox[value="' + $(this).attr('roleId') + '"]').attr('checked', true);
+			$(this).appendTo(elements.addedRoles);
+		});		
 
 		$(".save").click(function() {
 			$(this).closest('form').submit();
@@ -115,14 +183,27 @@ function GroupManagement(opts) {
 		$("#browseUsers").click(function() {
 			showAllUsersToAdd();
 		});
-		
-		$("#browseUsers").click(function() {
-			showAllUsersToAdd();
-		});
 
 		//MyCode
 		$("#addButton").click(function() {
 			addGroup();
+		});
+		
+		elements.membersDialog.on( "dialogclose", function( event, ui ) {
+			elements.membersDialog.dialog("option", "title", originalTitle);
+		});
+		
+		elements.permissionsDialog.on( "dialogclose", function( event, ui ) {
+			elements.permissionsDialog.dialog("option", "title", originalTitle);
+		});
+		
+		elements.deleteDialog.on( "dialogclose", function( event, ui ) {
+			elements.deleteDialog.dialog("option", "title", originalTitle);
+		});
+		
+		elements.rolesDialog.on( "dialogclose", function( event, ui ) {
+			elements.rolesDialog.dialog("option", "title", originalTitle);
+			elements.rolesForm.submit();
 		});
 		
 		ConfigureAdminForm(elements.addUserForm, getSubmitCallback(options.actions.addUser), changeMembers, error);
@@ -137,8 +218,7 @@ function GroupManagement(opts) {
 
 	//Show all users
 	var showAllUsersToAdd = function() {
-		elements.browseUserDialog.empty();
-
+		elements.removedMembers.empty();
 		if (allUserList == null) {
 			$.ajax({
 				url: options.userAutocompleteUrl,
@@ -154,19 +234,20 @@ function GroupManagement(opts) {
 		if (allUserList != null)
 		{
 			$.map(allUserList, function(item) {
-				if (elements.groupUserList.data('userIds')[item.Id] == undefined) {
-					items.push('<li><a href="#" class="add"><img src="../img/plus-button.png" alt="Add To Group" /></a> ' + item.DisplayName + '<input type="hidden" class="id" value="' + item.Id + '"/></li></li>');
+				if (elements.addedMembers.data('userIds')[item.Id] == undefined) {
+					items.push('<li><a href="#" class="add"><img src="../img/plus-button.png" alt="Add To Group" /> &nbsp; </a> ' + item.DisplayName + '<input type="hidden" class="id" value="' + item.Id + '"/></li></li>');
 				}
 				else {
-					items.push('<li><img src="../img/tick-white.png" alt="Group Member" /> <span>' + item.DisplayName + '</span></li>');
+					//items.push('<li><img src="../img/plus-button.png" alt="Group Member" /> &nbsp; <span>' + item.DisplayName + '</span></li>');
+					//items.push('<div class="resource-item" resourceId="{$resource->GetResourceId()}"><a href="#">&nbsp;</a> <span>{$resource->GetName()}</span></div>');
 				}
 			});
 		}
 
-		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.browseUserDialog);
+		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.removedMembers);
 
-		elements.browseUserDialog.dialog('open');
-		elements.browseUserDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		//elements.browseUserDialog.dialog('open');
+		//elements.browseUserDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	//Gets callback
@@ -217,23 +298,61 @@ function GroupManagement(opts) {
 			if (data.Users != null)
 			{
 				$.map(data.Users, function(item) {
-					items.push('<li><a href="#" class="delete"><img src="../img/cross-button.png" /></a> ' + item.DisplayName + '<input type="hidden" class="id" value="' + item.Id + '"/></li>');
+					items.push('<li id="item.Id" ><a href="#" class="delete"><img src="../img/minus-gray.png" /> &nbsp; </a> ' + item.DisplayName + '<input type="hidden" class="id" value="' + item.Id + '"/></li>');
 					userIds[item.Id] = item.Id;
 				});
 			}
 
-			elements.groupUserList.empty();
-			elements.groupUserList.data('userIds', userIds);
+			elements.addedMembers.empty();
+			elements.addedMembers.data('userIds', userIds);
 
-			$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.groupUserList);
+			$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.addedMembers);
+			
+			//MyCode			
 			elements.membersDialog.dialog('open');
+			showAllUsersToAdd();
 			
 			/*MyCode*/
 			elements.membersDialog.dialog( "option", "resizable", false );
-			var a = document.getElementById(groupId).innerText;
-			elements.membersDialog.dialog("option", "title", a);
-			//elements.membersDialog.dialog("option", "height", items.length * 30 + 100);
-			elements.membersDialog.style.overflow = "hidden";				
+			
+			var newTitle = document.getElementById(groupId).innerText;
+			originalTitle = elements.membersDialog.dialog("option", "title");
+			if (newTitle.length > 10){
+				shortText = jQuery.trim(newTitle).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			else{
+				shortText = newTitle;
+			}
+			elements.membersDialog.dialog("option", "title", elements.membersDialog.dialog("option", "title") + ": " + shortText);
+			//elements.membersDialog.style.overflow = "hidden";
+			
+
+		// if (allUserList == null) {
+			// $.ajax({
+				// url: options.userAutocompleteUrl,
+				// dataType: 'json',
+				// async: false,
+				// success: function(data) {
+					// allUserList = data;
+				// }
+			// });
+		// }
+
+		// var items = [];
+		// if (allUserList != null)
+		// {
+			// $.map(allUserList, function(item) {
+				// if (elements.groupUserList.data('userIds')[item.Id] == undefined) {
+					//items.push('<li><a href="#" class="add"><img src="../img/plus-button.png" alt="Add To Group" /></a> ' + item.DisplayName + '<input type="hidden" class="id" value="' + item.Id + '"/></li></li>');
+				// }
+				// else {
+					// items.push('<li><img src="../img/tick-white.png" alt="Group Member" /> <span>' + item.DisplayName + '</span></li>');
+				// }
+			// });
+		// }
+
+		// $('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.removedMembers);
+			
 		});
 	};
 
@@ -251,45 +370,101 @@ function GroupManagement(opts) {
 
 	//Opens change permission dialog
 	var changePermissions = function () {
+		// var groupId = getActiveId();
+
+		// var data = {dr: opts.dataRequests.permissions, gid: groupId};
+		// $.get(opts.permissionsUrl, data, function(resourceIds) {
+			// elements.permissionsForm.find(':checkbox').attr('checked', false);
+			// $.each(resourceIds, function(index, value) {
+				// elements.permissionsForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
+			// });
+
+			// elements.permissionsDialog.dialog('open');
+			// elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			// /*MyCode*/
+			// var a = document.getElementById(groupId).innerText;
+			// elements.permissionsDialog.dialog("option", "title", a);
+		// });
+		
 		var groupId = getActiveId();
-
+		elements.addedResources.find('.resource-item').remove();
+		elements.removedResources.find('.resource-item').remove();
+		elements.resourceList.find('.resource-item').clone().appendTo(elements.removedResources);
 		var data = {dr: opts.dataRequests.permissions, gid: groupId};
-		$.get(opts.permissionsUrl, data, function(resourceIds) {
-			elements.permissionsForm.find(':checkbox').attr('checked', false);
-			$.each(resourceIds, function(index, value) {
+		$.get(opts.permissionsUrl, data, function (resourceIds) {
+			$.each(resourceIds, function (index, value) {
 				elements.permissionsForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
+				var resourceLine = elements.removedResources.find('div[resourceId=' + value + ']');
+				resourceLine.appendTo(elements.addedResources);
 			});
-
-			elements.permissionsDialog.dialog('open');
-			elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
-			/*MyCode*/
-			var a = document.getElementById(groupId).innerText;
-			elements.permissionsDialog.dialog("option", "title", a);
 		});
+
+		elements.permissionsDialog.dialog('open');
+		elements.permissionsDialog.dialog( "option", "resizable", false );
+		
+		var newTitle = document.getElementById(groupId).innerText;
+			originalTitle = elements.permissionsDialog.dialog("option", "title");
+			if (newTitle.length > 10){
+				shortText = jQuery.trim(newTitle).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			else{
+				shortText = newTitle;
+			}
+		elements.permissionsDialog.dialog("option", "title", elements.permissionsDialog.dialog("option", "title") + ": " + shortText);
 	};
 
 	//Open delete group dialog
 	var deleteGroup = function() {
+		var groupId = getActiveId();
 		elements.deleteDialog.dialog('open');
 		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		var newTitle = document.getElementById(groupId).innerText;
+		originalTitle = elements.deleteDialog.dialog("option", "title");
+			if (newTitle.length > 10){
+				shortText = jQuery.trim(newTitle).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			else{
+				shortText = newTitle;
+			}
+		elements.deleteDialog.dialog("option", "title", elements.deleteDialog.dialog("option", "title") + ": " + shortText);
 	};
 
 	//Opens change roles dialog
 	var changeRoles = function() {
 		var groupId = getActiveId();
 
-		var data = {dr: opts.dataRequests.roles, gid: groupId};
-		$.get(opts.rolesUrl, data, function(roleIds) {
-			elements.rolesForm.find(':checkbox').attr('checked', false);
-			$.each(roleIds, function(index, value) {
-				elements.rolesForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
-			});
+		// var data = {dr: opts.dataRequests.roles, gid: groupId};
+		// $.get(opts.rolesUrl, data, function(roleIds) {
+			// elements.rolesForm.find(':checkbox').attr('checked', false);
+			// $.each(roleIds, function(index, value) {
+				// elements.rolesForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
+			// });
 
+		elements.addedRoles.find('.role-item').remove();
+		elements.removedRoles.find('.role-item').remove();
+
+		elements.roleList.find('.role-item').clone().appendTo(elements.removedRoles);
+		var data = {dr: opts.dataRequests.roles, gid: groupId};
+		$.get(opts.rolesUrl, data, function (roleIds) {
+			$.each(roleIds, function (index, value) {
+				elements.rolesForm.find(':checkbox[value="' + value + '"]').attr('checked', true);
+				var roleLine = elements.removedRoles.find('div[roleId=' + value + ']');
+				roleLine.appendTo(elements.addedRoles);
+			});
+			
 			elements.rolesDialog.dialog('open');
 			elements.rolesDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			
 			/*MyCode*/
-			var a = document.getElementById(groupId).innerText;
-			elements.rolesDialog.dialog("option", "title", a);
+			var newTitle = document.getElementById(groupId).innerText;
+			originalTitle = elements.rolesDialog.dialog("option", "title");
+			if (newTitle.length > 10){
+				shortText = jQuery.trim(newTitle).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
+			}
+			else{
+				shortText = newTitle;
+			}
+			elements.rolesDialog.dialog("option", "title", elements.rolesDialog.dialog("option", "title") + ": " + shortText);
 		});
 	};
 

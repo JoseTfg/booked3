@@ -28,21 +28,28 @@ function Calendar(opts, reservations)
 			element.attachReservationPopup(event.id);
 			
 			//RightClick enhance
-			rightClick(element,event);		
+			//rightClick(element,event);		
 			
 			//Color assign enhance
 			if (event.className != "blackout"){
 					if (_options.myCal == 1){
-						element.find('.fc-event-title').append("<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +event.trueTitle);
+						element.find('.fc-event-title').append("<br/>" +event.trueTitle);
+						 var formattedTime = $.fullCalendar.formatDates(event.start, event.end, "HH:mm { - HH:mm}");
+						element.find(".fc-event-time").text(formattedTime);
+						element.addClass("reservationMenu");
 					}
 					else{
-						element.find('.fc-event-title').append("<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +event.owner + "<br/>" +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +event.trueTitle);
+						element.find('.fc-event-title').append("<br/>" + event.owner + "<br/>" + event.trueTitle);
+						element.addClass("reservationMenu");
 					}					
 				colorAssign(element,event);	
 			}
 			
 			},			
-						
+			
+			dayRender: function(date, cell){
+				cell.addClass("dayMenu");
+			},
 			//ClickEvents
 			dayClick: dayClick,
 			eventClick: function(event) {
@@ -80,13 +87,13 @@ function Calendar(opts, reservations)
 			weekMode: 'variable',
 			
 			//Formats
-			timeFormat: _options.timeFormat,
+			timeFormat: 'H:mm', //_options.timeFormat,
 			columnFormat:  {
 				month: 'dddd',
 			    week: 'dddd ' + _options.dayMonth,
 			    day: 'dddd ' + _options.dayMonth
 			},
-			axisFormat: _options.timeFormat,
+			axisFormat: 'H:mm', //_options.timeFormat,
 			
 			//Min and Max Time
 			firstDay: _options.firstDay,
@@ -94,7 +101,7 @@ function Calendar(opts, reservations)
 			maxTime: _options.maxTime,
 			
 			//Size
-			contentHeight: $(window).height() - 120,		//To make it smaller
+			contentHeight: $(window).height() - 90,		//To make it smaller
 			//Width: contentHeight,
 			
 			//Sensitivity

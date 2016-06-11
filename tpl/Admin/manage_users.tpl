@@ -27,49 +27,43 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<th>{translate key='Username'}</th>
 		<th>{translate key='Name'}</th>
 		<th>{translate key='Email'}</th>
-		{*<th>{translate key='Phone'}</th>*}
-		{*<th>{translate key='Organization'}</th>*}
-		{*<th>{translate key='Position'}</th>*}
-		{*<th>{translate key='Created'}</th>*}
-		{*<th>{translate key='LastLogin'}</th>*}
-		{*<th>{translate key='Timezone'}</th>*}
-		{*<th>{translate key='Language'}</th>*}
-		<td class="action">{translate key='Status'}</th>
 		<td class="action">{translate key='Permissions'}</th>
 		<td class="action">{translate key='Groups'}</th>
-		{*<th>{translate key='Reservations'}</th>*}
-		{*<th>{translate key='Password'}</th>*}
-		{if $PerUserColors}
-			<th>{translate key='Color'}</th>
-		{/if}
-		{*<td class="action">{translate key='Delete'}</th>*}
+		<td class="action">{translate key='Status'}</th>
 	</tr>
 	</thead>
 	<tbody>
 	{foreach from=$users item=user}
 		{cycle values='row0,row1' assign=rowCss}
 		{assign var=id value=$user->Id}
-		<tr class="{$rowCss} editable">
+		<tr {*class="{$rowCss} editable"*}>
 			<td class="id" align="center"><input type="hidden" class="id" value="{$id}"/></td>
 			<td id="{$id}" align="center">{$user->Username}</td>
 			<td align="center">{fullname first=$user->First last=$user->Last ignorePrivacy="true"}</td>			
 			<td align="center"><a href="mailto:{$user->Email}">{$user->Email}</a></td>
-			{*<td>{$user->Phone}</td>*}
-			{*<td>{$user->Organization}</td>*}
-			{*<td>{$user->Position}</td>*}
-			{*<td>{$user->DateCreated}</td>*}
-			{*<td align="center">{$user->LastLogin}</td>*}
-			{*<td align="center">{$user->Timezone}</td>*}
-			{*<td align="center">{$user->Language}</td>*}
+			<td align="center">
+			{if {$id} != "2"}
+			<a href="#" class="update changePermissions">{html_image src='my_edit.png'}</a>
+			{else}
+			--
+			{/if}
+			</td>
+			<td align="center">
+			{if {$id} != "2"}
+			<a href="#" class="update changeGroups">{html_image src='my_edit.png'}</a>
+			{else}
+			--
+			{/if}
+			</td>
+			{if {$id} != "2"}
 			<td align="center"><a href="#" class="update changeStatus">
 			{if {$statusDescriptions[$user->StatusId]} == {translate key='Active'}} {html_image src='tick-circle.png'}
 			{else} {html_image src='slash.png'}
 			{/if}
 			</a></td>
-			<td align="center"><a href="#" class="update changePermissions">{html_image src='my_edit.png'}</a></td>
-			<td align="center"><a href="#" class="update changeGroups">{html_image src='my_edit.png'}</a></td>
-			{*<td align="center"><a href="#" class="update viewReservations">{translate key='Search'}</a></td>*}
-			{*<td align="center"><a href="#" class="update resetPassword">{translate key='Reset'}</a></td>*}
+			{else}
+			<td align="center">--</td>
+			{/if}
 			{if $PerUserColors}
 				<td align="center">
 					<a href="#" class="update changeColor">{translate key='Edit'}</a>
@@ -78,7 +72,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{/if}
 				</td>
 			{/if}
-			{*<td align="center"><a href="#" class="update delete">{html_image src="cross-button.png"}</a></td>*}
 		</tr>
 		{assign var=attributes value=$AttributeList}
 		{if $attributes|count > 0}
@@ -280,7 +273,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <input type="hidden" id="activeId"/>
 
 <div id="permissionsDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Permissions}">
-	<form id="permissionsForm" method="post" ajaxAction="{ManageUsersActions::Permissions}">
+	<form style="display:none" id="permissionsForm" method="post" ajaxAction="{ManageUsersActions::Permissions}">
 		<div class="warning">{translate key=UserPermissionInfo}</div>
 		{foreach from=$resources item=resource}
 			<label><input {formname key=RESOURCE_ID  multi=true} class="resourceId" type="checkbox"
@@ -290,9 +283,23 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/foreach}
 		<div class="admin-update-buttons">
 			<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-			{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
+			<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
+	
+	{*<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>*}
+
+	<div id="resourceList" class="hidden">
+		{foreach from=$resources item=resource}
+			<div class="resource-item" resourceId="{$resource->GetResourceId()}"><a href="#">&nbsp;</a> <span>{$resource->GetName()}</span></div>
+		{/foreach}
+	</div>
+
+	<div id="addedResources">
+	</div>
+
+	<div id="removedResources">
+	</div>
 </div>
 
 <div id="passwordDialog" class="dialog" style="display:none;" title="{translate key=Password}">

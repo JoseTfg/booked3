@@ -53,6 +53,17 @@ class AnnouncementRepository implements IAnnouncementRepository
 
         return $announcements;
     }
+	
+	//MyCode
+	public function GetList($pageNumber = null, $pageSize = null, $sortField = null, $sortDirection = null,
+							$filter = null)
+    {
+        $command = new GetAllAnnouncementsCommand();
+
+		//$builder = 'announce';
+		$builder = array('AnnounceItemView', 'Create');
+		return PageableDataStore::GetList($command, $builder, $pageNumber, $pageSize);
+    }
 
     /**
      * @param Announcement $announcement
@@ -131,6 +142,101 @@ interface IAnnouncementRepository
      * @return Announcement
      */
     public function LoadById($announcementId);
+	
+	//MyCode
+	public function GetList();
+}
+
+//MyCode
+class AnnounceItemView
+{
+	public static function Create($row)
+	{
+		return new AnnounceItemView($row['announcementid'], $row['announcement_text'], $row['priority'], $row['start_date'], $row['end_date']);
+	}
+
+	/**
+	 * @var int
+	 */
+	public $Id;
+
+	/**
+	 * @return int
+	 */
+	public function Id()
+	{
+		return $this->Id;
+	}
+
+	/**
+	 * @var string
+	 */
+	public $Text;
+
+	/**
+	 * @return string
+	 */
+	public function Text()
+	{
+		return $this->Text;
+	}
+	
+		/**
+	 * @var string
+	 */
+	public $Priority;
+
+	/**
+	 * @return string
+	 */
+	public function Priority()
+	{
+		return $this->Priority;
+	}
+	
+		/**
+	 * @var string
+	 */
+	public $Start;
+
+	/**
+	 * @return string
+	 */
+	public function Start()
+	{
+		return $this->Start;
+	}
+	
+		/**
+	 * @var string
+	 */
+	public $End;
+
+	/**
+	 * @return string
+	 */
+	public function End()
+	{
+		return $this->End;
+	}
+
+	public function __construct($id, $text, $priority, $start_date, $end_date)
+	{
+		$this->Id = $id;
+		$this->Text = $text;
+		$this->Priority = $priority;
+		$this->Start = $start_date;
+		$this->End = $end_date;
+		if ($start_date == $end_date){
+			//$this->Text = $start_date;
+			//$this->Start = new date($start_date);
+			//$this->End = new date($end_date);
+		}
+		else{
+			//$this->Start = new date($start_date);
+			//$this->End = new date($end_date);
+		}
+	}
 }
 
 ?>

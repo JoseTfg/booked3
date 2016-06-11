@@ -201,7 +201,6 @@ class PluginManager
 		{
 			$plugin = Configuration::Instance()->GetSectionKey(ConfigSection::PLUGINS, $configKey);
 			$pluginFile = ROOT_DIR . "plugins/$pluginSubDirectory/$plugin/$plugin.php";
-
 			if (!empty($plugin) && file_exists($pluginFile))
 			{
 				try

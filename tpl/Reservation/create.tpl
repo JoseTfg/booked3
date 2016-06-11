@@ -26,13 +26,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     {csrf_token}
 <div class="clear"></div>
 
-<div class="reservationHeader">
+{*<div class="reservationHeader">
     <h3>{block name=reservationHeader}{translate key="CreateReservationHeading"}{/block}</h3>
-</div>
+</div>*}
 
 
 <div id="reservationDetails">
-    <ul class="no-style">
+    <ul style="text-align:center;" class="no-style">
+	
+	<div class="warning" id="result" style="display:none;">
 	
 	{if $CanChangeUser}
             <button id="promptForChangeUsers" type="button" class="button" style="display:inline;">
@@ -43,7 +45,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             <div id="changeUserDialog" title="{translate key=ChangeUser}" class="dialog"></div>
 		{/if}
 
-            <a id="userName" data-userid="{$UserId}"></a> <input id="userId"
+            <a id="userName" data-userid="{$UserId}">{$ReservationUserName}</a> <input id="userId"
                                                                      type="hidden" {formname key=USER_ID}
                                                                      value="{$UserId}"/>
 		
@@ -62,12 +64,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			
 		{if $CanViewAdmin}
 		<div id="blackDiv" style="display:inline">
-		<input id="blackoutCheckBox" type="checkbox" value="blackoutCheckBox" onclick="blackoutTick()"> Blackouts
+		<input id="blackoutCheckBox" type="checkbox" value="blackoutCheckBox" onclick="blackoutTick()"> {translate key='Blackout'}
 		</div>
 		<div id="allBlackDiv" style="display:inline;display:none;">
 		<input id="allBlack" type="checkbox" value="allBlack" onclick="allResources()"> All resources
 		</div>
 		{/if}
+		</br>
 		</br>
 		<select id="filter">
 		{foreach from=$AvailableResources item=resource}
@@ -104,13 +107,18 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             <div style="clear:both;height:0;">&nbsp;</div>
 *}
         </li>
-        <li>
+        <li style="text-align: center">
 		<br/>
             {*<label for="BeginDate" class="reservationDate">{translate key='BeginDate'}</label>*}
-            <input type="text" id="BeginDate" class="dateinput" value="{formatdate date=$StartDate}"/>
-            <input type="hidden" id="formattedBeginDate" {formname key=BEGIN_DATE}
-                   value="{formatdate date=$StartDate key=system}"/>
-            <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px;font-size: 14px;">
+            <input style="font-size: 12px;text-align: center" type="text" id="BeginDate" class="dateinput" value="{formatdate date=$StartDate}"/>
+            <input type="hidden" id="formattedBeginDate" {formname key=BEGIN_DATE} value="{formatdate date=$StartDate key=system}"/>
+			-
+			<input style="font-size: 12px;text-align: center" type="text" id="EndDate" class="dateinput" value="{formatdate date=$EndDate}"/>
+            <input type="hidden" id="formattedEndDate" {formname key=END_DATE} value="{formatdate date=$EndDate key=system}"/>            
+        </li>
+        <li style="text-align: center">
+            {*<label for="EndDate" class="reservationDate">{translate key='EndDate'}</label>*}
+<select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:110px;font-size: 12px;">
 			{foreach from=$StartPeriods item=period}
 				{if $period->IsReservable()}
 					{assign var='selected' value=''}
@@ -121,13 +129,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				{/if}
 			{/foreach}
             </select>
-        </li>
-        <li>
-            {*<label for="EndDate" class="reservationDate">{translate key='EndDate'}</label>*}
-            <input type="text" id="EndDate" class="dateinput" value="{formatdate date=$EndDate}"/>
-            <input type="hidden" id="formattedEndDate" {formname key=END_DATE}
-                   value="{formatdate date=$EndDate key=system}"/>
-            <select id="EndPeriod" {formname key=END_PERIOD} class="pulldown input" style="width:150px;font-size: 14px;">
+			-
+            <select id="EndPeriod" {formname key=END_PERIOD} class="pulldown input" style="width:110px;font-size: 12px;">
 			{foreach from=$EndPeriods item=period name=endPeriods}
 				{if $period->BeginDate()->IsMidnight()}
                     <option value="{$period->Begin()}"{$selected}>{$period->Label()}</option>
@@ -144,7 +147,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         </li>
         <li style="text-align: center">
             <div class="durationText">
-                <span id="durationHours">0</span> {translate key=hours}
+                {translate key=Duration}: <span id="durationHours">0</span> {translate key=hours}
             </div>
         </li>
 	
@@ -152,20 +155,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{if $HideRecurrence}
         <li style="display:none">
 			{else}
-    <li id="recurrence">
+    <li id="recurrence" style="text-align:center;">
 	{/if}
 	{control type="RecurrenceControl" RepeatTerminationDate=$RepeatTerminationDate }
     </li>
 	
 	
-        <li class="rsv-box-l">
-			{textbox id="title" name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
-            </label>
+        <li class="rsv-box-l" style="text-align: center">
+			{textbox id="title" style="width:180px;" name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
+            {*</label>*}
         </li>
-        <li class="rsv-box-l">
-                <textarea id="description" placeholder="{translate key="ReservationDescription"}" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="resize:vertical;"
+        <li class="rsv-box-l" style="text-align: center">
+                <textarea id="description" placeholder="{translate key="ReservationDescription"}" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="height:40px;width:180px;"
                           tabindex="110">{$Description}</textarea>
-            </label>
+            {*</label>*}
         </li>
     </ul>
 </div>
@@ -279,10 +282,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					Blackout
 			</button>
 		
-		<button type="button" class="button" onclick="closePopup1()">
+		{*<button type="button" class="button" onclick="closePopup1()">
 		{html_image src="slash.png"}
 			{translate key='Cancel'}
-		</button>
+		</button>*}
 	</div>
 </div>
 
@@ -352,7 +355,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     <button id="btnCancelAddAccessories" class="button">{html_image src="slash.png"} {translate key='Cancel'}</button>
 </div>
 
-<div id="dialogSave" style="display:none;">
+{*<div id="dialogSave" style="display:none;">
     <div id="creatingNotification" style="position:relative; top:170px;">
 	{block name="ajaxMessage"}
 		{translate key=CreatingReservation}...<br/>
@@ -360,7 +363,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{html_image src="reservation_submitting.gif" alt="Creating reservation"}
     </div>
     <div id="result" style="display:none;"></div>
-</div>
+</div>*}
 <!-- reservationbox ends -->
 </div>
 
