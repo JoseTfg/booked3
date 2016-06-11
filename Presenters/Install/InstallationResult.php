@@ -31,23 +31,27 @@ class InstallationResult
 	public $sqlErrorText;
 	public $sqlText;
 
+	//Construct
 	public function __construct($taskName)
 	{
 		$this->taskName = $taskName;
 	}
 
+	//Returns connection error
 	public function SetConnectionError()
 	{
 		$this->connectionError = true;
 		$this->sqlErrorText = "Error connecting to mysql database.  Check your configured host and entered username and password.";
 	}
 
+	//Returns authentication error
 	public function SetAuthenticationError()
 	{
 		$this->authError = true;
 		$this->sqlErrorText = "Error selecting to mysql database.  Check entered username and password.";
 	}
 
+	//Returns the result
 	public function SetResult($sqlErrorCode, $sqlErrorText, $sqlStmt)
 	{
 		$this->sqlErrorCode = $sqlErrorCode;
@@ -55,6 +59,7 @@ class InstallationResult
 		$this->sqlText = $sqlStmt;
 	}
 
+	//Marks that it was sucessful
 	public function WasSuccessful()
 	{
 		return !$this->connectionError && !$this->authError && $this->sqlErrorCode == 0;

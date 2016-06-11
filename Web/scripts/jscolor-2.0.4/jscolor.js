@@ -333,8 +333,9 @@ var jsc = {
 	getElementPos : function (e, relativeToViewport) {
 		var x=0, y=0;
 		var rect = e.getBoundingClientRect();
-		x = rect.left;
-		y = rect.top;
+		x = rect.left-60;
+		//y = rect.top-200;
+		y = 80;
 		if (!relativeToViewport) {
 			var viewPos = jsc.getViewPos();
 			x += viewPos[0];
@@ -801,7 +802,7 @@ var jsc = {
 			var vmlContainer = document.createElement('div');
 			vmlContainer.style.position = 'relative';
 			vmlContainer.style.overflow = 'hidden';
-
+		
 			var hGrad = document.createElement(jsc._vmlNS + ':fill');
 			hGrad.type = 'gradient';
 			hGrad.method = 'linear';

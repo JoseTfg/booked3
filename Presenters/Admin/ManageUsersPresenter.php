@@ -45,6 +45,7 @@ interface IManageUsersPresenter
 	public function UpdateUser();
 }
 
+//Class: Supports the user management controller
 class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresenter
 {
 	/**
@@ -145,6 +146,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 	 * @param IGroupRepository $groupRepository
 	 * @param IGroupViewRepository $groupViewRepository
 	 */
+	//Construct
 	public function __construct(IManageUsersPage $page,
 								UserRepository $userRepository,
 								IResourceRepository $resourceRepository,
@@ -177,6 +179,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		$this->AddAction(ManageUsersActions::ImportUsers, 'ImportUsers');
 	}
 
+	//Sends the data to the page
 	public function PageLoad()
 	{
 		if ($this->page->GetUserId() != null)
@@ -205,6 +208,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		$this->page->BindAttributeList($attributeList);
 	}
 
+	//Deactivates an user
 	public function Deactivate()
 	{
 		$user = $this->userRepository->LoadById($this->page->GetUserId());
@@ -212,6 +216,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		$this->userRepository->Update($user);
 	}
 
+	//Activates an user
 	public function Activate()
 	{
 		$user = $this->userRepository->LoadById($this->page->GetUserId());
@@ -221,28 +226,29 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 
 	public function AddUser()
 	{
-		$defaultHomePageId = Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_HOMEPAGE, new IntConverter());
-		$user = $this->manageUsersService->AddUser(
-			$this->page->GetUserName(),
-			$this->page->GetEmail(),
-			$this->page->GetFirstName(),
-			$this->page->GetLastName(),
-			$this->page->GetPassword(),
-			$this->page->GetTimezone(),
-			Configuration::Instance()->GetKey(ConfigKeys::LANGUAGE),
-			empty($defaultHomePageId) ? Pages::DEFAULT_HOMEPAGE_ID : $defaultHomePageId,
-			array(),
-			$this->GetAttributeValues());
+		//MyCode
+		// $defaultHomePageId = Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_HOMEPAGE, new IntConverter());
+		// $user = $this->manageUsersService->AddUser(
+			// $this->page->GetUserName(),
+			// $this->page->GetEmail(),
+			// $this->page->GetFirstName(),
+			// $this->page->GetLastName(),
+			// $this->page->GetPassword(),
+			// $this->page->GetTimezone(),
+			// Configuration::Instance()->GetKey(ConfigKeys::LANGUAGE),
+			// empty($defaultHomePageId) ? Pages::DEFAULT_HOMEPAGE_ID : $defaultHomePageId,
+			// array(),
+			// $this->GetAttributeValues());
 
-		$userId = $user->Id();
-		$groupId = $this->page->GetUserGroup();
+		// $userId = $user->Id();
+		// $groupId = $this->page->GetUserGroup();
 
-		if (!empty($groupId))
-		{
-			$group = $this->groupRepository->LoadById($groupId);
-			$group->AddUser($userId);
-			$this->groupRepository->Update($group);
-		}
+		// if (!empty($groupId))
+		// {
+			// $group = $this->groupRepository->LoadById($groupId);
+			// $group->AddUser($userId);
+			// $this->groupRepository->Update($group);
+		// }
 	}
 
 	public function UpdateUser()
@@ -265,12 +271,14 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 
 	public function DeleteUser()
 	{
-		$userId = $this->page->GetUserId();
-		Log::Debug('Deleting user %s', $userId);
+		//MyCode
+		// $userId = $this->page->GetUserId();
+		// Log::Debug('Deleting user %s', $userId);
 
-		$this->manageUsersService->DeleteUser($userId);
+		// $this->manageUsersService->DeleteUser($userId);
 	}
 
+	//Changes permissions of an user
 	public function ChangePermissions()
 	{
 		$user = $this->userRepository->LoadById(ServiceLocator::GetServer()->GetUserSession()->UserId);
@@ -300,19 +308,22 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 
 	public function ResetPassword()
 	{
-		$salt = $this->passwordEncryption->Salt();
-		$encryptedPassword = $this->passwordEncryption->Encrypt($this->page->GetPassword(), $salt);
+		//MyCode
+		// $salt = $this->passwordEncryption->Salt();
+		// $encryptedPassword = $this->passwordEncryption->Encrypt($this->page->GetPassword(), $salt);
 
-		$user = $this->userRepository->LoadById($this->page->GetUserId());
-		$user->ChangePassword($encryptedPassword, $salt);
-		$this->userRepository->Update($user);
+		// $user = $this->userRepository->LoadById($this->page->GetUserId());
+		// $user->ChangePassword($encryptedPassword, $salt);
+		// $this->userRepository->Update($user);
 	}
 
+	//Unused
 	public function ChangeAttributes()
 	{
 		$this->manageUsersService->ChangeAttributes($this->page->GetUserId(), $this->GetAttributeValues());
 	}
 
+	//Process a request
 	public function ProcessDataRequest($dataRequest)
 	{
 		if ($dataRequest == 'permissions')
@@ -337,6 +348,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 	/**
 	 * @return int[] all resource ids the user has permission to
 	 */
+	//Gets the resources available for this user
 	public function GetUserResourcePermissions()
 	{
 		$user = $this->userRepository->LoadById($this->page->GetUserId());
@@ -346,6 +358,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 	/**
 	 * @return array|AttributeValue[]
 	 */
+	//Unused
 	private function GetAttributeValues()
 	{
 		$attributes = array();
@@ -356,6 +369,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		return $attributes;
 	}
 
+	//Loads validations
 	protected function LoadValidators($action)
 	{
 		Log::Debug('Loading validators for %s', $action);
@@ -395,6 +409,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 	/***
 	 * @return array|int[]
 	 */
+	//Gets users in group
 	public function GetUserGroups()
 	{
 		$userId = $this->page->GetUserId();
@@ -410,6 +425,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		return $groups;
 	}
 
+	//Unused
 	public function ChangeColor()
 	{
 		$userId = $this->page->GetUserId();
@@ -426,101 +442,103 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 
 	public function ImportUsers()
 	{
-		set_time_limit(300);
-		$groupsList = $this->groupViewRepository->GetList();
+		//MyCode
+		// set_time_limit(300);
+		// $groupsList = $this->groupViewRepository->GetList();
 		/** @var GroupItemView[] $groups */
-		$groups = $groupsList->Results();
-		$groupsIndexed = array();
-		foreach ($groups as $group)
-		{
-			$groupsIndexed[$group->Name()] = $group->Id();
-		}
+		// $groups = $groupsList->Results();
+		// $groupsIndexed = array();
+		// foreach ($groups as $group)
+		// {
+			// $groupsIndexed[$group->Name()] = $group->Id();
+		// }
 
-		$importFile = $this->page->GetImportFile();
-		$csv = new UserImportCsv($importFile);
+		// $importFile = $this->page->GetImportFile();
+		// $csv = new UserImportCsv($importFile);
 
-		$importCount = 0;
-		$messages = array();
+		// $importCount = 0;
+		// $messages = array();
 
-		$rows = $csv->GetRows();
+		// $rows = $csv->GetRows();
 
-		if (count($rows) == 0)
-		{
-			$this->page->SetImportResult(new CsvImportResult(0, array(), 'Empty file or missing header row'));
-			return;
-		}
+		// if (count($rows) == 0)
+		// {
+			// $this->page->SetImportResult(new CsvImportResult(0, array(), 'Empty file or missing header row'));
+			// return;
+		// }
 
-		for ($i = 0; $i < count($rows); $i++)
-		{
-			$row = $rows[$i];
-			try
-			{
-				$emailValidator = new EmailValidator($row->email);
-				$uniqueEmailValidator = new UniqueEmailValidator($this->userRepository, $row->email);
-				$uniqueUsernameValidator = new UniqueUserNameValidator($this->userRepository, $row->username);
+		// for ($i = 0; $i < count($rows); $i++)
+		// {
+			// $row = $rows[$i];
+			// try
+			// {
+				// $emailValidator = new EmailValidator($row->email);
+				// $uniqueEmailValidator = new UniqueEmailValidator($this->userRepository, $row->email);
+				// $uniqueUsernameValidator = new UniqueUserNameValidator($this->userRepository, $row->username);
 
-				$emailValidator->Validate();
-				$uniqueEmailValidator->Validate();
-				$uniqueUsernameValidator->Validate();
+				// $emailValidator->Validate();
+				// $uniqueEmailValidator->Validate();
+				// $uniqueUsernameValidator->Validate();
 
-				if (!$emailValidator->IsValid())
-				{
-					$evMsgs = $emailValidator->Messages();
-					$messages[] = $evMsgs[0] . " ({$row->email})";
-					continue;
-				}
-				if (!$uniqueEmailValidator->IsValid())
-				{
-					$uevMsgs = $uniqueEmailValidator->Messages();
-					$messages[] = $uevMsgs[0]. " ({$row->email})";
-					continue;
-				}
-				if (!$uniqueUsernameValidator->IsValid())
-				{
-					$uuvMsgs = $uniqueUsernameValidator->Messages();
-					$messages[] = $uuvMsgs[0]. " ({$row->username})";
-					continue;
-				}
+				// if (!$emailValidator->IsValid())
+				// {
+					// $evMsgs = $emailValidator->Messages();
+					// $messages[] = $evMsgs[0] . " ({$row->email})";
+					// continue;
+				// }
+				// if (!$uniqueEmailValidator->IsValid())
+				// {
+					// $uevMsgs = $uniqueEmailValidator->Messages();
+					// $messages[] = $uevMsgs[0]. " ({$row->email})";
+					// continue;
+				// }
+				// if (!$uniqueUsernameValidator->IsValid())
+				// {
+					// $uuvMsgs = $uniqueUsernameValidator->Messages();
+					// $messages[] = $uuvMsgs[0]. " ({$row->username})";
+					// continue;
+				// }
 
-				$timezone = empty($row->timezone) ? Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_TIMEZONE) : $row->timezone;
-				$password = empty($row->password) ? 'password' : $row->password;
-				$language = empty($row->language) ? 'en_us' : $row->language;
+				// $timezone = empty($row->timezone) ? Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_TIMEZONE) : $row->timezone;
+				// $password = empty($row->password) ? 'password' : $row->password;
+				// $language = empty($row->language) ? 'en_us' : $row->language;
 
-				$user = $this->manageUsersService->AddUser($row->username, $row->email, $row->firstName, $row->lastName, $password, $timezone, $language,
-												   Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_HOMEPAGE),
-												   array(UserAttribute::Phone => $row->phone, UserAttribute::Organization => $row->organization, UserAttribute::Position => $row->position),
-												   array());
+				// $user = $this->manageUsersService->AddUser($row->username, $row->email, $row->firstName, $row->lastName, $password, $timezone, $language,
+												   // Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_HOMEPAGE),
+												   // array(UserAttribute::Phone => $row->phone, UserAttribute::Organization => $row->organization, UserAttribute::Position => $row->position),
+												   // array());
 
-				$userGroups = array();
-				foreach ($row->groups as $groupName)
-				{
-					if (array_key_exists($groupName, $groupsIndexed))
-					{
-						Log::Debug('Importing user %s with group %s', $row->username, $groupName);
-						$userGroups[] = new UserGroup($groupsIndexed[$groupName], $groupName);
-					}
-				}
+				// $userGroups = array();
+				// foreach ($row->groups as $groupName)
+				// {
+					// if (array_key_exists($groupName, $groupsIndexed))
+					// {
+						// Log::Debug('Importing user %s with group %s', $row->username, $groupName);
+						// $userGroups[] = new UserGroup($groupsIndexed[$groupName], $groupName);
+					// }
+				// }
 
-				if (count($userGroups) > 0)
-				{
-					$user->ChangeGroups($userGroups);
-					$this->userRepository->Update($user);
-				}
+				// if (count($userGroups) > 0)
+				// {
+					// $user->ChangeGroups($userGroups);
+					// $this->userRepository->Update($user);
+				// }
 
-				$importCount++;
-			} catch (Exception $ex)
-			{
-				Log::Error('Error importing users. %s', $ex);
-			}
-		}
+				// $importCount++;
+			// } catch (Exception $ex)
+			// {
+				// Log::Error('Error importing users. %s', $ex);
+			// }
+		// }
 
-		$this->page->SetImportResult(new CsvImportResult($importCount, $csv->GetSkippedRowNumbers(), $messages));
+		// $this->page->SetImportResult(new CsvImportResult($importCount, $csv->GetSkippedRowNumbers(), $messages));
 	}
 
 	/**
 	 * @param User $user
 	 * @return BookableResource[]
 	 */
+	//Unused
 	private function GetResourcesThatCurrentUserCanAdminister($user)
 	{
 		$resources = array();
@@ -536,6 +554,7 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 	}
 }
 
+//Unused
 class CsvImportResult
 {
 	public $importCount = 0;

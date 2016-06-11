@@ -54,15 +54,17 @@ class Pages
 		1 => array('url' => Pages::MY_CALENDAR, 'name' => 'MyCalendar')
 	);
 
+	//Construct
 	private function __construct()
 	{
 	}
 
-	public static function UrlFromId($pageId)
+	public static function UrlFromId($pageIUrlFromIdd)
 	{
 		return self::$_pages[$pageId]['url'];
 	}
 
+	//Gets supported pages
 	public static function GetAvailablePages()
 	{
 		return self::$_pages;

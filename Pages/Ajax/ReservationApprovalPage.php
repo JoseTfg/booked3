@@ -31,8 +31,10 @@ interface IReservationApprovalPage extends IReservationSaveResultsView
 	public function GetReferenceNumber();
 }
 
+//Class: Supports the reservation approval controller
 class ReservationApprovalPage extends SecurePage implements IReservationApprovalPage
 {
+	//Process the page load
 	public function PageLoad()
 	{
 		try
@@ -57,6 +59,7 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 	/**
 	 * @return string
 	 */
+	//Gets reservation reference number
 	public function GetReferenceNumber()
 	{
 		return $this->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER);
@@ -65,6 +68,7 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 	/**
 	 * @param bool $succeeded
 	 */
+	//Sends the success message
 	public function SetSaveSuccessfulMessage($succeeded)
 	{
 		if ($succeeded)
@@ -73,6 +77,7 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 		}
 	}
 
+	//Sends the rror messages
 	public function SetErrors($errors)
 	{
 		if (!empty($errors))

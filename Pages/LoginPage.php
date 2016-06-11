@@ -102,10 +102,12 @@ interface ILoginPage extends IPage
 	public function SetPasswordResetUrl($url);
 }
 
+//Class: Supports the login controller
 class LoginPage extends Page implements ILoginPage
 {
 	protected $presenter = null;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('LogIn'); // parent Page class
@@ -118,57 +120,68 @@ class LoginPage extends Page implements ILoginPage
 		$this->Set('Languages', Resources::GetInstance()->AvailableLanguages);
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$this->presenter->PageLoad();
 		$this->Display('login.tpl');
 	}
 
+	//Gets email
 	public function GetEmailAddress()
 	{
 		return $this->GetForm(FormKeys::EMAIL);
 	}
 
+	//Gets password
 	public function GetPassword()
 	{
 		return $this->GetRawForm(FormKeys::PASSWORD);
 	}
 
+	//Gets persistent login
 	public function GetPersistLogin()
 	{
 		return $this->GetForm(FormKeys::PERSIST_LOGIN);
 	}
 
+	//Unused
 	public function GetShowRegisterLink()
 	{
 		return $this->GetVar('ShowRegisterLink');
 	}
 
+	//Unused
 	public function SetShowRegisterLink($value)
 	{
 		$this->Set('ShowRegisterLink', $value);
 	}
 
+	//Gets language
 	public function GetSelectedLanguage()
 	{
 		return $this->GetForm(FormKeys::LANGUAGE);
 	}
 
+	//Sets the nickname
 	public function SetUseLogonName($value)
 	{
 		$this->Set('UseLogonName', $value);
 	}
 
+	//Sets the URL to redirect
 	public function SetResumeUrl($value)
 	{
 		$this->Set('ResumeUrl', $value);
 	}
 
+	//Gets the URL to redirect
 	public function GetResumeUrl()
 	{
 		return $this->GetForm(FormKeys::RESUME);
 	}
 
+	//¿?
 	public function DisplayWelcome()
 	{
 		return false;
@@ -177,6 +190,7 @@ class LoginPage extends Page implements ILoginPage
 	/**
 	 * @return bool
 	 */
+	//Returns if current action is login
 	public function LoggingIn()
 	{
 		$loggingIn = $this->GetForm(Actions::LOGIN);
@@ -186,67 +200,80 @@ class LoginPage extends Page implements ILoginPage
 	/**
 	 * @return bool
 	 */
+	//Returns if current action is change language
 	public function ChangingLanguage()
 	{
 		$lang = $this->GetRequestedLanguage();
 		return !empty($lang);
 	}
 
+	//Authenticates the user
 	public function Login()
 	{
 		$this->presenter->Login();
 	}
 
+	//Change languages
 	public function ChangeLanguage()
 	{
 		$this->presenter->ChangeLanguage();
 	}
 
+	//Displays login errors
 	public function SetShowLoginError()
 	{
 		$this->Set('ShowLoginError', true);
 	}
 
+	//Gets selected language
 	public function GetRequestedLanguage()
 	{
 		return $this->GetQuerystring(QueryStringKeys::LANGUAGE);
 	}
 
+	//Sets selected language
 	public function SetSelectedLanguage($languageCode)
 	{
 		$this->Set('SelectedLanguage', $languageCode);
 	}
 
+	//Unused
 	protected function GetShouldAutoLogout()
 	{
 		return false;
 	}
 
+	//Unused
 	public function ShowUsernamePrompt($shouldShow)
 	{
 		$this->Set('ShowUsernamePrompt', $shouldShow);
 	}
 
+	//Unused
 	public function ShowPasswordPrompt($shouldShow)
 	{
 		$this->Set('ShowPasswordPrompt', $shouldShow);
 	}
 
+	//Unused
 	public function ShowPersistLoginPrompt($shouldShow)
 	{
 		$this->Set('ShowPersistLoginPrompt', $shouldShow);
 	}
 
+	//Unused
 	public function ShowForgotPasswordPrompt($shouldShow)
 	{
 		$this->Set('ShowForgotPasswordPrompt', $shouldShow);
 	}
 
+	//Unused
 	public function SetShowScheduleLink($shouldShow)
 	{
 		$this->Set('ShowScheduleLink', $shouldShow);
 	}
 
+	//Unused
 	public function SetPasswordResetUrl($url)
 	{
 		$this->Set('ForgotPasswordUrl', empty($url) ? Pages::FORGOT_PASSWORD : $url);
@@ -256,6 +283,7 @@ class LoginPage extends Page implements ILoginPage
 		}
 	}
 
+	//Unused
 	public function SetRegistrationUrl($url)
 	{
 		$this->Set('RegisterUrl', empty($url) ? Pages::REGISTRATION : $url);

@@ -76,6 +76,7 @@ interface IPersonalCalendarPage extends IActionPage
 	public function BindSelectedGroup($selectedGroup);
 }
 
+//Class: Supports the calendar controller
 class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 {
 	/**
@@ -88,6 +89,7 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 	 */
 	private $presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('MyCalendar', 0);
@@ -105,10 +107,12 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 				$userRepository,
 				$resourceService,
 				new ScheduleRepository(),
-				new Configurator()
+				new Configurator(),
+				new ManageBlackoutsService(new ReservationViewRepository(), new BlackoutRepository(), $userRepository)
 				);
 	}
 
+	//Process the page load
 	public function ProcessPageLoad()
 	{
 		$user = ServiceLocator::GetServer()->GetUserSession();
@@ -119,38 +123,36 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 		$this->Set('TimeFormat', Resources::GetInstance()->GetDateFormat('calendar_time'));
 		$this->Set('DateFormat', Resources::GetInstance()->GetDateFormat('calendar_dates'));
 		$daynames = Resources::GetInstance()->GetDays('full');
-		$this->Set('DayNames', $daynames);		
-		
-		//MyCode (31/3/2016)
-		$somevar4 = $_GET["ct"]; 
-		if ($somevar4 == "list"){
-			$this->Display('Calendar/' . "mycalendar.list.tpl");
-		}
-		else{		
+		$this->Set('DayNames', $daynames);
 		$this->Display('Calendar/' . $this->template);	
-		}		
+			
 	}
 
+	//Gets calendar day
 	public function GetDay()
 	{
 		return $this->GetQuerystring(QueryStringKeys::DAY);
 	}
 
+	//Gets calendar month
 	public function GetMonth()
 	{
 		return $this->GetQuerystring(QueryStringKeys::MONTH);
 	}
 
+	//Gets calendar year
 	public function GetYear()
 	{
 		return $this->GetQuerystring(QueryStringKeys::YEAR);
 	}
 
+	//Gets calendar type
 	public function GetCalendarType()
 	{
 		return $this->GetQuerystring(QueryStringKeys::CALENDAR_TYPE);
 	}
 
+	//Sends the information to the Smarty page
 	public function BindCalendar(ICalendarSegment $calendar)
 	{
 		$this->Set('Calendar', $calendar);
@@ -170,6 +172,7 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 	 * @param $displayDate Date
 	 * @return void
 	 */
+	//Sets the date to display
 	public function SetDisplayDate($displayDate)
 	{
 		$this->Set('DisplayDate', $displayDate);
@@ -188,6 +191,7 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 	/**
 	 * @return void
 	 */
+	//Process action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
@@ -198,6 +202,7 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 		// no-op
 	}
 
+	//Unused
 	public function BindSubscription(CalendarSubscriptionDetails $details)
 	{
 		$this->Set('IsSubscriptionAllowed', $details->IsAllowed());
@@ -205,6 +210,7 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 		$this->Set('SubscriptionUrl', $details->Url());
 	}
 
+	//Sends the filter information to the Smarty page
 	public function BindFilters($filters)
 	{
 		$this->Set('filters', $filters);
@@ -212,31 +218,37 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 		$this->Set('ResourceGroupsAsJson', json_encode($filters->GetResourceGroupTree()->GetGroups(false)));;
 	}
 
+	//Unused
 	public function GetScheduleId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::SCHEDULE_ID);
 	}
 
+	//Gets resource identifier
 	public function GetResourceId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESOURCE_ID);
 	}
 
+	//Unused
 	public function SetScheduleId($scheduleId)
 	{
 		$this->Set('ScheduleId', $scheduleId);
 	}
 
+	//Sets resource identifier
 	public function SetResourceId($resourceId)
 	{
 		$this->Set('ResourceId', $resourceId);
 	}
 
+	//Sets first day of the calendar
 	public function SetFirstDay($firstDay)
 	{
 		$this->Set('FirstDay', $firstDay == Schedule::Today ? 0 : $firstDay);
 	}
 
+	//Unused
 	public function BindSelectedGroup($selectedGroup)
 	{
 		$this->Set('GroupName', $selectedGroup->name);
@@ -244,10 +256,12 @@ class PersonalCalendarPage extends ActionPage implements IPersonalCalendarPage
 	}	
 }
 
+//Class: Supports the calendar URLs
 class PersonalCalendarUrl
 {
 	private $url;
 
+	//Construct
 	private function __construct($year, $month, $day, $type)
 	{
 		$resourceId = ServiceLocator::GetServer()->GetQuerystring(QueryStringKeys::RESOURCE_ID);
@@ -271,11 +285,13 @@ class PersonalCalendarUrl
 	 * @param $type string
 	 * @return PersonalCalendarUrl
 	 */
+	//Create URL
 	public static function Create($date, $type)
 	{
 		return new PersonalCalendarUrl($date->Year(), $date->Month(), $date->Day(), $type);
 	}
 
+	//Converts into String
 	public function __toString()
 	{
 		return $this->url;

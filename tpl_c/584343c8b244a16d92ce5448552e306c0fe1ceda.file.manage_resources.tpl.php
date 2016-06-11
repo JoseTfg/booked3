@@ -1,22 +1,35 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-04-23 20:24:56
+<?php /* Smarty version Smarty-3.1.16, created on 2016-05-17 17:04:56
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Admin\Resources\manage_resources.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:11110571bbdf86a83e4-87930374%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:9522573b3318508205-00466405%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '584343c8b244a16d92ce5448552e306c0fe1ceda' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\Admin\\Resources\\manage_resources.tpl',
-      1 => 1461435890,
+      1 => 1463403862,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '11110571bbdf86a83e4-87930374',
+  'nocache_hash' => '9522573b3318508205-00466405',
   'function' => 
   array (
   ),
   'variables' => 
   array (
+    'Schedules' => 0,
+    'scheduleId' => 0,
+    'scheduleName' => 0,
+    'AdminGroups' => 0,
+    'adminGroup' => 0,
+    'Resources' => 0,
+    'rowCss' => 0,
+    'resource' => 0,
+    'id' => 0,
+    'GroupLookup' => 0,
+    'AttributeList' => 0,
+    'attributes' => 0,
+    'PageInfo' => 0,
     'ResourceNameFilter' => 0,
     'AllSchedules' => 0,
     'ScheduleIdFilter' => 0,
@@ -29,18 +42,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'AllowMultiDayFilter' => 0,
     'AttributeFilters' => 0,
     'attribute' => 0,
-    'Schedules' => 0,
-    'scheduleId' => 0,
-    'scheduleName' => 0,
-    'AdminGroups' => 0,
-    'adminGroup' => 0,
-    'Resources' => 0,
-    'resource' => 0,
-    'id' => 0,
-    'GroupLookup' => 0,
-    'AttributeList' => 0,
-    'attributes' => 0,
-    'PageInfo' => 0,
     'resourceType' => 0,
     'txtMinDuration' => 0,
     'txtMaxDuration' => 0,
@@ -55,10 +56,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_571bbdf8a3e442_81900638',
+  'unifunc' => 'content_573b3318922289_97648491',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_571bbdf8a3e442_81900638')) {function content_571bbdf8a3e442_81900638($_smarty_tpl) {?><?php if (!is_callable('smarty_function_html_options')) include 'C:\\Program Files (x86)\\Ampps\\www\\booked\\lib\\Common/../../lib/external/Smarty/plugins\\function.html_options.php';
+<?php if ($_valid && !is_callable('content_573b3318922289_97648491')) {function content_573b3318922289_97648491($_smarty_tpl) {?><?php if (!is_callable('smarty_function_cycle')) include 'C:\\Program Files (x86)\\Ampps\\www\\booked\\lib\\Common/../../lib/external/Smarty/plugins\\function.cycle.php';
 if (!is_callable('smarty_modifier_truncate')) include 'C:\\Program Files (x86)\\Ampps\\www\\booked\\lib\\Common/../../lib/external/Smarty/plugins\\modifier.truncate.php';
+if (!is_callable('smarty_function_html_options')) include 'C:\\Program Files (x86)\\Ampps\\www\\booked\\lib\\Common/../../lib/external/Smarty/plugins\\function.html_options.php';
 ?>
 
 <?php echo $_smarty_tpl->getSubTemplate ('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('cssFiles'=>'css/admin.css,scripts/css/colorbox.css'), 0);?>
@@ -67,15 +69,320 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\Program Files (x86)\\
 <h1><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ManageResources'),$_smarty_tpl);?>
 </h1>
 
-<div class="horizontal-list label-top filterTable main-div-shadow" id="filterTable" style="background-color:#FFCC99;">
-	<form id="filterForm">
-		<div class="main-div-header"> <a href="#" id="filterLabel"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Filter'),$_smarty_tpl);?>
- </a></div>
-		<ul id="filterDiv" style="display:none;">
-			<li>
-				<label for="filterResourceName"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
-</label>
-				<input type="text" id="filterResourceName" class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_NAME'),$_smarty_tpl);?>
+
+<div id="addDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddResource'),$_smarty_tpl);?>
+">
+<div id="addResourceResults" class="error" style="display:none;"></div>
+		<form id="addResourceForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionAdd;?>
+">
+			<table style="display:none;">
+				<tr>
+					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
+</th>
+					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Schedule'),$_smarty_tpl);?>
+</th>
+					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourcePermissions'),$_smarty_tpl);?>
+</th>
+					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceAdministrator'),$_smarty_tpl);?>
+</th>
+					<th>&nbsp;</th>
+				</tr>
+
+					<input type="text" placeholder="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
+" class="textbox required" maxlength="85"
+							   style="width:250px" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_NAME'),$_smarty_tpl);?>
+ /></br></br>
+					
+	<div style="display:none;">
+						<select class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'SCHEDULE_ID'),$_smarty_tpl);?>
+ style="width:100px">
+							<?php  $_smarty_tpl->tpl_vars['scheduleName'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['scheduleName']->_loop = false;
+ $_smarty_tpl->tpl_vars['scheduleId'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['Schedules']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['scheduleName']->key => $_smarty_tpl->tpl_vars['scheduleName']->value) {
+$_smarty_tpl->tpl_vars['scheduleName']->_loop = true;
+ $_smarty_tpl->tpl_vars['scheduleId']->value = $_smarty_tpl->tpl_vars['scheduleName']->key;
+?>
+								<option value="<?php echo $_smarty_tpl->tpl_vars['scheduleId']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['scheduleName']->value;?>
+</option>
+							<?php } ?>
+						</select>
+
+						<select class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'AUTO_ASSIGN'),$_smarty_tpl);?>
+ style="width:170px">
+							<option value="0"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ResourcePermissionNotAutoGranted"),$_smarty_tpl);?>
+</option>
+							<option value="1"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ResourcePermissionAutoGranted"),$_smarty_tpl);?>
+</option>
+						</select>
+</div><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceAdministrator'),$_smarty_tpl);?>
+<br/>
+						<select class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_ADMIN_GROUP_ID'),$_smarty_tpl);?>
+ style="width:170px">
+							<option value=""><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'None'),$_smarty_tpl);?>
+</option>
+							<?php  $_smarty_tpl->tpl_vars['adminGroup'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['adminGroup']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['AdminGroups']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['adminGroup']->key => $_smarty_tpl->tpl_vars['adminGroup']->value) {
+$_smarty_tpl->tpl_vars['adminGroup']->_loop = true;
+?>
+								<option value="<?php echo $_smarty_tpl->tpl_vars['adminGroup']->value->Id;?>
+"><?php echo $_smarty_tpl->tpl_vars['adminGroup']->value->Name;?>
+</option>
+							<?php } ?>
+						</select>
+	
+
+						
+
+
+			</table>
+			</br>
+			<button type="button" class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"plus-button.png"),$_smarty_tpl);?>
+ <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddResource'),$_smarty_tpl);?>
+</button>
+		</form>
+	</div>
+
+
+<div id="globalError" class="error" style="display:none"></div>
+<div>
+
+<table id="resourceTable" class="list">
+<thead>
+<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Image'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Status'),$_smarty_tpl);?>
+</th>
+<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Description'),$_smarty_tpl);?>
+</th>
+<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Location'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceAdministrator'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'UsageConfiguration'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Approving'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Permissions'),$_smarty_tpl);?>
+</th>
+<td class="action"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Delete'),$_smarty_tpl);?>
+</th>
+</thead>
+<tbody>
+<?php  $_smarty_tpl->tpl_vars['resource'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['resource']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['Resources']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['resource']->key => $_smarty_tpl->tpl_vars['resource']->value) {
+$_smarty_tpl->tpl_vars['resource']->_loop = true;
+?>
+<?php echo smarty_function_cycle(array('values'=>'row0,row1','assign'=>'rowCss'),$_smarty_tpl);?>
+
+<tr class="<?php echo $_smarty_tpl->tpl_vars['rowCss']->value;?>
+">
+<td>
+	<?php $_smarty_tpl->tpl_vars['id'] = new Smarty_variable($_smarty_tpl->tpl_vars['resource']->value->GetResourceId(), null, 0);?>
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="text-align:center">
+
+		<div style="display: inline-block;min-width: 120px;">
+		<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>
+
+
+				
+					<a class="update renameButton" href="javascript:void(0);"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['resource']->value->GetName(), ENT_QUOTES, 'UTF-8', true);?>
+  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+
+	</div>
+		</td>
+		<td align="center">
+	<div  class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"  style="display: inline-block;min-width: 100px;">
+	<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>
+	
+	<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasImage()) {?>
+								
+				<a class="update imageButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+				|
+				<a class="update removeImageButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"cross-button.png"),$_smarty_tpl);?>
+</a>
+			<?php } else { ?>
+				
+				<a class="update imageButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"plus-circle.png"),$_smarty_tpl);?>
+</a>
+			<?php }?>
+	</div>
+	</td align="center">
+	<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;">
+	<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>
+	
+					<?php if ($_smarty_tpl->tpl_vars['resource']->value->IsAvailable()) {?>
+						
+						<a class="update changeStatus"
+						   href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'status.png'),$_smarty_tpl);?>
+</a>
+					<?php } elseif ($_smarty_tpl->tpl_vars['resource']->value->IsUnavailable()) {?>
+						
+						<a class="update changeStatus"
+						   href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'status-busy.png'),$_smarty_tpl);?>
+</a>
+					<?php } else { ?>
+						
+						<a class="update changeStatus"
+						   href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'status-offline.png'),$_smarty_tpl);?>
+</a>
+					<?php }?>
+	</div>
+	</td>
+	<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;min-width: 120px;">
+	<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>
+	
+					<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasDescription()) {?>
+						<span class="resourceValue"><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['resource']->value->GetDescription(),19,"..");?>
+</span>
+					<?php } else { ?>
+						<span class="note"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'NoDescriptionLabel'),$_smarty_tpl);?>
+</span>
+					<?php }?>
+					<a class="update descriptionButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+	</div>
+	</td>
+		<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;min-width: 120px;">
+	<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>
+						<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasLocation()) {?>
+						<span class="resourceValue"><?php echo $_smarty_tpl->tpl_vars['resource']->value->GetLocation();?>
+</span>
+					<?php } else { ?>
+						<span class="note"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'NoLocationLabel'),$_smarty_tpl);?>
+</span>
+					<?php }?>
+					<a class="update changeLocationButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+		</div>
+	</td>
+	<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;">
+		<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>
+	
+					<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasAdminGroup()) {?>
+						<span class="resourceValue"><?php echo $_smarty_tpl->tpl_vars['GroupLookup']->value[$_smarty_tpl->tpl_vars['resource']->value->GetAdminGroupId()]->Name;?>
+</span>
+					<?php } else { ?>
+						<span class="note"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'NoResourceAdministratorLabel'),$_smarty_tpl);?>
+</span>
+					<?php }?>
+					<?php if (count($_smarty_tpl->tpl_vars['AdminGroups']->value)>0) {?>
+						<a class="update adminButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+					<?php }?>
+	</div>
+	</td>
+	<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;">	
+	<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>	
+					
+			<a class="update changeConfigurationButton"
+															 href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+															 </div>
+															 </td>
+															 
+															 
+														 	<td align="center">
+	<div resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;">	
+	<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>	
+					<?php if ($_smarty_tpl->tpl_vars['resource']->value->GetRequiresApproval()) {?>
+						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'lock_on.png'),$_smarty_tpl);?>
+
+						<?php } else { ?>
+						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'lock_off.png'),$_smarty_tpl);?>
+
+						<?php }?>
+
+															 </div>
+															 </td>
+															 
+	<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" style="display: inline-block;">
+<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>		
+					
+					<a href="#" class="update changeUsers"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'user-small.png'),$_smarty_tpl);?>
+</a> | <a href="#" class="update changeGroups"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'users.png'),$_smarty_tpl);?>
+</a>
+	</div>				
+ </td>
+	<div style="display: none">	
+	<?php $_smarty_tpl->tpl_vars['attributes'] = new Smarty_variable($_smarty_tpl->tpl_vars['AttributeList']->value->GetAttributes($_smarty_tpl->tpl_vars['id']->value), null, 0);?>
+	<?php if (count($_smarty_tpl->tpl_vars['attributes']->value)>0) {?>
+		<div class="customAttributes">
+				<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AdditionalAttributes'),$_smarty_tpl);?>
+</h4></br> <a href="#"
+															class="update changeAttributes"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>'my_edit.png'),$_smarty_tpl);?>
+</a>
+		</div>		
+					<?php }?>
+	</div>
+	
+	
+		<td align="center">
+	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+" >	
+						<a class="update deleteButton" href="javascript:void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"cross-button.png"),$_smarty_tpl);?>
+</a>
+						<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"/>	
+	</div>
+		</td>
+		 
+</div>
+
+	
+
+</tr>
+<?php } ?>
+</tbody>
+</table>
+</div>
+<div style="text-align:center;">
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['pagination'][0][0]->CreatePagination(array('pageInfo'=>$_smarty_tpl->tpl_vars['PageInfo']->value),$_smarty_tpl);?>
+
+</div>
+
+<form id="filterForm">
+		<button id="filter" class="button" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"search.png"),$_smarty_tpl);?>
+ <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Filter'),$_smarty_tpl);?>
+</button>
+		<button id="clearFilter" class="button" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Reset'),$_smarty_tpl);?>
+</button>
+		<ul id="filterDiv" style="list-style-type: none;">
+			<li style="float:right;">
+				
+				<input type="text" placeholder="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
+" id="filterResourceName" class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_NAME'),$_smarty_tpl);?>
 
 					   value="<?php echo $_smarty_tpl->tpl_vars['ResourceNameFilter']->value;?>
 "/ />
@@ -103,7 +410,7 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\Program Files (x86)\\
 
 				</select>
 			</li>
-			<li>
+			<li style="display:none;">
 				<label for="resourceStatusIdFilter"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceStatus'),$_smarty_tpl);?>
 </label>
 				<select id="resourceStatusIdFilter" class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_STATUS_ID'),$_smarty_tpl);?>
@@ -174,250 +481,25 @@ $_smarty_tpl->tpl_vars['attribute']->_loop = true;
 
 				</li>
 			<?php } ?>
-		<button id="filter" class="button" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"search.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Filter'),$_smarty_tpl);?>
-</button>
-		<button id="clearFilter" class="button" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Reset'),$_smarty_tpl);?>
-</button>
 		
 		</ul>
 	</form>
-
-</div>
-
-
-
-<div class="admin" style="margin-top:30px;background-color:#FFCC99;">
-	<div class="title">
-		<a href="#" id="addLabel"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddNewResource'),$_smarty_tpl);?>
- </a>
-	</div>
-	<div id="addDiv" style="display:none;">
-		<div id="addResourceResults" class="error" style="display:none;"></div>
-		<form id="addResourceForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionAdd;?>
-">
-			<table>
-				<tr>
-					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
-</th>
-					
-					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourcePermissions'),$_smarty_tpl);?>
-</th>
-					<th><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceAdministrator'),$_smarty_tpl);?>
-</th>
-					<th>&nbsp;</th>
-				</tr>
-				<tr>
-					<td><input type="text" class="textbox required" maxlength="85"
-							   style="width:250px" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_NAME'),$_smarty_tpl);?>
- />
-					</td>
-					<td style="display:none">
-						<select class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'SCHEDULE_ID'),$_smarty_tpl);?>
- style="width:100px">
-							<?php  $_smarty_tpl->tpl_vars['scheduleName'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['scheduleName']->_loop = false;
- $_smarty_tpl->tpl_vars['scheduleId'] = new Smarty_Variable;
- $_from = $_smarty_tpl->tpl_vars['Schedules']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars['scheduleName']->key => $_smarty_tpl->tpl_vars['scheduleName']->value) {
-$_smarty_tpl->tpl_vars['scheduleName']->_loop = true;
- $_smarty_tpl->tpl_vars['scheduleId']->value = $_smarty_tpl->tpl_vars['scheduleName']->key;
-?>
-								<option value="<?php echo $_smarty_tpl->tpl_vars['scheduleId']->value;?>
-"><?php echo $_smarty_tpl->tpl_vars['scheduleName']->value;?>
-</option>
-							<?php } ?>
-						</select>
-					</td>
-					<td>
-						<select class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'AUTO_ASSIGN'),$_smarty_tpl);?>
- style="width:170px">
-							<option value="0"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ResourcePermissionNotAutoGranted"),$_smarty_tpl);?>
-</option>
-							<option value="1"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ResourcePermissionAutoGranted"),$_smarty_tpl);?>
-</option>
-						</select>
-					</td>
-					<td>
-						<select class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_ADMIN_GROUP_ID'),$_smarty_tpl);?>
- style="width:170px">
-							<option value=""><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'None'),$_smarty_tpl);?>
-</option>
-							<?php  $_smarty_tpl->tpl_vars['adminGroup'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['adminGroup']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['AdminGroups']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars['adminGroup']->key => $_smarty_tpl->tpl_vars['adminGroup']->value) {
-$_smarty_tpl->tpl_vars['adminGroup']->_loop = true;
-?>
-								<option value="<?php echo $_smarty_tpl->tpl_vars['adminGroup']->value->Id;?>
-"><?php echo $_smarty_tpl->tpl_vars['adminGroup']->value->Name;?>
-</option>
-							<?php } ?>
-						</select>
-					</td>
-
-						<button type="button" class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"plus-button.png"),$_smarty_tpl);?>
+</br>
+</br>
+</br>
+<button id="addButton" type="button" class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"plus-button.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddResource'),$_smarty_tpl);?>
 </button>
-
-				</tr>
-			</table>
-		</form>
-	</div>
-</div>
-
-</br>
-
-<div id="globalError" class="error" style="display:none"></div>
-<div class="admin" style="margin-top:10px;">
-
-
-<?php  $_smarty_tpl->tpl_vars['resource'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['resource']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['Resources']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars['resource']->key => $_smarty_tpl->tpl_vars['resource']->value) {
-$_smarty_tpl->tpl_vars['resource']->_loop = true;
-?>
-
-	<?php $_smarty_tpl->tpl_vars['id'] = new Smarty_variable($_smarty_tpl->tpl_vars['resource']->value->GetResourceId(), null, 0);?>
-	<div class="resourceDetails" resourceId="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
-" style="text-align:center">
-	
-	<div style="display: inline-block;">
-	<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasImage()) {?>
-				<img src="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['resource_image'][0][0]->GetResourceImage(array('image'=>$_smarty_tpl->tpl_vars['resource']->value->GetImage()),$_smarty_tpl);?>
-" alt="Resource Image" class="image"/>
-				<br/>
-				<a class="update imageButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Change'),$_smarty_tpl);?>
-</a>
-				|
-				<a class="update removeImageButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Remove'),$_smarty_tpl);?>
-</a>
-			<?php } else { ?>
-				<div class="noImage"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'NoImage'),$_smarty_tpl);?>
-</div>
-				<a class="update imageButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddImage'),$_smarty_tpl);?>
-</a>
-			<?php }?>
-	</div>
-	
-	<div style="display: inline-block;">
-		<input type="hidden" class="id" value="<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
-"/>
-
-
-
-
-					<h4><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['resource']->value->GetName(), ENT_QUOTES, 'UTF-8', true);?>
-</h4>
-					</br>
-					<a class="update renameButton" href="javascript:void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Rename'),$_smarty_tpl);?>
-</a>
-
-	</div>
-
-	<div style="display: inline-block;">
-	<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Status'),$_smarty_tpl);?>
-</h4>
-	</br>
-					<?php if ($_smarty_tpl->tpl_vars['resource']->value->IsAvailable()) {?>
-						
-						<a class="update changeStatus"
-						   href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Available'),$_smarty_tpl);?>
-</a>
-					<?php } elseif ($_smarty_tpl->tpl_vars['resource']->value->IsUnavailable()) {?>
-						
-						<a class="update changeStatus"
-						   href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Unavailable'),$_smarty_tpl);?>
-</a>
-					<?php } else { ?>
-						
-						<a class="update changeStatus"
-						   href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Hidden'),$_smarty_tpl);?>
-</a>
-					<?php }?>
-	</div>
-	<div style="display: inline-block;">
-	<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Description'),$_smarty_tpl);?>
-</h4></br>
-					<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasDescription()) {?>
-						<span class="resourceValue"><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['resource']->value->GetDescription(),19,"..");?>
-</span>
-					<?php } else { ?>
-						<span class="note"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'NoDescriptionLabel'),$_smarty_tpl);?>
-</span>
-					<?php }?>
-					<a class="update descriptionButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Edit'),$_smarty_tpl);?>
-</a>
-	</div>
-	<div style="display: inline-block;">
-	<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceAdministrator'),$_smarty_tpl);?>
-</h4></br>
-					<?php if ($_smarty_tpl->tpl_vars['resource']->value->HasAdminGroup()) {?>
-						<span class="resourceValue"><?php echo $_smarty_tpl->tpl_vars['GroupLookup']->value[$_smarty_tpl->tpl_vars['resource']->value->GetAdminGroupId()]->Name;?>
-</span>
-					<?php } else { ?>
-						<span class="note"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'NoResourceAdministratorLabel'),$_smarty_tpl);?>
-</span>
-					<?php }?>
-					<?php if (count($_smarty_tpl->tpl_vars['AdminGroups']->value)>0) {?>
-						<a class="update adminButton" href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Edit'),$_smarty_tpl);?>
-</a>
-					<?php }?>
-	</div>
-	<div style="display: inline-block;">				
-					<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'UsageConfiguration'),$_smarty_tpl);?>
-</h4>
-					</br>
-			<a class="update changeConfigurationButton"
-															 href="javascript: void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ChangeConfiguration'),$_smarty_tpl);?>
-</a>
-															 </div>
-	<div style="display: inline-block;">				
-					<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Permissions'),$_smarty_tpl);?>
-</h4></br>
-					<a href="#" class="update changeUsers"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Users'),$_smarty_tpl);?>
-</a> | <a href="#" class="update changeGroups"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Groups'),$_smarty_tpl);?>
-</a>
-	</div>				
-
-	<div style="display: inline-block;">	
-	<?php $_smarty_tpl->tpl_vars['attributes'] = new Smarty_variable($_smarty_tpl->tpl_vars['AttributeList']->value->GetAttributes($_smarty_tpl->tpl_vars['id']->value), null, 0);?>
-	<?php if (count($_smarty_tpl->tpl_vars['attributes']->value)>0) {?>
-		<div class="customAttributes">
-				<h4><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AdditionalAttributes'),$_smarty_tpl);?>
-</h4></br> <a href="#"
-															class="update changeAttributes"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Edit'),$_smarty_tpl);?>
-</a>
-		</div>		
-					<?php }?>
-	</div>
-	
-	
-	
-	<div style="float:right;">	
-						<a class="update deleteButton" href="javascript:void(0);"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Delete'),$_smarty_tpl);?>
-</a>
-	</div>
-		
-		 
-</div>
-
-	
-<hr>
-
-<?php } ?>
-</div>
-<div style="text-align:center;">
-<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['pagination'][0][0]->CreatePagination(array('pageInfo'=>$_smarty_tpl->tpl_vars['PageInfo']->value),$_smarty_tpl);?>
-
-</div>
 </br>
 <input type="hidden" id="activeId" value="" />
 
-<div id="imageDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddImage'),$_smarty_tpl);?>
+
+<div id="imageDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddImage'),$_smarty_tpl);?>
 ">
 	<form id="imageForm" method="post" enctype="multipart/form-data"
 		  ajaxAction="<?php echo ManageResourcesActions::ActionChangeImage;?>
 ">
-		<input id="resourceImage" type="file" class="text" size="60" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_IMAGE'),$_smarty_tpl);?>
+		<input style="background-color:#FFFFFF" id="resourceImage" type="file" class="text" size="60" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_IMAGE'),$_smarty_tpl);?>
  />
 		<br/>
 		<span class="note">.gif, .jpg, or .png</span>
@@ -427,30 +509,27 @@ $_smarty_tpl->tpl_vars['resource']->_loop = true;
 					class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"disk-black.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
 </button>
-			<button type="button" class="button cancel" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"slash.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Cancel'),$_smarty_tpl);?>
-</button>
+			
 		</div>
 	</form>
 </div>
 
-<div id="renameDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Rename'),$_smarty_tpl);?>
+<div id="renameDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Rename'),$_smarty_tpl);?>
 ">
 	<form id="renameForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionRename;?>
 ">
-		<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
-: <input id="editName" type="text" class="textbox required" maxlength="85"
+		 <input id="editName" placeholder="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Name'),$_smarty_tpl);?>
+" type="text" class="textbox required" maxlength="85"
 									   style="width:250px" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'RESOURCE_NAME'),$_smarty_tpl);?>
  />
 
 		<div class="admin-update-buttons">
+				</br>
 			<button type="button"
 					class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"disk-black.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Rename'),$_smarty_tpl);?>
 </button>
-			<button type="button" class="button cancel" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"slash.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Cancel'),$_smarty_tpl);?>
-</button>
+			
 		</div>
 	</form>
 </div>
@@ -523,7 +602,7 @@ $_smarty_tpl->tpl_vars['resourceType']->_loop = true;
 	</form>
 </div>
 
-<div id="locationDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Location'),$_smarty_tpl);?>
+<div id="locationDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Location'),$_smarty_tpl);?>
 ">
 	<form id="locationForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionChangeLocation;?>
 ">
@@ -543,14 +622,12 @@ $_smarty_tpl->tpl_vars['resourceType']->_loop = true;
 					class="button save"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"disk-black.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
 </button>
-			<button type="button" class="button cancel"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"slash.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Cancel'),$_smarty_tpl);?>
-</button>
+			
 		</div>
 	</form>
 </div>
 
-<div id="descriptionDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Description'),$_smarty_tpl);?>
+<div id="descriptionDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Description'),$_smarty_tpl);?>
 ">
 	<form id="descriptionForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionChangeDescription;?>
 ">
@@ -565,9 +642,7 @@ $_smarty_tpl->tpl_vars['resourceType']->_loop = true;
 					class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"disk-black.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
 </button>
-			<button type="button" class="button cancel" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"slash.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Cancel'),$_smarty_tpl);?>
-</button>
+			
 		</div>
 	</form>
 </div>
@@ -594,14 +669,12 @@ $_smarty_tpl->tpl_vars['resourceType']->_loop = true;
 	</form>
 </div>
 
-<div id="configurationDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'UsageConfiguration'),$_smarty_tpl);?>
+<div id="configurationDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'UsageConfiguration'),$_smarty_tpl);?>
 ">
 	<form id="configurationForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionChangeConfiguration;?>
 ">
 		<div style="margin-bottom: 10px;">
-			<fieldset>
-				<legend><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Duration'),$_smarty_tpl);?>
-</legend>
+			
 				<ul>
 					<li>
 						<label>
@@ -675,22 +748,9 @@ if (!empty($_capture_buffer)) {
 
 						</span>
 					</li>
-					<li>
-						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceAllowMultiDay'),$_smarty_tpl);?>
-
-						<select id="allowMultiday" class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'ALLOW_MULTIDAY'),$_smarty_tpl);?>
->
-							<option value="1"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Yes'),$_smarty_tpl);?>
-</option>
-							<option value="0"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'No'),$_smarty_tpl);?>
-</option>
-						</select>
-					</li>
+					
 				</ul>
-			</fieldset>
-			<fieldset>
-				<legend><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Access'),$_smarty_tpl);?>
-</legend>
+			
 				<ul>
 					<li>
 						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceRequiresApproval'),$_smarty_tpl);?>
@@ -703,24 +763,7 @@ if (!empty($_capture_buffer)) {
 </option>
 						</select>
 					</li>
-					<li>
-						<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourcePermissionAutoGranted'),$_smarty_tpl);?>
-
-						<select id="autoAssign" class="textbox" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'AUTO_ASSIGN'),$_smarty_tpl);?>
->
-							<option value="1"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Yes'),$_smarty_tpl);?>
-</option>
-							<option value="0"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'No'),$_smarty_tpl);?>
-</option>
-						</select>
-						<div class="hidden" id="autoAssignRemoveAllPermissions">
-							<label>
-							<input type="checkbox" value="1" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'AUTO_ASSIGN_CLEAR'),$_smarty_tpl);?>
- /> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'RemoveExistingPermissions'),$_smarty_tpl);?>
-
-							</label>
-						</div>
-					</li>
+				
 					<li>
 						<label>
 							<input type="checkbox" id="noStartNotice" /> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ResourceMinNoticeNone'),$_smarty_tpl);?>
@@ -768,7 +811,7 @@ if (!empty($_capture_buffer)) {
 						</span>
 					</li>
 				</ul>
-			</fieldset>
+			
 			
 		</div>
 		<div class="admin-update-buttons">
@@ -776,14 +819,12 @@ if (!empty($_capture_buffer)) {
 					class="button save" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"disk-black.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
 </button>
-			<button type="button" class="button cancel" style="float:right;"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"slash.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Cancel'),$_smarty_tpl);?>
-</button>
+			
 		</div>
 	</form>
 </div>
 
-<div id="groupAdminDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'WhoCanManageThisResource'),$_smarty_tpl);?>
+<div id="groupAdminDialog" style="display:none;background-color:#FFCC99;" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'WhoCanManageThisResource'),$_smarty_tpl);?>
 ">
 	<form method="post" id="groupAdminForm" ajaxAction="<?php echo ManageResourcesActions::ActionChangeAdmin;?>
 ">
@@ -804,17 +845,15 @@ $_smarty_tpl->tpl_vars['adminGroup']->_loop = true;
 
 		<div class="admin-update-buttons">
 			<button type="button"
-					class="button save"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"tick-circle.png"),$_smarty_tpl);?>
+					class="button save" style="float:right";><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"tick-circle.png"),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
 </button>
-			<button type="button" class="button cancel"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"slash.png"),$_smarty_tpl);?>
- <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Cancel'),$_smarty_tpl);?>
-</button>
+			
 		</div>
 	</form>
 </div>
 
-<div id="deleteDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Delete'),$_smarty_tpl);?>
+<div id="deleteDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Delete'),$_smarty_tpl);?>
 ">
 	<form id="deleteForm" method="post" ajaxAction="<?php echo ManageResourcesActions::ActionDelete;?>
 ">
@@ -1264,14 +1303,13 @@ $_smarty_tpl->tpl_vars['attribute']->_loop = true;
 </div>
 
 
-<div id="userDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Users'),$_smarty_tpl);?>
+<div id="userDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Users'),$_smarty_tpl);?>
 ">
-	<label><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddUser'),$_smarty_tpl);?>
- <input type="text" id="userSearch" class="textbox" size="40" /></label> <a href="#" id="browseUsers"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Browse'),$_smarty_tpl);?>
-</a>
+	 <input type="text" placeholder="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddUser'),$_smarty_tpl);?>
+" id="userSearch" class="textbox" size="40" /></label> 
 	<div id="allUsers" style="display:none;" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AllUsers'),$_smarty_tpl);?>
 "></div>
-	<h4><span id="totalUsers"></span> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Users'),$_smarty_tpl);?>
+	<h4>		</br><span id="totalUsers"></span> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Users'),$_smarty_tpl);?>
 </h4>
 	<div id="resourceUserList"></div>
 </div>
@@ -1288,14 +1326,14 @@ $_smarty_tpl->tpl_vars['attribute']->_loop = true;
  />
 </form>
 
-<div id="groupDialog" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Groups'),$_smarty_tpl);?>
+<div id="groupDialog" style="display:none;background-color:#FFCC99;"  class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Groups'),$_smarty_tpl);?>
 ">
-	<label><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddGroup'),$_smarty_tpl);?>
- <input type="text" id="groupSearch" class="textbox" size="40"/> <a href="#" id="browseGroups"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AllGroups'),$_smarty_tpl);?>
-</a></label>
+	 <input type="text"  placeholder="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AddGroup'),$_smarty_tpl);?>
+" id="groupSearch" class="textbox" size="40"/> 
 	<div id="allGroups" style="display:none;" class="dialog" title="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'AllGroups'),$_smarty_tpl);?>
 "></div>
-	<h4><span id="totalGroups"></span> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Groups'),$_smarty_tpl);?>
+
+	<h4>		</br><span id="totalGroups"></span> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Groups'),$_smarty_tpl);?>
 </h4>
 	<div id="resourceGroupList"></div>
 </div>
@@ -1311,6 +1349,7 @@ $_smarty_tpl->tpl_vars['attribute']->_loop = true;
 	<input type="hidden" id="addGroupId" <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['formname'][0][0]->GetFormName(array('key'=>'GROUP_ID'),$_smarty_tpl);?>
  />
 </form>
+
 
 <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['csrf_token'][0][0]->CSRFToken(array(),$_smarty_tpl);?>
 
@@ -1331,28 +1370,15 @@ $_smarty_tpl->tpl_vars['attribute']->_loop = true;
 <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"autocomplete.js"),$_smarty_tpl);?>
 
 
+
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"TableSorter/jquery.tablesorter.js"),$_smarty_tpl);?>
+
+
+
 <script type="text/javascript">
 
 	$(document).ready(function ()
-	{
-	
-		$("#filterLabel").on('click', function() {
-			   if (document.getElementById("filterDiv").style.display == "none"){
-					document.getElementById("filterDiv").style.display = "initial";
-			   }
-			   else{
-					document.getElementById("filterDiv").style.display = "none";
-				}
-			});
-			
-		$("#addLabel").on('click', function() {
-			   if (document.getElementById("addDiv").style.display == "none"){
-					document.getElementById("addDiv").style.display = "initial";
-			   }
-			   else{
-					document.getElementById("addDiv").style.display = "none";
-				}
-			});
+	{	
 	
 		var actions = {
 			enableSubscription: '<?php echo ManageResourcesActions::ActionEnableSubscription;?>
@@ -1507,6 +1533,8 @@ $_smarty_tpl->tpl_vars['reason']->_loop = true;
 		resourceManagement.initializeStatusFilter('<?php echo $_smarty_tpl->tpl_vars['ResourceStatusFilterId']->value;?>
 ', '<?php echo $_smarty_tpl->tpl_vars['ResourceStatusReasonFilterId']->value;?>
 ');
+		
+		$('#resourceTable').tablesorter();
 	});
 
 </script>

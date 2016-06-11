@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'lib/Graphics/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 
+//Class: Actions related to this presenter
 class ManageResourcesActions
 {
 	const ActionAdd = 'add';
@@ -49,6 +50,7 @@ class ManageResourcesActions
 	const ActionRemoveGroupPermission = 'removeGroupPermission';
 }
 
+//Class: Supports the resource management controller
 class ManageResourcesPresenter extends ActionPresenter
 {
 	/**
@@ -86,6 +88,7 @@ class ManageResourcesPresenter extends ActionPresenter
 	 */
 	private $userPreferenceRepository;
 
+	//Construct
 	public function __construct(
 		IManageResourcesPage $page,
 		IResourceRepository $resourceRepository,
@@ -129,6 +132,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->AddAction(ManageResourcesActions::ActionRemoveGroupPermission, 'RemoveGroupPermission');
 	}
 
+	//Sends the data to the page
 	public function PageLoad()
 	{
 		$resourceAttributes = $this->attributeService->GetByCategory(CustomAttributeCategory::RESOURCE);
@@ -186,6 +190,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->InitializeFilter($filterValues, $resourceAttributes);
 	}
 
+	//Adds new resource
 	public function Add()
 	{
 		$name = $this->page->GetResourceName();
@@ -194,12 +199,12 @@ class ManageResourcesPresenter extends ActionPresenter
 		$resourceAdminGroupId = $this->page->GetAdminGroupId();
 
 		Log::Debug("Adding new resource with name: %s, scheduleId: %s, autoAssign: %s, resourceAdminGroupId %s", $name, $scheduleId, $autoAssign, $resourceAdminGroupId);
-
 		$resource = BookableResource::CreateNew($name, $scheduleId, $autoAssign);
 		$resource->SetAdminGroupId($resourceAdminGroupId);
 		$this->resourceRepository->Add($resource);
 	}
 
+	//Change resource configuration
 	public function ChangeConfiguration()
 	{
 		$resourceId = $this->page->GetResourceId();
@@ -232,12 +237,14 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->Update($resource);
 	}
 
+	//Delete an existing resource
 	public function Delete()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
 		$this->resourceRepository->Delete($resource);
 	}
 
+	//Change resource description
 	public function ChangeDescription()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
@@ -249,32 +256,31 @@ class ManageResourcesPresenter extends ActionPresenter
 
 	public function ChangeNotes()
 	{
-		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
-
-		$resource->SetNotes($this->page->GetNotes());
-
-		$this->resourceRepository->Update($resource);
+		//MyCode
+		// $resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
+		// $resource->SetNotes($this->page->GetNotes());
+		// $this->resourceRepository->Update($resource);
 	}
 
+	//Renames an existing resource
 	public function Rename()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
-
 		$resource->SetName($this->page->GetResourceName());
-
 		$this->resourceRepository->Update($resource);
 	}
 
+	//Changes the location of a resource
 	public function ChangeLocation()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
-
 		$resource->SetLocation($this->page->GetLocation());
 		$resource->SetContact($this->page->GetContact());
 
 		$this->resourceRepository->Update($resource);
 	}
 
+	//changes the image of a resource
 	public function ChangeImage()
 	{
 		Log::Debug("Changing resource image for resource id %s", $this->page->GetResourceId());
@@ -320,11 +326,13 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->SaveResourceImage($fileName);
 	}
 
+	//Remove the image of a resource
 	public function RemoveImage()
 	{
 		$this->SaveResourceImage(null);
 	}
 
+	//Change the status of a resource
 	public function ChangeStatus()
 	{
 		$resourceId = $this->page->GetResourceId();
@@ -347,16 +355,18 @@ class ManageResourcesPresenter extends ActionPresenter
 
 	public function ChangeSchedule()
 	{
-		$resourceId = $this->page->GetResourceId();
-		Log::Debug('Changing schedule for resource %s', $resourceId);
+		//MyCode
+		// $resourceId = $this->page->GetResourceId();
+		// Log::Debug('Changing schedule for resource %s', $resourceId);
 
-		$resource = $this->resourceRepository->LoadById($resourceId);
+		// $resource = $this->resourceRepository->LoadById($resourceId);
 
-		$scheduleId = $this->page->GetScheduleId();
-		$resource->SetScheduleId($scheduleId);
-		$this->resourceRepository->Update($resource);
+		// $scheduleId = $this->page->GetScheduleId();
+		// $resource->SetScheduleId($scheduleId);
+		// $this->resourceRepository->Update($resource);
 	}
 
+	//Change the resource administrator
 	public function ChangeAdmin()
 	{
 		$resourceId = $this->page->GetResourceId();
@@ -370,59 +380,65 @@ class ManageResourcesPresenter extends ActionPresenter
 
 	public function EnableSubscription()
 	{
-		$resourceId = $this->page->GetResourceId();
-		Log::Debug('Enable calendar subscription for resource %s', $resourceId);
+		//MyCode
+		// $resourceId = $this->page->GetResourceId();
+		// Log::Debug('Enable calendar subscription for resource %s', $resourceId);
 
-		$resource = $this->resourceRepository->LoadById($resourceId);
-		$resource->EnableSubscription();
-		$this->resourceRepository->Update($resource);
+		// $resource = $this->resourceRepository->LoadById($resourceId);
+		// $resource->EnableSubscription();
+		// $this->resourceRepository->Update($resource);
 	}
 
 	public function DisableSubscription()
 	{
-		$resourceId = $this->page->GetResourceId();
-		Log::Debug('Disable calendar subscription for resource %s', $resourceId);
+		//MyCode
+		// $resourceId = $this->page->GetResourceId();
+		// Log::Debug('Disable calendar subscription for resource %s', $resourceId);
 
-		$resource = $this->resourceRepository->LoadById($resourceId);
-		$resource->DisableSubscription();
-		$this->resourceRepository->Update($resource);
+		// $resource = $this->resourceRepository->LoadById($resourceId);
+		// $resource->DisableSubscription();
+		// $this->resourceRepository->Update($resource);
 	}
 
 	public function ChangeAttributes()
 	{
-		$resourceId = $this->page->GetResourceId();
-		Log::Debug('Changing attributes for resource %s', $resourceId);
+		//MyCode
+		// $resourceId = $this->page->GetResourceId();
+		// Log::Debug('Changing attributes for resource %s', $resourceId);
 
-		$resource = $this->resourceRepository->LoadById($resourceId);
+		// $resource = $this->resourceRepository->LoadById($resourceId);
 
-		$attributes = $this->GetAttributeValues();
+		// $attributes = $this->GetAttributeValues();
 
-		$resource->ChangeAttributes($attributes);
+		// $resource->ChangeAttributes($attributes);
 		$this->resourceRepository->Update($resource);
 	}
 
 	public function ChangeSortOrder()
 	{
-		$resourceId = $this->page->GetResourceId();
-		$sortOrder = $this->page->GetSortOrder();
-		Log::Debug('Changing sort order for resource %s', $resourceId);
+		//MyCode
+		// $resourceId = $this->page->GetResourceId();
+		// $sortOrder = $this->page->GetSortOrder();
+		// Log::Debug('Changing sort order for resource %s', $resourceId);
 
-		$resource = $this->resourceRepository->LoadById($resourceId);
-		$resource->SetSortOrder($sortOrder);
-		$this->resourceRepository->Update($resource);
+		// $resource = $this->resourceRepository->LoadById($resourceId);
+		// $resource->SetSortOrder($sortOrder);
+		// $this->resourceRepository->Update($resource);
 	}
 
 	public function ChangeResourceType()
 	{
-		$resourceId = $this->page->GetResourceId();
-		$resourceTypeId = $this->page->GetResourceTypeId();
-		Log::Debug('Changing resource type for resource %s', $resourceId);
+		//MyCode
+		// $resourceId = $this->page->GetResourceId();
+		// $resourceTypeId = $this->page->GetResourceTypeId();
+		// Log::Debug('Changing resource type for resource %s', $resourceId);
 
-		$resource = $this->resourceRepository->LoadById($resourceId);
-		$resource->SetResourceTypeId($resourceTypeId);
-		$this->resourceRepository->Update($resource);
+		// $resource = $this->resourceRepository->LoadById($resourceId);
+		// $resource->SetResourceTypeId($resourceTypeId);
+		// $this->resourceRepository->Update($resource);
 	}
 
+	//Unused
 	private function GetAttributeValues()
 	{
 		$attributes = array();
@@ -433,6 +449,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		return $attributes;
 	}
 
+	//Saves a new resource image
 	private function SaveResourceImage($fileName)
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
@@ -446,6 +463,7 @@ class ManageResourcesPresenter extends ActionPresenter
 	 * @param ResourceFilterValues $filterValues
 	 * @param CustomAttribute[] $resourceAttributes
 	 */
+	//Initialize the filter
 	public function InitializeFilter($filterValues, $resourceAttributes)
 	{
 		$filters = $filterValues->Attributes;
@@ -464,160 +482,163 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->page->SetFilterValues($filterValues);
 	}
 
+	//Unused
 	public function BulkUpdate()
 	{
-		$scheduleId = $this->page->GetScheduleId();
-		$resourceTypeId = $this->page->GetResourceTypeId();
-		$location = $this->page->GetLocation();
-		$contact = $this->page->GetContact();
-		$description = $this->page->GetDescription();
-		$notes = $this->page->GetNotes();
-		$adminGroupId = $this->page->GetAdminGroupId();
+		//MyCode
+		// $scheduleId = $this->page->GetScheduleId();
+		// $resourceTypeId = $this->page->GetResourceTypeId();
+		// $location = $this->page->GetLocation();
+		// $contact = $this->page->GetContact();
+		// $description = $this->page->GetDescription();
+		// $notes = $this->page->GetNotes();
+		// $adminGroupId = $this->page->GetAdminGroupId();
 
-		$statusId = $this->page->GetStatusId();
-		$reasonId = $this->page->GetStatusReasonId();
+		// $statusId = $this->page->GetStatusId();
+		// $reasonId = $this->page->GetStatusReasonId();
 
 		// need to figure out difference between empty and unchanged
-		$minDuration = $this->page->GetMinimumDuration();
-		$minDurationNone = $this->page->GetMinimumDurationNone();
-		$maxDuration = $this->page->GetMaximumDuration();
-		$maxDurationNone = $this->page->GetMaximumDurationNone();
-		$bufferTime = $this->page->GetBufferTime();
-		$bufferTimeNone = $this->page->GetBufferTimeNone();
-		$minNotice = $this->page->GetStartNoticeMinutes();
-		$minNoticeNone = $this->page->GetStartNoticeNone();
-		$maxNotice = $this->page->GetEndNoticeMinutes();
-		$maxNoticeNone = $this->page->GetEndNoticeNone();
-		$allowMultiDay = $this->page->GetAllowMultiday();
-		$requiresApproval = $this->page->GetRequiresApproval();
-		$autoAssign = $this->page->GetAutoAssign();
-		$allowSubscription = $this->page->GetAllowSubscriptions();
-		$attributes = $this->page->GetAttributes();
+		// $minDuration = $this->page->GetMinimumDuration();
+		// $minDurationNone = $this->page->GetMinimumDurationNone();
+		// $maxDuration = $this->page->GetMaximumDuration();
+		// $maxDurationNone = $this->page->GetMaximumDurationNone();
+		// $bufferTime = $this->page->GetBufferTime();
+		// $bufferTimeNone = $this->page->GetBufferTimeNone();
+		// $minNotice = $this->page->GetStartNoticeMinutes();
+		// $minNoticeNone = $this->page->GetStartNoticeNone();
+		// $maxNotice = $this->page->GetEndNoticeMinutes();
+		// $maxNoticeNone = $this->page->GetEndNoticeNone();
+		// $allowMultiDay = $this->page->GetAllowMultiday();
+		// $requiresApproval = $this->page->GetRequiresApproval();
+		// $autoAssign = $this->page->GetAutoAssign();
+		// $allowSubscription = $this->page->GetAllowSubscriptions();
+		// $attributes = $this->page->GetAttributes();
 
-		$resourceIds = $this->page->GetBulkUpdateResourceIds();
+		// $resourceIds = $this->page->GetBulkUpdateResourceIds();
 
-		$emptyDuration = 'dhm';
+		// $emptyDuration = 'dhm';
 		
-		foreach ($resourceIds as $resourceId)
-		{
-			try
-			{
-				$resource = $this->resourceRepository->LoadById($resourceId);
+		// foreach ($resourceIds as $resourceId)
+		// {
+			// try
+			// {
+				// $resource = $this->resourceRepository->LoadById($resourceId);
 
-				if ($this->ChangingDropDown($scheduleId))
-				{
-					$resource->SetScheduleId($scheduleId);
-				}
-				if ($this->ChangingDropDown($resourceTypeId))
-				{
-					$resource->SetResourceTypeId($resourceTypeId);
-				}
-				if ($this->ChangingValue($location))
-				{
-					$resource->SetLocation($location);
-				}
-				if ($this->ChangingValue($contact))
-				{
-					$resource->SetContact($contact);
-				}
-				if ($this->ChangingValue($description))
-				{
-					$resource->SetDescription($description);
-				}
-				if ($this->ChangingValue($notes))
-				{
-					$resource->SetNotes($notes);
-				}
-				if ($this->ChangingDropDown($adminGroupId))
-				{
-					$resource->SetAdminGroupId($adminGroupId);
-				}
-				if ($this->ChangingDropDown($statusId))
-				{
-					$resource->ChangeStatus($statusId, $reasonId);
-				}
-				if ($minDurationNone)
-				{
-					$resource->SetMinLength(0);
-				}
-				if (!$minDurationNone && $minDuration != $emptyDuration)
-				{
-					$resource->SetMinLength($minDuration);
-				}
-				if ($maxDurationNone)
-				{
-					$resource->SetMaxLength(0);
-				}
-				if (!$maxDurationNone && $maxDuration != $emptyDuration)
-				{
-					$resource->SetMaxLength($maxDuration);
-				}
-				if ($bufferTimeNone)
-				{
-					$resource->SetBufferTime(0);
-				}
-				if (!$bufferTimeNone && $bufferTime != $emptyDuration)
-				{
-					$resource->SetBufferTime($bufferTime);
-				}
-				if ($minNoticeNone)
-				{
-					$resource->SetMinNotice(0);
-				}
-				if (!$minNoticeNone && $minNotice != $emptyDuration)
-				{
-					$resource->SetMinNotice($minNotice);
-				}
-				if ($maxNoticeNone)
-				{
-					$resource->SetMaxNotice(0);
-				}
-				if (!$maxNoticeNone && $maxNotice != $emptyDuration)
-				{
-					$resource->SetMaxNotice($maxNotice);
-				}
-				if ($this->ChangingDropDown($allowMultiDay))
-				{
-					$resource->SetAllowMultiday($allowMultiDay);
-				}
-				if ($this->ChangingDropDown($requiresApproval))
-				{
-					$resource->SetRequiresApproval($requiresApproval);
-				}
-				if ($this->ChangingDropDown($autoAssign))
-				{
-					$resource->SetAutoAssign($autoAssign);
-				}
-				if ($this->ChangingDropDown($allowSubscription))
-				{
-					if ($allowSubscription)
-					{
-						$resource->EnableSubscription();
-					}
-					else
-					{
-						$resource->DisableSubscription();
-					}
-				}
+				// if ($this->ChangingDropDown($scheduleId))
+				// {
+					// $resource->SetScheduleId($scheduleId);
+				// }
+				// if ($this->ChangingDropDown($resourceTypeId))
+				// {
+					// $resource->SetResourceTypeId($resourceTypeId);
+				// }
+				// if ($this->ChangingValue($location))
+				// {
+					// $resource->SetLocation($location);
+				// }
+				// if ($this->ChangingValue($contact))
+				// {
+					// $resource->SetContact($contact);
+				// }
+				// if ($this->ChangingValue($description))
+				// {
+					// $resource->SetDescription($description);
+				// }
+				// if ($this->ChangingValue($notes))
+				// {
+					// $resource->SetNotes($notes);
+				// }
+				// if ($this->ChangingDropDown($adminGroupId))
+				// {
+					// $resource->SetAdminGroupId($adminGroupId);
+				// }
+				// if ($this->ChangingDropDown($statusId))
+				// {
+					// $resource->ChangeStatus($statusId, $reasonId);
+				// }
+				// if ($minDurationNone)
+				// {
+					// $resource->SetMinLength(0);
+				// }
+				// if (!$minDurationNone && $minDuration != $emptyDuration)
+				// {
+					// $resource->SetMinLength($minDuration);
+				// }
+				// if ($maxDurationNone)
+				// {
+					// $resource->SetMaxLength(0);
+				// }
+				// if (!$maxDurationNone && $maxDuration != $emptyDuration)
+				// {
+					// $resource->SetMaxLength($maxDuration);
+				// }
+				// if ($bufferTimeNone)
+				// {
+					// $resource->SetBufferTime(0);
+				// }
+				// if (!$bufferTimeNone && $bufferTime != $emptyDuration)
+				// {
+					// $resource->SetBufferTime($bufferTime);
+				// }
+				// if ($minNoticeNone)
+				// {
+					// $resource->SetMinNotice(0);
+				// }
+				// if (!$minNoticeNone && $minNotice != $emptyDuration)
+				// {
+					// $resource->SetMinNotice($minNotice);
+				// }
+				// if ($maxNoticeNone)
+				// {
+					// $resource->SetMaxNotice(0);
+				// }
+				// if (!$maxNoticeNone && $maxNotice != $emptyDuration)
+				// {
+					// $resource->SetMaxNotice($maxNotice);
+				// }
+				// if ($this->ChangingDropDown($allowMultiDay))
+				// {
+					// $resource->SetAllowMultiday($allowMultiDay);
+				// }
+				// if ($this->ChangingDropDown($requiresApproval))
+				// {
+					// $resource->SetRequiresApproval($requiresApproval);
+				// }
+				// if ($this->ChangingDropDown($autoAssign))
+				// {
+					// $resource->SetAutoAssign($autoAssign);
+				// }
+				// if ($this->ChangingDropDown($allowSubscription))
+				// {
+					// if ($allowSubscription)
+					// {
+						// $resource->EnableSubscription();
+					// }
+					// else
+					// {
+						// $resource->DisableSubscription();
+					// }
+				// }
 
 				/** @var AttributeValue $attribute */
-				foreach ($this->GetAttributeValues() as $attribute)
-				{
-					if (!empty($attribute->Value))
-					{
-						$resource->ChangeAttribute($attribute);
-					}
-				}
+				// foreach ($this->GetAttributeValues() as $attribute)
+				// {
+					// if (!empty($attribute->Value))
+					// {
+						// $resource->ChangeAttribute($attribute);
+					// }
+				// }
 
-				$this->resourceRepository->Update($resource);
-			}
-			catch(Exception $ex)
-			{
-				Log::Error('Error bulk updating resource. Id=%s. Error=%s', $resourceId, $ex);
-			}
-		}
+				// $this->resourceRepository->Update($resource);
+			// }
+			// catch(Exception $ex)
+			// {
+				// Log::Error('Error bulk updating resource. Id=%s. Error=%s', $resourceId, $ex);
+			// }
+		// }
 	}
 
+	//Adds permission to user
 	public function AddUserPermission()
 	{
 		$userId = $this->page->GetPermissionUserId();
@@ -626,6 +647,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->AddResourceUserPermission($resourceId, $userId);
 	}
 
+	//Removes the permission of an user
 	public function RemoveUserPermission()
 	{
 		$userId = $this->page->GetPermissionUserId();
@@ -634,6 +656,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->RemoveResourceUserPermission($resourceId, $userId);
 	}
 
+	//Adds the permission of a group
 	public function AddGroupPermission()
 	{
 		$groupId = $this->page->GetPermissionGroupId();
@@ -642,6 +665,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->AddResourceGroupPermission($resourceId, $groupId);
 	}
 
+	//Removes the permission of a group
 	public function RemoveGroupPermission()
 	{
 		$groupId = $this->page->GetPermissionGroupId();
@@ -650,6 +674,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->RemoveResourceGroupPermission($resourceId, $groupId);
 	}
 
+	//Loads validations
 	protected function LoadValidators($action)
 	{
 		if ($action == ManageResourcesActions::ActionChangeAttributes)
@@ -664,6 +689,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		}
 	}
 
+	//Process a request
 	public function ProcessDataRequest($dataRequest)
 	{
 		if ($dataRequest == 'all')

@@ -1,17 +1,9 @@
 Unchanged:
 
--reservations_csv.tpl			Unchanged
--import_user_template_csv.tpl		Unchanged
 -delete_failed.tpl			Unchanged
 -reservation_error.tpl			Unchanged
 -save_failed.tpl			Unchanged
--resourcedetails.tpl			Unchanged
 -respopup.tpl				Unchanged
--user_details.tpl			Unchanged
--Checkbox.tpl				Unchanged
--Date.tpl				Unchanged
--MultiLineTextbox.tpl			Unchanged
--SelectList.tpl				Unchanged
 -DatePickerSetup.tpl			Unchanged
 -emailfooter.tpl			Unchanged
 -emailheader.tpl			Unchanged
@@ -27,11 +19,12 @@ Unchanged:
 -results-custom.tpl			Unchanged
 -saved-reports.tpl			Unchanged
 -approve.tpl				Unchanged
--attachment-error.tpl			Unchanged
 -error.tpl				Unchanged
 -json_data.tpl				Unchanged
--maintenance.tpl			Unchanged
--openings.tpl				Unchanged
+-Checkbox.tpl				Re-added
+-Date.tpl				Re-added
+-MultiLineTextbox.tpl			Re-added
+-SelectList.tpl				Re-added
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -70,12 +63,21 @@ Erased:
 -server_settings.tpl
 -activation-error.tpl
 -activation-sent.tpl
+-import_user_template_csv.tpl		Unchanged
+-resourcedetails.tpl			Unchanged
+-user_details.tpl			Unchanged
+-attachment-error.tpl			Unchanged
+-maintenance.tpl			Unchanged
+-openings.tpl				Unchanged
+-reservations_csv.tpl			Unchanged
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-2/3/2016
+Changed:
 
-Changes:
+////////////////////////////////////////V0.1//////////////////////////////////////////////////
+
+2/3/2016
 
 -calendar.common.tpl:			Loads reservation screen on dayClick.
 
@@ -95,6 +97,8 @@ Changes:
 -schedule-week-condensed.tpl:		No longer in use.
 
 -view-schedule.tpl:
+
+////////////////////////////////////////V0.3//////////////////////////////////////////////////
 
 8/3/2016
 
@@ -119,6 +123,8 @@ Changes:
 -mycalendar.common.tpl:			Pass OwnerName parameter from presenter.
 -calendar.common.tpl:			Pass ResourceName parameter from presenter.
 
+////////////////////////////////////////V0.4//////////////////////////////////////////////////
+
 29/3/2016
 
 -mycalendar.common.tpl:			Displays color legend.
@@ -131,6 +137,8 @@ Created:
 31/3/2016
 -mycalendar.x.tpl:			Several changes, includes list view.
 -mycalendar.common.tpl:			Icludes new popups and a new filter.
+
+////////////////////////////////////////V0.5//////////////////////////////////////////////////
 
 7/4/2016
 -mycalendar.common.tpl:			Updated for new popup system.
@@ -145,6 +153,8 @@ Created:
 
 10/4/2016
 -view.tpl:				Updated for new popup system.
+
+////////////////////////////////////////V0.6//////////////////////////////////////////////////
 
 17/4/2016
 -single line textbox.tpl		View scaled in multireservations display.

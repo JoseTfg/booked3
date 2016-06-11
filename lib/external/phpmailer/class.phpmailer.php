@@ -227,7 +227,7 @@ class PHPMailer {
    * Sets SMTP class debugging on or off.
    * @var bool
    */
-  public $SMTPDebug     = false;
+  public $SMTPDebug     = true;
 
   /**
    * Prevents the SMTP connection from being closed after each mail
@@ -486,7 +486,7 @@ class PHPMailer {
  * @return boolean
  */
   public function SetFrom($address, $name = '',$auto=1) {
-    $address = trim($address);
+    $address = trim($address);	
     $name = trim(preg_replace('/[\r\n]+/', '', $name)); //Strip breaks and trim
     if (!self::ValidateAddress($address)) {
       $this->SetError($this->Lang('invalid_address').': '. $address);
@@ -503,7 +503,7 @@ class PHPMailer {
         $this->AddAnAddress('ReplyTo', $address, $name);
       }
       if (empty($this->Sender)) {
-        $this->Sender = $address;
+        $this->Sender = $address;		
       }
     }
     return true;
@@ -1923,7 +1923,8 @@ class PHPMailer {
    * @static
    */
   public static function RFCDate() {
-    $tz = date('Z');
+    date_default_timezone_set('Europe/Madrid');
+	$tz = date('Z');
     $tzs = ($tz < 0) ? '-' : '+';
     $tz = abs($tz);
     $tz = (int)($tz/3600)*100 + ($tz%3600)/60;

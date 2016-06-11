@@ -53,7 +53,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<li>
 					<label for="blackoutReason" class="wideLabel">{translate key=Reason}</label>
 					<input {formname key=SUMMARY} type="text" id="blackoutReason" class="textbox required" size="100" maxlength="85"/>
-					<button type="button" class="button save create" style="float:right">
+					<button type="button" id="createButton" class="button save create" style="float:right">
 						{html_image src="tick-circle.png"} {translate key='Create'}
 					</button>
 				</li>
@@ -143,7 +143,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{if $blackout->IsRecurring}
 			<td align="center" style="width: 65px;" class="update"><a href="#" class="update delete-recurring">{html_image src='cross-button.png'}</a></td>
 		{else}
-			<td align="center" style="width: 65px;" class="update"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+			<td align="center" style="width: 65px;" class="update"><a id="{$blackout->InstanceId}" href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
 		{/if}
 	</tr>
 	{/foreach}
@@ -177,13 +177,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
 {csrf_token}
 
+{*Imports*}
 {jsfile src="js/jquery.qtip.min.js"}
 {jsfile src="js/jquery.colorbox-min.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
 {jsfile src="js/jquery.timePicker.min.js"}
 {jsfile src="js/moment.min.js"}
 
-{jsfile src="reservationPopup.js"}
+{*{jsfile src="reservationPopup.js"}*}
 
 {jsfile src="admin/edit.js"}
 {jsfile src="admin/blackouts.js"}
@@ -191,36 +192,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="date-helper.js"}
 {jsfile src="recurrence.js"}
 
-{jsfile src="admin/help.js"}
+{*{jsfile src="admin/help.js"}*}
 
+{*Enhance*}
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+{jsfile src="enhancement/manageBlackoutsEnhance.js"}
+
+{*Code*}
 <script type="text/javascript">
-
 $(document).ready(function() {
-
-		$("#myBlackoutLabel").on('click', function() {
-		   if (document.getElementById("addBlackoutForm").style.display == "none"){
-				document.getElementById("addBlackoutForm").style.display = "initial";
-		   }
-		   else{
-				document.getElementById("addBlackoutForm").style.display = "none";
-			}
-		});
 		
-		$("#myFilterLabel").on('click', function() {
-		   if (document.getElementById("myFilter").style.display == "none"){
-				document.getElementById("myFilter").style.display = "initial";
-				document.getElementById("filter").style.display = "initial";
-				document.getElementById("showAll").style.display = "initial";
-		   }
-		   else{
-				document.getElementById("myFilter").style.display = "none";
-				document.getElementById("filter").style.display = "none";
-				document.getElementById("showAll").style.display = "none";
-			}
-		});
-		
-		
-		$("#blackoutTable").tablesorter(); 
+	enhance();	
 
 	var updateScope = {};
 	updateScope.instance = '{SeriesUpdateScope::ThisInstance}';
@@ -259,7 +241,6 @@ $(document).ready(function() {
 
 	var blackoutManagement = new BlackoutManagement(blackoutOpts);
 	blackoutManagement.init();
-
 });
 </script>
 
@@ -278,6 +259,3 @@ $(document).ready(function() {
 </div>
 
 {include file='globalfooter.tpl'}
-
-{jsfile src="TableSorter/jquery.tablesorter.js"}
-<link rel="stylesheet" href="../css/table_sorter.css">

@@ -61,6 +61,7 @@ interface IManageAnnouncementsPage extends IActionPage
 	public function BindAnnouncements($announcements);
 }
 
+//Class: Supports the announcements management controller.
 class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncementsPage
 {
 	/**
@@ -68,12 +69,14 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
 	 */
 	private $presenter;
 
+	//Contruct
 	public function __construct()
 	{
 		parent::__construct('ManageAnnouncements', 1);
 		$this->presenter = new ManageAnnouncementsPresenter($this, new AnnouncementRepository());
 	}
 
+	//Process the page load
 	public function ProcessPageLoad()
 	{
 		$this->presenter->PageLoad();
@@ -84,11 +87,13 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
 		$this->Display('Admin/manage_announcements.tpl');
 	}
 
+	//Sends the announcements to the smarty template
 	public function BindAnnouncements($announcements)
 	{
 		$this->Set('announcements', $announcements);
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
@@ -97,6 +102,7 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
 	/**
 	 * @return int
 	 */
+	//Gets announcement identifier 
 	public function GetAnnouncementId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::ANNOUNCEMENT_ID);
@@ -105,6 +111,7 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
     /**
      * @return string
      */
+	//Gets announcement text
     public function GetText()
     {
         return $this->GetForm(FormKeys::ANNOUNCEMENT_TEXT);
@@ -113,6 +120,7 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
     /**
      * @return string
      */
+	//Gets announcement start date
     public function GetStart()
     {
         return $this->GetForm(FormKeys::ANNOUNCEMENT_START);
@@ -121,6 +129,7 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
     /**
      * @return string
      */
+	//Gets announcement end date
     public function GetEnd()
     {
         return $this->GetForm(FormKeys::ANNOUNCEMENT_END);
@@ -129,6 +138,7 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
     /**
      * @return string
      */
+	//Gets announcement priority
     public function GetPriority()
     {
         return $this->GetForm(FormKeys::ANNOUNCEMENT_PRIORITY);

@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-04-24 16:36:41
+<?php /* Smarty version Smarty-3.1.16, created on 2016-05-16 21:03:10
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\login.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:14859571cd9f9b45680-00190926%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:10356573a196e2139c1-15623513%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '295c10e3b5931ad464f882364b8fdb8b51633671' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\login.tpl',
-      1 => 1459703946,
+      1 => 1463411846,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '14859571cd9f9b45680-00190926',
+  'nocache_hash' => '10356573a196e2139c1-15623513',
   'function' => 
   array (
   ),
@@ -25,13 +25,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ShowPersistLoginPrompt' => 0,
     'ResumeUrl' => 0,
     'ShowScheduleLink' => 0,
-    'ShowForgotPasswordPrompt' => 0,
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_571cd9f9e6a231_09828442',
+  'unifunc' => 'content_573a196e2792e8_80701734',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_571cd9f9e6a231_09828442')) {function content_571cd9f9e6a231_09828442($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_573a196e2792e8_80701734')) {function content_573a196e2792e8_80701734($_smarty_tpl) {?>
 <?php echo $_smarty_tpl->getSubTemplate ('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 
 
@@ -101,13 +100,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 " class="button" tabindex="100" value="submit"><img
 							src="img/door-open-in.png"/> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'LogIn'),$_smarty_tpl);?>
  </button>
+					
 					<input type="hidden" name="<?php echo FormKeys::RESUME;?>
 " value="<?php echo $_smarty_tpl->tpl_vars['ResumeUrl']->value;?>
 "/>
 				</p>
 			</div>
 			<div style="clear:both;">&nbsp;</div>
-		
+			<input type="hidden" id="myLogin" value=""/>
 		</form>
 	</div>
 </div>
@@ -121,9 +121,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<?php if ($_smarty_tpl->tpl_vars['ShowScheduleLink']->value) {?>
 		<a href="view-schedule.php"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ViewSchedule'),$_smarty_tpl);?>
 </a>
-		<?php }?>
-		<?php if ($_smarty_tpl->tpl_vars['ShowScheduleLink']->value&&$_smarty_tpl->tpl_vars['ShowForgotPasswordPrompt']->value) {?>|<?php }?>
-		
+		<?php }?>	
 	</p>
 </div>
 

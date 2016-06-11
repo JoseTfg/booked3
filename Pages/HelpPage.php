@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'Pages/Page.php');
 
+//Class: Supports the help page controller
 class HelpPage extends Page
 {
 	public function __construct()
@@ -27,11 +28,13 @@ class HelpPage extends Page
 		parent::__construct('Help');
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
-		date_default_timezone_set('Europe/Madrid');
-		$this->Set('RemindersPath', realpath(ROOT_DIR . 'Jobs/sendreminders.php'));
-		$this->Set('ServerTimezone', date_default_timezone_get());
+		//MyCode
+		//date_default_timezone_set('Europe/Madrid');
+		//$this->Set('RemindersPath', realpath(ROOT_DIR . 'Jobs/sendreminders.php'));
+		//$this->Set('ServerTimezone', date_default_timezone_get());
 
 		$helpType = $this->GetQuerystring('ht');
 

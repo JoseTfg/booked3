@@ -24,42 +24,45 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{translate key='FindGroup'}:<br/>
 	<input type="text" id="groupSearch" class="textbox" size="40"/> {html_link href=$smarty.server.SCRIPT_NAME key=AllGroups}
 </div>*}
-<div style="position:relative;left:20%;">
-<table class="list">
-	<tr>
+<div>
+<table id="groupTable" class="list">
+	<thead>
 		<th class="id">&nbsp;</th>
 		<th>{translate key='GroupName'}</th>
-		<th>{translate key='Actions'}</th>
-		<th>{translate key='GroupMembers'}</th>
-		<th>{translate key='Permissions'}</th>
+		{*<th>{translate key='GroupAdmin'}</th>*}
+		<td class="action">{translate key='GroupMembers'}</th>		
 		{if $CanChangeRoles}
-		<th>{translate key='GroupRoles'}</th>
-		{/if}
-		<th>{translate key='GroupAdmin'}</th>
-	</tr>
+		<td class="action">{translate key='GroupRoles'}</th>
+		{/if}	
+		<td class="action">{translate key='Permissions'}</th>
+		<td class="action">Renombrar</th>
+		<td class="action">Borrar</th>
+	</thead>
 {foreach from=$groups item=group}
 	{cycle values='row0,row1' assign=rowCss}
 	<tr class="{$rowCss}">
-		<td class="id"><input type="hidden" class="id" value="{$group->Id}"/></td>
-		<td >{$group->Name}</td>
-		<td align="center"><a href="#" class="update rename">{translate key='Rename'}</a> | <a href="#" class="update delete">{translate key='Delete'}</a></td>
-		<td align="center"><a href="#" class="update members">{translate key='Manage'}</a></td>
-		<td align="center"><a href="#" class="update permissions">{translate key='Change'}</a></td>
+		<td class="id">{$group->Id}<input type="hidden" class="id" value="{$group->Id}"/></td>
+		<td id="{$group->Id}" >{$group->Name}</td>
+		{*<td align="center"><a href="#" class="update groupAdmin">{$group->AdminGroupName|default:"Ninguno"}</a></td>*}
+		<td align="center"><a href="#" class="update members">{html_image src='my_edit.png'}{*{translate key='Manage'}*}</a></td>		
 		{if $CanChangeRoles}
-		<td align="center"><a href="#" class="update roles">{translate key='Change'}</a></td>
-		{/if}
-		<td align="center"><a href="#" class="update groupAdmin">{$group->AdminGroupName|default:$chooseText}</a></td>
+		<td align="center"><a href="#" class="update roles">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a></td>
+		{/if}		
+		<td align="center"><a href="#" class="update permissions">{html_image src='my_edit.png'}{*{translate key='Change'}*}</a></td>
+		<td align="center"><a href="#" class="update rename">{html_image src='my_edit.png'}</a></td>
+		<td align="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
 	</tr>
 {/foreach}
 </table>
 
-
+<div style="text-align:center;">
 {pagination pageInfo=$PageInfo}
+</div>
 </div>
 <input type="hidden" id="activeId" />
 
-<div id="membersDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=GroupMembers}">
-	{translate key=AddUser}: <input type="text" id="userSearch" class="textbox" size="40" />{* <a href="#" id="browseUsers">{translate key=Browse}</a>*}
+<div id="membersDialog" class="dialog" style="display:none;background-color:#FFCC99;overflow:hidden;" title="{translate key=GroupMembers}">
+	{*{translate key=AddUser}:*} <input type="text" placeholder="{translate key=AddUser}" id="userSearch" class="textbox" size="40" />{* <a href="#" id="browseUsers">{translate key=Browse}</a>*}
 	<div style="visibility:hidden;">prueba</div>
 	<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>
 	<h4><span id="totalUsers"></span> {translate key=UsersInGroup}</h4>
@@ -91,15 +94,24 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<div>{translate key=DeleteGroupWarning}</div>
 		</div>
 		<button type="button" class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 	</form>
 </div>
 
 <div id="renameDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=Rename}">
 	<form id="renameGroupForm" method="post">
-		<label>{translate key=Name}<br/> <input type="text" class="textbox required" {formname key=GROUP_NAME} /></label>
+		{*<label>{translate key=Name}<br/> *}<input type="text" placeholder="{translate key=Name}" class="textbox required" {formname key=GROUP_NAME} /></label>
 		<button type="button" class="button save" style="float:right;">{html_image src="disk-black.png"} {translate key=Rename}</button>
-		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key=Cancel}</button>
+		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key=Cancel}</button>*}
+	</form>
+</div>
+
+<div id="addDialog" class="dialog" style="display:none;background-color:#FFCC99;" title="{translate key=AddGroup}">
+	<form id="renameGroupForm" method="post">
+		<form id="addGroupForm" method="post" style="margin-top:-30px">
+			{*Name<br/> *}<input placeholder="{translate key=GroupName}" type="text" class="textbox required" {formname key=GROUP_NAME} />
+			<button type="button" class="button save" style="float:right;">{html_image src="plus-button.png"} {translate key=AddGroup}</button>
+		</form>
 	</form>
 </div>
 
@@ -110,10 +122,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{foreach from=$Roles item=role}
 			<li><label><input type="checkbox" {formname key=ROLE_ID multi=true}" value="{$role->Id}" /> {$role->Name}</label></li>
 		{/foreach}
-		</ul>
-
 		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
+		</ul>
 	</form>
 </div>
 {/if}
@@ -128,14 +139,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</select>
 
 		<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-		<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 	</form>
 </div>
-
-		<form id="addGroupForm" method="post">
-			{*Name<br/> *}<input style="float:right;" type="text" class="textbox required" {formname key=GROUP_NAME} />
+		<button type="button" id="addButton" class="button save" style="float:right;">{html_image src="plus-button.png"} {translate key=AddGroup}</button>
+		{*<form id="addGroupForm" method="post" style="margin-top:-30px">
+			Name<br/> <input style="float:right;" type="text" class="textbox required" {formname key=GROUP_NAME} />
 			<button type="button" class="button save" style="float:right;">{html_image src="plus-button.png"} {translate key=AddGroup}</button>
-		</form>
+		</form>*}
 {*
 <div class="admin" style="margin-top:30px">
 	<div class="title">
@@ -150,12 +161,18 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {csrf_token}
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
 
+{*Imports*}
 {jsfile src="admin/edit.js"}
 {jsfile src="autocomplete.js"}
 {jsfile src="admin/group.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
 {jsfile src="admin/help.js"}
 
+{*Enhance*}
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+{jsfile src="enhancement/groupEnhance.js"}
+
+{*Code*}
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -190,7 +207,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		selectGroupUrl: '{$smarty.server.SCRIPT_NAME}?gid=',
 		actions: actions,
 		dataRequests: dataRequests
-	};
+	};	
+	
+	sorting();
 
 	var groupManagement = new GroupManagement(groupOptions);
 	groupManagement.init();

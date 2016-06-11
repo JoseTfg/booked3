@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'Pages/ActionPage.php');
 
+//Abstract Class: Supports all presenters that requires actions
 abstract class ActionPresenter
 {
 	/**
@@ -49,16 +50,19 @@ abstract class ActionPresenter
 	 * @param string $actionMethod
 	 * @return void
 	 */
+	//Adds action
 	protected function AddAction($actionName, $actionMethod)
 	{
 		$this->actions[$actionName] = $actionMethod;
 	}
 
+	//Adds validation
 	protected function AddValidation($actionName, $validationMethod)
 	{
 		$this->validations[$actionName] = $validationMethod;
 	}
 
+	//Returns if action is known
 	protected function ActionIsKnown($action)
 	{
 		return isset($this->actions[$action]);
@@ -69,6 +73,7 @@ abstract class ActionPresenter
 		// Hook for children to load validators
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		/** @var $action string */

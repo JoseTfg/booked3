@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Pages/NewReservationPage.php');
 require_once(ROOT_DIR . 'Pages/ExistingReservationPage.php');
 require_once(ROOT_DIR . 'lib/Application/Authorization/ViewSchedulePermissionServiceFactory.php');
 
+//Class: Supports the  reservations in read-only mode
 class ReadOnlyReservationPage extends ExistingReservationPage
 {
 	public function __construct()
@@ -33,6 +34,7 @@ class ReadOnlyReservationPage extends ExistingReservationPage
 		$this->IsApprovable = false;
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		parent::PageLoad();

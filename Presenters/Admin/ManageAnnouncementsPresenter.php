@@ -28,6 +28,7 @@ class ManageAnnouncementsActions
 	const Delete = 'deleteAnnouncement';
 }
 
+//Class: Supports the announce management controller
 class ManageAnnouncementsPresenter extends ActionPresenter
 {
 	/**
@@ -44,6 +45,7 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 	 * @param IManageAnnouncementsPage $page
 	 * @param IAnnouncementRepository $announcementRepository
 	 */
+	//Construct
 	public function __construct(IManageAnnouncementsPage $page, IAnnouncementRepository $announcementRepository)
 	{
 		parent::__construct($page);
@@ -56,11 +58,13 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 		$this->AddAction(ManageAnnouncementsActions::Delete, 'DeleteAnnouncement');
 	}
 
+	//Sends the announcements information
 	public function PageLoad()
 	{
 		$this->page->BindAnnouncements($this->announcementRepository->GetAll());
 	}
 
+	//Adds new announcement
 	public function AddAnnouncement()
 	{
         $user = ServiceLocator::GetServer()->GetUserSession();
@@ -74,6 +78,7 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 		$this->announcementRepository->Add(Announcement::Create($text, $start, $end, $priority));
 	}
 
+	//Changes existing announcement
 	public function ChangeAnnouncement()
 	{
         $user = ServiceLocator::GetServer()->GetUserSession();
@@ -94,6 +99,7 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 		$this->announcementRepository->Update($announcement);
 	}
 
+	//Deletes existing announcement
 	public function DeleteAnnouncement()
 	{
 		$id = $this->page->GetAnnouncementId();

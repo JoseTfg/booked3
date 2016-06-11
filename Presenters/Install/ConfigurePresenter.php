@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once(ROOT_DIR . 'Presenters/Install/InstallSecurityGuard.php');
 require_once(ROOT_DIR . 'lib/Config/Configurator.php');
 
+//Class: Supports the manual configuration controller
 class ConfigurePresenter
 {
 	/**
@@ -33,12 +34,14 @@ class ConfigurePresenter
 	 */
 	private $securityGuard;
 
+	//Construct
 	public function __construct(IConfgurePage $page, InstallSecurityGuard $securityGuard)
 	{
 		$this->page = $page;
 		$this->securityGuard = $securityGuard;
 	}
 
+	//Configures the application
 	public function PageLoad()
 	{
 		$this->CheckForInstallPasswordInConfig();
@@ -47,11 +50,13 @@ class ConfigurePresenter
 		$this->Configure();
 	}
 
+	//¿?
 	private function CheckForInstallPasswordInConfig()
 	{
 		$this->page->SetPasswordMissing(!$this->securityGuard->CheckForInstallPasswordInConfig());
 	}
 
+	//Checks password for installation
 	private function CheckForInstallPasswordProvided()
 	{
 		if ($this->securityGuard->IsAuthenticated())
@@ -79,11 +84,13 @@ class ConfigurePresenter
 		$this->page->SetShowInvalidPassword(false);
 	}
 
+	//Validates the installation
 	private function Validate($installPassword)
 	{
 		return $this->securityGuard->ValidatePassword($installPassword);
 	}
 
+	//Configures the system
 	private function Configure()
 	{
 		if (!$this->securityGuard->IsAuthenticated())

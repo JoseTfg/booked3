@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-04-24 16:38:58
+<?php /* Smarty version Smarty-3.1.16, created on 2016-05-16 21:44:07
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Ajax\respopup.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:22392571cda8271e349-57385437%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:21252573a230754a0d3-44171351%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,7 +11,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '22392571cda8271e349-57385437',
+  'nocache_hash' => '21252573a230754a0d3-44171351',
   'function' => 
   array (
   ),
@@ -39,9 +39,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_571cda828ef137_65503534',
+  'unifunc' => 'content_573a2307797ed8_45261161',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_571cda828ef137_65503534')) {function content_571cda828ef137_65503534($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'C:\\Program Files (x86)\\Ampps\\www\\booked\\lib\\Common/../../lib/external/Smarty/plugins\\modifier.truncate.php';
+<?php if ($_valid && !is_callable('content_573a2307797ed8_45261161')) {function content_573a2307797ed8_45261161($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'C:\\Program Files (x86)\\Ampps\\www\\booked\\lib\\Common/../../lib/external/Smarty/plugins\\modifier.truncate.php';
 ?>
 <?php if ($_smarty_tpl->tpl_vars['authorized']->value) {?>
 <div class="res_popup_details" style="margin:0">

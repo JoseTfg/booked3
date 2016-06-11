@@ -183,26 +183,31 @@ class InstallPage extends Page implements IInstallPage
 		$this->Display('Install/install.tpl');
 	}
 
+	//Sets password missing
 	public function SetInstallPasswordMissing($isMissing)
 	{
 		$this->Set('InstallPasswordMissing', $isMissing);
 	}
 
+	//Gets installation password
 	public function GetInstallPassword()
 	{
 		return $this->GetForm(FormKeys::INSTALL_PASSWORD);
 	}
 
+	//¿?
 	public function SetShowPasswordPrompt($showPrompt)
 	{
 		$this->Set('ShowPasswordPrompt', $showPrompt);
 	}
 
+	//¿?
 	public function SetShowInvalidPassword($showInvalidPassword)
 	{
 		$this->Set('ShowInvalidPassword', $showInvalidPassword);
 	}
 
+	//¿?
 	public function SetShowDatabasePrompt($showDatabasePrompt)
 	{
 		$this->Set('ShowDatabasePrompt', $showDatabasePrompt);
@@ -214,6 +219,7 @@ class InstallPage extends Page implements IInstallPage
 	 * @param string $dbuser mysql user for your database e.g Booked Scheduler
 	 * @param string $dbhost server address/name where mySql lives
 	 */
+	//Sets the databse configuration
 	public function SetDatabaseConfig($dbname, $dbuser, $dbhost)
 	{
 		$this->Set('dbname', $dbname);
@@ -221,6 +227,7 @@ class InstallPage extends Page implements IInstallPage
 		$this->Set('dbhost', $dbhost);
 	}
 
+	//Runs installation
 	public function RunningInstall()
 	{
 		$run_install = $this->GetForm('run_install');
@@ -230,34 +237,40 @@ class InstallPage extends Page implements IInstallPage
 	/**
 	 * @return bool
 	 */
+	//Runs upgrade
 	public function RunningUpgrade()
 	{
 		$run_upgrade = $this->GetForm('run_upgrade');
 		return !empty($run_upgrade);
 	}
 
+	//Gets the installation username
 	public function GetInstallUser()
 	{
 		return $this->GetForm(FormKeys::INSTALL_DB_USER);
 	}
 
+	//Gets the installation password
 	public function GetInstallUserPassword()
 	{
 		return $this->GetRawForm(FormKeys::INSTALL_DB_PASSWORD);
 	}
 
+	//Checks if database should be created
 	public function GetShouldCreateDatabase()
 	{
 		$x = $this->GetForm('create_database');
 		return isset($x) && $x == true;
 	}
 
+	//Checks if user should be created
 	public function GetShouldCreateUser()
 	{
 		$x = $this->GetForm('create_user');
 		return isset($x) && $x == true;
 	}
 
+	//Checks if sample data should be created
 	public function GetShouldCreateSampleData()
 	{
 		$x = $this->GetForm('create_sample_data');
@@ -268,6 +281,7 @@ class InstallPage extends Page implements IInstallPage
 	 * @param $results array|InstallationResult[]
 	 * @return void
 	 */
+	//Sends the installation results messages
 	public function SetInstallResults($results)
 	{
 		$failure = false;
@@ -289,6 +303,7 @@ class InstallPage extends Page implements IInstallPage
 	 * @param $currentVersion string
 	 * @return void
 	 */
+	//Sends the upgrade results messages
 	public function SetUpgradeResults($results, $currentVersion)
 	{
 		$failure = false;
@@ -309,6 +324,7 @@ class InstallPage extends Page implements IInstallPage
 	/**
 	 * @param string $currentVersion
 	 */
+	//Sets current version
 	public function SetCurrentVersion($currentVersion)
 	{
 		$this->Set('CurrentVersion', $currentVersion);
@@ -317,6 +333,7 @@ class InstallPage extends Page implements IInstallPage
 	/**
 	 * @param string $targetVersion
 	 */
+	//Sets target version
 	public function SetTargetVersion($targetVersion)
 	{
 		$this->Set('TargetVersion', $targetVersion);
@@ -325,6 +342,7 @@ class InstallPage extends Page implements IInstallPage
 	/**
 	 * @param bool $showUpgradeOptions
 	 */
+	//Shows upgrade options
 	public function ShowUpgradeOptions($showUpgradeOptions)
 	{
 		$this->Set('ShowUpgradeOptions', $showUpgradeOptions);
@@ -333,6 +351,7 @@ class InstallPage extends Page implements IInstallPage
 	/**
 	 * @param bool $showInstallOptions
 	 */
+	//Show install options
 	public function ShowInstallOptions($showInstallOptions)
 	{
 		$this->Set('ShowInstallOptions', $showInstallOptions);
@@ -341,6 +360,7 @@ class InstallPage extends Page implements IInstallPage
 	/**
 	 * @param $showUpToDateMessage
 	 */
+	//Shows up to date message
 	public function ShowUpToDate($showUpToDateMessage)
 	{
 		$this->Set('ShowUpToDateMessage', $showUpToDateMessage);

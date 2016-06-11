@@ -40,6 +40,7 @@ abstract class ReservationPresenterBase implements IReservationPresenter
 	public abstract function PageLoad();
 }
 
+//Class: Supports all reservations controllers. They extend from this one.
 class ReservationPresenter extends ReservationPresenterBase
 {
 	/**
@@ -57,6 +58,7 @@ class ReservationPresenter extends ReservationPresenterBase
 	 */
 	private $preconditionService;
 
+	//Construct
 	public function __construct(
 		INewReservationPage $page,
 		IReservationInitializerFactory $initializationFactory,
@@ -69,6 +71,7 @@ class ReservationPresenter extends ReservationPresenterBase
 		$this->preconditionService = $preconditionService;
 	}
 
+	//Initialize
 	public function PageLoad()
 	{
 		$user = ServiceLocator::GetServer()->GetUserSession();
@@ -76,7 +79,6 @@ class ReservationPresenter extends ReservationPresenterBase
 		$this->preconditionService->CheckAll($this->_page, $user);
 		$initializer = $this->initializationFactory->GetNewInitializer($this->_page);
 		$initializer->Initialize();
-		$_SESSION['returnPage'] = $_SERVER['HTTP_REFERER'];
 	}
 }
 

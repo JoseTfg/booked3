@@ -31,13 +31,16 @@ interface IActionPage extends IPage
 	public function GetDataRequest();
 }
 
+//Abstract Class: Supports the base page that can be extended by all pages that requires actions.
 abstract class ActionPage extends Page implements IActionPage
 {
+	//Construct
 	public function __construct($titleKey, $pageDepth = 0)
 	{
 		parent::__construct($titleKey, $pageDepth);
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		try
@@ -67,6 +70,7 @@ abstract class ActionPage extends Page implements IActionPage
 	/**
 	 * @return bool
 	 */
+	//Returns if action is being taken
 	public function TakingAction()
 	{
 		$action = $this->GetAction();
@@ -76,6 +80,7 @@ abstract class ActionPage extends Page implements IActionPage
 	/**
 	 * @return bool
 	 */
+	//Returns if data is being requested
 	public function RequestingData()
 	{
 		$dataRequest = $this->GetDataRequest();
@@ -85,6 +90,7 @@ abstract class ActionPage extends Page implements IActionPage
 	/**
 	 * @return null|string
 	 */
+	//Gets the action
 	public function GetAction()
 	{
 		return $this->GetQuerystring(QueryStringKeys::ACTION);
@@ -93,6 +99,7 @@ abstract class ActionPage extends Page implements IActionPage
 	/**
 	 * @return null|string
 	 */
+	//Gets the request
 	public function GetDataRequest()
 	{
 		return $this->GetQuerystring(QueryStringKeys::DATA_REQUEST);
@@ -101,6 +108,7 @@ abstract class ActionPage extends Page implements IActionPage
 	/**
 	 * @return bool
 	 */
+	//Validates action
 	public function IsValid()
 	{
 		if (parent::IsValid())

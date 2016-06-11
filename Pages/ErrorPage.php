@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'Pages/Page.php');
 
+//Class: Supports the error page controller
 class ErrorPage extends Page
 {
 	public function __construct()
@@ -27,6 +28,7 @@ class ErrorPage extends Page
 		parent::__construct('Error');
 	}
 
+	//Process the page load
 	public function PageLoad()
 	{
 		$returnUrl = $this->server->GetQuerystring(QueryStringKeys::REDIRECT);

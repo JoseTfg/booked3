@@ -1,12 +1,41 @@
+<h4>v0.7	-	10/5/2016:</h4
+
+-config.php:						New parameters to define schedule time and resource colors per user.
+									Configured for emails notifications.
+
+-ReservationPopupPage.php			Displayed values changed.
+
+-ManageReservationsPresenter.php	Filter of non-admin returns his own reservations.
+
+
+-PersonalCalendarPresenter.php:		Calendar boundaries can be configured for each user.
+									Resource colors can be configured per user.
+									Exports a reservation file with icalendar format.
+
+-PersonalCalendarPresenterEnhance.php	Delegates several functions from CalendarPresenter.
+
+-calendarEnhancement.js:		Groups all the functions related to calendar.
+								New selection option.
+								New colors per resource for each user option.
+								New Export/GCalendar option.
+
+-createEnhance.js:				Groups all the functions related to reservations.
+-manageBlackoutsEnhance.js:		Initial support for blackout in calendar.
+-manageReservationsEnhance.js: 	Group all functions related to reservations manage.
+-userenhance.js:				Groups all functions related to user management.
+
+-css_enhancemenet:				New file, groups all the css created by Jose.
+-dashboard.css:					No longer in use.
+
 <h4>v0.6	-	25/4/2016:</h4
 
 -single line textbox.tpl		View scaled in multireservations display.
 
--create.tpl				View scaled in multireservations display.
+-create.tpl						View scaled in multireservations display.
 
--recurrencediv.tpl			View scaled in multireservations display.
+-recurrencediv.tpl				View scaled in multireservations display.
 
--globalheader.tpl			Updated nav bar.
+-globalheader.tpl				Updated nav bar.
 
 -manage_reservations.tpl		Several display changes.
 
@@ -18,19 +47,19 @@
 
 -support-and-credits.tpl		Several display changes.
 
--manage_quotas.tpl			Several display changes.
+-manage_quotas.tpl				Several display changes.
 
--manage_groups.tpl			Several display changes.
+-manage_groups.tpl				Several display changes.
 
--manage_users.tpl			Several display changes.
+-manage_users.tpl				Several display changes.
 
 -manage_resources.tpl			Several display changes.
 
 -manage_resources_table.tpl		Several display changes.
 
--myScript.js				Updated drag events.
+-myScript.js					Updated drag events.
 
--calendar.js				Updated drag events.
+-calendar.js					Updated drag events.
 
 <h4>v0.5	-	11/4/2016:</h4
 
@@ -42,34 +71,34 @@
 
 -mycalendar.common.tpl:			Updated for new popup system.
 
--create.tpl:				Updated for new popup system.
+-create.tpl:					Updated for new popup system.
 
--edit.tpl:				Updated for new popup system.
+-edit.tpl:						Updated for new popup system.
 
--globalheader.tpl:			Updated for new popup system.
+-globalheader.tpl:				Updated for new popup system.
 
 -mycalendar.list.tpl:			Updated to make use of TableSorter.
 
--view.tpl:				Updated for new popup system.
+-view.tpl:						Updated for new popup system.
 
--style.css:				Updated for new popup system.
+-style.css:						Updated for new popup system.
 
--popup.css:				Updated for new popup system.
+-popup.css:						Updated for new popup system.
 
--myScript.js				Updated for new popup system.
+-myScript.js					Updated for new popup system.
 
--calendar.js				Updated for new popup system.
+-calendar.js					Updated for new popup system.
 
--myScript.js				Fixed multiselect.
+-myScript.js					Fixed multiselect.
 
 
 
 <h4>v0.4	-	3/4/2016:</h4>
 
--config.php:				Is generated automatically.
+-config.php:					Is generated automatically.
 
 -ReservationDeletePage.php:		Now returns to last page after success.
--CalendarPage.php:			No longer in use.
+-CalendarPage.php:				No longer in use.
 -ManageSchedulesPage.php:		No longer in use.
 
 -PersonalCalendarPage.php:		Targets the list view correctly.
@@ -82,42 +111,42 @@
 
 -mycalendar.common.tpl:			Displays color legend.
 
--create.tpl:				New list to select resource. Removed accesories.
+-create.tpl:					New list to select resource. Removed accessories.
 
--view.tpl				Removed accesories.
+-view.tpl						Removed accessories.
 
--mycalendar.x.tpl:			Several changes, includes list view.
+-mycalendar.x.tpl:				Several changes, includes list view.
 
--mycalendar.common.tpl:			Icludes new popups and a new filter.
+-mycalendar.common.tpl:			Includes new popups and a new filter.
 
--calendar.js				Calendar now allowsreservations delete by keyboard input.
-					Calendar can have its boundaries changed by keyboard input.
-					Calendar now have a color legend.
-					Calendar click events are now dif
+-calendar.js					Calendar now allowsreservations delete by keyboard input.
+								Calendar can have its boundaries changed by keyboard input.
+								Calendar now have a color legend.
+								Calendar click events are now dif
 
--myScript.js:				Several functions from calendar.js are now here.
-					Supports new popups.
-					Supports new list view.	
+-myScript.js:					Several functions from calendar.js are now here.
+								Supports new popups.
+								Supports new list view.	
 
 Created:
 -mycalendar.list.tpl:			List view.
 
 <h4>v0.3	-	25/3/2016:</h4>
 
--propio.css:				Changed styles in header and footer.
+-propio.css:					Changed styles in header and footer.
 
--dashboard.css				Changed margin-top.
+-dashboard.css					Changed margin-top.
 
--propio.css:				Changed styles in login page.
+-propio.css:					Changed styles in login page.
 
--style.css:				Changed styles in login page.
+-style.css:						Changed styles in login page.
 
--reservation.css			Changed styles in reservation page.
+-reservation.css				Changed styles in reservation page.
 
--Page.php				Pages now gets the announcements from server.
-					Pages now display new logo.
+-Page.php						Pages now gets the announcements from server.
+								Pages now display new logo.
 
--CalendarPage.php			Resource id is now an array.
+-CalendarPage.php				Resource id is now an array.
 
 -PersonalCalendarPage.php		Resource id is now an array.
 
@@ -127,18 +156,18 @@ Created:
 
 -ReservationPage.php			Now returns to last page after success.
 
--config.php:				Session time expiration is now unlimited.
+-config.php:					Session time expiration is now unlimited.
 
--globalfooter.tpl:			Now display announcements while logged in.
+-globalfooter.tpl:				Now display announcements while logged in.
 
--globalheader.tpl			Now display 2 logos, one of them is homepage.
+-globalheader.tpl				Now display 2 logos, one of them is homepage.
 
--login.tpl				Removed "forgot password".
-					Now shows RSS feed in login page.
+-login.tpl						Removed "forgot password".
+								Now shows RSS feed in login page.
 
--create.tpl				Several changes in structure. Removed participation.
--edit.tpl				Several changes in structure. Removed participation.
--view.tpl				Several changes in structure. Removed participation.
+-create.tpl						Several changes in structure. Removed participation.
+-edit.tpl						Several changes in structure. Removed participation.
+-view.tpl						Several changes in structure. Removed participation.
 
 -calendar.filter.tpl:			Now introduces a new multiselect list.
 
@@ -146,7 +175,7 @@ Created:
 
 -calendar.common.tpl:			Pass ResourceName parameter from presenter.
 
--LoginPresenter:			Stores login data.
+-LoginPresenter:				Stores login data.
 
 -PersonalCalendarPresenter.php:		Resource id is now an array. 
 
@@ -154,39 +183,39 @@ Created:
 
 -ReservationPresenter.php		Now obtains last page to return.
 
-calendar.js				Calendar can now show an array of resources.
-					Calendar now allows click and drag for reservation updating.
-					Calendar now changes view on click.
-					Calendar now connects with the API.
-					Calendar now presents events with colors.
-					Calendar now reacts to right click events.
+calendar.js						Calendar can now show an array of resources.
+								Calendar now allows click and drag for reservation updating.
+								Calendar now changes view on click.
+								Calendar now connects with the API.
+								Calendar now presents events with colors.
+								Calendar now reacts to right click events.
 
 <h4>v0.2	-	5/3/2016:</h4>
 
--config.php:				LDAP authentication enabled.
+-config.php:					LDAP authentication enabled.
 
--Ldap.config.php:			Sucessfully connects with jumpcloud system.
+-Ldap.config.php:				Sucessfully connects with jumpcloud system.
 
 v0.1	-	1/3/2016:
 
--config_work:				Booked doesn't give date errors anymore.
-					Url set up to localhost for tests.
-					Home url is www.uniovi.es
-					SQL configured.
-					API is enabled.
+-config_work:					Booked doesn't give date errors anymore.
+								Url set up to localhost for tests.
+								Home url is www.uniovi.es
+								SQL configured.
+								API is enabled.
 
 -ManageSchedulesPage.php: 		Several functions have been copied in other pages.
 
 
--CalendarPage.php:			Now Obtains the minimun and maximun reservable times to display the calendar accordingly.
-					Now Gets a variable to differentiate from PersonalCalendarPage.
+-CalendarPage.php:				Now Obtains the minimun and maximun reservable times to display the calendar accordingly.
+								Now Gets a variable to differentiate from PersonalCalendarPage.
 
--Pages.php:				Now Targets the correct pages with the new changes.
+-Pages.php:						Now Targets the correct pages with the new changes.
 
 -PersonalCalendarPage.php:		Now Obtains the minimun and maximun reservable times to display the calendar accordingly.
-					Now Gets a variable to differentiate from CalendarPage.
+								Now Gets a variable to differentiate from CalendarPage.
 
--SchedulePage.php:			No longer in use.
+-SchedulePage.php:				No longer in use.
 
 -CalendarPresenter.php:			Provides minTime, maxTime and myCal variables.
 
@@ -199,30 +228,30 @@ v0.1	-	1/3/2016:
 -calendar.common.tpl:			Loads reservation screen on dayClick.
 
 -calendar.filter.tpl:			Only loads resources.
-					Includes a button to swap between my-calendar and calendar.					
+								Includes a button to swap between my-calendar and calendar.					
 
--mycalendar.common.tpl:			Loads reservation screen on dayClick.
+-mycalendar.common.tpl:				Loads reservation screen on dayClick.
 
--globalheader.tpl:			Display correct targets for calendar page.
+-globalheader.tpl:					Display correct targets for calendar page.
 
--schedule.tpl:				No longer in use.
+-schedule.tpl:						No longer in use.
 
 -schedule-days-horizontal.tpl:		No longer in use.
 
--schedule-flipped.tpl:			No longer in use.
+-schedule-flipped.tpl:				No longer in use.
 
 -schedule-week-condensed.tpl:		No longer in use.
 
 -calendar.css: 				Calendar is now smaller.
 
--nav.css:				Navigation bar and logo are smaller.
+-nav.css:					Navigation bar and logo are smaller.
 
--style.css:				Several styles changes.
+-style.css:					Several styles changes.
 
 -propio.css:				On/Off Switch css and Table css to reduce free space.
 
 -calendar.js				Calendar is now selectable.
-					Calendar now allows reservations by click and drag.
-					Calendar only shows reservable slots now.
-					Calendar has been resized.
-					DayClick event modified.
+							Calendar now allows reservations by click and drag.
+							Calendar only shows reservable slots now.
+							Calendar has been resized.
+							DayClick event modified.

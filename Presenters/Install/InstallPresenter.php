@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Presenters/Install/MySqlScript.php');
 require_once(ROOT_DIR . 'Presenters/Install/InstallationResult.php');
 require_once(ROOT_DIR . 'Presenters/Install/InstallSecurityGuard.php');
 
+//Class: Supports the installation presenter
 class InstallPresenter
 {
 	/**
@@ -35,6 +36,7 @@ class InstallPresenter
 	 */
 	private $securityGuard;
 
+	//Construct
 	public function __construct(IInstallPage $page, InstallSecurityGuard $securityGuard)
 	{
 		$this->page = $page;
@@ -71,11 +73,13 @@ class InstallPresenter
 		$this->CheckForUpgrade();
 	}
 
+	//Checks password in config
 	public function CheckForInstallPasswordInConfig()
 	{
 		$this->page->SetInstallPasswordMissing(!$this->securityGuard->CheckForInstallPasswordInConfig());
 	}
 
+	//Checks password provided
 	private function CheckForInstallPasswordProvided()
 	{
 		if ($this->securityGuard->IsAuthenticated())
@@ -103,6 +107,7 @@ class InstallPresenter
 		$this->page->SetShowInvalidPassword(false);
 	}
 
+	//Authentication
 	private function CheckForAuthentication()
 	{
 		if ($this->securityGuard->IsAuthenticated())
@@ -114,12 +119,13 @@ class InstallPresenter
 		$this->page->SetShowDatabasePrompt(false);
 	}
 
-
+	//Validates installation
 	private function Validate($installPassword)
 	{
 		return $this->securityGuard->ValidatePassword($installPassword);
 	}
 
+	//Runs installation
 	private function RunInstall()
 	{
 		$install = new Installer($this->page->GetInstallUser(), $this->page->GetInstallUserPassword());
@@ -130,6 +136,7 @@ class InstallPresenter
 		$this->page->SetInstallResults($results);
 	}
 
+	//Unused
 	private function RunUpgrade()
 	{
 		$install = new Installer($this->page->GetInstallUser(), $this->page->GetInstallUserPassword());
@@ -139,6 +146,7 @@ class InstallPresenter
 		$this->page->SetUpgradeResults($results, Configuration::VERSION);
 	}
 
+	//Unused
 	private function CheckForUpgrade()
 	{
 		$install = new Installer($this->page->GetInstallUser(), $this->page->GetInstallUserPassword());

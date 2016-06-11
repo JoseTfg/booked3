@@ -22,18 +22,22 @@ require_once(ROOT_DIR . 'Pages/LoginPage.php');
 require_once(ROOT_DIR . 'Presenters/LoginPresenter.php');
 require_once(ROOT_DIR . 'lib/Application/Authentication/namespace.php');
 
+//Class: Supports the log out controller
 class LogoutPage extends LoginPage
 {
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$this->presenter->Logout();
 	}
 
+	//Gets URL to redirect
 	public function GetResumeUrl()
 	{
 		return $this->GetQuerystring(QueryStringKeys::REDIRECT);

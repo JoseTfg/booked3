@@ -33,6 +33,7 @@ interface IReservationSavePresenter
 	public function HandleReservation($reservationSeries);
 }
 
+//Class: Supports the controller that generates reservations
 class ReservationSavePresenter implements IReservationSavePresenter
 {
 	/**
@@ -55,6 +56,7 @@ class ReservationSavePresenter implements IReservationSavePresenter
 	 */
 	private $_resourceRepository;
 
+	//Construct
 	public function __construct(
 		IReservationSavePage $page,
 		IReservationPersistenceService $persistenceService,
@@ -69,6 +71,7 @@ class ReservationSavePresenter implements IReservationSavePresenter
 		$this->userSession = $userSession;
 	}
 
+	//Creates reservation
 	public function BuildReservation()
 	{
 		$userId = $this->_page->GetUserId();
@@ -145,6 +148,7 @@ class ReservationSavePresenter implements IReservationSavePresenter
 	/**
 	 * @param ReservationSeries $reservationSeries
 	 */
+	//Handles result
 	public function HandleReservation($reservationSeries)
 	{
 		$successfullySaved = $this->_handler->Handle(
@@ -162,6 +166,7 @@ class ReservationSavePresenter implements IReservationSavePresenter
 	/**
 	 * @return DateRange
 	 */
+	//Gets reservation range
 	private function GetReservationDuration()
 	{
 		$startDate = $this->_page->GetStartDate();

@@ -149,6 +149,7 @@ interface IManageUsersPage extends IPageable, IActionPage
 	public function SetImportResult($importResult);
 }
 
+//Class: Supports the user management controller
 class ManageUsersPage extends ActionPage implements IManageUsersPage
 {
 	/**
@@ -161,6 +162,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	 */
 	protected $pageable;
 
+	//Construct
 	public function __construct()
 	{
 		$serviceFactory = new ManageUsersServiceFactory();
@@ -180,6 +182,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 		$this->pageable = new PageablePage($this);
 	}
 
+	//Process the page load
 	public function ProcessPageLoad()
 	{
 		$this->_presenter->PageLoad();
@@ -200,36 +203,43 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 		$this->RenderTemplate();
 	}
 
+	//Displays the smarty template
 	protected function RenderTemplate()
 	{
 		$this->Display('Admin/manage_users.tpl');
 	}
 
+	//Sends page information to the Smarty page
 	public function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->pageable->BindPageInfo($pageInfo);
 	}
 
+	//Gets page number
 	public function GetPageNumber()
 	{
 		return $this->pageable->GetPageNumber();
 	}
 
+	//Gets page size
 	public function GetPageSize()
 	{
 		return $this->pageable->GetPageSize();
 	}
 
+	//Sends user information to the Smarty page
 	public function BindUsers($users)
 	{
 		$this->Set('users', $users);
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		$this->_presenter->ProcessAction();
 	}
 
+	//Process request
 	public function ProcessDataRequest($dataRequest)
 	{
 		$this->_presenter->ProcessDataRequest($dataRequest);
@@ -238,6 +248,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return int
 	 */
+	//Gets user identifier
 	public function GetUserId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::USER_ID);
@@ -247,6 +258,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	 * @param BookableResource[] $resources
 	 * @return void
 	 */
+	//Sends the resources information to the Smarty page
 	public function BindResources($resources)
 	{
 		$this->Set('resources', $resources);
@@ -255,6 +267,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return int[] resource ids the user has permission to
 	 */
+	//Gets allowed resources identifiers
 	public function GetAllowedResourceIds()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_ID);
@@ -263,6 +276,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return string
 	 */
+	//Gets password
 	public function GetPassword()
 	{
 		return $this->GetForm(FormKeys::PASSWORD);
@@ -272,6 +286,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	 * @param mixed $objectToSerialize
 	 * @return void
 	 */
+	//Sets JSON response
 	public function SetJsonResponse($objectToSerialize)
 	{
 		parent::SetJson($objectToSerialize);
@@ -280,6 +295,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return string
 	 */
+	//Gets email
 	public function GetEmail()
 	{
 		return $this->GetForm(FormKeys::EMAIL);
@@ -288,51 +304,61 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return string
 	 */
+	//Gets user name
 	public function GetUserName()
 	{
 		return $this->GetForm(FormKeys::USERNAME);
 	}
 
+	//Gets user first name
 	public function GetFirstName()
 	{
 		return $this->GetForm(FormKeys::FIRST_NAME);
 	}
 
+	//Gets user last name
 	public function GetLastName()
 	{
 		return $this->GetForm(FormKeys::LAST_NAME);
 	}
 
+	//Gets timezone
 	public function GetTimezone()
 	{
 		return $this->GetForm(FormKeys::TIMEZONE);
 	}
 
+	//Gets phone
 	public function GetPhone()
 	{
 		return $this->GetForm(FormKeys::PHONE);
 	}
 
+	//Gets position
 	public function GetPosition()
 	{
 		return $this->GetForm(FormKeys::POSITION);
 	}
 
+	//Gets organization
 	public function GetOrganization()
 	{
 		return $this->GetForm(FormKeys::ORGANIZATION);
 	}
 
+	//Gets language
 	public function GetLanguage()
 	{
 		return $this->GetForm(FormKeys::LANGUAGE);
 	}
 
+	//Sends the attrbiute list information to the Smarty page
 	public function BindAttributeList($attributeList)
 	{
 		$this->Set('AttributeList', $attributeList);
 	}
 
+	//Gets attribute list
 	public function GetAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm(FormKeys::ATTRIBUTE_PREFIX));
@@ -341,6 +367,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return AccountStatus|int
 	 */
+	//Gets filter status identifier
 	public function GetFilterStatusId()
 	{
 		$statusId = $this->GetQuerystring(QueryStringKeys::ACCOUNT_STATUS);
@@ -350,6 +377,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return int
 	 */
+	//Gets group identifier
 	public function GetUserGroup()
 	{
 		return $this->GetForm(FormKeys::GROUP_ID);
@@ -358,6 +386,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @param GroupItemView[] $groups
 	 */
+	//Sends group information to the Smarty page
 	public function BindGroups($groups)
 	{
 		$this->Set('Groups', $groups);
@@ -366,11 +395,13 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return string
 	 */
+	//Unused
 	public function GetReservationColor()
 	{
 		return $this->GetForm(FormKeys::RESERVATION_COLOR);
 	}
 
+	//Unused
 	public function ShowTemplateCSV()
 	{
 		$this->DisplayCsv('Admin/Users/import_user_template_csv.tpl', 'users.csv');
@@ -379,6 +410,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return UploadedFile
 	 */
+	//Unused
 	public function GetImportFile()
 	{
 		return $this->server->GetFile(FormKeys::USER_IMPORT_FILE);
@@ -387,6 +419,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @param CsvImportResult $importResult
 	 */
+	//Unused
 	public function SetImportResult($importResult)
 	{
 		$this->SetJsonResponse($importResult);

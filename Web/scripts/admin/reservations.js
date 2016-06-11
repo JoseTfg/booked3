@@ -1,3 +1,4 @@
+//ReservationManagement
 function ReservationManagement(opts, approval)
 {
 	var options = opts;
@@ -43,6 +44,7 @@ function ReservationManagement(opts, approval)
 	var reservations = {};
 	var reasons = {};
 
+	//Initialization
 	ReservationManagement.prototype.init = function ()
 	{
 
@@ -131,7 +133,8 @@ function ReservationManagement(opts, approval)
 		elements.reservationTable.find('.editable').each(function ()
 		{
 			var refNum = $(this).find('.referenceNumber').text();
-			$(this).attachReservationPopup(refNum, options.popupUrl);
+			//MyCode
+			//$(this).attachReservationPopup(refNum, options.popupUrl);
 		});
 
 		elements.reservationTable.delegate('.delete', 'click', function ()
@@ -207,6 +210,7 @@ function ReservationManagement(opts, approval)
 		});
 	};
 
+	//Adds reservation
 	ReservationManagement.prototype.addReservation = function (reservation)
 	{
 		if (!(reservation.referenceNumber in reservations))
@@ -219,6 +223,7 @@ function ReservationManagement(opts, approval)
 
 	};
 
+	//Unused
 	ReservationManagement.prototype.addStatusReason = function (id, statusId, description)
 	{
 		if (!(statusId in reasons))
@@ -229,6 +234,7 @@ function ReservationManagement(opts, approval)
 		reasons[statusId].push({id: id, description: description});
 	};
 
+	//Initialize filter
 	ReservationManagement.prototype.initializeStatusFilter = function (statusId, reasonId)
 	{
 		elements.resourceStatusIdFilter.val(statusId);
@@ -236,6 +242,7 @@ function ReservationManagement(opts, approval)
 		elements.resourceReasonIdFilter.val(reasonId);
 	};
 
+	//Submit callback
 	var defaultSubmitCallback = function (form)
 	{
 		return function ()
@@ -244,36 +251,43 @@ function ReservationManagement(opts, approval)
 		};
 	};
 
+	//Gets delete URL
 	function getDeleteUrl()
 	{
 		return opts.deleteUrl;
 	}
 
+	//Gets update URL
 	function getUpdateStatusUrl()
 	{
 		return opts.resourceStatusUrl.replace('[refnum]', getActiveReferenceNumber());
 	}
 
+	//Set reference number
 	function setActiveReferenceNumber(referenceNumber)
 	{
 		this.referenceNumber = referenceNumber;
 	}
 
+	//Gets reference number
 	function getActiveReferenceNumber()
 	{
 		return this.referenceNumber;
 	}
 
+	//Sets reservation identifier
 	function setActiveReservationId(reservationId)
 	{
 		this.reservationId = reservationId;
 	}
 
+	//Gets reservation identifier
 	function getActiveReservationId()
 	{
 		return this.reservationId;
 	}
 
+	//Open dialog for reservation delete
 	function showDeleteReservation(referenceNumber)
 	{
 		if (reservations[referenceNumber].isRecurring == '1')
@@ -286,6 +300,7 @@ function ReservationManagement(opts, approval)
 		}
 	}
 
+	//Unused
 	function showChangeResourceStatus(referenceNumber, resourceId)
 	{
 		if (Object.keys(reservations[referenceNumber].resources).length > 1)
@@ -307,6 +322,7 @@ function ReservationManagement(opts, approval)
 		elements.statusDialog.dialog('open');
 	}
 
+	//Unused
 	function populateReasonOptions(statusId, reasonsElement)
 	{
 		reasonsElement.empty().append($('<option>', {value: '', text: '-'}));
@@ -323,12 +339,14 @@ function ReservationManagement(opts, approval)
 		}
 	}
 
+	//Selects user
 	function selectUser(ui, textbox)
 	{
 		elements.userId.val(ui.item.value);
 		textbox.val(ui.item.label);
 	}
 
+	//Filters reservations
 	function filterReservations()
 	{
 		var reasonId = '';
@@ -363,6 +381,7 @@ function ReservationManagement(opts, approval)
 	var previousCell;
 	var updateCancelButtons = $('#inlineUpdateCancelButtons').clone().removeClass('hidden');
 
+	//Unused
 	function cancelCurrentCellUpdate()
 	{
 		if (previousCell != undefined && previousContents != undefined)
@@ -372,7 +391,8 @@ function ReservationManagement(opts, approval)
 			previousCell = null;
 		}
 	}
-
+	
+	//Unused
 	function confirmCellUpdate(value, attributeId, seriesId)
 	{
 		elements.inlineUpdateErrors.hide();
@@ -408,7 +428,8 @@ function ReservationManagement(opts, approval)
 			showInlineUpdateError('<li>' + textStatus + '</li>');
 		});
 	}
-
+	
+	//Unused
 	function showInlineUpdateError(lis)
 	{
 		elements.inlineUpdateErrors.empty();
@@ -416,7 +437,8 @@ function ReservationManagement(opts, approval)
 		elements.inlineUpdateErrors.show();
 		elements.inlineUpdateErrorDialog.dialog('open');
 	}
-
+	
+	//Unused
 	function showCustomAttributeValue(attributeId, cell)
 	{
 		if (previousCell != undefined && cell[0] == previousCell[0])
@@ -472,6 +494,7 @@ function ReservationManagement(opts, approval)
 		getCurrentReservation(showValue);
 	}
 
+	//Gets current reservation
 	function getCurrentReservation(showValue)
 	{
 		var refNum = getActiveReferenceNumber();
@@ -490,11 +513,36 @@ function ReservationManagement(opts, approval)
 				});
 	}
 
+	//View reservation
 	function viewReservation(referenceNumber)
 	{
-		window.location = options.reservationUrlTemplate.replace('[refnum]', referenceNumber);
+		//MyCode
+		//window.location = options.reservationUrlTemplate.replace('[refnum]', referenceNumber);
+		var popup = new $.Popup({
+			modal:true
+			});
+			popup.open('http://localhost/booked/Web/reservation.php?rn='+referenceNumber);
+			//alert(options.reservationUrlTemplate.replace('[refnum]', referenceNumber))
+			//alert('http://localhost/booked/Web/reservations.php?'+referenceNumber);
+			$('.popup_close').hide();
+			interval = setInterval(function(){
+				popup_status = sessionStorage.getItem("popup_status");
+				if(popup_status == "close"){
+					sessionStorage.setItem("popup_status", "none");
+					popup.close();
+					clearInterval(interval);
+				}
+				if(popup_status == "update"){
+					sessionStorage.setItem("popup_status", "none");
+					popup.close();
+					clearInterval(interval);
+					location.reload();
+				}
+				},100);
+		sleep(1000);
 	}
 
+	//Approves a reservation
 	function approveReservation(referenceNumber)
 	{
 		$.colorbox({inline: true, href: "#approveDiv", transition: "none", width: "75%", height: "75%", overlayClose: false});

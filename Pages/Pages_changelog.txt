@@ -4,36 +4,24 @@ Unchanged:
 -GroupAdminManageGroupsPage.php			Unchanged
 -GroupAdminManageUsersPage.php			Unchanged
 -ManageAnnouncementsPage.php			Unchanged
--ManageAttributesPage.php			Unchanged
 -ManageBlackoutsPage.php			Unchanged
--ManageConfigurationPage.php			Unchanged
 -ManageGroupsPage.php				Unchanged
--ManageQuotasPage.php				Unchanged
 -ManageReservationsPage.php			Unchanged
--ManageResourceGroupsPage.php			Unchanged
 -ManageResourcesPage.php			Unchanged
--ManageThemePage.php				Unchanged
 -ManageUsersPage.php				Unchanged
 -ResourceAdminManageReservationsPage.php	Unchanged
 -ResourceAdminManageResourcesPage.php		Unchanged
--ScheduleAdminManageReservationsPage.php	Unchanged
--ScheduleAdminManageSchedulesPage.php		Unchanged
 -AutoCompletePage.php				Unchanged
 -IReservationSaveResultsView.php		Unchanged
 -ReservationApprovalPage.php			Unchanged
 -ReservationDeletePage.php			Unchanged
--ReservationPopupPage.php			Unchanged
--ResourceDetailsPage.php			Unchanged
--UserDetailsPopupPage.php			Unchanged
 -ConfigurePage.php				Unchanged
 -InstallPage.php				Unchanged
 -CommonReportsPage.php				Unchanged
 -GenerateReportPage.php				Unchanged
 -IDisplayableReportPage.php			Unchanged
 -SavedReportsPage.php				Unchanged
--ReservationAttachmentPage.php			Unchanged
 -ActionPage.php					Unchanged
--ActivationPage.php				Unchanged
 -ErrorPage.php					ToDo
 -ExistingReservationPage.php			Unchanged
 -HelpPage.php					Unchanged
@@ -44,11 +32,8 @@ Unchanged:
 -NewReservationPage.php				Unchanged
 -OpeningsPage.php				Unchanged
 -ReadOnlyReservationPage.php			Unchanged
--RegistrationAdminPage.php			Unchanged
 -SecurePage.php					Unchanged
--AtomSubscriptionPage.php			Re-added
--CalendarExportDisplay.php			Re-added
--CalendarExportPage.php				Re-added
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -69,10 +54,27 @@ Erased:
 -ProfilePage.php
 -RegistrationPage.php
 -ViewSchedulePage.php
+-ManageAttributesPage.php
+-ManageConfigurationPage.php
+-ManageQuotasPage.php
+-ManageThemePage.php
+-ScheduleAdminManageReservationsPage.php
+-ScheduleAdminManageSchedulesPage.php
+-ManageResourceGroupsPage.php
+-ResourceDetailsPage.php
+-UserDetailsPopupPage.php
+-AtomSubscriptionPage.php
+-CalendarExportDisplay.php
+-CalendarExportPage.php
+-ActivationPage.php
+-RegistrationAdminPage.php
+-ReservationAttachmentPage.php
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 Changed:
+
+////////////////////////////////////////V0.1//////////////////////////////////////////////////
 
 2/3/2016
 -ManageSchedulesPage.php: 	Several functions have been copied in other pages.
@@ -89,9 +91,13 @@ Changed:
 -SchedulePage.php:		No longer in use.
 
 
+////////////////////////////////////////V0.2//////////////////////////////////////////////////
+
 8/3/2016
 -Page.php:			Pages now gets the announcements from server.
 				Pages now display new logo.
+
+////////////////////////////////////////V0.3//////////////////////////////////////////////////
 
 14/3/2016
 -CalendarPage.php:		Resource id is now an array.
@@ -101,6 +107,8 @@ Changed:
 -ReservationSavePage.php:	Now returns to last page after success.
 -ReservationUpdatePage.php:	Now returns to last page after success.
 
+////////////////////////////////////////V0.4//////////////////////////////////////////////////
+
 29/3/2016
 -ReservationDeletePage.php:	Now returns to last page after success.
 -CalendarPage.php:		No longer in use.
@@ -109,10 +117,19 @@ Changed:
 31/3/2016
 -PersonalCalendarPage.php:	Targets the list view correctly.
 
+////////////////////////////////////////V0.5//////////////////////////////////////////////////
+
 10/4/2016
 -ReservationSavePage.php	Updated for new pop up system.
 -ReservationUpdatePage.php	Updated for new pop up system.
 -ReservationDeletePage.php	Updated for new pop up system.
+
+////////////////////////////////////////V0.7//////////////////////////////////////////////////
+
+8/5/2016
+-ReservationPopupPage.php	Displayed values changed.
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 Currently changed:
 -ReservationSavePage.php
@@ -120,4 +137,3 @@ Currently changed:
 -Pages.php
 -ReservationUpdatePage.php
 -ReservationDeletePage.php
--PersonalCalendarPage.php

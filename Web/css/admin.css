@@ -119,17 +119,18 @@ span.error {
 }
 
 table.list {
-    border-collapse:collapse;
+    border-collapse:collapse
 }
 
-table.list, .list td, .list th {
-     border: solid 1px #716e71;
+table.list, .list td, .list th {    
+	 border: solid 1px #e6EEEE;	/*MyCode*/
 }
 
 .list td, .list th {
     padding: 4px;
 }
 
+/*MyCode*/
 .row0 {
     background-color: #eeeeee;
 }
@@ -148,10 +149,11 @@ table.list, .list td, .list th {
 
 .list tr.editable:hover {
 	cursor: pointer;
-	/*background-color: #FFFF99;*/
+	/*background-color: #FFFF99;*/ /*MyCode*/
 	background-color: #c5e4f1;
 }
 
+/*MyCode*/
 /*.list tr.clicked:hover, .list tr.clicked  {*/
 	/*background-color: #FFFF33;*/
 /*}*/
@@ -176,6 +178,7 @@ tr.pending {
 
 .wideLabel { display:inline-block; min-width: 100px;}
 
+/*MyCode*/
 /*#addAttribute {*/
     /*width: 300px;*/
 /*}*/

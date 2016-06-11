@@ -109,21 +109,25 @@ interface IExistingReservationPage extends IReservationPage
 	public function SetEndReminder($reminderValue, $reminderInterval);
 }
 
+//Class: Supports the existing reservation controller
 class ExistingReservationPage extends ReservationPage implements IExistingReservationPage
 {
 	protected $IsEditable = false;
 	protected $IsApprovable = false;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		parent::PageLoad();
 	}
 
+	//Creates the presenter
 	protected function GetPresenter()
 	{
 		$preconditionService = new EditReservationPreconditionService($this->permissionServiceFactory);
@@ -135,6 +139,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 											$reservationViewRepository);
 	}
 
+	//Gets the page to show
 	protected function GetTemplateName()
 	{
 		if ($this->IsApprovable)
@@ -148,66 +153,79 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 		return 'Reservation/view.tpl';
 	}
 
+	//Gets the action
 	protected function GetReservationAction()
 	{
 		return ReservationAction::Update;
 	}
 
+	//Gets reference number
 	public function GetReferenceNumber()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER);
 	}
 
+	//Sets additional resources
 	public function SetAdditionalResources($additionalResourceIds)
 	{
 		$this->Set('AdditionalResourceIds', $additionalResourceIds);
 	}
 
+	//Sets title
 	public function SetTitle($title)
 	{
 		$this->Set('ReservationTitle', $title);
 	}
 
+	//Sets description
 	public function SetDescription($description)
 	{
 		$this->Set('Description', $description);
 	}
 
+	//Sets recurrence type
 	public function SetRepeatType($repeatType)
 	{
 		$this->Set('RepeatType', $repeatType);
 	}
 
+	//Sets recurrence interval
 	public function SetRepeatInterval($repeatInterval)
 	{
 		$this->Set('RepeatInterval', $repeatInterval);
 	}
 
+	//Sets monthly recurrence type
 	public function SetRepeatMonthlyType($repeatMonthlyType)
 	{
 		$this->Set('RepeatMonthlyType', $repeatMonthlyType);
 	}
 
+	//Sets week recurrence
 	public function SetRepeatWeekdays($repeatWeekdays)
 	{
 		$this->Set('RepeatWeekdays', $repeatWeekdays);
 	}
 
+	//Sets reference number
 	public function SetReferenceNumber($referenceNumber)
 	{
 		$this->Set('ReferenceNumber', $referenceNumber);
 	}
 
+	//Sets reservation identifier
 	public function SetReservationId($reservationId)
 	{
 		$this->Set('ReservationId', $reservationId);
 	}
 
+	//Marks reservation as recurrent
 	public function SetIsRecurring($isRecurring)
 	{
 		$this->Set('IsRecurring', $isRecurring);
 	}
 
+	//Marks reservation as editable
 	public function SetIsEditable($canBeEdited)
 	{
 		$this->IsEditable = $canBeEdited;
@@ -216,6 +234,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	/**
 	 * @param $amIParticipating
 	 */
+	//Unused
 	public function SetCurrentUserParticipating($amIParticipating)
 	{
 		$this->Set('IAmParticipating', $amIParticipating);
@@ -224,6 +243,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	/**
 	 * @param $amIInvited
 	 */
+	//Unused
 	public function SetCurrentUserInvited($amIInvited)
 	{
 		$this->Set('IAmInvited', $amIInvited);
@@ -233,6 +253,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	 * @param $canBeApproved bool
 	 * @return void
 	 */
+	//Marks the reservation as approvable
 	public function SetIsApprovable($canBeApproved)
 	{
 		$this->IsApprovable = $canBeApproved;
@@ -242,6 +263,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	 * @param int $reminderValue
 	 * @param ReservationReminderInterval $reminderInterval
 	 */
+	//Sets start reminder
 	public function SetStartReminder($reminderValue, $reminderInterval)
 	{
 		$this->Set('ReminderTimeStart', $reminderValue);
@@ -252,6 +274,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	 * @param int $reminderValue
 	 * @param ReservationReminderInterval $reminderInterval
 	 */
+	//Sets end reminder
 	public function SetEndReminder($reminderValue, $reminderInterval)
 	{
 		$this->Set('ReminderTimeEnd', $reminderValue);

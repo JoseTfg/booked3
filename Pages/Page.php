@@ -29,6 +29,7 @@ require_once(ROOT_DIR . 'lib/Config/namespace.php');
 //MyCode (8/3/2016)
 require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 
+//Abstract Class: Basic class that supports all pages in the application.
 abstract class Page implements IPage
 {
 	/**
@@ -42,6 +43,7 @@ abstract class Page implements IPage
 	protected $server = null;
 	protected $path;
 
+	//Construct
 	protected function __construct($titleKey = '', $pageDepth = 0)
 	{
 		$this->SetSecurityHeaders();
@@ -69,10 +71,13 @@ abstract class Page implements IPage
 		$this->smarty->assign('LoggedIn', $userSession->IsLoggedIn());
 		$this->smarty->assign('Version', Configuration::VERSION);
 		$this->smarty->assign('Path', $this->path);
+		//echo '<script type="text/javascript">alert("'.$pageTile.'");</script>';
+		$this->smarty->assign('pageTile', $pageTile);
 		$this->smarty->assign('ScriptUrl', Configuration::Instance()->GetScriptUrl());
-		$this->smarty->assign('UserName', !is_null($userSession) ? $userSession->FirstName : '');
+		$this->smarty->assign('UserName', !is_null($userSession) ? $userSession->FirstName : '');		
 		$this->smarty->assign('DisplayWelcome', $this->DisplayWelcome());
 		$this->smarty->assign('UserId', $userSession->UserId);
+		//echo '<script type="text/javascript">alert("'.$userSession->UserId.'");</script>';
 		$this->smarty->assign('CanViewAdmin', $userSession->IsAdmin);
 		$this->smarty->assign('CanViewGroupAdmin', $userSession->IsGroupAdmin);
 		$this->smarty->assign('CanViewResourceAdmin', $userSession->IsResourceAdmin);
@@ -97,24 +102,25 @@ abstract class Page implements IPage
 																				 new BooleanConverter()));
 
 		$this->smarty->assign('LogoUrl', 'booked.png');
-		if (file_exists($this->path . 'img/custom-logo.png'))
-		{
-			$this->smarty->assign('LogoUrl', 'custom-logo.png');
-		}
-		if (file_exists($this->path . 'img/custom-logo.gif'))
-		{
-			$this->smarty->assign('LogoUrl', 'custom-logo.gif');
-		}
-		if (file_exists($this->path . 'img/custom-logo.jpg'))
-		{
-			$this->smarty->assign('LogoUrl', 'custom-logo.jpg');
-		}
+		//MyCode
+		// if (file_exists($this->path . 'img/custom-logo.png'))
+		// {
+			// $this->smarty->assign('LogoUrl', 'custom-logo.png');
+		// }
+		// if (file_exists($this->path . 'img/custom-logo.gif'))
+		// {
+			// $this->smarty->assign('LogoUrl', 'custom-logo.gif');
+		// }
+		// if (file_exists($this->path . 'img/custom-logo.jpg'))
+		// {
+			// $this->smarty->assign('LogoUrl', 'custom-logo.jpg');
+		// }
 
 		$this->smarty->assign('CssUrl', 'null-style.css');
-		if (file_exists($this->path . 'css/custom-style.css'))
-		{
-			$this->smarty->assign('CssUrl', 'custom-style.css');
-		}
+		// if (file_exists($this->path . 'css/custom-style.css'))
+		// {
+			// $this->smarty->assign('CssUrl', 'custom-style.css');
+		// }
 
 		$logoUrl = Configuration::Instance()->GetKey(ConfigKeys::HOME_URL);
 		if (empty($logoUrl))
@@ -135,11 +141,13 @@ abstract class Page implements IPage
 		$this->smarty->assign('Logo2', 'booked_prueba.png');
 	}
 
+	//Sets title
 	protected function SetTitle($title)
 	{
 		$this->smarty->assign('Title', $title);
 	}
 
+	//Redirects
 	public function Redirect($url)
 	{
 		if (!BookedStringHelper::StartsWith($url, $this->path))
@@ -152,6 +160,7 @@ abstract class Page implements IPage
 		die();
 	}
 
+	//¿?
 	public function RedirectResume($url)
 	{
 		if (!BookedStringHelper::StartsWith($url, $this->path))
@@ -163,6 +172,7 @@ abstract class Page implements IPage
 		die();
 	}
 
+	//Redirects to error URL
 	public function RedirectToError($errorMessageId = ErrorMessages::UNKNOWN_ERROR, $lastPage = '')
 	{
 		if (empty($lastPage))
@@ -175,6 +185,7 @@ abstract class Page implements IPage
 		$this->Redirect($errorPageUrl);
 	}
 
+	//Gets last page
 	public function GetLastPage($defaultPage = '')
 	{
 		$referer = getenv("HTTP_REFERER");
@@ -188,6 +199,7 @@ abstract class Page implements IPage
 		return ltrim($page, '/');
 	}
 
+	//¿?
 	public function DisplayWelcome()
 	{
 		return true;
@@ -198,6 +210,7 @@ abstract class Page implements IPage
 	 *
 	 * @return bool
 	 */
+	//checks if user is authenticated
 	public function IsAuthenticated()
 	{
 		return !is_null($this->server->GetUserSession()) && $this->server->GetUserSession()->IsLoggedIn();
@@ -208,6 +221,7 @@ abstract class Page implements IPage
 	 *
 	 * @return bool
 	 */
+	//¿?
 	public function IsPostBack()
 	{
 		return !empty($_POST);
@@ -219,6 +233,7 @@ abstract class Page implements IPage
 	 * @param int|string $validatorId
 	 * @param IValidator $validator
 	 */
+	//Register validators
 	public function RegisterValidator($validatorId, $validator)
 	{
 		$this->smarty->Validators->Register($validatorId, $validator);
@@ -229,6 +244,7 @@ abstract class Page implements IPage
 	 *
 	 * @return bool
 	 */
+	//Validates
 	public function IsValid()
 	{
 		return $this->smarty->IsValid();
@@ -239,11 +255,13 @@ abstract class Page implements IPage
 	 * @param string $value
 	 * @return void
 	 */
+	//Sets Smarty value
 	public function Set($var, $value)
 	{
 		$this->smarty->assign($var, $value);
 	}
 
+	//Enforce CSRF Check
 	public function EnforceCSRFCheck()
 	{
 		$session = $this->server->GetUserSession();
@@ -263,6 +281,7 @@ abstract class Page implements IPage
 	 * @param string $var
 	 * @return string
 	 */
+	//Gets Smarty value
 	protected function GetVar($var)
 	{
 		return $this->smarty->getTemplateVars($var);
@@ -272,6 +291,7 @@ abstract class Page implements IPage
 	 * @param string $var
 	 * @return null|string
 	 */
+	//Gets form
 	protected function GetForm($var)
 	{
 		return $this->server->GetForm($var);
@@ -281,6 +301,7 @@ abstract class Page implements IPage
 	 * @param string $var
 	 * @return null
 	 */
+	//¿?
 	protected function GetRawForm($var)
 	{
 		return $this->server->GetRawForm($var);
@@ -290,6 +311,7 @@ abstract class Page implements IPage
 	 * @param string $key
 	 * @return null|string
 	 */
+	//Gets query
 	protected function GetQuerystring($key)
 	{
 		return $this->server->GetQuerystring($key);
@@ -300,6 +322,7 @@ abstract class Page implements IPage
 	 * @param string|null $error
 	 * @return void
 	 */
+	//Sets JSON response
 	protected function SetJson($objectToSerialize, $error = null)
 	{
 		header('Content-type: application/json');
@@ -319,6 +342,7 @@ abstract class Page implements IPage
 	 * @param string $objectToSerialize
 	 * @return void
 	 */
+	//Sets JSON error
 	protected function SetJsonError($objectToSerialize)
 	{
 		header('Content-type: application/json');
@@ -333,6 +357,7 @@ abstract class Page implements IPage
 	 * A template file to be displayed
 	 * @param string $templateName
 	 */
+	//Displays a page
 	protected function Display($templateName)
 	{
 		if (!$this->InMaintenanceMode())
@@ -345,6 +370,7 @@ abstract class Page implements IPage
 		}
 	}
 
+	//¿?
 	protected function DisplayCsv($templateName, $fileName)
 	{
 		header("Pragma: public");
@@ -363,6 +389,7 @@ abstract class Page implements IPage
 	 * @param string $templateName
 	 * @param null $languageCode uses current language is nothing is passed in
 	 */
+	//¿?
 	protected function DisplayLocalized($templateName, $languageCode = null)
 	{
 		if (empty($languageCode))
@@ -384,6 +411,7 @@ abstract class Page implements IPage
 		$this->Display($templateName);
 	}
 
+	//Unused
 	protected function GetShouldAutoLogout()
 	{
 		$timeout = $this->GetVar('SessionTimeoutSeconds');
@@ -391,12 +419,14 @@ abstract class Page implements IPage
 		return !empty($timeout);
 	}
 
+	//Unused
 	private function InMaintenanceMode()
 	{
 		return is_file(ROOT_DIR . 'maint.txt');
 	}
 
 
+	//Sets security headers
 	private function SetSecurityHeaders()
 	{
 		$config = Configuration::Instance();

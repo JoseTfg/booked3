@@ -71,11 +71,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<p class="loginsubmit">
 					<button type="submit" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img
 							src="img/door-open-in.png"/> {translate key='LogIn'} </button>
+					{*<button class="button" tabindex="100" onClick="login"><img
+							src="img/door-open-in.png"/> {translate key='LogIn'} </button>*}
 					<input type="hidden" name="{FormKeys::RESUME}" value="{$ResumeUrl}"/>
 				</p>
 			</div>
 			<div style="clear:both;">&nbsp;</div>
-		
+			<input type="hidden" id="myLogin" value=""/>
 		</form>
 	</div>
 </div>
@@ -88,9 +90,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<p>
 		{if $ShowScheduleLink}
 		<a href="view-schedule.php">{translate key='ViewSchedule'}</a>
-		{/if}
-		{if $ShowScheduleLink && $ShowForgotPasswordPrompt}|{/if}
-		
+		{/if}	
 	</p>
 </div>
 

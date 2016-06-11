@@ -25,12 +25,14 @@ require_once(ROOT_DIR . 'lib/Application/Admin/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Attributes/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php');
 
+//Class: Actions related to this presenter
 class ManageReservationsActions
 {
 	const UpdateAttribute = 'updateAttribute';
 	const ChangeStatus = 'changeStatus';
 }
 
+//Class: Supports the reservation management controller
 class ManageReservationsPresenter extends ActionPresenter
 {
 	/**
@@ -63,6 +65,7 @@ class ManageReservationsPresenter extends ActionPresenter
 	 */
 	private $userPreferenceRepository;
 
+	//Construct
 	public function __construct(
 		IManageReservationsPage $page,
 		IManageReservationsService $manageReservationsService,
@@ -84,6 +87,7 @@ class ManageReservationsPresenter extends ActionPresenter
 		$this->AddAction(ManageReservationsActions::ChangeStatus, 'UpdateResourceStatus');
 	}
 
+	//Sends the information to the page
 	public function PageLoad($userTimezone)
 	{
 		$session = ServiceLocator::GetServer()->GetUserSession();
@@ -182,8 +186,18 @@ class ManageReservationsPresenter extends ActionPresenter
 		$this->page->SetAttributeFilters($attributeFilters);
 		$this->page->SetReservationAttributes($reservationAttributes);
 
+		//MyCode
+		//This code makes the filter of a non-admin to always return his own reservations.
+		$notAdminId = $session->UserId;
+		if (!$session->IsAdmin){
+			$filter = new ReservationFilter($startDate, $endDate, $referenceNumber, $scheduleId, $resourceId, $notAdminId,
+										$reservationStatusId, $resourceStatusId, $resourceReasonId, $attributeFilters);
+		}
+		else{
+		
 		$filter = new ReservationFilter($startDate, $endDate, $referenceNumber, $scheduleId, $resourceId, $userId,
 										$reservationStatusId, $resourceStatusId, $resourceReasonId, $attributeFilters);
+		}
 
 		$reservations = $this->manageReservationsService->LoadFiltered($this->page->GetPageNumber(),
 																	   $this->page->GetPageSize(),
@@ -209,9 +223,11 @@ class ManageReservationsPresenter extends ActionPresenter
 		else
 		{
 			$this->page->ShowPage();
-		}
+		}	
+
 	}
 
+	//Gets reservation date
 	private function GetDate($dateString, $timezone, $defaultDays)
 	{
 		$date = null;
@@ -233,6 +249,7 @@ class ManageReservationsPresenter extends ActionPresenter
 		return $date;
 	}
 
+	//Gets offset for timezone support
 	private function GetDateOffsetFromToday($date, $timezone)
 	{
 		if (empty($date))
@@ -247,6 +264,7 @@ class ManageReservationsPresenter extends ActionPresenter
 		return $diff->Days();
 	}
 
+	//Unused
 	public function UpdateResourceStatus()
 	{
 		if (!$this->page->CanUpdateResourceStatuses())
@@ -294,6 +312,7 @@ class ManageReservationsPresenter extends ActionPresenter
 		}
 	}
 
+	//Process a request
 	public function ProcessDataRequest($dataRequest)
 	{
 		if ($dataRequest == 'load')
@@ -314,6 +333,7 @@ class ManageReservationsPresenter extends ActionPresenter
 		}
 	}
 
+	//Updates attribute
 	public function UpdateAttribute()
 	{
 		$userSession = ServiceLocator::GetServer()->GetUserSession();

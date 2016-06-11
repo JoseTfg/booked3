@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ //Class: Supports the filter of the calendar
 class CalendarFilters
 {
 	const FilterSchedule = 'schedule';
@@ -72,6 +73,7 @@ class CalendarFilters
 	/**
 	 * @return bool
 	 */
+	//checks if is empty
 	public function IsEmpty()
 	{
 		return empty($this->filters);
@@ -80,6 +82,7 @@ class CalendarFilters
 	/**
 	 * @return array|CalendarFilter[]
 	 */
+	//Gets the filter
 	public function GetFilters()
 	{
 		return $this->filters;
@@ -88,6 +91,7 @@ class CalendarFilters
 	/**
 	 * @return ResourceGroupTree
 	 */
+	//Unused
 	public function GetResourceGroupTree()
 	{
 		return $this->resourceGroupTree;
@@ -98,6 +102,7 @@ class CalendarFilters
 	 * @param ResourceDto[] $resources
 	 * @return bool
 	 */
+	//Unused
 	private function ScheduleContainsNoResources(Schedule $schedule, $resources)
 	{
 		foreach ($resources as $resource)

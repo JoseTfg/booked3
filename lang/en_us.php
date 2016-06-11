@@ -686,6 +686,17 @@ class en_us extends Language
 		$strings['UserAdded'] = 'A new user has been added';
 		$strings['UserDeleted'] = 'User account for %s was deleted by %s';
 		// End Email Subjects
+		
+		//Enhance
+		$strings['Day'] = 'Day';
+		$strings['Legend'] = 'Legend';
+		$strings['TimeTable'] = 'TimeTable';
+		$strings['TimeTableBoundaries'] = 'Timetable Boundaries';
+		$strings['Export'] = 'Exportar';
+		$strings['DeleteReservation'] = '¿Are you sure you want to delete this element?';
+		$strings['Download'] = 'Download';
+		$strings['Subscribe'] = 'Subscribe to calendar?';
+		$strings['Subscription'] = 'Subscription';
 
 		$this->Strings = $strings;
 

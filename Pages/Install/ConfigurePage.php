@@ -60,6 +60,7 @@ interface IConfgurePage
 	public function ShowManualConfig($manualConfig);
 }
 
+//Class: Supports the manual configuration controller
 class ConfigurePage extends Page implements IConfgurePage
 {
 	/**
@@ -74,6 +75,7 @@ class ConfigurePage extends Page implements IConfgurePage
 		$this->presenter = new ConfigurePresenter($this, new InstallSecurityGuard());
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$this->Set('SuggestedInstallPassword', uniqid());
@@ -83,31 +85,37 @@ class ConfigurePage extends Page implements IConfgurePage
 		$this->Display('Install/configure.tpl');
 	}
 
+	//Sets password missing
 	public function SetPasswordMissing($isPasswordMissing)
 	{
 		$this->Set('InstallPasswordMissing', $isPasswordMissing);
 	}
 
+	//Gets installation password
 	public function GetInstallPassword()
 	{
 		return $this->GetForm(FormKeys::INSTALL_PASSWORD);
 	}
 
+	//Shows password prompt
 	public function SetShowPasswordPrompt($showPrompt)
 	{
 		$this->Set('ShowPasswordPrompt', $showPrompt);
 	}
 
+	//Shows invalid password
 	public function SetShowInvalidPassword($showInvalidPassword)
 	{
 		$this->Set('ShowInvalidPassword', $showInvalidPassword);
 	}
 
+	//shos database prompt
 	public function SetShowDatabasePrompt($showDatabasePrompt)
 	{
 		$this->Set('ShowDatabasePrompt', $showDatabasePrompt);
 	}
 
+	//Sends success message
 	public function ShowConfigUpdateSuccess()
 	{
 		$this->Set('ShowConfigSuccess', true);
@@ -116,6 +124,7 @@ class ConfigurePage extends Page implements IConfgurePage
 	/**
 	 * @param string $manualConfig
 	 */
+	//Shows manual configuration
 	public function ShowManualConfig($manualConfig)
 	{
 		$this->Set('ShowManualConfig', true);

@@ -1,8 +1,11 @@
+//If there is a response text
 function HasResponseText(responseText) {
 	return (
 			(responseText.trim != undefined && responseText.trim() != '') || (responseText.constructor == Object && responseText.ErrorIds != undefined)
 	);
 }
+
+//Configures admin form
 function ConfigureAdminForm(formElement, urlCallback, successHandler, responseHandler, options) {
 	var validationSummary = formElement.find('.validationSummary');
 	var opts = $.extend(
@@ -90,6 +93,7 @@ function ConfigureAdminForm(formElement, urlCallback, successHandler, responseHa
 	});
 }
 
+//Configures upload form
 function ConfigureUploadForm(buttonElement, urlCallback, preSubmitCallback, successHandler, responseHandler) {
 	buttonElement.click(function () {
 
@@ -137,6 +141,7 @@ function ConfigureUploadForm(buttonElement, urlCallback, preSubmitCallback, succ
 	});
 }
 
+//Validates
 function BeforeFormSubmit(formData, jqForm, opts) {
 	var isValid = true;
 
@@ -181,6 +186,7 @@ function BeforeSerialize(jqForm, options)
 	}
 }
 
+//Configures dialogs
 function ConfigureAdminDialog(dialogElement, dialogWidth, dialogHeight) {
 	if (!dialogWidth)
 	{
@@ -202,6 +208,7 @@ function ConfigureAdminDialog(dialogElement, dialogWidth, dialogHeight) {
 	dialogElement.dialog(dialogOpts);
 }
 
+//Executes AJAX actions
 function PerformAsyncAction(element, urlCallback, indicator) {
 	var data = null;
 	var csrf_token = $('#csrf_token');
@@ -228,6 +235,7 @@ function PerformAsyncAction(element, urlCallback, indicator) {
 	);
 }
 
+//Executes AJAX post
 function PerformAsyncPost(url, options) {
 	var opts = $.extend({
 		done: function (data) {
@@ -265,10 +273,12 @@ function PerformAsyncPost(url, options) {
 			});
 }
 
+//Clear errors
 function ClearAsyncErrors(element) {
 	element.find('.asyncValidation').hide();
 }
 
+//Decode
 function HtmlDecode(encoded) {
 	return $('<textarea/>').html(encoded).val();
 }

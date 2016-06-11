@@ -1,3 +1,4 @@
+//Announcement management
 function AnnouncementManagement(opts) {
 	var options = opts;
 
@@ -7,6 +8,8 @@ function AnnouncementManagement(opts) {
 
 		editDialog: $('#editDialog'),
 		deleteDialog: $('#deleteDialog'),
+		newDialog: $('#newDialog'),
+		newButton: $('#newButton'),
 
 		addForm: $('#addForm'),
 		form: $('#editForm'),
@@ -20,10 +23,12 @@ function AnnouncementManagement(opts) {
 
 	var announcements = new Object();
 
+	//Initialization
     AnnouncementManagement.prototype.init = function() {
 
-		ConfigureAdminDialog(elements.editDialog, 550, 300);
-		ConfigureAdminDialog(elements.deleteDialog,  500, 200);
+		ConfigureAdminDialog(elements.editDialog, 550, 230);
+		ConfigureAdminDialog(elements.deleteDialog,  500, 140);
+		ConfigureAdminDialog(elements.newDialog,  550, 230);
 
 		elements.announcementList.delegate('a.update', 'click', function(e) {
 			setActiveId($(this));
@@ -35,6 +40,9 @@ function AnnouncementManagement(opts) {
 		});
 		elements.announcementList.delegate('.delete', 'click', function() {
 			deleteAnnouncement();
+		});
+		$('#newButton').click(function()  {
+			newAnnouncement();
 		});
 
 		$(".save").click(function() {
@@ -50,21 +58,25 @@ function AnnouncementManagement(opts) {
 		ConfigureAdminForm(elements.form, getSubmitCallback(options.actions.edit));
 	};
 
+	//Submit callback
 	var getSubmitCallback = function(action) {
 		return function() {
 			return options.submitUrl + "?aid=" + getActiveId() + "&action=" + action;
 		};
 	};
 
+	//Sets active identifier
 	function setActiveId(activeElement) {
 		var id = activeElement.parents('td').siblings('td.id').find(':hidden').val();
 		elements.activeId.val(id);
 	}
 
+	//Gets active identifier
 	function getActiveId() {
 		return elements.activeId.val();
 	}
 
+	//Opens edit announcement dialog
 	var editAnnouncement = function() {
 		var announcement = getActiveAnnouncement();
 		elements.editText.val(HtmlDecode(announcement.text));
@@ -78,16 +90,25 @@ function AnnouncementManagement(opts) {
 		elements.editDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Opens delete announcement dialog
 	var deleteAnnouncement = function() {
 		elements.deleteDialog.dialog('open');
 		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
+	
+	//Opens new announcement dialog
+	var newAnnouncement = function() {
+		elements.newDialog.dialog('open');
+		elements.newDialog.dialog( "option", "resizable", false ); /*MyCode*/
+	};
 
+	//Gets active announcement
 	var getActiveAnnouncement = function ()
 	{
 		return announcements[getActiveId()];
 	};
 
+	//Adds new announcement
 	AnnouncementManagement.prototype.addAnnouncement = function(id, text, start, end, priority)
 	{
 		announcements[id] = {id: id, text: text, start: start, end: end, priority: priority};

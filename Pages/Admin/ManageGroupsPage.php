@@ -116,6 +116,7 @@ interface IManageGroupsPage extends IActionPage
 	public function GetAdminGroupId();
 }
 
+//Class: supports groups management controller
 class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 {
 	protected $CanChangeRoles = true;
@@ -129,6 +130,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	 */
 	private $pageable;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('ManageGroups', 1);
@@ -137,6 +139,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 		$this->pageable = new PageablePage($this);
 	}
 
+	//Builds smarty page
 	public function ProcessPageLoad()
 	{
 		$this->presenter->PageLoad();
@@ -145,26 +148,31 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 		$this->Display('Admin/manage_groups.tpl');
 	}
 
+	//Sends the page information to the smarty page
 	public function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->pageable->BindPageInfo($pageInfo);
 	}
 
+	//Gets page number
 	public function GetPageNumber()
 	{
 		return $this->pageable->GetPageNumber();
 	}
 
+	//Gets page size
 	public function GetPageSize()
 	{
 		return $this->pageable->GetPageSize();
 	}
 
+	//Sends the groups information to the smarty page
 	public function BindGroups($groups)
 	{
 		$this->Set('groups', $groups);
 	}
 
+	//Process the action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
@@ -173,6 +181,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	/**
 	 * @return int
 	 */
+	 //Gets group identifier
 	public function GetGroupId()
 	{
 		$groupId = $this->GetForm(FormKeys::GROUP_ID);
@@ -183,31 +192,37 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 		return $this->GetQuerystring(QueryStringKeys::GROUP_ID);
 	}
 
+	//Sets response
 	public function SetJsonResponse($response)
 	{
 		parent::SetJson($response);
 	}
 
+	//Gets user identifier
 	public function GetUserId()
 	{
 		return $this->GetForm(FormKeys::USER_ID);
 	}
 
+	//Sends resources information to the smarty page
 	public function BindResources($resources)
 	{
 		$this->Set('resources', $resources);
 	}
 
+	//Gets allowed resources
 	public function GetAllowedResourceIds()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_ID);
 	}
 
+	//Gets the group name
 	public function GetGroupName()
 	{
 		return $this->GetForm(FormKeys::GROUP_NAME);
 	}
 
+	//Send the roles information to the smarty page
 	public function BindRoles($roles)
 	{
 		$this->Set('Roles', $roles);
@@ -216,6 +231,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	/**
 	 * @return int[]|array
 	 */
+	 //Gets roles identifiers
 	public function GetRoleIds()
 	{
 		return $this->GetForm(FormKeys::ROLE_ID);
@@ -225,6 +241,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	 * @param $adminGroups GroupItemView[]|array
 	 * @return void
 	 */
+	//Sends the admin group information to the smarty page
 	public function BindAdminGroups($adminGroups)
 	{
 		$this->Set('AdminGroups', $adminGroups);
@@ -233,6 +250,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	/**
 	 * @return int
 	 */
+	//Gets the admin group identifier
 	public function GetAdminGroupId()
 	{
 		return $this->GetForm(FormKeys::GROUP_ADMIN);
@@ -242,6 +260,7 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	 * @param $dataRequest string
 	 * @return void
 	 */
+	//Process data request
 	public function ProcessDataRequest($dataRequest)
 	{
 		$this->presenter->ProcessDataRequest();

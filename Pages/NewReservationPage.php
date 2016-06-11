@@ -44,8 +44,10 @@ interface INewReservationPage extends IReservationPage
 	public function GetEndDate();
 }
 
+//Class: Supports the controller that displays a reservation creation prompt
 class NewReservationPage extends ReservationPage implements INewReservationPage
 {
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('CreateReservation');
@@ -54,6 +56,7 @@ class NewReservationPage extends ReservationPage implements INewReservationPage
 		$this->SetInvitees(array());
 	}
 
+	//Creates new presenter
 	protected function GetPresenter()
 	{
 		return new ReservationPresenter(
@@ -62,26 +65,31 @@ class NewReservationPage extends ReservationPage implements INewReservationPage
 			new NewReservationPreconditionService());
 	}
 
+	//Gets template
 	protected function GetTemplateName()
 	{
 		return 'Reservation/create.tpl';
 	}
 
+	//Gets action
 	protected function GetReservationAction()
 	{
 		return ReservationAction::Create;
 	}
 
+	//Gets resource identifier
 	public function GetRequestedResourceId()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::RESOURCE_ID);
 	}
 
+	//Gets schedule identifier
 	public function GetRequestedScheduleId()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::SCHEDULE_ID);
 	}
 
+	//Gets reservation date
 	public function GetReservationDate()
 	{
 		$timezone = ServiceLocator::GetServer()->GetUserSession()->Timezone;
@@ -94,6 +102,7 @@ class NewReservationPage extends ReservationPage implements INewReservationPage
 		return new Date($dateTimeString, $timezone);
 	}
 
+	//Gets reservation start date
 	public function GetStartDate()
 	{
 		$timezone = ServiceLocator::GetServer()->GetUserSession()->Timezone;
@@ -106,6 +115,7 @@ class NewReservationPage extends ReservationPage implements INewReservationPage
 		return new Date($dateTimeString, $timezone);
 	}
 
+	//Gets reservation end date
 	public function GetEndDate()
 	{
 		$timezone = ServiceLocator::GetServer()->GetUserSession()->Timezone;

@@ -22,6 +22,7 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 require_once(ROOT_DIR . 'lib/Application/Authentication/namespace.php');
 
+//Class: Actions related to this presenter
 class ManageGroupsActions
 {
 	const Activate = 'activate';
@@ -37,6 +38,7 @@ class ManageGroupsActions
 	const GroupAdmin = 'groupAdmin';
 }
 
+//Class: supports the group management controller
 class ManageGroupsPresenter extends ActionPresenter
 {
 	/**
@@ -59,6 +61,7 @@ class ManageGroupsPresenter extends ActionPresenter
 	 * @param GroupRepository $groupRepository
 	 * @param ResourceRepository $resourceRepository
 	 */
+	//Construct
 	public function __construct(IManageGroupsPage $page, GroupRepository $groupRepository, ResourceRepository $resourceRepository)
 	{
 		parent::__construct($page);
@@ -77,6 +80,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->AddAction(ManageGroupsActions::GroupAdmin, 'ChangeGroupAdmin');
 	}
 
+	//Sends the information to the page
 	public function PageLoad()
 	{
 		if ($this->page->GetGroupId() != null)
@@ -93,15 +97,17 @@ class ManageGroupsPresenter extends ActionPresenter
 
 		$this->page->BindResources($this->resourceRepository->GetResourceList());
 
+		//MyCode
 		$this->page->BindRoles(array(
-                                   new RoleDto(1,'Group Admin', RoleLevel::GROUP_ADMIN),
+                                   //new RoleDto(1,'Group Admin', RoleLevel::GROUP_ADMIN),
                                    new RoleDto(2, 'Application Admin', RoleLevel::APPLICATION_ADMIN),
-                                   new RoleDto(3, 'Resource Admin', RoleLevel::RESOURCE_ADMIN),
-                                   new RoleDto(4, 'Schedule Admin', RoleLevel::SCHEDULE_ADMIN)
+                                   new RoleDto(3, 'Resource Admin', RoleLevel::RESOURCE_ADMIN)
+                                   //new RoleDto(4, 'Schedule Admin', RoleLevel::SCHEDULE_ADMIN)
                                 ));
 		$this->page->BindAdminGroups($this->groupRepository->GetGroupsByRole(RoleLevel::GROUP_ADMIN));
 	}
 
+	//Change permissions of a group
 	public function ChangePermissions()
 	{
 		$group = $this->groupRepository->LoadById($this->page->GetGroupId());
@@ -114,6 +120,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Update($group);
 	}
 
+	//Change roles of a group
 	public function ChangeRoles()
 	{
 		$groupId = $this->page->GetGroupId();
@@ -129,6 +136,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Update($group);
 	}
 
+	//Process a request
 	public function ProcessDataRequest()
 	{
 		$response = '';
@@ -153,12 +161,14 @@ class ManageGroupsPresenter extends ActionPresenter
 	/**
 	 * @return int[] all resource ids the user has permission to
 	 */
+	//Gets resources available for the group
 	public function GetGroupResourcePermissions()
 	{
 		$group = $this->groupRepository->LoadById($this->page->GetGroupId());
 		return $group->AllowedResourceIds();
 	}
 
+	//Adds user to the group
 	protected function AddUser()
 	{
 		$groupId = $this->page->GetGroupId();
@@ -171,6 +181,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Update($group);
 	}
 
+	//Removes user from the group
 	protected function RemoveUser()
 	{
 		$groupId = $this->page->GetGroupId();
@@ -183,6 +194,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Update($group);
 	}
 
+	//Adds new group
 	protected function AddGroup()
 	{
 		$groupName = $this->page->GetGroupName();
@@ -192,6 +204,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Add($group);
 	}
 
+	//Renames a group
 	protected function RenameGroup()
 	{
 		$groupId = $this->page->GetGroupId();
@@ -204,6 +217,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Update($group);
 	}
 
+	//Deletes exinsting group
 	protected function DeleteGroup()
 	{
 		$groupId = $this->page->GetGroupId();
@@ -214,6 +228,7 @@ class ManageGroupsPresenter extends ActionPresenter
 		$this->groupRepository->Remove($group);
 	}
 
+	//Change group administrator
 	protected function ChangeGroupAdmin()
 	{
 		$groupId = $this->page->GetGroupId();
@@ -230,6 +245,7 @@ class ManageGroupsPresenter extends ActionPresenter
 	/**
 	 * @return array|int[]
 	 */
+	//Gets roles of the group
 	protected function GetGroupRoles()
 	{
 		$groupId = $this->page->GetGroupId();

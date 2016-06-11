@@ -21,10 +21,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once(ROOT_DIR . 'Domain/Access/namespace.php' );
 require_once(ROOT_DIR . 'Pages/SecurePage.php');
 
+//Class: Supports the auto-complete textboxes.
 class AutoCompletePage extends SecurePage
 {
 	private $listMethods = array();
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
@@ -34,6 +36,7 @@ class AutoCompletePage extends SecurePage
 	    $this->listMethods[AutoCompleteType::Group] = 'GetGroups';
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$results = $this->GetResults($this->GetType(), $this->GetSearchTerm());
@@ -43,6 +46,7 @@ class AutoCompletePage extends SecurePage
 		$this->SetJson($results);
 	}
 
+	//Gets results
 	private function GetResults($type, $term)
 	{
 		if (array_key_exists($type, $this->listMethods))
@@ -56,11 +60,13 @@ class AutoCompletePage extends SecurePage
 		return '';
 	}
 
+	//Gets type
 	public function GetType()
 	{
 		return $this->GetQuerystring(QueryStringKeys::AUTOCOMPLETE_TYPE);
 	}
 
+	//Gets the term
 	public function GetSearchTerm()
 	{
 		return $this->GetQuerystring(QueryStringKeys::AUTOCOMPLETE_TERM);
@@ -70,6 +76,7 @@ class AutoCompletePage extends SecurePage
 	 * @param $term string
 	 * @return array|AutocompleteUser[]
 	 */
+	//Gets user
 	private function GetUsers($term)
 	{
 		if ($term == 'group')
@@ -94,6 +101,7 @@ class AutoCompletePage extends SecurePage
 		return $users;
 	}
 
+	//Gets group
 	private function GetGroups($term)
 	{
 		$filter = new SqlFilterLike(new SqlFilterColumn(TableNames::GROUPS_ALIAS,ColumnNames::GROUP_NAME), $term);
@@ -159,6 +167,7 @@ class AutoCompletePage extends SecurePage
 	}
 }
 
+//Class: Supports the auto-complete related to users.
 class AutocompleteUser
 {
 	public $Id;
@@ -181,6 +190,7 @@ class AutocompleteUser
 	}
 }
 
+//Class: Defines the different types of auto-completes.
 class AutoCompleteType
 {
 	const User = 'user';

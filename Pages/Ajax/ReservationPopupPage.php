@@ -90,6 +90,7 @@ interface IReservationPopupPage
 	public function BindAttributes($attributes);
 }
 
+//Class: Gives format to the popup
 class PopupFormatter
 {
 	private $values = array();
@@ -109,13 +110,16 @@ class PopupFormatter
 		return '';
 	}
 
+	//Displays the popup
 	public function Display()
 	{
 		$label = Configuration::Instance()->GetSectionKey(ConfigSection::RESERVATION_LABELS, ConfigKeys::RESERVATION_LABELS_RESERVATION_POPUP);
 
 		if (empty($label))
 		{
-			$label = "{name} {dates} {title} {resources} {participants} {accessories} {description} {attributes}";
+			//MyCode (8/5/2016)
+			//$label = "{name} {dates} {title} {resources} {participants} {accessories} {description} {attributes}";
+			$label = "{resources} {name} {dates} {title}";
 		}
 		$label = str_replace('{name}', $this->GetValue('name'), $label);
 		$label = str_replace('{dates}', $this->GetValue('dates'), $label);
@@ -150,6 +154,7 @@ class PopupFormatter
 	}
 }
 
+//Class: Supports the reservations popups
 class ReservationPopupPage extends Page implements IReservationPopupPage
 {
 	/**
@@ -157,6 +162,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	 */
 	private $_presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
@@ -167,6 +173,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 														  new AttributeService(new AttributeRepository()));
 	}
 
+	//Checks authentication
 	public function IsAuthenticated()
 	{
 		return Configuration::Instance()->GetSectionKey(ConfigSection::PRIVACY, ConfigKeys::PRIVACY_VIEW_RESERVATIONS,
@@ -174,6 +181,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 				parent::IsAuthenticated();
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$formatter = new PopupFormatter();
@@ -197,36 +205,43 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	/**
 	 * @return string
 	 */
+	//Gets reservation identifier
 	function GetReservationId()
 	{
 		return $this->GetQuerystring('id');
 	}
 
+	//Sets name
 	function SetName($first, $last)
 	{
 		$this->Set('fullName', new FullName($first, $last));
 	}
 
+	//Gets resorces
 	function SetResources($resources)
 	{
 		$this->Set('resources', $resources);
 	}
 
+	//Sets participants
 	function SetParticipants($users)
 	{
 		$this->Set('participants', $users);
 	}
 
+	//Sets description
 	function SetSummary($summary)
 	{
 		$this->Set('summary', $summary);
 	}
 
+	//Sets title
 	function SetTitle($title)
 	{
 		$this->Set('title', $title);
 	}
 
+	//Sets start and end dates
 	function SetDates($startDate, $endDate)
 	{
 		$this->Set('startDate', $startDate);
@@ -237,6 +252,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	 * @param $accessories ReservationAccessory[]
 	 * @return mixed
 	 */
+	//Sets accesories
 	public function SetAccessories($accessories)
 	{
 		$this->Set('accessories', $accessories);
@@ -246,6 +262,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	 * @param bool $hideReservationDetails
 	 * @return void
 	 */
+	//¿?
 	public function SetHideDetails($hideReservationDetails)
 	{
 		$this->Set('hideDetails', $hideReservationDetails);
@@ -255,6 +272,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	 * @param bool $hideUserInfo
 	 * @return void
 	 */
+	//¿?
 	public function SetHideUser($hideUserInfo)
 	{
 		$this->Set('hideUserInfo', $hideUserInfo);
@@ -263,13 +281,14 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	/**
 	 * @param Attribute[] $attributes
 	 */
+	//Set attributes
 	public function BindAttributes($attributes)
 	{
 		$this->Set('attributes', $attributes);
 	}
 }
 
-
+//Class: Presenter of reservation popup page
 class ReservationPopupPresenter
 {
 	/**
@@ -292,6 +311,7 @@ class ReservationPopupPresenter
 	 */
 	private $attributeService;
 
+	//Construct
 	public function __construct(IReservationPopupPage $page,
 								IReservationViewRepository $reservationRepository,
 								IReservationAuthorization $reservationAuthorization,
@@ -303,6 +323,7 @@ class ReservationPopupPresenter
 		$this->attributeService = $attributeService;
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$hideUserInfo = Configuration::Instance()->GetSectionKey(ConfigSection::PRIVACY,

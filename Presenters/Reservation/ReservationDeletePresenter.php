@@ -33,6 +33,7 @@ interface IReservationDeletePresenter
 	public function HandleReservation($reservationSeries);
 }
 
+//Class: Supports the reservation delete controller.
 class ReservationDeletePresenter implements IReservationDeletePresenter
 {
 	/**
@@ -55,6 +56,7 @@ class ReservationDeletePresenter implements IReservationDeletePresenter
 	 */
 	private $userSession;
 
+	//Construct
 	public function __construct(
 		IReservationDeletePage $page,
 		IDeleteReservationPersistenceService $persistenceService,
@@ -70,6 +72,7 @@ class ReservationDeletePresenter implements IReservationDeletePresenter
 	/**
 	 * @return ExistingReservationSeries
 	 */
+	//Deletes a reservation
 	public function BuildReservation()
 	{
 		$referenceNumber = $this->page->GetReferenceNumber();
@@ -84,6 +87,7 @@ class ReservationDeletePresenter implements IReservationDeletePresenter
 	/**
 	 * @param ExistingReservationSeries $reservationSeries
 	 */
+	//Handles the result
 	public function HandleReservation($reservationSeries)
 	{
 		Log::Debug("Deleting reservation %s", $reservationSeries->CurrentInstance()->ReferenceNumber());

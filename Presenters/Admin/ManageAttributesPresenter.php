@@ -77,27 +77,29 @@ class ManageAttributesPresenter extends ActionPresenter
 
 	public function DeleteAttribute()
 	{
-		$attributeId = $this->page->GetAttributeId();
-		Log::Debug('Deleting attribute with id: %s', $attributeId);
-		$this->attributeRepository->DeleteById($attributeId);
+		//MyCode
+		// $attributeId = $this->page->GetAttributeId();
+		// Log::Debug('Deleting attribute with id: %s', $attributeId);
+		// $this->attributeRepository->DeleteById($attributeId);
 	}
 
 	public function UpdateAttribute()
 	{
-		$attributeId = $this->page->GetAttributeId();
-		$attributeName = $this->page->GetLabel();
-		$regex = $this->page->GetValidationExpression();
-		$required = $this->page->GetIsRequired();
-		$possibleValues = $this->page->GetPossibleValues();
-		$sortOrder = $this->page->GetSortOrder();
-		$entityId = $this->page->GetEntityId();
+		//MyCode
+		// $attributeId = $this->page->GetAttributeId();
+		// $attributeName = $this->page->GetLabel();
+		// $regex = $this->page->GetValidationExpression();
+		// $required = $this->page->GetIsRequired();
+		// $possibleValues = $this->page->GetPossibleValues();
+		// $sortOrder = $this->page->GetSortOrder();
+		// $entityId = $this->page->GetEntityId();
 
-		Log::Debug('Updating attribute with id: %s', $attributeId);
+		// Log::Debug('Updating attribute with id: %s', $attributeId);
 
-		$attribute = $this->attributeRepository->LoadById($attributeId);
-		$attribute->Update($attributeName, $regex, $required, $possibleValues, $sortOrder, $entityId);
+		// $attribute = $this->attributeRepository->LoadById($attributeId);
+		// $attribute->Update($attributeName, $regex, $required, $possibleValues, $sortOrder, $entityId);
 
-		$this->attributeRepository->Update($attribute);
+		// $this->attributeRepository->Update($attribute);
 	}
 
 	public function HandleDataRequest($dataRequest)

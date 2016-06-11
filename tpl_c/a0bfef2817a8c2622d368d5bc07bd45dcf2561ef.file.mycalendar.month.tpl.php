@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-04-24 16:36:50
+<?php /* Smarty version Smarty-3.1.16, created on 2016-05-16 21:43:50
          compiled from "C:\Program Files (x86)\Ampps\www\booked\tpl\Calendar\mycalendar.month.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:769571cda02475392-74178436%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:30226573a22f69fd5a9-53467136%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'a0bfef2817a8c2622d368d5bc07bd45dcf2561ef' => 
     array (
       0 => 'C:\\Program Files (x86)\\Ampps\\www\\booked\\tpl\\Calendar\\mycalendar.month.tpl',
-      1 => 1459436022,
+      1 => 1463422268,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '769571cda02475392-74178436',
+  'nocache_hash' => '30226573a22f69fd5a9-53467136',
   'function' => 
   array (
   ),
@@ -24,9 +24,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_571cda024deb22_83498295',
+  'unifunc' => 'content_573a22f72f4b12_54745025',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_571cda024deb22_83498295')) {function content_571cda024deb22_83498295($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_573a22f72f4b12_54745025')) {function content_573a22f72f4b12_54745025($_smarty_tpl) {?>
 <?php echo $_smarty_tpl->getSubTemplate ('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('cssFiles'=>'css/calendar.css,css/jquery.qtip.min.css,scripts/css/fullcalendar.css,css/schedule.css,scripts/css/jqtree.css','printCssFiles'=>'scripts/css/fullcalendar.print.css'), 0);?>
 
 
@@ -47,11 +47,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 	<div style="float:right;">
 		<a href="#" id="goToday" alt="Today" title="Today"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Today'),$_smarty_tpl);?>
+ <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"today.png"),$_smarty_tpl);?>
+</a>
+		<a href="admin/manage_reservations.php" id="goList" alt="List" title="List"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'List'),$_smarty_tpl);?>
+ <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"list.png"),$_smarty_tpl);?>
+</a>
+		<a href="#" id="goDay" alt="Today" title="Today"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Day'),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"calendar-day.png"),$_smarty_tpl);?>
-</a>
-		<a href="#" id="goList" alt="List" title="List">Lista <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"calendar-select-month.png"),$_smarty_tpl);?>
-</a>
-		<a href="#" id="goDay" alt="Today" title="Today">Dia <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"calendar-day.png"),$_smarty_tpl);?>
 </a>
 		<a href="#" id="goWeek" alt="Week" title="Week"><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Week'),$_smarty_tpl);?>
  <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"calendar-select-week.png"),$_smarty_tpl);?>

@@ -599,6 +599,16 @@ class es extends en_us
 
         $strings['LoginError2'] = 'Tu suscripción ha caducado, debes ponerte en contacto con el administrador.';
        
+	    //Enhance
+	    $strings['Day'] = 'Dia';
+		$strings['Legend'] = 'Leyenda';
+		$strings['TimeTable'] = 'Horarios';
+		$strings['TimeTableBoundaries'] = 'Horario de visualización';
+		$strings['Export'] = 'Exportar';
+		$strings['DeleteReservation'] = '¿Estas seguro de que deseas borrar este elemento?';
+		$strings['Download'] = 'Descargar';
+		$strings['Subscribe'] = '¿Suscribirse al calendario?';
+		$strings['Subscription'] = 'Suscripcion';
 				
         $this->Strings = $strings;
     }

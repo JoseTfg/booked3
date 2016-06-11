@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ //Class: supports the installer controller
 class Installer
 {
     /**
@@ -30,6 +31,7 @@ class Installer
      */
     private $password;
 
+	//Construct
     public function __construct($user, $password)
     {
         $this->user = $user;
@@ -42,6 +44,7 @@ class Installer
      * @param $should_create_sample_data bool
      * @return array|InstallationResult[]
      */
+	//Install
     public function InstallFresh($should_create_db, $should_create_user, $should_create_sample_data)
     {
         $results = array();
@@ -98,6 +101,7 @@ class Installer
     /**
      * @return array|InstallationResult[]
      */
+	//Unused
     public function Upgrade()
     {
         $results = array();
@@ -129,6 +133,7 @@ class Installer
      * @param string $currentVersion
      * @return array|InstallationResult[]
      */
+	//Unused
     private function ExecuteUpgrade($upgradeDir, $versionNumber, $currentVersion)
     {
         $results = array();
@@ -159,6 +164,7 @@ class Installer
         return $results;
     }
 
+	//Sort directories
     private function SortDirectories($dir1, $dir2)
     {
         $d1 = floatval($dir1);
@@ -171,6 +177,7 @@ class Installer
         return ($d1 < $d2) ? -1 : 1;
     }
 
+	//Execute script
     protected function ExecuteScript($hostname, $database_name, $db_user, $db_password, MySqlScript $script)
     {
         $result = new InstallationResult($script->Name());
@@ -217,6 +224,7 @@ class Installer
     /**
      * @return float
      */
+	//Gets version
     public function GetVersion()
     {
         // if dbversion table does not exist or version in db is less than current
@@ -278,6 +286,7 @@ class Installer
         return 2.0;
     }
 
+	//Clear caches
     public function ClearCachedTemplates()
     {
         try

@@ -270,6 +270,7 @@ interface IManageResourcesPage extends IUpdateResourcePage, IActionPage, IPageab
 	public function GetPermissionGroupId();
 }
 
+//Class: Supports the resource management controller
 class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 {
 	/**
@@ -277,6 +278,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	 */
 	protected $presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('ManageResources', 1);
@@ -300,6 +302,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 																																	   ->GetString('No')));
 	}
 
+	//Displays page
 	public function ProcessPageLoad()
 	{
 		$this->presenter->PageLoad();
@@ -310,6 +313,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return int
 	 */
+	//Gets page number
 	function GetPageNumber()
 	{
 		return $this->pageablePage->GetPageNumber();
@@ -318,6 +322,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return int
 	 */
+	//Gets page size
 	function GetPageSize()
 	{
 		$pageSize = $this->pageablePage->GetPageSize();
@@ -333,66 +338,79 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	 * @param PageInfo $pageInfo
 	 * @return void
 	 */
+	//Sends page information to the smarty page
 	function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->pageablePage->BindPageInfo($pageInfo);
 	}
 
+	//Sends the resources to the smarty page
 	public function BindResources($resources)
 	{
 		$this->Set('Resources', $resources);
 	}
-
+	
+	//Sends the resources to the smarty page
 	public function BindSchedules($schedules)
 	{
 		$this->Set('Schedules', $schedules);
 	}
 
+	//Sends the schedules data to the smarty page
 	public function AllSchedules($schedules)
 	{
 		$this->Set('AllSchedules', $schedules);
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
 	}
 
+	//Gets resource identifier
 	public function GetResourceId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESOURCE_ID);
 	}
 
+	//Gets schedule identifier
 	public function GetScheduleId()
 	{
 		return $this->GetForm(FormKeys::SCHEDULE_ID);
 	}
 
+	//Gets resource name
 	public function GetResourceName()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_NAME);
 	}
 
+	//Gets resource image
 	public function GetUploadedImage()
 	{
 		return $this->server->GetFile(FormKeys::RESOURCE_IMAGE);
 	}
 
+	//Gets resource location
 	public function GetLocation()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_LOCATION);
 	}
 
+	//Gets resource contact
 	public function GetContact()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_CONTACT);
 	}
 
+	//Gets resource description
 	public function GetDescription()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_DESCRIPTION);
 	}
 
+	//Gets resource notes
 	public function GetNotes()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_NOTES);
@@ -401,6 +419,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets minimun duration of the given resource
 	public function GetMinimumDuration()
 	{
 		return $this->GetForm(FormKeys::MIN_DURATION);
@@ -409,6 +428,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets maximun duration of the given resource
 	public function GetMaximumDuration()
 	{
 		return $this->GetForm(FormKeys::MAX_DURATION);
@@ -417,6 +437,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets the time between reservations of the given resource
 	public function GetBufferTime()
 	{
 		return $this->GetForm(FormKeys::BUFFER_TIME);
@@ -425,6 +446,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets if its reservable alongside days
 	public function GetAllowMultiday()
 	{
 		return $this->GetForm(FormKeys::ALLOW_MULTIDAY);
@@ -433,6 +455,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets if approval is required
 	public function GetRequiresApproval()
 	{
 		return $this->GetForm(FormKeys::REQUIRES_APPROVAL);
@@ -441,6 +464,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetAutoAssign()
 	{
 		return $this->GetForm(FormKeys::AUTO_ASSIGN);
@@ -449,6 +473,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetAutoAssignClear()
 	{
 		return $this->GetForm(FormKeys::AUTO_ASSIGN_CLEAR);
@@ -457,6 +482,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetStartNoticeMinutes()
 	{
 		return $this->GetForm(FormKeys::MIN_NOTICE);
@@ -465,6 +491,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetEndNoticeMinutes()
 	{
 		return $this->GetForm(FormKeys::MAX_NOTICE);
@@ -473,6 +500,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets maximun participants allowed
 	public function GetMaxParticipants()
 	{
 		return $this->GetForm(FormKeys::MAX_PARTICIPANTS);
@@ -481,6 +509,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return int
 	 */
+	//Gets administrator group identifier
 	public function GetAdminGroupId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_ADMIN_GROUP_ID);
@@ -490,6 +519,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	 * @param $adminGroups GroupItemView[]|array
 	 * @return void
 	 */
+	//Sends the administrator group information to the smarty page
 	function BindAdminGroups($adminGroups)
 	{
 		$this->Set('AdminGroups', $adminGroups);
@@ -501,6 +531,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		$this->Set('GroupLookup', $groupLookup);
 	}
 
+	//Process the request
 	public function ProcessDataRequest($dataRequest)
 	{
 		$this->presenter->ProcessDataRequest($dataRequest);
@@ -509,6 +540,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @param $attributeList IEntityAttributeList
 	 */
+	//Sends the attribute list to the smarty page.
 	public function BindAttributeList($attributeList)
 	{
 		$this->Set('AttributeList', $attributeList);
@@ -517,6 +549,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return AttributeFormElement[]|array
 	 */
+	//Gets the attribute list
 	public function GetAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm(FormKeys::ATTRIBUTE_PREFIX));
@@ -525,6 +558,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return int
 	 */
+	//¿?
 	public function GetSortOrder()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_SORT_ORDER);
@@ -533,11 +567,13 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @param $resources AdminResourceJson[]
 	 */
+	//Sets JSON request
 	public function SetResourcesJson($resources)
 	{
 		$this->SetJson($resources);
 	}
 
+	//Sets JSON reponse
 	public function SetJsonResponse($response)
 	{
 		parent::SetJson($response);
@@ -546,6 +582,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @param $resourceTypes ResourceType[]
 	 */
+	//Sends the resource type information to the smarty page
 	public function BindResourceTypes($resourceTypes)
 	{
 		$this->Set('ResourceTypes', $resourceTypes);
@@ -554,6 +591,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return int
 	 */
+	//Gets the resource type identifier
 	public function GetResourceTypeId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_TYPE_ID);
@@ -562,16 +600,19 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @param $reasons ResourceStatusReason[]
 	 */
+	//Sends the resource status reasons information to the smarty page
 	public function BindResourceStatusReasons($reasons)
 	{
 		$this->Set('StatusReasons', $reasons);
 	}
 
+	//Gets the status identifier
 	public function GetStatusId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_ID);
 	}
 
+	//Ges the status reason identifier
 	public function GetStatusReasonId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_REASON_ID);
@@ -580,16 +621,19 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	/**
 	 * @return string
 	 */
+	//Gets the status reason
 	public function GetNewStatusReason()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_REASON);
 	}
 
+	//Checks if filter button was pressed
 	public function FilterButtonPressed()
 	{
 		return count($_GET) > 0;
 	}
 
+	//Sends the filter values to the Smarty page
 	public function SetFilterValues($values)
 	{
 		$this->Set('ResourceNameFilter', $values->ResourceNameFilter);
@@ -603,6 +647,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		$this->Set('AllowMultiDayFilter', $values->AllowMultiDayFilter);
 	}
 
+	//Gets the filter values
 	public function GetFilterValues()
 	{
 		$filterValues = new ResourceFilterValues();
@@ -621,11 +666,13 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		return $filterValues;
 	}
 
+	//Sends the attribute filter information to the Smarty page
 	public function BindAttributeFilters($attributeFilters)
 	{
 		$this->Set('AttributeFilters', $attributeFilters);
 	}
 
+	//Gets the update of many given resources at same time
 	public function GetBulkUpdateResourceIds()
 	{
 		$resourceIds = $this->GetForm(FormKeys::RESOURCE_ID);
@@ -637,47 +684,56 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		return $resourceIds;
 	}
 
+	//Checks if subscription is allowed
 	public function GetAllowSubscriptions()
 	{
 		return $this->GetForm(FormKeys::ALLOW_CALENDAR_SUBSCRIPTIONS);
 	}
 
+	//¿?
 	public function GetMinimumDurationNone()
 	{
 		return $this->GetForm(FormKeys::MIN_DURATION_NONE);
 	}
 
+	//¿?
 	public function GetMaximumDurationNone()
 	{
 		return $this->GetForm(FormKeys::MAX_DURATION_NONE);
 	}
-
+	
+	//¿?
 	public function GetBufferTimeNone()
 	{
 		return $this->GetForm(FormKeys::BUFFER_TIME_NONE);
 	}
 
+	//¿?
 	public function GetStartNoticeNone()
 	{
 		return $this->GetForm(FormKeys::MIN_NOTICE_NONE);
 	}
 
+	//¿?
 	public function GetEndNoticeNone()
 	{
 		return $this->GetForm(FormKeys::MAX_NOTICE_NONE);
 	}
 
+	//Gets user identifier
 	public function GetPermissionUserId()
 	{
 		return $this->GetForm(FormKeys::USER_ID);
 	}
 
+	//Gets group identifier
 	public function GetPermissionGroupId()
 	{
 		return $this->GetForm(FormKeys::GROUP_ID);
 	}
 }
 
+//Class: Manage the resource filter
 class ResourceFilterValues
 {
 	public $ResourceNameFilter;
@@ -694,6 +750,7 @@ class ResourceFilterValues
 	/**
 	 * @param AttributeFormElement[] $attributeFormElements
 	 */
+	//Sets attribute list
 	public function SetAttributes($attributeFormElements)
 	{
 		foreach ($attributeFormElements as $e)
@@ -702,11 +759,13 @@ class ResourceFilterValues
 		}
 	}
 
+	//Sets attribute values
 	public function SetAttributeValue($id, $value)
 	{
 		$this->Attributes[$id] = $value;
 	}
 
+	//Gets attribute values
 	public function GetAttributeValue($id)
 	{
 		if (array_key_exists($id, $this->Attributes))
@@ -721,6 +780,7 @@ class ResourceFilterValues
 	 * @param CustomAttribute[] $customAttributes
 	 * @return ISqlFilter
 	 */
+	//¿?
 	public function AsFilter($customAttributes)
 	{
 		$filter = new SqlFilterNull();

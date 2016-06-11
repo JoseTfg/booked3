@@ -102,6 +102,8 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile {
 	
 	/** Renders the date using the configured <var>datePattern<var>. */
 	protected function getDate($timestamp = null) {
+		//MyCode
+		date_default_timezone_set('Europe/Madrid');
 		return date($this->datePattern, $timestamp);
 	}
 	

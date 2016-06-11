@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php');
 
+//Class: Contains the possible actions of this presenter
 class ManageBlackoutsActions
 {
 	const ADD = 'add';
@@ -31,6 +32,7 @@ class ManageBlackoutsActions
 	const UPDATE = 'update';
 }
 
+//Class: Supports the blackouts management controller
 class ManageBlackoutsPresenter extends ActionPresenter
 {
 	/**
@@ -53,6 +55,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
 	 */
 	private $resourceRepository;
 
+	//Construct
 	public function __construct(
 		IManageBlackoutsPage $page,
 		IManageBlackoutsService $manageBlackoutsService,
@@ -72,6 +75,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		$this->AddAction(ManageBlackoutsActions::UPDATE, 'UpdateBlackout');
 	}
 
+	//Process page load
 	public function PageLoad($userTimezone)
 	{
 		$session = ServiceLocator::GetServer()->GetUserSession();
@@ -92,8 +96,10 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		$this->page->SetScheduleId($scheduleId);
 		$this->page->SetResourceId($resourceId);
 
-		$filter = new BlackoutFilter($startDate, $endDate, $scheduleId, $resourceId);
-
+		//MyCode
+		//$filter = new BlackoutFilter($startDate, $endDate, $scheduleId, $resourceId);
+		$filter = new BlackoutFilter('', '', '', '');
+	
 		$blackouts = $this->manageBlackoutsService->LoadFiltered($this->page->GetPageNumber(),
 																 $this->page->GetPageSize(),
 																 $filter,
@@ -105,6 +111,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		$this->page->ShowPage();
 	}
 
+	//Gets blackout date
 	private function GetDate($dateString, $timezone, $defaultDays)
 	{
 		$date = null;
@@ -121,6 +128,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		return $date;
 	}
 
+	//Adds new blackout
 	public function AddBlackout()
 	{
 		$session = ServiceLocator::GetServer()->GetUserSession();
@@ -158,6 +166,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		$this->page->ShowAddResult($result->WasSuccessful(), $result->Message(), $result->ConflictingReservations(), $result->ConflictingBlackouts(), $session->Timezone);
 	}
 
+	//Deletes existing blackout
     public function DeleteBlackout()
     {
         $id = $this->page->GetBlackoutId();
@@ -168,6 +177,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
         $this->manageBlackoutsService->Delete($id, $scope);
     }
 
+	//Loads existing blackout
 	public function LoadBlackout()
 	{
 		$id = $this->page->GetBlackoutId();
@@ -204,6 +214,7 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		$this->page->ShowBlackout();
 	}
 
+	//Updates an exiting blackout
 	public function UpdateBlackout()
 	{
 		$session = ServiceLocator::GetServer()->GetUserSession();

@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once(ROOT_DIR . 'lib/Config/namespace.php');
 require_once(ROOT_DIR . 'lib/Common/namespace.php');
 
+//Class: Supports the login controller
 class LoginPresenter
 {
 	/**
@@ -46,6 +47,7 @@ class LoginPresenter
 	/**
 	 * @param IWebAuthentication $authentication
 	 */
+	//Sets the authetication plugin
 	private function SetAuthentication($authentication)
 	{
 		if (is_null($authentication))
@@ -58,6 +60,7 @@ class LoginPresenter
 		}
 	}
 
+	//Loads page
 	public function PageLoad()
 	{
 		if ($this->authentication->IsLoggedIn())
@@ -105,12 +108,13 @@ class LoginPresenter
 		$this->_page->SetPasswordResetUrl($this->authentication->GetPasswordResetUrl());
 	}
 
+	//Authenticates
 	public function Login()
 	{
 		$id = $this->_page->GetEmailAddress();
 
 		if ($this->authentication->Validate($id, $this->_page->GetPassword()))
-		{
+		{			
 			$context = new WebLoginContext(new LoginData($this->_page->GetPersistLogin(), $this->_page->GetSelectedLanguage()));
 			$this->authentication->Login($id, $context);			
 		}
@@ -121,6 +125,7 @@ class LoginPresenter
 		}
 	}
 
+	//Changes language
 	public function ChangeLanguage()
 	{
 		$resources = Resources::GetInstance();
@@ -135,6 +140,7 @@ class LoginPresenter
 		}
 	}
 
+	//Sign out
 	public function Logout()
 	{
 		$url = Configuration::Instance()->GetKey(ConfigKeys::LOGOUT_URL);
@@ -147,6 +153,7 @@ class LoginPresenter
 		$this->_page->Redirect($url);
 	}
 
+	//Redirects
 	private function _Redirect()
 	{
 		$redirect = $this->_page->GetResumeUrl();
@@ -163,11 +170,13 @@ class LoginPresenter
 		}
 	}
 
+	//Login by cookie
 	private function IsCookieLogin($loginCookie)
 	{
 		return !empty($loginCookie);
 	}
 
+	//Sets the language
 	private function SetSelectedLanguage()
 	{
 		$requestedLanguage = $this->_page->GetRequestedLanguage();

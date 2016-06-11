@@ -18,8 +18,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
 <form id="editBlackoutForm" method="post">
-	<div id="updateBlackout" style="  position: absolute;
-  ">
+	<div id="updateBlackout" style="position: absolute;">
 		<ul>
 			<li>
 				<label for="updateStartDate" class="wideLabel">{translate key=BeginDate}</label>

@@ -24,75 +24,51 @@ function Calendar(opts, reservations)
 			
 			//Events
 			events: _reservations,
-			eventRender: function(event, element) { 
-			
-			//cal.addEvent(event.title, event.description, '', event.start, event.end); //newcode
-			
+			eventRender: function(event, element) {			
 			element.attachReservationPopup(event.id);
 			
-				//Color assign
-				if (colorArray.indexOf(event.colorID) == -1){
-					colorArray.push(event.colorID);					
-					document.getElementById('legend').innerHTML += "<input type='button' onchange=\"changeColor(this.id,this.value)\" id='"+event.colorID+"' class=\"jscolor\">"+event.colorID+'</input> &nbsp &nbsp &nbsp';
-					//document.getElementById(event.colorID).style.color = "#FFFFFF";
-					//document.getElementById(event.colorID).color.fromString("#FFFFFF");
-					//document.getElementById('prueba').innerHTML += "<button onclick=\"prueba3()\" id='"+event.colorID+"' class=\"jscolor {valueElement:'valueInput',onchange:'prueba3()',value:''}\">"+event.colorID+'</button> &nbsp &nbsp &nbsp';
-					//colorArray.push('#'+Math.floor(Math.random()*16777215).toString(16));	
-					
-					if (sessionStorage.getItem(event.colorID) != null){
-					$(element).css('background-color',"#"+sessionStorage.getItem(event.colorID));
-					document.getElementById(event.colorID).value = sessionStorage.getItem(event.colorID);					
-					}					
-				}
-				else{
-				if (sessionStorage.getItem(event.colorID) != null){
-					$(element).css('background-color',"#"+sessionStorage.getItem(event.colorID));	
+			//RightClick enhance
+			rightClick(element,event);		
+			
+			//Color assign enhance
+			if (event.className != "blackout"){
+					if (_options.myCal == 1){
+						element.find('.fc-event-title').append("<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +event.trueTitle);
 					}
-				//colorPosition = idArray.indexOf(event.colorID);
-				//$(element).css('background-color',colorArray[colorPosition]);
-				}			
-			},
+					else{
+						element.find('.fc-event-title').append("<br/>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +event.owner + "<br/>" +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +event.trueTitle);
+					}					
+				colorAssign(element,event);	
+			}
 			
-			
-			
-			//DayRender
-			//dayRender: function(date, element) {			
-			//	element.bind('mousedown', function (e) {
-			//		if (e.which == 3) {
-			//			$(element).css('background-color','#C8C8C8');
-			//		}
-			//	});		
-			//},
-			
+			},			
+						
 			//ClickEvents
 			dayClick: dayClick,
 			eventClick: function(event) {
-				//Obtains click data
-				mouseInput(null,null,event.id);
+				
+				changeSelection($(this));
+				
+				//Single Click enhance
+				if(event.className.indexOf("blackout") == 0){
+					mouseInput("blackoutClick","blackout"+event.id);
+				}
+				else{					
+					mouseInput("eventClick",event.id);
+				}
 				
 				//Reacts to double click
 				$(this).dblclick(function(){
-					//window.location = event.refNumber;
-					var popup = new $.Popup({
-					modal:true
-					});
-					popup.open('http://localhost/booked/Web/'+event.refNumber);
-					$('.popup_close').hide();
-					interval = setInterval(function(){
-						popup_status = sessionStorage.getItem("popup_status");
-						if(popup_status == "close"){
-							sessionStorage.setItem("popup_status", "none");
-							popup.close();
-							clearInterval(interval);
-						}
-						if(popup_status == "update"){
-							sessionStorage.setItem("popup_status", "none");
-							popup.close();
-							clearInterval(interval);
-							location.reload();
-						}
-						},100);
-				sleep(1000);
+					
+					//Blackout Double Click enhance
+					if(event.className.indexOf("blackout") == 0){
+						mouseInput("blackoutDoubleClick",event);
+					}
+					
+					//Event Double Click enhance
+					else{					
+						mouseInput("eventDoubleClick",event);					
+					}
 				});
 			},
 			
@@ -118,7 +94,7 @@ function Calendar(opts, reservations)
 			maxTime: _options.maxTime,
 			
 			//Size
-			contentHeight: $(window).height() - 100,		//To make it smaller
+			contentHeight: $(window).height() - 120,		//To make it smaller
 			//Width: contentHeight,
 			
 			//Sensitivity
@@ -126,26 +102,25 @@ function Calendar(opts, reservations)
 			//eventDurationEditable: true,
             droppable: true, 				// Is droppable
 			disableResizing:true,
+			eventDurationEditable:true,
+			//eventDurationEditable:false,
 			selectable: true,				// Is selectable
 
-			//Selection event
+			//Selection enhance
 			select: function (start, end, jsEvent, view) {
 				
 				//Variables
 				var sd = '';
 				var ed = '';
-				var url =  _options.dayClickUrl;
+				var url =  [location.protocol, '//', location.host, "/booked/Web/",_options.dayClickUrl].join('');
 				sd = getUrlFormattedDate(start);
 				ed = getUrlFormattedDate(end);
 				addToUrl = "&sd=" + sd + "&ed=" + ed;
-				//var url = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + addToUrl;
 				url = url + addToUrl;
 
 				//Checking the view.
 				var view = $('#calendar').fullCalendar('getView');
 				if (view.name.substr(0,6) == "agenda"){
-					//d = sd.substr(12,2).localeCompare(ed.substr(12,2));
-					//d = ed.substr(12,2) - sd.substr(12,2);
 					hourDifference = ed.slice(ed.lastIndexOf("%")+1,ed.lastIndexOf(":")) - sd.slice(sd.lastIndexOf("%")+1,sd.lastIndexOf(":"));
 					minDifference = sd.substr(15).localeCompare(ed.substr(15));
 					 
@@ -155,25 +130,7 @@ function Calendar(opts, reservations)
 					 
 					 //If it was a true selection, executes this code.
 					 else{
-						popup = new $.Popup({
-						modal:true
-						});
-						popup.open('http://localhost/booked/Web/'+url);
-						$('.popup_close').hide();
-						interval = setInterval(function(){
-						popup_status = sessionStorage.getItem("popup_status");
-						if(popup_status == "close"){
-							sessionStorage.setItem("popup_status", "none");
-							popup.close();
-							clearInterval(interval);
-						}
-						if(popup_status == "update"){
-							sessionStorage.setItem("popup_status", "none");
-							popup.close();
-							clearInterval(interval);
-							location.reload();
-						}
-						},100);
+						dragSelection(url);
 					}
 				}
 				
@@ -183,73 +140,31 @@ function Calendar(opts, reservations)
 			//eventDragStop: function(event, jsEvent, ui, view) {
 			eventDrop: function(event, dayDelta, minuteDelta, jsEvent, ui, view ){
 			
+			//Variables
 			var sd = '';
 			var ed = '';
 			var day = '';
 			
-			//sd = getUrlFormattedDate(event.start);
-			//ed = getUrlFormattedDate(event.end);
-			
-			var coeff = 1000 * 60 * 1;
-			
+			//Date generation
+			var coeff = 1000 * 60 * 1;			
 			sd = event.start.getTime() + minuteDelta*60;
-			//sd = new Date(sd);
 			sd = new Date(Math.round(sd / coeff) * coeff);
 			sd = getUrlFormattedDate(sd);
 			ed = event.end.getTime() + minuteDelta*60;
-			//ed = new Date(ed);
 			ed = new Date(Math.round(ed / coeff) * coeff);
 			ed = getUrlFormattedDate(ed);
 
 			if (dayDelta != 0){
-				//alert(sd.substr(sd.lastIndexOf("-")+1,2));
 				day = sd.substr(sd.lastIndexOf("-")+1,2);
 				if (day.indexOf("%") != -1){ day = "0"+day.substr(0,1)}
 			}
 			
-			//alert(sd.substr(sd.indexOf("%")+3));
-			sd = sd.substr(sd.indexOf("%")+3);
-			sd2 = sd.substr(sd.indexOf(":")+1);
-			if(sd.substr(0,1) != 1){
-				//alert(sd2.substr(0,1));
-				sd = "0"+sd;
-			}
-			if(sd2 == 0){
-				//alert(sd2.substr(0,1));
-				sd = sd+"0";
-			}
-			ed = ed.substr(ed.indexOf("%")+3);
-			ed2 = ed.substr(ed.indexOf(":")+1);
-			if(ed.substr(0,1) != 1){
-				//alert(ed2.substr(0,1));
-				ed = "0"+ed;
-			}
-			if(ed2 == 0){
-				//alert(ed2.substr(0,1));
-				ed = ed+"0";
-			}
-			
-			sd = sd+":00"
-			ed = ed+":00"
-			
-			var popup = new $.Popup({
-					modal:true,
-					backOpacity: 0
-					});
-					popup.open('http://localhost/booked/Web/'+event.refNumber);
-					$('.popup').hide();
-					sessionStorage.setItem("popup_status", "drag");
-					sessionStorage.setItem("start", sd);
-					sessionStorage.setItem("end", ed);
-					sessionStorage.setItem("day", day);
-					interval = setInterval(function(){
-						popup.close();
-						clearInterval(interval);
-						location.reload();	
-						},1000);				
+			//Execute
+			dragStop(event,sd,ed,day);
 			
 			return;
 			
+			/*Unused Code*/
 			//Variables
 			var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
 			var header = null;
@@ -339,15 +254,12 @@ function Calendar(opts, reservations)
 							 //if Success
 							 success: function(data) {
 								var type = viewGetter();
-								url = document.URL;
-								//$( "#dialog1" ).dialog('open');
-								window.location = url;
+								location.reload();
 							 }	//	(function) 	Update success
 						  });	//	(ajax) 		Update Reservation
 							}	// 	(if) 		Check Permissions
 							else{
-							url = document.URL;
-							window.location = url;}
+							location.reload();}
 							 }, //	(function) 	Get Reservation success
 						  });	// 	(ajax)		Get Reservation							
 						}		//	(if) 		Authentication

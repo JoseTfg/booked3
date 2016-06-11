@@ -246,6 +246,7 @@ interface IManageBlackoutsPage extends IPageable, IActionPage, IRepeatOptionsCom
 	public function SetWasBlackoutFound($wasFound);
 }
 
+//Class: Supports the blackout controller
 class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 {
 	/**
@@ -258,6 +259,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	 */
 	private $pageablePage;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('ManageBlackouts', 1);
@@ -273,11 +275,13 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		$this->pageablePage = new PageablePage($this);
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
 	}
 
+	//Loads page
 	public function ProcessPageLoad()
 	{
 		$userTimezone = $this->server->GetUserSession()->Timezone;
@@ -288,6 +292,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		$this->presenter->PageLoad($userTimezone);
 	}
 
+	//Displays page
 	public function ShowPage()
 	{
 		$this->Display('Admin/Blackouts/manage_blackouts.tpl');
@@ -298,6 +303,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		$this->Display('Admin/Blackouts/manage_blackouts_edit.tpl');
 	}
 
+	//Result of adding a blackout
 	public function ShowAddResult($wasAddedSuccessfully, $displayMessage, $conflictingReservations,
 								  $conflictingBlackouts, $timezone)
 	{
@@ -311,6 +317,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		$this->Display('Admin/Blackouts/manage_blackouts_response.tpl');
 	}
 
+	//Result of updating a blackout
 	public function ShowUpdateResult($wasAddedSuccessfully, $displayMessage, $conflictingReservations,
 								  $conflictingBlackouts, $timezone)
 	{
@@ -324,6 +331,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		$this->Display('Admin/Blackouts/manage_blackouts_response.tpl');
 	}
 
+	//Sends blackout information to Smarty page
 	public function BindBlackouts($blackouts)
 	{
 		$this->Set('blackouts', $blackouts);
@@ -332,6 +340,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets start date
 	public function GetStartDate()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::START_DATE);
@@ -340,6 +349,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets end date
 	public function GetEndDate()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::END_DATE);
@@ -349,6 +359,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	 * @param Date $date
 	 * @return void
 	 */
+	//Sets start date
 	public function SetStartDate($date)
 	{
 		$this->Set('StartDate', $date);
@@ -358,6 +369,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	 * @param Date $date
 	 * @return void
 	 */
+	//Sets end date
 	public function SetEndDate($date)
 	{
 		$this->Set('EndDate', $date);
@@ -366,6 +378,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets schedule identifier
 	public function GetScheduleId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::SCHEDULE_ID);
@@ -374,6 +387,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets resource identifier
 	public function GetResourceId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESOURCE_ID);
@@ -383,6 +397,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	 * @param int $scheduleId
 	 * @return void
 	 */
+	//Sets schedule identifier
 	public function SetScheduleId($scheduleId)
 	{
 		$this->Set('ScheduleId', $scheduleId);
@@ -392,16 +407,19 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	 * @param int $resourceId
 	 * @return void
 	 */
+	//Sets resource identifier
 	public function SetResourceId($resourceId)
 	{
 		$this->Set('ResourceId', $resourceId);
 	}
 
+	//Send schedule information to Smarty page
 	public function BindSchedules($schedules)
 	{
 		$this->Set('Schedules', $schedules);
 	}
 
+	//Sends resource information to Smarty page
 	public function BindResources($resources)
 	{
 		$this->Set('Resources', $resources);
@@ -410,6 +428,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets page number
 	function GetPageNumber()
 	{
 		return $this->pageablePage->GetPageNumber();
@@ -418,6 +437,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets page size
 	function GetPageSize()
 	{
 		return $this->pageablePage->GetPageSize();
@@ -427,6 +447,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	 * @param PageInfo $pageInfo
 	 * @return void
 	 */
+	//Sets pages info
 	function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->pageablePage->BindPageInfo($pageInfo);
@@ -435,6 +456,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets deleted blackout identifier
 	public function GetDeleteBlackoutId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::BLACKOUT_ID);
@@ -443,6 +465,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets serie
 	public function GetDeleteScope()
 	{
 		return $this->GetForm(FormKeys::SERIES_UPDATE_SCOPE);
@@ -451,6 +474,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return bool
 	 */
+	//Checks if it has to be applied to all scheduler
 	public function GetApplyBlackoutToAllResources()
 	{
 		$applyToSchedule = $this->GetForm(FormKeys::BLACKOUT_APPLY_TO_SCHEDULE);
@@ -460,6 +484,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets blackout scheudle identifier
 	public function GetBlackoutScheduleId()
 	{
 		return $this->GetForm(FormKeys::SCHEDULE_ID);
@@ -468,6 +493,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets blackout resource identifier
 	public function GetBlackoutResourceId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_ID);
@@ -476,6 +502,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets start date
 	public function GetBlackoutStartDate()
 	{
 		return $this->GetForm(FormKeys::BEGIN_DATE);
@@ -484,6 +511,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets start time
 	public function GetBlackoutStartTime()
 	{
 		return $this->GetForm(FormKeys::BEGIN_TIME);
@@ -492,6 +520,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets end date
 	public function GetBlackoutEndDate()
 	{
 		return $this->GetForm(FormKeys::END_DATE);
@@ -500,6 +529,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets end time
 	public function GetBlackoutEndTime()
 	{
 		return $this->GetForm(FormKeys::END_TIME);
@@ -508,6 +538,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return string
 	 */
+	//Gets title
 	public function GetBlackoutTitle()
 	{
 		return $this->GetForm(FormKeys::SUMMARY);
@@ -525,6 +556,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 	/**
 	 * @return int
 	 */
+	//Gets id
 	public function GetBlackoutId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::BLACKOUT_ID);
@@ -535,16 +567,19 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		// no-op
 	}
 
+	//Gets repetition type
 	public function GetRepeatType()
 	{
 		return $this->GetForm(FormKeys::REPEAT_OPTIONS);
 	}
 
+	//Gets repetition interval
 	public function GetRepeatInterval()
 	{
 		return $this->GetForm(FormKeys::REPEAT_EVERY);
 	}
 
+	//Get days of repetition
 	public function GetRepeatWeekdays()
 	{
 		$days = array();
@@ -594,16 +629,19 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		return $days;
 	}
 
+	//Gets monthly type repetition
 	public function GetRepeatMonthlyType()
 	{
 		return $this->GetForm(FormKeys::REPEAT_MONTHLY_TYPE);
 	}
 
+	//Gets termination date of repetition
 	public function GetRepeatTerminationDate()
 	{
 		return $this->GetForm(FormKeys::END_REPEAT_DATE);
 	}
 
+	//Gets serie
 	public function GetSeriesUpdateScope()
 	{
 		$scope = $this->GetForm(FormKeys::SERIES_UPDATE_SCOPE);
@@ -616,66 +654,79 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		return $scope;
 	}
 
+	//Sets blackout resources identifiers
 	public function SetBlackoutResources($blackoutResourceIds)
 	{
 		$this->Set('BlackoutResourceIds', $blackoutResourceIds);
 	}
 
+	//Sets title
 	public function SetTitle($title)
 	{
 		$this->Set('BlackoutTitle', $title);
 	}
 
+	//Sets recurrence type
 	public function SetRepeatType($repeatType)
 	{
 		$this->Set('RepeatType', $repeatType);
 	}
 
+	//Sets recurrence interval
 	public function SetRepeatInterval($repeatInterval)
 	{
 		$this->Set('RepeatInterval', $repeatInterval);
 	}
 
+	//Sets monthly type recurrence
 	public function SetRepeatMonthlyType($repeatMonthlyType)
 	{
 		$this->Set('RepeatMonthlyType', $repeatMonthlyType);
 	}
 
+	//Sets week days of recurrence
 	public function SetRepeatWeekdays($repeatWeekdays)
 	{
 		$this->Set('RepeatWeekdays', $repeatWeekdays);
 	}
 
+	//Sets termination date of recurrence
 	public function SetRepeatTerminationDate($repeatTerminationDate)
 	{
 		$this->Set('RepeatTerminationDate', $repeatTerminationDate);
 	}
 
+	//Sets blackout identifier
 	public function SetBlackoutId($blackoutId)
 	{
 		$this->Set('BlackoutId', $blackoutId);
 	}
 
+	//Marks as recurrent
 	public function SetIsRecurring($isRecurring)
 	{
 		$this->Set('IsRecurring', $isRecurring);
 	}
 
+	//Sets start date
 	public function SetBlackoutStartDate(Date $startDate)
 	{
 		$this->Set('BlackoutStartDate', $startDate);
 	}
 
+	//Sets end date
 	public function SetBlackoutEndDate(Date $endDate)
 	{
 		$this->Set('BlackoutEndDate', $endDate);
 	}
 
+	//¿?
 	public function SetWasBlackoutFound($wasFound)
 	{
 		$this->Set('WasBlackoutFound', $wasFound);
 	}
 
+	//Gets blackout resource identifiers
 	public function GetBlackoutResourceIds()
 	{
 		$resources = $this->GetForm(FormKeys::RESOURCE_ID);
@@ -694,6 +745,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		return $resources;
 	}
 
+	//Gets blackout identifier
 	public function GetUpdateBlackoutId()
 	{
 		return $this->GetForm(FormKeys::BLACKOUT_INSTANCE_ID);

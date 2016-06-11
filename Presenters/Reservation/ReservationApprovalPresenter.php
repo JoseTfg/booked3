@@ -25,6 +25,7 @@ interface IReservationApprovalPresenter
 	public function PageLoad();
 }
 
+//Class: Supports the reservation approval controller
 class ReservationApprovalPresenter implements IReservationApprovalPresenter
 {
 	/**
@@ -66,6 +67,7 @@ class ReservationApprovalPresenter implements IReservationApprovalPresenter
 		$this->userSession = $userSession;
 	}
 
+	//Approves
 	public function PageLoad()
 	{
 		$referenceNumber = $this->page->GetReferenceNumber();
@@ -75,7 +77,7 @@ class ReservationApprovalPresenter implements IReservationApprovalPresenter
 		$series = $this->persistenceService->LoadByReferenceNumber($referenceNumber);
 		if($this->authorization->CanApprove(new ReservationViewAdapter($series), $this->userSession))
 		{
-			$series->Approve($this->userSession);
+			$series->Approve($this->userSession);			
 			$this->handler->Handle($series, $this->page);
 		}
 	}

@@ -140,6 +140,7 @@ interface IReservationPage extends IPage
 	function SetAllowParticipantsToJoin($allowParticipation);
 }
 
+//Class: Supports the reservation pages
 abstract class ReservationPage extends Page implements IReservationPage
 {
 	protected $presenter;
@@ -153,6 +154,7 @@ abstract class ReservationPage extends Page implements IReservationPage
 	 */
 	protected $initializationFactory;
 
+	//Construct
 	public function __construct($title = null)
 	{
 		parent::__construct($title);
@@ -191,6 +193,7 @@ abstract class ReservationPage extends Page implements IReservationPage
 	 */
 	protected abstract function GetReservationAction();
 
+	//Process page load
 	public function PageLoad()
 	{
 		$this->presenter->PageLoad();
@@ -235,38 +238,45 @@ abstract class ReservationPage extends Page implements IReservationPage
 		$this->Display($this->GetTemplateName());
 	}
 
+	//Sends the periods to the Smarty page
 	public function BindPeriods($startPeriods, $endPeriods)
 	{
 		$this->Set('StartPeriods', $startPeriods);
 		$this->Set('EndPeriods', $endPeriods);
 	}
 
+	//Sends the available resources to the Smarty page
 	public function BindAvailableResources($resources)
 	{
 		$this->Set('AvailableResources', $resources);
 	}
 
+	//Unused
 	public function ShowAdditionalResources($shouldShow)
 	{
 		$this->Set('ShowAdditionalResources', $shouldShow);
 	}
 
+	//Unused
 	public function BindAvailableAccessories($accessories)
 	{
 		$this->Set('AvailableAccessories', $accessories);
 	}
 
+	//Unused
 	public function BindResourceGroups($groups)
 	{
 		$this->Set('ResourceGroupsAsJson', json_encode($groups->GetGroups()));
 	}
 
+	//Sets the start date of the reservation
 	public function SetSelectedStart(SchedulePeriod $selectedStart, Date $startDate)
 	{
 		$this->Set('SelectedStart', $selectedStart);
 		$this->Set('StartDate', $startDate);
 	}
 
+	//Sets the end date of the reservation
 	public function SetSelectedEnd(SchedulePeriod $selectedEnd, Date $endDate)
 	{
 		$this->Set('SelectedEnd', $selectedEnd);
@@ -277,6 +287,7 @@ abstract class ReservationPage extends Page implements IReservationPage
 	 * @param UserDto $user
 	 * @return void
 	 */
+	//Sets the reservation user
 	public function SetReservationUser(UserDto $user)
 	{
 		$this->Set('ReservationUserName', $user->FullName());
@@ -287,72 +298,86 @@ abstract class ReservationPage extends Page implements IReservationPage
 	 * @param $resource ResourceDto
 	 * @return void
 	 */
+	//Sets the reservation resource
 	public function SetReservationResource($resource)
 	{
 		$this->Set('ResourceName', $resource->Name);
 		$this->Set('ResourceId', $resource->Id);
 	}
 
+	//Unused
 	public function SetScheduleId($scheduleId)
 	{
 		$this->Set('ScheduleId', $scheduleId);
 	}
 
+	//Sets the recurrence end date
 	public function SetRepeatTerminationDate($repeatTerminationDate)
 	{
 		$this->Set('RepeatTerminationDate', $repeatTerminationDate);
 	}
 
+	//Unused
 	public function SetParticipants($participants)
 	{
 		$this->Set('Participants', $participants);
 	}
 
+	//Unused
 	public function SetInvitees($invitees)
 	{
 		$this->Set('Invitees', $invitees);
 	}
 
+	//Unused
 	public function SetAllowParticipantsToJoin($allowParticipantsToJoin)
 	{
 		$this->Set('AllowParticipantsToJoin', $allowParticipantsToJoin);
 	}
 
+	//Unused
 	public function SetAccessories($accessories)
 	{
 		$this->Set('Accessories', $accessories);
 	}
 
+	//Unused
 	public function SetAttachments($attachments)
 	{
 		$this->Set('Attachments', $attachments);
 	}
 
+	//Sets if user can be changed
 	public function SetCanChangeUser($canChangeUser)
 	{
 		$this->Set('CanChangeUser', $canChangeUser);
 	}
 
+	//Sets user details to show
 	public function ShowUserDetails($canShowUserDetails)
 	{
 		$this->Set('ShowUserDetails', $canShowUserDetails);
 	}
 
+	//Unused
 	public function SetShowParticipation($shouldShow)
 	{
 		$this->Set('ShowParticipation', $shouldShow);
 	}
 
+	//Sets reservation details to show
 	public function ShowReservationDetails($showReservationDetails)
 	{
 		$this->Set('ShowReservationDetails', $showReservationDetails);
 	}
 
+	//Unused
 	public function SetCustomAttributes($attributes)
 	{
 		$this->Set('Attributes', $attributes);
 	}
 
+	//Unused
 	public function HideRecurrence($isHidden)
 	{
 		$this->Set('HideRecurrence', $isHidden);

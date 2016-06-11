@@ -248,6 +248,7 @@ interface IManageReservationsPage extends IPageable, IActionPage
 	public function ShowAttribute(CustomAttribute $attribute, $attributeValue);
 }
 
+//Class: Supports the reservation management controller
 class ManageReservationsPage extends ActionPage implements IManageReservationsPage
 {
 	/**
@@ -260,6 +261,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 */
 	protected $pageablePage;
 
+	//Construct
 	public function __construct()
 	{
 	    parent::__construct('ManageReservations', 1);
@@ -277,11 +279,13 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 		$this->SetPageId('manage-reservations');
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		$this->presenter->ProcessAction();
 	}
 
+	//Process page load
 	public function ProcessPageLoad()
 	{
 		$userTimezone = $this->server->GetUserSession()->Timezone;
@@ -291,11 +295,13 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 		$this->presenter->PageLoad($userTimezone);
 	}
 
+	//Process data request
 	public function ProcessDataRequest($dataRequest)
 	{
 		$this->presenter->ProcessDataRequest($dataRequest);
 	}
 
+	//Display the smarty page
 	public function ShowPage()
 	{
 		$this->Display('Admin/Reservations/manage_reservations.tpl');
@@ -303,15 +309,17 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 
 	public function ShowCsv()
 	{
-		$this->DisplayCsv('Admin/Reservations/reservations_csv.tpl', 'reservations.csv');
+		//MyCode
+		// $this->DisplayCsv('Admin/Reservations/reservations_csv.tpl', 'reservations.csv');
 	}
 
+	//Sends the reservations information to the smarty page
 	public function BindReservations($reservations)
 	{
 		$this->Set('reservations', $reservations);
 	}
 
-
+	//Gets if filter button was pressed
 	public function FilterButtonPressed()
 	{
 		return count($_GET)>0;
@@ -320,6 +328,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets start date of a reservation
 	public function GetStartDate()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::START_DATE);
@@ -328,6 +337,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets end date of a reservation
 	public function GetEndDate()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::END_DATE);
@@ -337,6 +347,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param Date $date
 	 * @return void
 	 */
+	//Sets start date of a reservation
 	public function SetStartDate($date)
 	{
 		$this->Set('StartDate', $date);
@@ -346,6 +357,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param Date $date
 	 * @return void
 	 */
+	//Sets end date of a reservation
 	public function SetEndDate($date)
 	{
 		$this->Set('EndDate', $date);
@@ -354,6 +366,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets user identifier
 	public function GetUserId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::USER_ID);
@@ -362,6 +375,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets user name
 	public function GetUserName()
 	{
 		return $this->GetQuerystring(QueryStringKeys::USER_NAME);
@@ -370,6 +384,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets schedule identifier
 	public function GetScheduleId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::SCHEDULE_ID);
@@ -378,6 +393,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets resource identifier
 	public function GetResourceId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESOURCE_ID);
@@ -387,6 +403,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param int $userId
 	 * @return void
 	 */
+	//Sets user identifier
 	public function SetUserId($userId)
 	{
 		$this->Set('UserIdFilter', $userId);
@@ -396,6 +413,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param string $userName
 	 * @return void
 	 */
+	//Sets user name
 	public function SetUserName($userName)
 	{
 		$this->Set('UserNameFilter', $userName);
@@ -405,6 +423,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param int $scheduleId
 	 * @return void
 	 */
+	//Sets schedule identifier
 	public function SetScheduleId($scheduleId)
 	{
 		$this->Set('ScheduleId', $scheduleId);
@@ -414,16 +433,19 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param int $resourceId
 	 * @return void
 	 */
+	//Sets resource identifier
 	public function SetResourceId($resourceId)
 	{
 		$this->Set('ResourceId', $resourceId);
 	}
 
+	//Sends the schedules information to the smarty page
 	public function BindSchedules($schedules)
 	{
 		$this->Set('Schedules', $schedules);
 	}
 
+	//Sends the resource information to the smarty page
 	public function BindResources($resources)
 	{
 		$this->Set('Resources', $resources);
@@ -432,6 +454,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets a reservation by its reference number
 	public function GetReferenceNumber()
 	{
 		return $this->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER);
@@ -441,6 +464,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param string $referenceNumber
 	 * @return void
 	 */
+	//Sends the reference number to the smarty page
 	public function SetReferenceNumber($referenceNumber)
 	{
 		$this->Set('ReferenceNumber', $referenceNumber);
@@ -449,6 +473,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets page number
 	function GetPageNumber()
 	{
 		return $this->pageablePage->GetPageNumber();
@@ -457,6 +482,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets page size
 	function GetPageSize()
 	{
 		return $this->pageablePage->GetPageSize();
@@ -466,6 +492,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param PageInfo $pageInfo
 	 * @return void
 	 */
+	//Sends page information to the smarty page
 	function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->pageablePage->BindPageInfo($pageInfo);
@@ -474,6 +501,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetDeleteReferenceNumber()
 	{
 		return $this->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER);
@@ -482,6 +510,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets scope of the reservation
 	public function GetDeleteScope()
 	{
 		return $this->GetForm(FormKeys::SERIES_UPDATE_SCOPE);
@@ -490,6 +519,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets reservation status identifier
 	public function GetReservationStatusId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESERVATION_STATUS_ID);
@@ -499,6 +529,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	 * @param $reservationStatusId int
 	 * @return void
 	 */
+	//Sends the reservation status identifier to the smarty page
 	public function SetReservationStatusId($reservationStatusId)
 	{
 		$this->Set('ReservationStatusId', $reservationStatusId);
@@ -507,6 +538,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetApproveReferenceNumber()
 	{
 		return $this->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER);
@@ -515,6 +547,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets the format
 	public function GetFormat()
 	{
 		return $this->GetQuerystring(QueryStringKeys::FORMAT);
@@ -523,6 +556,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @param $attributeList IEntityAttributeList
 	 */
+	//Sends attribute to the smarty page
 	public function SetAttributes($attributeList)
 	{
 		$this->Set('AttributeList', $attributeList);
@@ -531,6 +565,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @param $statusReasons ResourceStatusReason[]
 	 */
+	//Sends status reasons to the smarty page
 	public function BindResourceStatuses($statusReasons)
 	{
 		$this->Set('StatusReasons', $statusReasons);
@@ -539,6 +574,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets resource status identifier
 	public function GetResourceStatus()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_ID);
@@ -547,6 +583,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets resource status reason
 	public function GetResourceStatusReason()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_REASON_ID);
@@ -555,6 +592,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//¿?
 	public function GetResourceStatusReferenceNumber()
 	{
 		return $this->GetForm(FormKeys::REFERENCE_NUMBER);
@@ -563,6 +601,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return string
 	 */
+	//Gets the update scope
 	public function GetUpdateScope()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_UPDATE_SCOPE);
@@ -571,6 +610,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets update resource identifier
 	public function GetUpdateResourceId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_ID);
@@ -579,6 +619,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @param int $statusId
 	 */
+	//Sends the resource status filter identifier to the smarty page
 	public function SetResourceStatusFilterId($statusId)
 	{
 		$this->Set('ResourceStatusFilterId', $statusId);
@@ -587,6 +628,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @param int $reasonId
 	 */
+	//Sends the resource status reason to the smarty page
 	public function SetResourceStatusReasonFilterId($reasonId)
 	{
 		$this->Set('ResourceStatusReasonFilterId', $reasonId);
@@ -595,6 +637,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets resource status filter identifier
 	public function GetResourceStatusFilterId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESERVATION_RESOURCE_STATUS_ID);
@@ -603,42 +646,50 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @return int
 	 */
+	//Gets resource status reason filter
 	public function GetResourceStatusReasonFilterId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESERVATION_RESOURCE_REASON_ID);
 	}
 
+	//Sets permission to update
 	public function SetCanUpdateResourceStatus($canUpdate)
 	{
 		$this->Set('CanUpdateResourceStatus', $canUpdate);
 
 	}
 
+	//Gets permission to update
 	public function CanUpdateResourceStatuses()
 	{
 		return $this->GetVar('CanUpdateResourceStatus');
 	}
 
+	//Gets attribute filter
 	public function GetAttributeFilters()
 	{
 		return AttributeFormParser::GetAttributes($this->GetQuerystring(FormKeys::ATTRIBUTE_PREFIX));
 	}
 
+	//Sends the attribute filter information to the smarty page
 	public function SetAttributeFilters($filters)
 	{
 		$this->Set('AttributeFilters', $filters);
 	}
 
+	//Sets reservation attributes
 	public function SetReservationAttributes($reservationAttributes)
 	{
 		$this->Set('ReservationAttributes', $reservationAttributes);
 	}
 
+	//Sets reservation json
 	public function SetReservationJson($reservation)
 	{
 		$this->SetJson($reservation);
 	}
 
+	//Gets attrbiutes identifier
 	public function GetAttributeId()
 	{
 		$queryStringValue = $this->GetQuerystring(QueryStringKeys::ATTRIBUTE_ID);
@@ -649,6 +700,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 		return $this->GetForm(FormKeys::ATTRIBUTE_ID);
 	}
 
+	//Gets attrbiutes value
 	public function GetAttributeValue()
 	{
 		return $this->GetForm(FormKeys::ATTRIBUTE_VALUE);
@@ -657,16 +709,19 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	/**
 	 * @param string[] $errors
 	 */
+	//Cals the setjson to bind errors
 	public function BindAttributeUpdateErrors($errors)
 	{
 		$this->SetJson(null, $errors);
 	}
 
+	//Sets page identifier
 	protected function SetPageId($pageId)
 	{
 		$this->Set('PageId', $pageId);
 	}
 
+	//Displays the attributes
 	public function ShowAttribute(CustomAttribute $attribute, $attributeValue)
 	{
 		$this->smarty->DisplayControl(array('type'=>'AttributeControl', 'attribute' => new Attribute($attribute, $attributeValue)), $this->smarty);

@@ -19,30 +19,30 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {include file='globalheader.tpl' cssFiles='css/admin.css,scripts/css/colorpicker.css'}
 
 <h1>{translate key=ManageUsers}{* {html_image src="question-button.png" id="help-prompt" ref="help-users"}*}</h1>
-<div style="position:relative;left:15%;">
+<div>
 <table class="list userList" id="userTable">
 	<thead>
 	<tr>
-		<th class="id">&nbsp;</th>
-		<th>{translate key='Name'}</th>
+		<th class="id">&nbsp;</th>		
 		<th>{translate key='Username'}</th>
+		<th>{translate key='Name'}</th>
 		<th>{translate key='Email'}</th>
 		{*<th>{translate key='Phone'}</th>*}
 		{*<th>{translate key='Organization'}</th>*}
 		{*<th>{translate key='Position'}</th>*}
 		{*<th>{translate key='Created'}</th>*}
-		<th>{translate key='LastLogin'}</th>
-		<th>{translate key='Timezone'}</th>
-		<th>{translate key='Language'}</th>
-		<th>{translate key='Status'}</th>
-		<th>{translate key='Permissions'}</th>
-		<th>{translate key='Groups'}</th>
-		<th>{translate key='Reservations'}</th>
+		{*<th>{translate key='LastLogin'}</th>*}
+		{*<th>{translate key='Timezone'}</th>*}
+		{*<th>{translate key='Language'}</th>*}
+		<td class="action">{translate key='Status'}</th>
+		<td class="action">{translate key='Permissions'}</th>
+		<td class="action">{translate key='Groups'}</th>
+		{*<th>{translate key='Reservations'}</th>*}
 		{*<th>{translate key='Password'}</th>*}
 		{if $PerUserColors}
 			<th>{translate key='Color'}</th>
 		{/if}
-		<th>{translate key='Delete'}</th>
+		{*<td class="action">{translate key='Delete'}</th>*}
 	</tr>
 	</thead>
 	<tbody>
@@ -51,20 +51,24 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{assign var=id value=$user->Id}
 		<tr class="{$rowCss} editable">
 			<td class="id" align="center"><input type="hidden" class="id" value="{$id}"/></td>
-			<td align="center">{fullname first=$user->First last=$user->Last ignorePrivacy="true"}</td>
-			<td align="center">{$user->Username}</td>
+			<td id="{$id}" align="center">{$user->Username}</td>
+			<td align="center">{fullname first=$user->First last=$user->Last ignorePrivacy="true"}</td>			
 			<td align="center"><a href="mailto:{$user->Email}">{$user->Email}</a></td>
 			{*<td>{$user->Phone}</td>*}
 			{*<td>{$user->Organization}</td>*}
 			{*<td>{$user->Position}</td>*}
 			{*<td>{$user->DateCreated}</td>*}
-			<td align="center">{$user->LastLogin}</td>
-			<td align="center">{$user->Timezone}</td>
-			<td align="center">{$user->Language}</td>
-			<td align="center"><a href="#" class="update changeStatus">{$statusDescriptions[$user->StatusId]}</a></td>
-			<td align="center"><a href="#" class="update changePermissions">{translate key='Edit'}</a></td>
-			<td align="center"><a href="#" class="update changeGroups">{translate key='Edit'}</a></td>
-			<td align="center"><a href="#" class="update viewReservations">{translate key='Search'}</a></td>
+			{*<td align="center">{$user->LastLogin}</td>*}
+			{*<td align="center">{$user->Timezone}</td>*}
+			{*<td align="center">{$user->Language}</td>*}
+			<td align="center"><a href="#" class="update changeStatus">
+			{if {$statusDescriptions[$user->StatusId]} == {translate key='Active'}} {html_image src='tick-circle.png'}
+			{else} {html_image src='slash.png'}
+			{/if}
+			</a></td>
+			<td align="center"><a href="#" class="update changePermissions">{html_image src='my_edit.png'}</a></td>
+			<td align="center"><a href="#" class="update changeGroups">{html_image src='my_edit.png'}</a></td>
+			{*<td align="center"><a href="#" class="update viewReservations">{translate key='Search'}</a></td>*}
 			{*<td align="center"><a href="#" class="update resetPassword">{translate key='Reset'}</a></td>*}
 			{if $PerUserColors}
 				<td align="center">
@@ -74,7 +78,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{/if}
 				</td>
 			{/if}
-			<td align="center"><a href="#" class="update delete">{html_image src="cross-button.png"}</a></td>
+			{*<td align="center"><a href="#" class="update delete">{html_image src="cross-button.png"}</a></td>*}
 		</tr>
 		{assign var=attributes value=$AttributeList}
 		{if $attributes|count > 0}
@@ -118,26 +122,33 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</tbody>
 </table>
 
-{pagination pageInfo=$PageInfo}
-</div>
-
-<div style="padding: 10px 0px; float:right;">
+{*
+<div style="padding: 10px 40px; float:right;">
 	<table>
-		<tr>
+		<tr>			
 			<td><label for="userSearch">{translate key=FindUser}:</label></td>
-			<td><input type="text" id="userSearch" class="textbox"
-			{*<td><label for="filterStatusId">{translate key=Status}:</label></td>*}
+			<td><input type="text" placeholder="{translate key=FindUser}" id="userSearch" class="textbox"
+			<td><button type="button" class="button save" onclick="reset();">{html_image src="reset.png"} {translate key='Reset'}</button></td>
+			{<td><label for="filterStatusId">{translate key=Status}:</label></td>
 		</tr>
-		{*<tr>
+		<tr>
 			
 					   size="40"/> {html_link href=$smarty.server.SCRIPT_NAME key=AllUsers}</td>
 			<td><select id="filterStatusId" class="textbox">
 					{html_options selected=$FilterStatusId options=$statusDescriptions}
 				</select></td>
-		</tr>*}
+		</tr>
 
 	</table>
 </div>
+*}
+<div style="text-align:center;">
+{pagination pageInfo=$PageInfo}
+</div>
+</div>
+
+<button type="button" style="float:right;" class="button save" onclick="reset();">{html_image src="reset.png"}{translate key='Reset'}</button>
+<input type="text" style="float:right;" placeholder="{translate key=FindUser}" id="userSearch" class="textbox">
 
 <div class="admin" style="margin-top:30px;display:none;">
 	<div class="title">
@@ -279,7 +290,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/foreach}
 		<div class="admin-update-buttons">
 			<button type="button" class="button save" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-			<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>
+			{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 		</div>
 	</form>
 </div>
@@ -347,12 +358,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 		<div class="admin-update-buttons">
 			<button type="button" class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+			{*<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
 		</div>
 	</form>
 </div>
 
-<div id="groupsDialog" class="dialog" title="{translate key=Groups}">
+<div id="groupsDialog" class="dialog" style="background-color:#FFCC99;" title="{translate key=Groups}">
 	<div id="allUsers" style="display:none;" class="dialog" title="{translate key=AllUsers}"></div>
 
 	<div id="groupList" class="hidden">
@@ -391,13 +402,19 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {csrf_token}
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
 
+{*Imports*}
 {jsfile src="admin/edit.js"}
 {jsfile src="autocomplete.js"}
 {jsfile src="admin/user.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
 {jsfile src="js/colorpicker.js"}
-{jsfile src="admin/help.js"}
+{*{jsfile src="admin/help.js"}*}
 
+{*Enhance*}
+{jsfile src="TableSorter/jquery.tablesorter.js"}
+{jsfile src="enhancement/userEnhance.js"}
+
+{*Code*}
 <script type="text/javascript">
 	$(document).ready(function () {
 		var actions = {
@@ -448,11 +465,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			}
 		});
 		
-		$("#userTable").tablesorter();	
+		sorting();
 
 	});
 </script>
 {include file='globalfooter.tpl'}
-
-{jsfile src="TableSorter/jquery.tablesorter.js"}
-<link rel="stylesheet" href="../css/table_sorter.css">

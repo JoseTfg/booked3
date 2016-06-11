@@ -1,3 +1,4 @@
+//Resource Management
 function ResourceManagement(opts) {
 	var options = opts;
 
@@ -64,12 +65,16 @@ function ResourceManagement(opts) {
 		removeGroupForm: $('#removeGroupForm'),
 		browseGroupDialog: $('#allGroups'),
 		browseGroupsButton: $('#browseGroups'),
-		resourceGroupList:$('#resourceGroupList')
+		resourceGroupList:$('#resourceGroupList'),
+		
+		//MyCode
+		addDialog:$('#addDialog')
 	};
 
 	var resources = {};
 	var reasons = [];
 
+	//Initialization
 	ResourceManagement.prototype.init = function () {
 		$(".days").watermark('days');
 		$(".hours").watermark('hrs');
@@ -83,7 +88,7 @@ function ResourceManagement(opts) {
 		ConfigureAdminDialog(elements.notesDialog);
 		ConfigureAdminDialog(elements.deleteDialog);
 		ConfigureAdminDialog(elements.configurationDialog);
-		ConfigureAdminDialog(elements.groupAdminDialog);
+		ConfigureAdminDialog(elements.groupAdminDialog, 380, 120);
 		ConfigureAdminDialog(elements.sortOrderDialog);
 		ConfigureAdminDialog(elements.resourceTypeDialog);
 		ConfigureAdminDialog(elements.statusDialog);
@@ -91,7 +96,10 @@ function ResourceManagement(opts) {
 		ConfigureAdminDialog(elements.browseUserDialog);
 		ConfigureAdminDialog(elements.groupDialog);
 		ConfigureAdminDialog(elements.browseGroupDialog);
-
+		
+		//MyCode
+		ConfigureAdminDialog(elements.addDialog,380, 180);
+		
 		$('.resourceDetails').each(function () {
 			var id = $(this).find(':hidden.id').val();
 			var indicator = $('.indicator');
@@ -179,6 +187,10 @@ function ResourceManagement(opts) {
 				changeGroups();
 			});
 		});
+		
+		$('#addButton').click(function(e) {
+			addResource();
+		});		
 
 		$(".save").click(function () {
 			$(this).closest('form').submit();
@@ -352,10 +364,12 @@ function ResourceManagement(opts) {
 		ConfigureAdminForm(elements.statusForm, defaultSubmitCallback(elements.statusForm));
 	};
 
+	//Add resource
 	ResourceManagement.prototype.add = function (resource) {
 		resources[resource.id] = resource;
 	};
 
+	//Unused
 	ResourceManagement.prototype.addStatusReason = function (id, statusId, description) {
 		if (!(statusId in reasons))
 		{
@@ -365,28 +379,33 @@ function ResourceManagement(opts) {
 		reasons[statusId].push({id:id,description:description});
 	};
 
+	//Initializes the filter
 	ResourceManagement.prototype.initializeStatusFilter = function (statusId, reasonId)	{
 		elements.statusOptionsFilter.val(statusId);
 		elements.statusOptionsFilter.trigger('change');
 		elements.statusReasonsFilter.val(reasonId);
 	};
 
+	//Gets callback
 	var getSubmitCallback = function (action) {
 		return function () {
 			return options.submitUrl + "?rid=" + getActiveResourceId() + "&action=" + action;
 		};
 	};
 
+	//Sets default callback
 	var defaultSubmitCallback = function (form) {
 		return function () {
 			return options.submitUrl + "?action=" + form.attr('ajaxAction') + '&rid=' + getActiveResourceId();
 		};
 	};
 
+	//Sets active resource identifier
 	var setActiveResourceId = function (scheduleId) {
 		elements.activeId.val(scheduleId);
 	};
 
+	//Gets active resource identifier
 	var getActiveResourceId = function () {
 		return elements.activeId.val();
 	};
@@ -395,55 +414,72 @@ function ResourceManagement(opts) {
 		return resources[getActiveResourceId()];
 	};
 
-	var showChangeImage = function (e) {
-		elements.imageDialog.dialog("open");
-		elements.imageDialog.dialog( "option", "resizable", false ); /*MyCode*/
+	//MyCode
+	var addResource = function (e) {
+		elements.addDialog.dialog("open");
+		elements.addDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Open dialog for resource rename
 	var showRename = function (e) {
 		$('#editName').val(getActiveResource().name);
 		elements.renameDialog.dialog("open");
 		elements.renameDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Open dialog for image change
+	var showChangeImage = function (e) {
+		elements.imageDialog.dialog("open");
+		elements.imageDialog.dialog( "option", "resizable", false ); /*MyCode*/
+	};
+	
+	//Unused
 	var showScheduleMove = function (e) {
 		$('#editSchedule').val(getActiveResource().scheduleId);
 		elements.scheduleDialog.dialog("open");
 	};
 
+	//Unused
 	var showResourceType = function (e) {
 		$('#editResourceType').val(getActiveResource().resourceTypeId);
 		elements.resourceTypeDialog.dialog("open");
 	};
 
+	//Open dialog to change location
 	var showChangeLocation = function (e) {
 		$('#editLocation').val(getActiveResource().location);
 		$('#editContact').val(getActiveResource().contact);
 		elements.locationDialog.dialog("open");
+		elements.locationDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Open dialog to change description
 	var showChangeDescription = function (e) {
 		$('#editDescription').val(HtmlDecode(getActiveResource().description));
 		elements.descriptionDialog.dialog("open");
 		elements.descriptionDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Unused
 	var showChangeNotes = function (e) {
 		$('#editNotes').val(HtmlDecode(getActiveResource().notes));
 		elements.notesDialog.dialog("open");
 	};
 
+	//Open dialog to change resource admin
 	var showResourceAdmin = function (e) {
 		$('#adminGroupId').val(getActiveResource().adminGroupId);
 		elements.groupAdminDialog.dialog("open");
 		elements.groupAdminDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Open dialog for delete
 	var showDeletePrompt = function (e) {
 		elements.deleteDialog.dialog("open");
 		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Open advanced configuration dialog
 	var showConfigurationPrompt = function (e) {
 
 		wireUpIntervalToggle(elements.configurationDialog);
@@ -479,11 +515,13 @@ function ResourceManagement(opts) {
 		elements.configurationDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Unused
 	var showSortPrompt = function (e) {
 		$('#editSortOrder').val(getActiveResource().sortOrder);
 		elements.sortOrderDialog.dialog("open");
 	};
 
+	//Unused
 	var showStatusPrompt = function (e) {
 		var resource = getActiveResource();
 		elements.statusOptions.val(resource.statusId);
@@ -496,6 +534,7 @@ function ResourceManagement(opts) {
 		elements.statusDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Unused
 	function populateReasonOptions(statusId, reasonsElement){
 		reasonsElement.empty().append($('<option>', {value:'', text:'-'}));
 
@@ -510,6 +549,7 @@ function ResourceManagement(opts) {
 		}
 	}
 
+	//Unused
 	function setDaysHoursMinutes(elementPrefix, interval, attributeCheckbox) {
 		$(elementPrefix + 'Days').val(interval.days);
 		$(elementPrefix + 'Hours').val(interval.hours);
@@ -517,6 +557,7 @@ function ResourceManagement(opts) {
 		showHideConfiguration(interval.value, $(elementPrefix), attributeCheckbox);
 	}
 
+	//Unused
 	function showHideConfiguration(attributeValue, attributeDisplayElement, attributeCheckbox) {
 		attributeDisplayElement.val(attributeValue);
 		var id = attributeCheckbox.attr('id');
@@ -532,6 +573,7 @@ function ResourceManagement(opts) {
 		}
 	}
 
+	//Unused
 	function wireUpIntervalToggle(container) {
 		container.find(':checkbox').change(function ()
 		{
@@ -550,14 +592,17 @@ function ResourceManagement(opts) {
 		});
 	}
 
+	//Filter resources
 	function filterResources() {
 		window.location = document.location.pathname + '?' + $('#filterForm').serialize();
 	}
 
+	//Handle error
 	var handleAddError = function (result) {
 		$('#addResourceResults').text(result).show();
 	};
 
+	//Change users permissions
 	var changeUsers = function() {
 		var resourceId = getActiveResourceId();
 		$.getJSON(opts.permissionsUrl + '?dr=users', {rid: resourceId}, function(data) {
@@ -582,11 +627,13 @@ function ResourceManagement(opts) {
 		});
 	};
 
+	//Adds user permision
 	var addUserPermission = function(userId) {
 		$('#addUserId').val(userId);
 		elements.addUserForm.submit();
 	};
 
+	//Removes user permission
 	var removeUserPermission = function(element, userId) {
 		$('#removeUserId').val(userId);
 		elements.removeUserForm.submit();
@@ -594,6 +641,7 @@ function ResourceManagement(opts) {
 
 	var allUserList;
 
+	//Shows all users
 	var showAllUsersToAdd = function() {
 		elements.browseUserDialog.empty();
 
@@ -627,6 +675,7 @@ function ResourceManagement(opts) {
 		elements.browseDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Change group permission
 	var changeGroups = function() {
 		var resourceId = getActiveResourceId();
 		$.getJSON(opts.permissionsUrl + '?dr=groups', {rid: resourceId}, function(data) {
@@ -651,11 +700,13 @@ function ResourceManagement(opts) {
 		});
 	};
 
+	//Adds group permission
 	var addGroupPermission = function(group) {
 		$('#addGroupId').val(group);
 		elements.addGroupForm.submit();
 	};
 
+	//Removes group permission
 	var removeGroupPermission = function(element, groupId) {
 		$('#removeGroupId').val(groupId);
 		elements.removeGroupForm.submit();
@@ -663,6 +714,7 @@ function ResourceManagement(opts) {
 
 	var allGroupList;
 
+	//Show all groups
 	var showAllGroupsToAdd = function() {
 		elements.browseGroupDialog.empty();
 

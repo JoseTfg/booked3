@@ -53,8 +53,10 @@ interface IReservationPresenterFactory
 	public function Approve(IReservationApprovalPage $approvePage, UserSession $userSession);
 }
 
+//Class: Supports the factory of the reservations controllers
 class ReservationPresenterFactory implements IReservationPresenterFactory
 {
+	//Creates reservations
 	public function Create(IReservationSavePage $savePage, UserSession $userSession)
 	{
 		$persistenceFactory = new ReservationPersistenceFactory();
@@ -67,6 +69,7 @@ class ReservationPresenterFactory implements IReservationPresenterFactory
 		return new ReservationSavePresenter($savePage, $persistenceFactory->Create($reservationAction), $handler, $resourceRepository, $userSession);
 	}
 
+	//Updates reservations
 	public function Update(IReservationUpdatePage $updatePage, UserSession $userSession)
 	{
 		$persistenceFactory = new ReservationPersistenceFactory();
@@ -79,6 +82,7 @@ class ReservationPresenterFactory implements IReservationPresenterFactory
 		return new ReservationUpdatePresenter($updatePage, $persistenceFactory->Create($reservationAction), $handler, $resourceRepository, $userSession);
 	}
 
+	//Deletes reservations
 	public function Delete(IReservationDeletePage $deletePage, UserSession $userSession)
 	{
 		$persistenceFactory = new ReservationPersistenceFactory();
@@ -99,6 +103,7 @@ class ReservationPresenterFactory implements IReservationPresenterFactory
 	 * @param UserSession $userSession
 	 * @return ReservationApprovalPresenter
 	 */
+	//Approves reservations
 	public function Approve(IReservationApprovalPage $approvePage, UserSession $userSession)
 	{
 		$persistenceFactory = new ReservationPersistenceFactory();

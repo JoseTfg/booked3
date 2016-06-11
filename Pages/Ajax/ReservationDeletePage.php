@@ -35,6 +35,7 @@ interface IReservationDeletePage extends IReservationSaveResultsView
 	public function GetSeriesUpdateScope();
 }
 
+//Class: Supports the delete reservation controller
 class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 {
 	/**
@@ -55,6 +56,7 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 		$this->presenter = $factory->Delete($this, ServiceLocator::GetServer()->GetUserSession());
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		try
@@ -65,14 +67,11 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 
 			if ($this->reservationSavedSuccessfully)
 			{
-				//MyCode  (29/3/1026)
+				//MyCode  (29/3/2016)
 				//Returns directly without sending any message.				
 				//$this->Display('Ajax/reservation/delete_successful.tpl');				
-				$returnPage = $_SESSION['returnPage'];
-				echo "<script type=\"text/javascript\">
-				//window.location = '$returnPage';
-				sessionStorage.setItem('popup_status', 'update');
-				</script>";  
+				//$returnPage = $_SESSION['returnPage'];
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";  
 			}
 			else
 			{
@@ -85,11 +84,13 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 		}
 	}
 
+	//Sends success message
 	public function SetSaveSuccessfulMessage($succeeded)
 	{
 		$this->reservationSavedSuccessfully = $succeeded;
 	}
 
+	//Sends error messages
 	public function SetErrors($errors)
 	{
 		$this->Set('Errors', $errors);
@@ -100,6 +101,7 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 		// set warnings variable
 	}
 
+	//Gets reference number
 	public function GetReferenceNumber()
 	{
 		return $this->GetForm(FormKeys::REFERENCE_NUMBER);
@@ -111,6 +113,7 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 	}
 }
 
+//Class: Supports tje JSON requests and responses
 class ReservationDeleteJsonPage extends ReservationDeletePage implements IReservationDeletePage
 {
 	public function __construct()
@@ -118,6 +121,7 @@ class ReservationDeleteJsonPage extends ReservationDeletePage implements IReserv
 		parent::__construct();
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		$reservation = $this->presenter->BuildReservation();
@@ -127,6 +131,7 @@ class ReservationDeleteJsonPage extends ReservationDeletePage implements IReserv
 	/**
 	 * @param bool $succeeded
 	 */
+	//Sends success message
 	public function SetSaveSuccessfulMessage($succeeded)
 	{
 		if ($succeeded)
@@ -135,6 +140,7 @@ class ReservationDeleteJsonPage extends ReservationDeletePage implements IReserv
 		}
 	}
 
+	//Sends error messages
 	public function SetErrors($errors)
 	{
 		if (!empty($errors))

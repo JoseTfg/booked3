@@ -50,6 +50,7 @@ abstract class OwnerEmailNotification implements IReservationNotification
 	public function Notify($reservation)
 	{
 		$owner = $this->_userRepo->LoadById($reservation->UserId());
+		//MyCode
 		if ($this->ShouldSend($owner))
 		{
 			$message = $this->GetMessage($owner, $reservation, $this->_attributeRepo);
@@ -81,7 +82,9 @@ class OwnerEmailCreatedNotification extends OwnerEmailNotification
 {
 	protected function ShouldSend(User $owner)
 	{
-		return $owner->WantsEventEmail(new ReservationCreatedEvent());
+		//MyCode
+		//return $owner->WantsEventEmail(new ReservationCreatedEvent());
+		return false;
 	}
 
 	protected function GetMessage(User $owner, ReservationSeries $reservation, IAttributeRepository $attributeRepository)
@@ -94,7 +97,9 @@ class OwnerEmailUpdatedNotification extends OwnerEmailNotification
 {
 	protected function ShouldSend(User $owner)
 	{
-		return $owner->WantsEventEmail(new ReservationUpdatedEvent());
+		//MyCode
+		//return $owner->WantsEventEmail(new ReservationUpdatedEvent());
+		return false;
 	}
 
 	protected function GetMessage(User $owner, ReservationSeries $reservation, IAttributeRepository $attributeRepository)
@@ -128,7 +133,9 @@ class OwnerEmailDeletedNotification extends OwnerEmailNotification
      */
     protected function ShouldSend(User $owner)
     {
-        return $owner->WantsEventEmail(new ReservationDeletedEvent());
+		//MyCode
+        //return $owner->WantsEventEmail(new ReservationDeletedEvent());
+		return false;
     }
 
     protected function GetMessage(User $owner, ReservationSeries $reservation, IAttributeRepository $attributeRepository)

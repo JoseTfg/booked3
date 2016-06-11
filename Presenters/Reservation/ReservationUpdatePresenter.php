@@ -33,6 +33,7 @@ interface IReservationUpdatePresenter
 	public function HandleReservation($reservationSeries);
 }
 
+//Class: Supports the reservations update controller
 class ReservationUpdatePresenter implements IReservationUpdatePresenter
 {
 	/**
@@ -55,6 +56,7 @@ class ReservationUpdatePresenter implements IReservationUpdatePresenter
 	 */
 	private $resourceRepository;
 
+	//Construct
 	public function __construct(
 		IReservationUpdatePage $page,
 		IUpdateReservationPersistenceService $persistenceService,
@@ -72,6 +74,7 @@ class ReservationUpdatePresenter implements IReservationUpdatePresenter
 	/**
 	 * @return ExistingReservationSeries
 	 */
+	//Updates the reservation
 	public function BuildReservation()
 	{
 		$referenceNumber = $this->page->GetReferenceNumber();
@@ -166,6 +169,7 @@ class ReservationUpdatePresenter implements IReservationUpdatePresenter
 	/**
 	 * @param ExistingReservationSeries $reservationSeries
 	 */
+	//Handles the result
 	public function HandleReservation($reservationSeries)
 	{
 		$successfullySaved = $this->handler->Handle($reservationSeries, $this->page);
@@ -180,6 +184,7 @@ class ReservationUpdatePresenter implements IReservationUpdatePresenter
 	/**
 	 * @return DateRange
 	 */
+	//Gets reservation range
 	private function GetReservationDuration()
 	{
 		$startDate = $this->page->GetStartDate();
@@ -191,6 +196,7 @@ class ReservationUpdatePresenter implements IReservationUpdatePresenter
 		return DateRange::Create($startDate . ' ' . $startTime, $endDate . ' ' . $endTime, $timezone);
 	}
 
+	//Unused
 	private function GetAccessories()
 	{
 		$accessories = array();
@@ -205,6 +211,7 @@ class ReservationUpdatePresenter implements IReservationUpdatePresenter
 	/**
 	 * @return AttributeValue[]
 	 */
+	//Unused
 	private function GetAttributes()
 	{
 		$attributes = array();

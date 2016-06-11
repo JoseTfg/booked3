@@ -33,18 +33,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="reservationDetails">
     <ul class="no-style">
-
-            <a id="userName" data-userid="{$UserId}"></a> <input id="userId"
-                                                                     type="hidden" {formname key=USER_ID}
-                                                                     value="{$UserId}"/>
-		{if $CanChangeUser}
-            <button id="promptForChangeUsers" type="button" class="button" style="display:inline">
+	
+	{if $CanChangeUser}
+            <button id="promptForChangeUsers" type="button" class="button" style="display:inline;">
                 {html_image src="users.png"}
 			{*{translate key='ChangeUser'}*}
             </button>
 
             <div id="changeUserDialog" title="{translate key=ChangeUser}" class="dialog"></div>
 		{/if}
+
+            <a id="userName" data-userid="{$UserId}"></a> <input id="userId"
+                                                                     type="hidden" {formname key=USER_ID}
+                                                                     value="{$UserId}"/>
+		
 
        {* <li style="display:none;" id="changeUsers">
             <input type="text" id="changeUserAutocomplete" class="input" style="width:250px;"/>
@@ -58,14 +60,22 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     <ul class="no-style" style="text-align: center">
         <li class="inline">
 			
-		<label for="calendarFilter"></label>
-		<select id="calendarFilter">
+		{if $CanViewAdmin}
+		<div id="blackDiv" style="display:inline">
+		<input id="blackoutCheckBox" type="checkbox" value="blackoutCheckBox" onclick="blackoutTick()"> Blackouts
+		</div>
+		<div id="allBlackDiv" style="display:inline;display:none;">
+		<input id="allBlack" type="checkbox" value="allBlack" onclick="allResources()"> All resources
+		</div>
+		{/if}
+		</br>
+		<select id="filter">
 		{foreach from=$AvailableResources item=resource}
 			<option value="{$resource->Id}">{$resource->Name}</option>
 		{/foreach}
 		</select>
-		
-		
+		</ul>
+		<ul class="no-style" >
 		<input id="resourceId" class="resourceId" type="hidden" {formname key=RESOURCE_ID} value="{$ResourceId}"/>
 		<input type="hidden" id="scheduleId" {formname key=SCHEDULE_ID} value="{$ScheduleId}"/>
 		
@@ -94,9 +104,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             <div style="clear:both;height:0;">&nbsp;</div>
 *}
         </li>
-        <li style="text-align: center">
+        <li>
 		<br/>
-            <label for="BeginDate" class="reservationDate">{translate key='BeginDate'}</label>
+            {*<label for="BeginDate" class="reservationDate">{translate key='BeginDate'}</label>*}
             <input type="text" id="BeginDate" class="dateinput" value="{formatdate date=$StartDate}"/>
             <input type="hidden" id="formattedBeginDate" {formname key=BEGIN_DATE}
                    value="{formatdate date=$StartDate key=system}"/>
@@ -112,8 +122,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/foreach}
             </select>
         </li>
-        <li style="text-align: center">
-            <label for="EndDate" class="reservationDate">{translate key='EndDate'}</label>
+        <li>
+            {*<label for="EndDate" class="reservationDate">{translate key='EndDate'}</label>*}
             <input type="text" id="EndDate" class="dateinput" value="{formatdate date=$EndDate}"/>
             <input type="hidden" id="formattedEndDate" {formname key=END_DATE}
                    value="{formatdate date=$EndDate key=system}"/>
@@ -142,14 +152,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{if $HideRecurrence}
         <li style="display:none">
 			{else}
-    <li>
+    <li id="recurrence">
 	{/if}
 	{control type="RecurrenceControl" RepeatTerminationDate=$RepeatTerminationDate }
     </li>
 	
 	
         <li class="rsv-box-l">
-			{textbox name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
+			{textbox id="title" name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
             </label>
         </li>
         <li class="rsv-box-l">
@@ -199,7 +209,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/if}
 
 *}
-
+{*
 {if $Attributes|count > 0}
 <div class="customAttributes" style="text-align: center;">
     <span>{translate key=AdditionalAttributes}</span>
@@ -232,7 +242,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</ul>
 	</div>
 {/if}
-
+*}
 
 <input type="hidden" {formname key=reservation_id} value="{$ReservationId}"/>
 <input type="hidden" {formname key=reference_number} value="{$ReferenceNumber}"/>
@@ -240,6 +250,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <input type="hidden" {formname key=SERIES_UPDATE_SCOPE} id="hdnSeriesUpdateScope"
        value="{SeriesUpdateScope::FullSeries}"/>
 
+	   		<li id="optionDiv" style="display:none;">
+					<input {formname key=CONFLICT_ACTION} type="radio" id="notifyExisting" value="{ReservationConflictResolution::Notify}" onclick="blackoutNotify()"/>
+					<label for="notifyExisting">{translate key=BlackoutShowMe}</label>
+					</br>
+					<input {formname key=CONFLICT_ACTION} type="radio" id="deleteExisting" value="{ReservationConflictResolution::Delete}" onclick="blackoutNotify()" checked/>
+					<label for="deleteExisting">{translate key=BlackoutDeleteConflicts}</label>
+
+					<input id="myOption" type="hidden" value="0" />
+				</li>
+	   
 <div class="reservationButtons">
 	<div class="reservationDeleteButtons">
 	{block name="deleteButtons"}
@@ -253,7 +273,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{translate key='Create'}
 			</button>
 		{/block}
-		<button type="button" class="button" onclick="prueba()">
+		
+		<button id="blackButton"type="button" style="display:none;" onclick="blackoutPopup()">
+				{html_image src="tick-circle.png"}
+					Blackout
+			</button>
+		
+		<button type="button" class="button" onclick="closePopup1()">
 		{html_image src="slash.png"}
 			{translate key='Cancel'}
 		</button>
@@ -342,6 +368,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {control type="DatePickerSetupControl" ControlId="EndDate" AltId="formattedEndDate" DefaultDate=$EndDate}
 {control type="DatePickerSetupControl" ControlId="EndRepeat" AltId="formattedEndRepeat" DefaultDate=$RepeatTerminationDate}
 
+{*Imports*}
 {jsfile src="js/jquery.textarea-expander.js"}
 {jsfile src="js/jquery.qtip.min.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
@@ -356,27 +383,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="reservation-reminder.js"}
 {jsfile src="js/tree.jquery.js"}
 
-
-{*MyCode*}
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.css" />
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.filter.css" />
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/style.css" />
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/prettify.css" />
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
-{jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}
-{jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}
-{jsfile src="prueba3/src/jquery.multiselect.js"}
-{jsfile src="prueba3/assets/prettify.js"}
-{jsfile src="prueba3/src/jquery.multiselect.filter.js"}
+{*Enhance*}
+<link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.filter.css" />
+{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/style.css" />*}
+{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/prettify.css" />*}
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css"/>
+{jsfile src="multiselect/jquery.multiselect.js"}
+{jsfile src="multiselect/prettify.js"}
+{jsfile src="multiselect/jquery.multiselect.filter.js"}
+<link rel="stylesheet" href="scripts/Popup-master/assets/css/popup.css">
+{jsfile src="Popup-master/assets/js/jquery.popup.js"}
+{jsfile src="enhancement/createEnhance.js"}
 
 <script type="text/javascript">
-
-var isOpenedFirstTime = true;
-
-	var prueba = function(){
-	sessionStorage.setItem("popup_status", "close");
-	};
-
     $(document).ready(function ()
     {
         var scopeOptions = {
@@ -449,66 +469,7 @@ var isOpenedFirstTime = true;
 	});
 	$('#description').TextAreaExpander();
 
-	//$('#userName').bindUserDetails();
-
-
-$('#calendarFilter').multiselect({
-			header: false,
-			multiple: false,
-			selectedList: 1,
-			autoOpen: true,
-			open: function(){		   
-			  if (isOpenedFirstTime){
-				 $('#calendarFilter').multiselect("close");
-			  }		
-			},
-			 close: function(event, ui){
-			 if (isOpenedFirstTime){
-				isOpenedFirstTime = false;
-				var url = document.URL;
-				rid = url.substr(url.indexOf("rid"));
-				if (rid.indexOf("&") != -1){
-					rid = rid.substr(0,rid.indexOf("&"));
-					}
-				  rid = rid.substr(4);
-				  $(this).val(rid);
-				  $(this).multiselect("refresh");
-				}
-			else{
-				$ResourceId = $(this).val();
-				document.getElementById("resourceId").value = $ResourceId;
-				}
-			}
-		});
+	enhanceCreate();
 		
-	document.body.style.overflow = "hidden";
-	//document.getElementById('header').style.visibility="hidden";
-	$('#header').hide();
-	$('#logo').hide();
-	
-	popup_status = sessionStorage.getItem("popup_status");
-	sd = sessionStorage.getItem("start");
-	ed = sessionStorage.getItem("end");
-	day = sessionStorage.getItem("day");
-	if(popup_status == "drag"){	
-		sessionStorage.setItem("popup_status", "none");
-		//alert(document.getElementById("formattedBeginDate").value);
-		setTimeout(function() {
-		//document.getElementById("BeginPeriod").value = sd;
-		//alert("hola");
-		 }, 1000);
-		document.getElementById("BeginPeriod").value = sd;
-		document.getElementById("EndPeriod").value = ed;
-		
-		if(day != ""){
-		document.getElementById("BeginDate").value = document.getElementById("BeginDate").value.substr(0,3)+day+document.getElementById("BeginDate").value.substr(5);
-		document.getElementById("EndDate").value = document.getElementById("EndDate").value.substr(0,3)+day+document.getElementById("EndDate").value.substr(5);
-		document.getElementById("formattedBeginDate").value = document.getElementById("formattedBeginDate").value.substr(0,document.getElementById("formattedBeginDate").value.lastIndexOf("-")+1)+day;
-		document.getElementById("formattedEndDate").value = document.getElementById("formattedEndDate").value.substr(0,document.getElementById("formattedEndDate").value.lastIndexOf("-")+1)+day;
-		}
-		//alert(document.getElementById("formattedBeginDate").value);
-		document.getElementsByTagName('button')[1].click();
-	}
-	
 });
 </script>

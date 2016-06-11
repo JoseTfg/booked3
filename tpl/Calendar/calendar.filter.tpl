@@ -17,16 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.css" />
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/jquery.multiselect.filter.css" />
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/style.css" />
-<link rel="stylesheet" type="text/css" href="scripts/prueba3/demos/assets/prettify.css" />
+{*Imports*}
+<link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.css" />
+<link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.filter.css" />
+{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/style.css" />*}
+{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/prettify.css" />*}
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
-{*{jsfile src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"}*}
-{*{jsfile src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"}*}
-{jsfile src="prueba3/src/jquery.multiselect.js"}
-{jsfile src="scripts/prueba3/demos/assets/prettify.js"}
-{jsfile src="prueba3/src/jquery.multiselect.filter.js"}
+{jsfile src="multiselect/jquery.multiselect.js"}
+{jsfile src="multiselect/prettify.js"}
+{jsfile src="multiselect/jquery.multiselect.filter.js"}
 
 <table id="CalendarFilterTable">
 <tr>
@@ -49,7 +48,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 </td>
 <td>
-{if ($myCal != 1)}
+{*{if ($myCal != 1)}
 <div id="filter2">
 <label for="calendarFilter"></label>
 <select id="calendarFilter2"  multiple="multiple">
@@ -61,9 +60,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </select>
 </div>
 {/if}
-</td>
+</td>*}
 <td>
-
+{if $UserId neq "1"}
 <div class="onoffswitch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
     <label class="onoffswitch-label" for="myonoffswitch">
@@ -71,6 +70,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         <span class="onoffswitch-switch"></span>
     </label>
 </div>
+{else}
+<div class="onoffswitch" style="display:none;">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner" ></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+</div>
+{/if}
 
 <div id="resourceGroupsContainer">
 	<div id="resourceGroups"></div>

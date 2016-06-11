@@ -167,7 +167,8 @@ class Configurator implements IConfigurationSettings
 	private function CreateBackup($configFilePath)
 	{
 		$backupPath = str_replace('.php', time() . '.php', $configFilePath);
-		copy($configFilePath, $backupPath);
+		//MyCode
+		//copy($configFilePath, $backupPath);
 	}
 
 	private function IsConfigOutOfDate($configPhp, $distPhp)

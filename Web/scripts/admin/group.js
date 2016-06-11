@@ -1,3 +1,4 @@
+//Group management
 function GroupManagement(opts) {
 	var options = opts;
 
@@ -16,6 +17,7 @@ function GroupManagement(opts) {
 		browseUserDialog: $('#allUsers'),
 		rolesDialog: $('#rolesDialog'),
 		groupAdminDialog: $('#groupAdminDialog'),
+		addDialog: $('#addDialog'),
 
 		permissionsForm: $('#permissionsForm'),
 		addUserForm: $('#addUserForm'),
@@ -30,14 +32,16 @@ function GroupManagement(opts) {
 
 	var allUserList = null;
 
+	//Initialization
 	GroupManagement.prototype.init = function() {
 
-		ConfigureAdminDialog(elements.membersDialog, 420, 200);
-		ConfigureAdminDialog(elements.permissionsDialog, 400, 300);
+		ConfigureAdminDialog(elements.membersDialog);/*MyCode*/
+		ConfigureAdminDialog(elements.permissionsDialog, 400, 180); /*MyCode*/
 		ConfigureAdminDialog(elements.deleteDialog,  400, 200); /*MyCode*/
 		ConfigureAdminDialog(elements.renameDialog, 500, 100);
+		ConfigureAdminDialog(elements.addDialog, 500, 100);
 		ConfigureAdminDialog(elements.browseUserDialog, 500, 100);
-		ConfigureAdminDialog(elements.rolesDialog, 500, 300);
+		ConfigureAdminDialog(elements.rolesDialog, 500, 150); /*MyCode*/
 		ConfigureAdminDialog(elements.groupAdminDialog, 500, 100);
 
 		elements.groupList.delegate('a.update', 'click', function(e) {
@@ -111,7 +115,16 @@ function GroupManagement(opts) {
 		$("#browseUsers").click(function() {
 			showAllUsersToAdd();
 		});
+		
+		$("#browseUsers").click(function() {
+			showAllUsersToAdd();
+		});
 
+		//MyCode
+		$("#addButton").click(function() {
+			addGroup();
+		});
+		
 		ConfigureAdminForm(elements.addUserForm, getSubmitCallback(options.actions.addUser), changeMembers, error);
 		ConfigureAdminForm(elements.removeUserForm, getSubmitCallback(options.actions.removeUser), changeMembers, error);
 		ConfigureAdminForm(elements.permissionsForm, getSubmitCallback(options.actions.permissions), hidePermissionsDialog, error);
@@ -122,6 +135,7 @@ function GroupManagement(opts) {
 		ConfigureAdminForm(elements.groupAdminForm, getSubmitCallback(options.actions.groupAdmin), null, error);
 	};
 
+	//Show all users
 	var showAllUsersToAdd = function() {
 		elements.browseUserDialog.empty();
 
@@ -155,27 +169,44 @@ function GroupManagement(opts) {
 		elements.browseUserDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Gets callback
 	var getSubmitCallback = function(action) {
 		return function() {
 			return options.submitUrl + "?gid=" + getActiveId() + "&action=" + action;
 		};
 	};
 
+	//Sets active identifier
 	function setActiveId(activeElement) {
 		var id = activeElement.parents('td').siblings('td.id').find(':hidden').val();
 		elements.activeId.val(id);
 	}
 
+	//Gets active identifier
 	function getActiveId() {
 		return elements.activeId.val();
 	}
 
+	//Open rename dialog
 	var renameGroup = function() {
+		var groupId = getActiveId();
 		elements.renameDialog.dialog('open');
 		elements.renameDialog.dialog( "option", "resizable", false ); /*MyCode*/
 		elements.renameDialog.css('overflow', 'hidden'); /*MyCode*/
+		/*MyCode*/
+		var a = document.getElementById(groupId).innerText;
+		elements.renameDialog.dialog("option", "title", a);
+	};
+	
+	//MyCode
+	//Open add group dialog
+	var addGroup = function() {
+		elements.addDialog.dialog('open');
+		elements.addDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		elements.addDialog.css('overflow', 'hidden'); /*MyCode*/
 	};
 
+	//Open change member dialog
 	var changeMembers = function() {
 		var groupId = getActiveId();
 		$.getJSON(opts.groupsUrl + '?dr=groupMembers', {gid: groupId}, function(data) {
@@ -196,20 +227,29 @@ function GroupManagement(opts) {
 
 			$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.groupUserList);
 			elements.membersDialog.dialog('open');
-			elements.membersDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			
+			/*MyCode*/
+			elements.membersDialog.dialog( "option", "resizable", false );
+			var a = document.getElementById(groupId).innerText;
+			elements.membersDialog.dialog("option", "title", a);
+			//elements.membersDialog.dialog("option", "height", items.length * 30 + 100);
+			elements.membersDialog.style.overflow = "hidden";				
 		});
 	};
 
+	//Submits: add user to group
 	var addUserToGroup = function(userId) {
 		$('#addUserId').val(userId);
 		elements.addUserForm.submit();
 	};
 
+	//Submits: remove user from group
 	var removeUserFromGroup = function(element, userId) {
 		$('#removeUserId').val(userId);
 		elements.removeUserForm.submit();
 	};
 
+	//Opens change permission dialog
 	var changePermissions = function () {
 		var groupId = getActiveId();
 
@@ -222,14 +262,19 @@ function GroupManagement(opts) {
 
 			elements.permissionsDialog.dialog('open');
 			elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			/*MyCode*/
+			var a = document.getElementById(groupId).innerText;
+			elements.permissionsDialog.dialog("option", "title", a);
 		});
 	};
 
+	//Open delete group dialog
 	var deleteGroup = function() {
 		elements.deleteDialog.dialog('open');
 		elements.deleteDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
+	//Opens change roles dialog
 	var changeRoles = function() {
 		var groupId = getActiveId();
 
@@ -242,9 +287,13 @@ function GroupManagement(opts) {
 
 			elements.rolesDialog.dialog('open');
 			elements.rolesDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			/*MyCode*/
+			var a = document.getElementById(groupId).innerText;
+			elements.rolesDialog.dialog("option", "title", a);
 		});
 	};
 
+	//Unused
 	var changeGroupAdmin = function() {
 		var groupId = getActiveId();
 

@@ -25,6 +25,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 {jsfile src="js/jquery.qtip.min.js"}
 {jsfile src="dashboard.js"}
+{jsfile src="enhancement/marquee.js"}
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -36,7 +37,12 @@ $(document).ready(function() {
 {if $LoggedIn}
 <div class="dashboard" id="announcementsDashboard">
 	<div id="announcementsHeader" class="dashboardHeader">
-		<a href="javascript:void(0);" title="{translate key='ShowHide'}">{translate key="Announcements"}</a>
+		{*<a href="javascript:void(0);" title="{translate key='ShowHide'}">{translate key="Announcements"} {html_image src="announce.png"}</a>*}
+		<marquee id="marquee" behavior="scroll" scrollamount="5" direction="left" onmousedown="this.stop();" onmouseup="this.start();">{foreach from=$Announcements item=each}
+			   ||| {$each|html_entity_decode|url2link|nl2br}
+			{foreachelse}
+				{translate key="NoAnnouncements"}
+			{/foreach}</marquee>
 	</div>
 	<div class="dashboardContents" style="display:none">
 		<ul>

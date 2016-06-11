@@ -140,6 +140,7 @@ interface IReservationSavePage extends IReservationSaveResultsView, IRepeatOptio
 	public function GetAllowParticipation();
 }
 
+//Class: Supports reservation creation controller
 class ReservationSavePage extends SecurePage implements IReservationSavePage
 {
 	/**
@@ -152,6 +153,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	 */
 	private $_reservationSavedSuccessfully = false;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
@@ -160,6 +162,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		$this->_presenter = $factory->Create($this, ServiceLocator::GetServer()->GetUserSession());
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		try
@@ -174,14 +177,11 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 				$this->Set('Instances', $reservation->Instances());
 				$this->Set('Timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);
 				
-				//MyCode (29/3/1026)
+				//MyCode (29/3/2016)
 				//Returns directly without sending any message.	
 				//$this->Display('Ajax/reservation/save_successful.tpl');
-				$returnPage = $_SESSION['returnPage'];
-				echo "<script type=\"text/javascript\">
-				//window.location = '$returnPage';
-				sessionStorage.setItem('popup_status', 'update');
-				</script>";  
+				//$returnPage = $_SESSION['returnPage'];
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";  
 			}
 			else
 			{
@@ -194,21 +194,25 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		}
 	}
 
+	//Sends success message
 	public function SetSaveSuccessfulMessage($succeeded)
 	{
 		$this->_reservationSavedSuccessfully = $succeeded;
 	}
 
+	//Sets reference number
 	public function SetReferenceNumber($referenceNumber)
 	{
 		$this->Set('ReferenceNumber', $referenceNumber);
 	}
 
+	//Sets approval requirement
 	public function SetRequiresApproval($requiresApproval)
 	{
 		$this->Set('RequiresApproval', $requiresApproval);
 	}
 
+	//Sends error messages
 	public function SetErrors($errors)
 	{
 		$this->Set('Errors', $errors);
@@ -219,56 +223,67 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		// set warnings variable
 	}
 
+	//Gets action
 	public function GetReservationAction()
 	{
 		return $this->GetForm(FormKeys::RESERVATION_ACTION);
 	}
 
+	//Gets reference number
 	public function GetReferenceNumber()
 	{
 		return $this->GetForm(FormKeys::REFERENCE_NUMBER);
 	}
 
+	//Gets user identifier
 	public function GetUserId()
 	{
 		return $this->GetForm(FormKeys::USER_ID);
 	}
 
+	//Gets resource identifier
 	public function GetResourceId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_ID);
 	}
 
+	//Gets title
 	public function GetTitle()
 	{
 		return $this->GetForm(FormKeys::RESERVATION_TITLE);
 	}
 
+	//Gets description
 	public function GetDescription()
 	{
 		return $this->GetForm(FormKeys::DESCRIPTION);
 	}
 
+	//Gets start date
 	public function GetStartDate()
 	{
 		return $this->GetForm(FormKeys::BEGIN_DATE);
 	}
 
+	//Gets end date
 	public function GetEndDate()
 	{
 		return $this->GetForm(FormKeys::END_DATE);
 	}
 
+	//Gets the start time
 	public function GetStartTime()
 	{
 		return $this->GetForm(FormKeys::BEGIN_PERIOD);
 	}
 
+	//Gets the end time
 	public function GetEndTime()
 	{
 		return $this->GetForm(FormKeys::END_PERIOD);
 	}
 
+	//Gets the resource
 	public function GetResources()
 	{
 		$resources = $this->GetForm(FormKeys::ADDITIONAL_RESOURCES);
@@ -285,21 +300,25 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		return $resources;
 	}
 
+	//Gets recurrence
 	public function GetRepeatOptions()
 	{
 		return $this->_presenter->GetRepeatOptions();
 	}
 
+	//Gets recurrence type
 	public function GetRepeatType()
 	{
 		return $this->GetForm(FormKeys::REPEAT_OPTIONS);
 	}
 
+	//Gets recurrence interval
 	public function GetRepeatInterval()
 	{
 		return $this->GetForm(FormKeys::REPEAT_EVERY);
 	}
 
+	//Gets recurrence days
 	public function GetRepeatWeekdays()
 	{
 		$days = array();
@@ -349,16 +368,19 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		return $days;
 	}
 
+	//Gets monthly recurrence
 	public function GetRepeatMonthlyType()
 	{
 		return $this->GetForm(FormKeys::REPEAT_MONTHLY_TYPE);
 	}
 
+	//Gets end of the recurrence
 	public function GetRepeatTerminationDate()
 	{
 		return $this->GetForm(FormKeys::END_REPEAT_DATE);
 	}
 
+	//Gets the serie
 	public function GetSeriesUpdateScope()
 	{
 		return $this->GetForm(FormKeys::SERIES_UPDATE_SCOPE);
@@ -367,6 +389,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return int[]
 	 */
+	//Gets participants
 	public function GetParticipants()
 	{
 		$participants = $this->GetForm(FormKeys::PARTICIPANT_LIST);
@@ -381,6 +404,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return int[]
 	 */
+	//Gets invitees
 	public function GetInvitees()
 	{
 		$invitees = $this->GetForm(FormKeys::INVITATION_LIST);
@@ -395,6 +419,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return AccessoryFormElement[]
 	 */
+	//Gets accesories
 	public function GetAccessories()
 	{
 		$accessories = $this->GetForm(FormKeys::ACCESSORY_LIST);
@@ -415,6 +440,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return AttributeFormElement[]|array
 	 */
+	//Gets attributes
 	public function GetAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm(FormKeys::ATTRIBUTE_PREFIX));
@@ -423,6 +449,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return UploadedFile[]
 	 */
+	//Gets uploads
 	public function GetAttachments()
 	{
 		if ($this->AttachmentsEnabled())
@@ -432,6 +459,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		return array();
 	}
 
+	//Checks if attachments are enabled
 	private function AttachmentsEnabled()
 	{
 		return Configuration::Instance()->GetSectionKey(ConfigSection::UPLOADS,
@@ -442,6 +470,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return bool
 	 */
+	//Checks if it has reminder
 	public function HasStartReminder()
 	{
 		$val = $this->server->GetForm(FormKeys::START_REMINDER_ENABLED);
@@ -451,6 +480,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
+	//Gets the start reminder time
 	public function GetStartReminderValue()
 	{
 		return $this->server->GetForm(FormKeys::START_REMINDER_TIME);
@@ -459,6 +489,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
+	//Gets the reminder interval
 	public function GetStartReminderInterval()
 	{
 		return $this->server->GetForm(FormKeys::START_REMINDER_INTERVAL);
@@ -467,6 +498,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return bool
 	 */
+	//Check when the reminders end
 	public function HasEndReminder()
 	{
 		$val = $this->server->GetForm(FormKeys::END_REMINDER_ENABLED);
@@ -476,6 +508,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
+	//Gets the end reminder value
 	public function GetEndReminderValue()
 	{
 		return $this->server->GetForm(FormKeys::END_REMINDER_TIME);
@@ -484,6 +517,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
+	//Gets the reminder interval
 	public function GetEndReminderInterval()
 	{
 		return $this->server->GetForm(FormKeys::END_REMINDER_INTERVAL);
@@ -492,6 +526,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return bool
 	 */
+	//Checks participation allowance
 	public function GetAllowParticipation()
 	{
 		$val = $this->server->GetForm(FormKeys::ALLOW_PARTICIPATION);
@@ -499,6 +534,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	}
 }
 
+//Unused
 class AccessoryFormElement
 {
 	public $Id;

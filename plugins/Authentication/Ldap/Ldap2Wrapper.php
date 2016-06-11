@@ -101,7 +101,7 @@ class Ldap2Wrapper
 	 * @param $configFilter string
 	 * @return void
 	 */
-	private function PopulateUser($username, $configFilter)
+	public function PopulateUser($username, $configFilter)
 	{
 		$uidAttribute = $this->options->GetUserIdAttribute();
 		Log::Debug('LDAP - uid attribute: %s', $uidAttribute);
@@ -176,6 +176,7 @@ class Ldap2Wrapper
 	public function GetLdapUser($username)
 	{
 		return $this->user;
+		//return $this->user = new LdapUser(null, null);
     }
 }
 

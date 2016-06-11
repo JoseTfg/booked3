@@ -135,6 +135,8 @@ function BlackoutManagement(opts)
 
     function showDeleteBlackout() {
         elements.deleteDialog.dialog('open');
+		//MyCode
+		document.getElementsByTagName("button")[3].click();
     }
 
 	function showDeleteRecurringBlackout() {
@@ -188,7 +190,8 @@ function BlackoutManagement(opts)
 
     function onDeleteSuccess()
     {
-        location.reload();
+        //MyCode
+		//location.reload();
     }
 	
 	function getDeleteUrl()

@@ -1,4 +1,0 @@
-Unchanged:
-
--JobCop.php		Unchanged
--sendreminders.php	Unchanged

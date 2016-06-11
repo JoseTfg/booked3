@@ -17,10 +17,12 @@
  along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ //DateHelper
 var dateHelper = function ()
 {
 	var oneDay = 86400000; //24*60*60*1000 => hours*minutes*seconds*milliseconds
 
+	//Gets difference between two dates
 	var getDifference = function (end, begin)
 	{
 		var difference = end.getTime() - begin.getTime();
@@ -33,6 +35,7 @@ var dateHelper = function ()
 		return {RoundedHours: roundedHours, RoundedDays: roundedDays};
 	};
 
+	//Parses the date
 	var parse = function(time)
 	{
 		var s = time.split(':');

@@ -17,31 +17,85 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-<link rel="stylesheet" href="scripts/Popup-master/assets/css/popup.css">
-{jsfile src="Popup-master/assets/js/jquery.popup.js"}
-<link rel="stylesheet" href="css/aa.css">
-
-
 <div id="calendar"></div>
+<div style="display:none;">
+<a id="legendHide" href="#" style="float:left;">{html_image src="script.png"}Leyenda</a>
+<div style="float:left;"> &nbsp|&nbsp</div>
+<a id="timeTable" href="#" style="float:left;">{html_image src="horario.png"}Horarios</a>
+<a id="export" href="#" style="float:right;">{html_image src="cloud.png"}Exportar</a>
+<div id="legend_old" style="text-align:center;"></div>
+</div>
+<div id="dialogDeleteReservation" title={translate key="Delete"}>
+  <p>{translate key="DeleteReservation"}</p>
+</div>
 
+<div id="dialogDeleteBlackout" title={translate key="Delete"}>
+  <p>{translate key="DeleteReservation"}</p>
+</div>
+
+<div id="dialogColors" title={translate key="Colors"}>
+	<div id="legend" style="text-align:center;"></div>
+</div>
+
+<div id="dialogBoundaries" title={translate key="TimeTable"}>
+  <p>{translate key="TimeTableBoundaries"}</p>
+  
+  <div id="selects" style="text-align: center;">
+  <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+  </select>
+  
+  <select id="EndPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+  </select>
+</div>
+  
+<div id="dialogSucessful" title={translate key="Update"}>
+  <p>{translate key="ReservationUpdatedSubject"}</p>
+</div>
+  
+<div id="dialogFailed" title={translate key="Update"}>
+  <p>{translate key="ReservationFailed"}</p>
+  </div>
+</div>
+
+<div id="hidden" style="visibility:hidden;">
+	<form id='myform' method="post">
+		<input id="minTime" name="minTime" type="text" value="">
+		<input id="maxTime" name="maxTime" type="text" value="">
+		<input id="colors" name="colors" type="text" value="">
+	</form>
+</div>
+	
+<div id="dialogSubscribe" title={translate key="Subscription"}>
+	<p>{translate key="Subscribe"}</p>
+</div>
+
+{*Imports*}
 {jsfile src="js/jquery.qtip.min.js"}
 {jsfile src="reservationPopup.js"}
 {jsfile src="calendar.js"}
 {jsfile src="js/fullcalendar.min.js"}
 {jsfile src="admin/edit.js"}
 {jsfile src="js/tree.jquery.js"}
-
 {jsfile src="js/moment.min.js"}
-{*{jsfile src="js/jquery.min.js"}*}
 
+{*Enhance*}
+<link rel="stylesheet" href="scripts/Popup-master/assets/css/popup.css">
+{jsfile src="Popup-master/assets/js/jquery.popup.js"}
+{jsfile src="jscolor-2.0.4/jscolor.js"}
+{jsfile src="enhancement/calendarEnhance.js"}
+{jsfile src="enhancement/createEnhance.js"}
+
+{*Code*}
 <script type="text/javascript">
 $(document).ready(function() {
 	
 	var reservations = [];
+	
 	{foreach from=$Calendar->Reservations() item=reservation}
 		reservations.push({
 			id: '{$reservation->ReferenceNumber}',
-			title: '{$reservation->DisplayTitle|escape:javascript}',
+			{*title: '{$reservation->DisplayTitle|escape:javascript}',*}
+			title: '{$reservation->ResourceName}',
 			start: '{format_date date=$reservation->StartDate key=fullcalendar}',
 			end: '{format_date date=$reservation->EndDate key=fullcalendar}',
 			/*url: 'reservation.php?rn={$reservation->ReferenceNumber}',*/
@@ -50,7 +104,22 @@ $(document).ready(function() {
 			textColor: '{$reservation->TextColor}',
 			className: '{$reservation->Class}',
 			colorID:'{$reservation->ResourceName}',
-			refNumber: 'reservation.php?rn={$reservation->ReferenceNumber}'
+			trueTitle: '{$reservation->Title}',
+			owner: '{$reservation->OwnerName}'
+		});		
+	{/foreach}
+	
+	{foreach from=$blackouts item=blackout}
+		reservations.push({
+			id: '{$blackout->InstanceId}',
+			title: '{$blackout->ResourceName}',
+			start: '{formatdate date=$blackout->StartDate timezone=$Timezone key=res_popup}',
+			end: '{formatdate date=$blackout->EndDate timezone=$Timezone key=res_popup}',
+			allDay: false,
+			color: '#202020 ',
+			textColor: '#F0099CC',
+			className: 'blackout',
+			colorID:'{$blackout->Title}'
 		});
 		
 	{/foreach}
@@ -68,71 +137,40 @@ $(document).ready(function() {
 					timeFormat: '{$TimeFormat}',
 					dayMonth: '{$DateFormat}',
 					firstDay: {$FirstDay},
-					subscriptionEnableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionEnableSubscription}',
-					subscriptionDisableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionDisableSubscription}',
+					{*subscriptionEnableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionEnableSubscription}',
+					subscriptionDisableUrl: '{Pages::MY_CALENDAR}?{QueryStringKeys::ACTION}={PersonalCalendarActions::ActionDisableSubscription}',*}
 					minTime: '{$minTime}',
 					maxTime: '{$maxTime}',
 					myCal: '{$myCal}',
 					username: '{$username}',
-					password: '{$password}'
+					password: '{$password}',
+					filename: '{$filename}',
+					readOnly: '{$UserId}'
 				};
-
-				
-	myScript(options, reservations);
-	var calendar = new Calendar(options, reservations);
+	
+	{foreach from=$colorsToSend key=key item=colorToSend}
+		sessionStorage.setItem('{$key}', '{$colorToSend}');
+	{/foreach}	
+	
+	var calendar = new Calendar(options, reservations);	
 	calendar.init();
 	calendar.bindResourceGroups({$ResourceGroupsAsJson}, {$SelectedGroupNode|default:0});	
+	
+	enhanceCalendar(options, reservations);
+	{if $CanViewAdmin}
+		sessionStorage.setItem('isAdmin', {$CanViewAdmin});
+	{else}
+		sessionStorage.setItem('isAdmin', '0');
+	{/if}
 });
 </script>	
 
-{jsfile src="jscolor-2.0.4/jscolor.js"}
 
-<div id="legend" style="text-align: center;display:none;"></div>
 
-{*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*}
- {* {jsfile src="//code.jquery.com/jquery-1.10.2.js"}*}
- {jsfile src="//code.jquery.com/ui/1.11.4/jquery-ui.js"}
-{*  <link rel="stylesheet" href="/resources/demos/style.css">*}
 
-<div id="dialog-confirm" title="Basic dialog">
-  <p>¿Estás seguro de que quieres borrar?</p>
-</div>
 
-<div id="dialog-form" title="Calendar Boundaries">
-  <p>Select calendar boundaries.</p>
-  
-  <div id="selects" style="text-align: center">
-  <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
-  </select>
-  
-  <select id="EndPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
-  </select>
-  </div>
-  
-  <div id="dialog1" title="Basic dialog">
-  <p>Update Sucessful</p>
-  </div>
-  
-  <div id="dialog2" title="Basic dialog">
-  <p>Couldn't Update</p>
-  </div>
-
-</div>
-
-<div id="hidden" style="visibility: hidden;">
-<form id='myform' method="post">
-<input id="a1" name="a1" type="text" value="">
-<input id="a2" name="a2" type="text" value="">
-<input id="a3" name="a3" type="text" value="">
-<input id="a4" name="a4" type="text" value="">
-</form>
-</div>
 	
-	  <div id="dialog3" title="Basic dialog">
-  <p>Subscribe to calendar?</p>
-  </div>
 	
-{jsfile src="ics/ics.js"}	
-{jsfile src="myScript.js"}
+
 
 

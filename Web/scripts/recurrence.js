@@ -16,6 +16,7 @@
  You should have received a copy of the GNU General Public License
  along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
+//Recurrence
 function Recurrence(recurOptions, recurElements, prefix) {
 	prefix = prefix || '';
 	var e = {
@@ -37,12 +38,14 @@ function Recurrence(recurOptions, recurElements, prefix) {
 	var repeatToggled = false;
 	var terminationDateSetManually = false;
 
+	//Initializes
 	this.init = function () {
 		InitializeDateElements();
 		InitializeRepeatElements();
 		InitializeRepeatOptions();
 	};
 
+	//Change repetition options
 	var ChangeRepeatOptions = function () {
 		var repeatDropDown = elements.repeatOptions;
 		if (repeatDropDown.val() != 'none') {
@@ -85,6 +88,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 		}
 	};
 
+	//Initialize date elements
 	function InitializeDateElements() {
 		elements.beginDate.change(function () {
 			ToggleRepeatOptions();
@@ -103,6 +107,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 		});
 	}
 
+	//Initialize repeat elements
 	function InitializeRepeatElements() {
 		elements.repeatOptions.change(function () {
 			ChangeRepeatOptions();
@@ -122,6 +127,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 		});
 	}
 
+	//Initialize repeat options
 	function InitializeRepeatOptions() {
 		if (options.repeatType) {
 			elements.repeatOptions.val(options.repeatType);
@@ -137,6 +143,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 		}
 	}
 
+	//Toggle repeat options
 	var ToggleRepeatOptions = function () {
 		var SetValue = function (value, disabled) {
 			elements.repeatOptions.val(value);
@@ -162,6 +169,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 		}
 	};
 
+	//Adjust date
 	var AdjustTerminationDate = function () {
 		if (terminationDateSetManually) {
 			return;

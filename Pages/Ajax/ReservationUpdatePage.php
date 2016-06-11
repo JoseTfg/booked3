@@ -39,6 +39,7 @@ interface IReservationUpdatePage extends IReservationSavePage
 	public function GetRemovedAttachmentIds();
 }
 
+//Class: Supports the reservation update controller
 class ReservationUpdatePage extends ReservationSavePage implements IReservationUpdatePage
 {
 	/**
@@ -51,6 +52,7 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 	 */
 	private $_reservationSavedSuccessfully = false;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
@@ -59,6 +61,7 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 		$this->_presenter = $factory->Update($this, ServiceLocator::GetServer()->GetUserSession());
 	}
 
+	//Process page load
 	public function PageLoad()
 	{
 		try
@@ -73,13 +76,10 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 				$this->Set('Instances', $reservation->Instances());
 				$this->Set('Timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);				
 
-				//MyCode  (29/3/1026)
+				//MyCode  (29/3/2016)
 				//Returns directly without sending any message.	
-				$returnPage = $_SESSION['returnPage'];
-				echo "<script type=\"text/javascript\">
-				//window.location = '$returnPage';
-				sessionStorage.setItem('popup_status', 'update');
-				</script>";  
+				//$returnPage = $_SESSION['returnPage'];
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";  
 			}
 			else
 			{
@@ -92,16 +92,19 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 		}
 	}
 
+	//Sends success message
 	public function SetSaveSuccessfulMessage($succeeded)
 	{
 		$this->_reservationSavedSuccessfully = $succeeded;
 	}
 
+	//Sets reservation reference number
 	public function SetReferenceNumber($referenceNumber)
 	{
 		$this->Set('ReferenceNumber', $referenceNumber);
 	}
 
+	//sends error messages
 	public function SetErrors($errors)
 	{
 		$this->Set('Errors', $errors);
@@ -112,16 +115,19 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 		// set warnings variable
 	}
 
+	//Gets reservation identifiers
 	public function GetReservationId()
 	{
 		return $this->GetForm(FormKeys::RESERVATION_ID);
 	}
 
+	//Gets if reservation is part of a serie
 	public function GetSeriesUpdateScope()
 	{
 		return $this->GetForm(FormKeys::SERIES_UPDATE_SCOPE);
 	}
 
+	//Gets removed attachments
 	public function GetRemovedAttachmentIds()
 	{
 		$fileIds = $this->GetForm(FormKeys::REMOVED_FILE_IDS);

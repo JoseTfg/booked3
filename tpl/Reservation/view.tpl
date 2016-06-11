@@ -137,7 +137,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{block name="submitButtons"}
 				&nbsp
 			{/block}
-			<button type="button" class="button" onclick="prueba()">
+			<button type="button" class="button" onclick="closePopup()">
 				<img src="img/slash.png"/>
 				{translate key='Close'}			
 		</div>
@@ -175,34 +175,34 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<input type="hidden" {formname key=SERIES_UPDATE_SCOPE} id="hdnSeriesUpdateScope" value="{SeriesUpdateScope::FullSeries}"/>
 	</form>
 </div>
-{jsfile src="participation.js"}
+
+{*Imports*}
+{*{jsfile src="participation.js"}*}
 {jsfile src="approval.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
 {jsfile src="js/moment.min.js"}
 {jsfile src="date-helper.js"}
 {jsfile src="reservation.js"}
 {jsfile src="autocomplete.js"}
-{jsfile src="userPopup.js"}
+{*{jsfile src="userPopup.js"}*}
 
-	<script type="text/javascript">
+{*Code*}
+<script type="text/javascript">
 	
-	var prueba = function(){
+	var closePopup = function(){
 	sessionStorage.setItem("popup_status", "close");
 	};
 	
 	$(document).ready(function() {	
+	
 	document.body.style.overflow = "hidden";
-	//document.getElementById('header').style.visibility="hidden";
 	$('#header').remove();
 	$('#logo').remove();
-
+	
 		var participationOptions = {
 			responseType: 'json'
 		};
-
-		var participation = new Participation(participationOptions);
-		participation.initReservation();
-
+		
 		var approvalOptions = {
 			responseType: 'json',
 			url: "{$Path}ajax/reservation_approve.php"
@@ -224,6 +224,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			userAutocompleteUrl: "ajax/autocomplete.php?type={AutoCompleteType::User}",
 			changeUserAutocompleteUrl: "ajax/autocomplete.php?type={AutoCompleteType::MyUsers}"
 		};
+		
 		var reservation = new Reservation(reservationOpts);
 		reservation.init('{$UserId}');
 

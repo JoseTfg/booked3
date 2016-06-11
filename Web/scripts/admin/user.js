@@ -1,3 +1,4 @@
+//User management
 function UserManagement(opts) {
 	var options = opts;
 
@@ -39,6 +40,7 @@ function UserManagement(opts) {
 
 	var users = {};
 
+	//Initialization
 	UserManagement.prototype.init = function () {
 		ConfigureAdminDialog(elements.permissionsDialog);
 		ConfigureAdminDialog(elements.passwordDialog);
@@ -204,28 +206,33 @@ function UserManagement(opts) {
 		ConfigureAdminForm(elements.removeGroupForm, changeGroupUrlCallback(elements.removeGroupForm), function(){});
 	};
 
+	//Unused
 	UserManagement.prototype.addUser = function (user) {
 		users[user.id] = user;
 	};
 
+	//Gets callback
 	var getSubmitCallback = function (action) {
 		return function () {
 			return options.submitUrl + "?uid=" + getActiveUserId() + "&action=" + action;
 		};
 	};
 
+	//Default call back
 	var defaultSubmitCallback = function (form) {
 		return function () {
 			return options.submitUrl + "?action=" + form.attr('ajaxAction') + '&uid=' + getActiveUserId();
 		};
 	};
 
+	//Change group callback
 	var changeGroupUrlCallback = function (form) {
 		return function () {
 			return options.groupManagementUrl + "?action=" + form.attr('ajaxAction') + '&uid=' + getActiveUserId();
 		};
 	};
 
+	//Sets active user identifier
 	function setActiveUserElement(activeElement) {
 		var id = activeElement.parents('td').siblings('td.id').find(':hidden').val();
 		setActiveUserId(id);
@@ -235,6 +242,7 @@ function UserManagement(opts) {
 		elements.activeId.val(id);
 	}
 
+	//Gets active user identifier
 	function getActiveUserId() {
 		return elements.activeId.val();
 	}
@@ -243,6 +251,7 @@ function UserManagement(opts) {
 		return users[getActiveUserId()];
 	}
 
+	//Change status
 	var changeStatus = function () {
 		var user = getActiveUser();
 
@@ -256,7 +265,9 @@ function UserManagement(opts) {
 		}
 	};
 
+	//Open change group dialog
 	var changeGroups = function () {
+		var user = getActiveUser();
 		elements.addedGroups.find('.group-item').remove();
 		elements.removedGroups.find('.group-item').remove();
 
@@ -273,8 +284,13 @@ function UserManagement(opts) {
 
 		elements.groupsDialog.dialog('open');
 		elements.groupsDialog.dialog( "option", "resizable", false ); /*MyCode*/
+		/*MyCode*/
+		var id = getActiveUserId();
+		var a = document.getElementById(id).innerText;
+		elements.groupsDialog.dialog("option", "title", a);
 	};
 
+	//Change group
 	var changeGroup = function (action, groupId) {
 		var url = opts.groupManagementUrl + '?action=' + action + '&gid=' + groupId;
 
@@ -282,6 +298,7 @@ function UserManagement(opts) {
 		$.post(url, data);
 	};
 
+	//open change permission dialog
 	var changePermissions = function () {
 		var user = getActiveUser();
 		var data = {dr: 'permissions', uid: user.id};
@@ -293,9 +310,14 @@ function UserManagement(opts) {
 
 			elements.permissionsDialog.dialog('open');
 			elements.permissionsDialog.dialog( "option", "resizable", false ); /*MyCode*/
+			/*MyCode*/
+			var id = getActiveUserId();
+			var a = document.getElementById(id).innerText;
+			elements.permissionsDialog.dialog("option", "title", a);
 		});
 	};
 
+	//Unused
 	var changeColor = function () {
 		var user = getActiveUser();
 		var data = {dr: 'color', uid: user.id};
@@ -304,6 +326,7 @@ function UserManagement(opts) {
 		});
 	};
 
+	//Unused
 	var changeUserInfo = function () {
 		var user = getActiveUser();
 
@@ -322,6 +345,7 @@ function UserManagement(opts) {
 		//elements.userDialog.dialog('open');
 	};
 
+	//Unused
 	var deleteUser = function () {
 		elements.deleteDialog.dialog('open');
 	};
