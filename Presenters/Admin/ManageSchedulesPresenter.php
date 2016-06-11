@@ -24,6 +24,7 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'config/timezones.php');
 require_once(ROOT_DIR . 'lib/Common/Validators/namespace.php');
 
+//Actions
 class ManageSchedules
 {
 	const ActionAdd = 'add';
@@ -37,6 +38,7 @@ class ManageSchedules
 	const ChangeAdminGroup = 'changeAdminGroup';
 }
 
+//Class: Supports the schedule manage service
 class ManageScheduleService
 {
 	/**
@@ -54,6 +56,7 @@ class ManageScheduleService
 	 */
 	private $_all;
 
+	//Construct
 	public function __construct(IScheduleRepository $scheduleRepository, IResourceRepository $resourceRepository)
 	{
 		$this->scheduleRepository = $scheduleRepository;
@@ -63,6 +66,7 @@ class ManageScheduleService
 	/**
 	 * @return array|Schedule[]
 	 */
+	//Unused
 	public function GetAll()
 	{
 		if (is_null($this->_all))
@@ -75,6 +79,7 @@ class ManageScheduleService
 	/**
 	 * @return array|Schedule[]
 	 */
+	//Unused
 	public function GetSourceSchedules()
 	{
 		return $this->GetAll();
@@ -84,6 +89,7 @@ class ManageScheduleService
 	 * @param Schedule $schedule
 	 * @return IScheduleLayout
 	 */
+	//Gets the layout
 	public function GetLayout($schedule)
 	{
 		return $this->scheduleRepository->GetLayout($schedule->GetId(),
@@ -96,6 +102,7 @@ class ManageScheduleService
 	 * @param int $startDay
 	 * @param int $copyLayoutFromScheduleId
 	 */
+	//Unused
 	public function Add($name, $daysVisible, $startDay, $copyLayoutFromScheduleId)
 	{
 		$schedule = new Schedule(null, $name, false, $startDay, $daysVisible);
@@ -106,6 +113,7 @@ class ManageScheduleService
 	 * @param int $scheduleId
 	 * @param string $name
 	 */
+	//Unused
 	public function Rename($scheduleId, $name)
 	{
 		$schedule = $this->scheduleRepository->LoadById($scheduleId);
@@ -118,6 +126,7 @@ class ManageScheduleService
 	 * @param int $startDay
 	 * @param int $daysVisible
 	 */
+	//Unused
 	public function ChangeSettings($scheduleId, $startDay, $daysVisible)
 	{
 		Log::Debug('Changing scheduleId %s, WeekdayStart: %s, DaysVisible %s', $scheduleId, $startDay, $daysVisible);
@@ -134,6 +143,7 @@ class ManageScheduleService
 	 * @param string $reservableSlots
 	 * @param string $blockedSlots
 	 */
+	//Changes the layout
 	public function ChangeLayout($scheduleId, $timezone, $reservableSlots, $blockedSlots)
 	{
 		$layout = ScheduleLayout::Parse($timezone, $reservableSlots, $blockedSlots);
@@ -146,6 +156,7 @@ class ManageScheduleService
 	 * @param string[] $reservableSlots
 	 * @param string[] $blockedSlots
 	 */
+	//Unused
 	public function ChangeDailyLayout($scheduleId, $timezone, $reservableSlots, $blockedSlots)
 	{
 		$layout = ScheduleLayout::ParseDaily($timezone, $reservableSlots, $blockedSlots);
@@ -155,6 +166,7 @@ class ManageScheduleService
 	/**
 	 * @param int $scheduleId
 	 */
+	//Unused
 	public function MakeDefault($scheduleId)
 	{
 		$schedule = $this->scheduleRepository->LoadById($scheduleId);
@@ -167,6 +179,7 @@ class ManageScheduleService
 	 * @param int $scheduleId
 	 * @param int $moveResourcesToThisScheduleId
 	 */
+	//Unused
 	public function Delete($scheduleId, $moveResourcesToThisScheduleId)
 	{
 		$resources = $this->resourceRepository->GetScheduleResources($scheduleId);
@@ -183,6 +196,7 @@ class ManageScheduleService
 	/**
 	 * @param int $scheduleId
 	 */
+	//Unused
 	public function EnableSubscription($scheduleId)
 	{
 		$schedule = $this->scheduleRepository->LoadById($scheduleId);
@@ -193,6 +207,7 @@ class ManageScheduleService
 	/**
 	 * @param int $scheduleId
 	 */
+	//Unused
 	public function DisableSubscription($scheduleId)
 	{
 		$schedule = $this->scheduleRepository->LoadById($scheduleId);
@@ -204,6 +219,7 @@ class ManageScheduleService
 	 * @param int $scheduleId
 	 * @param int $adminGroupId
 	 */
+	//Unused
 	public function ChangeAdminGroup($scheduleId, $adminGroupId)
 	{
 		$schedule = $this->scheduleRepository->LoadById($scheduleId);
@@ -216,12 +232,14 @@ class ManageScheduleService
 	 * @param int $pageSize
 	 * @return PageableData|BookableResource[]
 	 */
+	//Unused
 	public function GetList($pageNumber, $pageSize)
 	{
 		return $this->scheduleRepository->GetList($pageNumber, $pageSize);
 	}
 }
 
+//Class: Supports the schedule manage controller
 class ManageSchedulesPresenter extends ActionPresenter
 {
 	/**
@@ -239,6 +257,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	 */
 	private $groupViewRepository;
 
+	//Construct
 	public function __construct(IManageSchedulesPage $page, ManageScheduleService $manageSchedulesService,
 								IGroupViewRepository $groupViewRepository)
 	{
@@ -258,6 +277,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 		$this->AddAction(ManageSchedules::ChangeAdminGroup, 'ChangeAdminGroup');
 	}
 
+	//Loads the page
 	public function PageLoad()
 	{
 		$results = $this->manageSchedulesService->GetList($this->page->GetPageNumber(), $this->page->GetPageSize());
@@ -278,9 +298,9 @@ class ManageSchedulesPresenter extends ActionPresenter
 		$this->page->BindSchedules($schedules, $layouts, $sourceSchedules);
 		$this->page->BindPageInfo($results->PageInfo());
 		$this->PopulateTimezones();
-
 	}
 
+	//Gets the timezones
 	private function PopulateTimezones()
 	{
 		$timezoneValues = array();
@@ -298,6 +318,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Unused
 	public function Add()
 	{
 		$copyLayoutFromScheduleId = $this->page->GetSourceScheduleId();
@@ -313,6 +334,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Unused
 	public function Rename()
 	{
 		$this->manageSchedulesService->Rename($this->page->GetScheduleId(), $this->page->GetScheduleName());
@@ -321,6 +343,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Unused
 	public function ChangeSettings()
 	{
 		$this->manageSchedulesService->ChangeSettings($this->page->GetScheduleId(), $this->page->GetStartDay(),
@@ -330,6 +353,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Changes the layout
 	public function ChangeLayout()
 	{
 		$scheduleId = $this->page->GetScheduleId();
@@ -355,6 +379,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Unused
 	public function ChangeAdminGroup()
 	{
 		$this->manageSchedulesService->ChangeAdminGroup($this->page->GetScheduleId(), $this->page->GetAdminGroupId());
@@ -363,6 +388,7 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Unused
 	public function MakeDefault()
 	{
 		$this->manageSchedulesService->MakeDefault($this->page->GetScheduleId());
@@ -371,21 +397,25 @@ class ManageSchedulesPresenter extends ActionPresenter
 	/**
 	 * @internal should only be used for testing
 	 */
+	//Unused
 	public function Delete()
 	{
 		$this->manageSchedulesService->Delete($this->page->GetScheduleId(), $this->page->GetTargetScheduleId());
 	}
 
+	//Unused
 	public function EnableSubscription()
 	{
 		$this->manageSchedulesService->EnableSubscription($this->page->GetScheduleId());
 	}
 
+	//Unused
 	public function DisableSubscription()
 	{
 		$this->manageSchedulesService->DisableSubscription($this->page->GetScheduleId());
 	}
 
+	//Unused
 	protected function LoadValidators($action)
 	{
 		if ($action == ManageSchedules::ActionChangeLayout)

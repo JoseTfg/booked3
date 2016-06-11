@@ -7,8 +7,8 @@ Unchanged:
 
 Erased:
 
--config.dist.php:
--index.html:
+-config.dist.php
+-index.html
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -68,4 +68,4 @@ $conf['settings']['api']['enabled'] = 'true';
 
 5/5/2016
 
--config:php:		Configured for emails notifications.
+-config.php:		Configured for emails notifications.

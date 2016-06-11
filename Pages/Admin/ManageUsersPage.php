@@ -189,8 +189,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 
 		$config = Configuration::Instance();
 		$resources = Resources::GetInstance();
-		$this->Set('statusDescriptions',
-				   array(AccountStatus::ALL => $resources->GetString('All'), AccountStatus::ACTIVE => $resources->GetString('Active'), AccountStatus::AWAITING_ACTIVATION => $resources->GetString('Pending'), AccountStatus::INACTIVE => $resources->GetString('Inactive')));
+		$this->Set('statusDescriptions', array(AccountStatus::ALL => $resources->GetString('All'), AccountStatus::ACTIVE => $resources->GetString('Active'), AccountStatus::AWAITING_ACTIVATION => $resources->GetString('Pending'), AccountStatus::INACTIVE => $resources->GetString('Inactive')));
 
 		$this->Set('Timezone', $config->GetDefaultTimezone());
 		$this->Set('Timezones', $GLOBALS['APP_TIMEZONES']);
@@ -276,7 +275,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	/**
 	 * @return string
 	 */
-	//Gets password
+	//Unused
 	public function GetPassword()
 	{
 		return $this->GetForm(FormKeys::PASSWORD);
@@ -322,43 +321,43 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 		return $this->GetForm(FormKeys::LAST_NAME);
 	}
 
-	//Gets timezone
+	//Unused
 	public function GetTimezone()
 	{
 		return $this->GetForm(FormKeys::TIMEZONE);
 	}
 
-	//Gets phone
+	//Unused
 	public function GetPhone()
 	{
 		return $this->GetForm(FormKeys::PHONE);
 	}
 
-	//Gets position
+	//Unused
 	public function GetPosition()
 	{
 		return $this->GetForm(FormKeys::POSITION);
 	}
 
-	//Gets organization
+	//Unused
 	public function GetOrganization()
 	{
 		return $this->GetForm(FormKeys::ORGANIZATION);
 	}
 
-	//Gets language
+	//Unused
 	public function GetLanguage()
 	{
 		return $this->GetForm(FormKeys::LANGUAGE);
 	}
 
-	//Sends the attrbiute list information to the Smarty page
+	//Sends the attribute list information to the Smarty page
 	public function BindAttributeList($attributeList)
 	{
 		$this->Set('AttributeList', $attributeList);
 	}
 
-	//Gets attribute list
+	//Unused
 	public function GetAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm(FormKeys::ATTRIBUTE_PREFIX));
@@ -404,7 +403,7 @@ class ManageUsersPage extends ActionPage implements IManageUsersPage
 	//Unused
 	public function ShowTemplateCSV()
 	{
-		$this->DisplayCsv('Admin/Users/import_user_template_csv.tpl', 'users.csv');
+		//No-op
 	}
 
 	/**

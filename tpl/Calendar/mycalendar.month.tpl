@@ -22,13 +22,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div class="calendarHeading">
 
-	<div style="float:left;">
+	<div class="leftFloater">
 		<a href="{$PrevLink}"><img src="img/arrow_large_left.png" alt="Back" /></a>
 		{$MonthName} {$DisplayDate->Year()}
 		<a href="{$NextLink}"><img src="img/arrow_large_right.png" alt="Forward" /></a>
 	</div>
 
-	<div style="float:right;">
+	<div class="rightFloater">
 		<a href="#" id="goToday" alt="Today" title="Today">{translate key=Today} {html_image src="today.png"}</a>
 		<a href="admin/manage_reservations.php" id="goList" alt="List" title="List">{translate key=List} {html_image src="list.png"}</a>
 		<a href="#" id="goDay" alt="Today" title="Today">{translate key=Day} {html_image src="calendar-day.png"}</a>

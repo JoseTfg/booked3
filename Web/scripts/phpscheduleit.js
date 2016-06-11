@@ -1,9 +1,11 @@
 // Cookie functions from http://www.quirksmode.org/js/cookies.html //
 
+//Starts with
 function startsWith(haystack, needle) {
 	return haystack.slice(0, needle.length) == needle;
 }
 
+//Create cookie
 function createCookie(name, value, days, path)
 {
 	var getLocation = function(href) {
@@ -37,6 +39,7 @@ function createCookie(name, value, days, path)
 	document.cookie = name+"="+value+expires+"; path=" + path;
 }
 
+//Read cookie
 function readCookie(name) 
 {
 	var nameEQ = name + "=";
@@ -56,11 +59,13 @@ function readCookie(name)
 	return null;
 }
 
+//Erase cookie
 function eraseCookie(name) 
 {
 	document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
+//Init menu
 function initMenu()
 {
 	$("#nav ul").css({display: "none"}); // Opera Fix
@@ -73,6 +78,7 @@ function initMenu()
 			});
 }
 
+//Gets query string value
 function getQueryStringValue(name)
 {
 	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");

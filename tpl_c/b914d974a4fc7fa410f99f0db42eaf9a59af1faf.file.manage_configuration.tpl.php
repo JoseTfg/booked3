@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-05-28 16:48:41
+<?php /* Smarty version Smarty-3.1.16, created on 2016-06-01 21:57:31
          compiled from "/var/www/booked/tpl/Admin/Configuration/manage_configuration.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:19164533075749afc90f6093-15277900%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:479992262574f3e2b8a9266-72546249%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b914d974a4fc7fa410f99f0db42eaf9a59af1faf' => 
     array (
       0 => '/var/www/booked/tpl/Admin/Configuration/manage_configuration.tpl',
-      1 => 1464446906,
+      1 => 1464800010,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '19164533075749afc90f6093-15277900',
+  'nocache_hash' => '479992262574f3e2b8a9266-72546249',
   'function' => 
   array (
     'list_settings' => 
@@ -46,9 +46,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => 0,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5749afc91d9a63_33805465',
+  'unifunc' => 'content_574f3e2b9b3862_04214738',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5749afc91d9a63_33805465')) {function content_5749afc91d9a63_33805465($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_574f3e2b9b3862_04214738')) {function content_574f3e2b9b3862_04214738($_smarty_tpl) {?>
 
 <?php echo $_smarty_tpl->getSubTemplate ('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('cssFiles'=>'css/admin.css,scripts/css/colorbox.css'), 0);?>
 
@@ -68,18 +68,18 @@ $_smarty_tpl->tpl_vars['setting']->_loop = true;
 		<?php echo smarty_function_cycle(array('values'=>',row1','assign'=>'rowCss'),$_smarty_tpl);?>
 
 		<?php $_smarty_tpl->tpl_vars["name"] = new Smarty_variable($_smarty_tpl->tpl_vars['setting']->value->Name, null, 0);?>
-    <li id="<?php echo $_smarty_tpl->tpl_vars['setting']->value->Key;?>
+		<li id="<?php echo $_smarty_tpl->tpl_vars['setting']->value->Key;?>
 "><span class="label"><?php echo $_smarty_tpl->tpl_vars['setting']->value->Key;?>
 </span>
 		<?php if ($_smarty_tpl->tpl_vars['setting']->value->Key==ConfigKeys::DEFAULT_TIMEZONE) {?>
             <select name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
-" class="textbox">
+" class="textbox" style="width:358px;">
 				<?php echo smarty_function_html_options(array('values'=>$_smarty_tpl->tpl_vars['TimezoneValues']->value,'output'=>$_smarty_tpl->tpl_vars['TimezoneOutput']->value,'selected'=>$_smarty_tpl->tpl_vars['setting']->value->Value),$_smarty_tpl);?>
 
             </select>
 		<?php } elseif ($_smarty_tpl->tpl_vars['setting']->value->Key==ConfigKeys::LANGUAGE) {?>
             <select name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
-" class="textbox">
+" class="textbox" style="width:358px;">
 				<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['object_html_options'][0][0]->ObjectHtmlOptions(array('options'=>$_smarty_tpl->tpl_vars['Languages']->value,'key'=>'GetLanguageCode','label'=>'GetDisplayName','selected'=>strtolower($_smarty_tpl->tpl_vars['setting']->value->Value)),$_smarty_tpl);?>
 
             </select>
@@ -91,16 +91,15 @@ $_smarty_tpl->tpl_vars['setting']->_loop = true;
 			</select>
 		<?php } elseif ($_smarty_tpl->tpl_vars['setting']->value->Type==ConfigSettingType::String) {?>
             <input type="text" size="50" name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
-" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['setting']->value->Value, ENT_QUOTES, 'UTF-8', true);?>
+" style="width:350px;" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['setting']->value->Value, ENT_QUOTES, 'UTF-8', true);?>
 " class="textbox"/>
 		<?php } else { ?>
             <label><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"True"),$_smarty_tpl);?>
-<input type="radio" value="true" name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
-"<?php if ($_smarty_tpl->tpl_vars['setting']->value->Value=='true') {?>
-                                                checked="checked"<?php }?> /></label>
-            <label><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"False"),$_smarty_tpl);?>
-<input type="radio" value="false"
-                                                 name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
+&nbsp;<input type="radio" value="true" name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
+"<?php if ($_smarty_tpl->tpl_vars['setting']->value->Value=='true') {?> checked="checked"<?php }?> /></label>
+            &nbsp;&nbsp;&nbsp;
+			<label><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"False"),$_smarty_tpl);?>
+&nbsp;<input type="radio" value="false" name="<?php echo $_smarty_tpl->tpl_vars['name']->value;?>
 "<?php if ($_smarty_tpl->tpl_vars['setting']->value->Value=='false') {?> checked="checked"<?php }?> /></label>
 		<?php }?>
     </li>
@@ -110,43 +109,36 @@ foreach (Smarty::$global_tpl_vars as $key => $value) if(!isset($_smarty_tpl->tpl
 
 
 <h1><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ManageConfiguration'),$_smarty_tpl);?>
- </h1>
-
-
+</h1>
 
 <?php if (!$_smarty_tpl->tpl_vars['IsPageEnabled']->value) {?>
-<div class="warning">
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ConfigurationUiNotEnabled'),$_smarty_tpl);?>
+	<div class="warning">
+		<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ConfigurationUiNotEnabled'),$_smarty_tpl);?>
 
-</div>
+	</div>
 <?php }?>
 
 <?php if (!$_smarty_tpl->tpl_vars['IsConfigFileWritable']->value) {?>
-<div class="warning">
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ConfigurationFileNotWritable'),$_smarty_tpl);?>
+	<div class="warning">
+		<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ConfigurationFileNotWritable'),$_smarty_tpl);?>
 
-</div>
+	</div>
 <?php }?>
 
 <?php if ($_smarty_tpl->tpl_vars['IsPageEnabled']->value&&$_smarty_tpl->tpl_vars['IsConfigFileWritable']->value) {?>
 
-	<?php $_smarty_tpl->tpl_vars['HelpUrl'] = new Smarty_variable(((string)$_smarty_tpl->tpl_vars['ScriptUrl']->value)."/help.php?ht=admin", null, 0);?>
+<?php $_smarty_tpl->tpl_vars['HelpUrl'] = new Smarty_variable(((string)$_smarty_tpl->tpl_vars['ScriptUrl']->value)."/help.php?ht=admin", null, 0);?>
 
-
-<div id="updatedMessage" class="success" style="display:none">
+<div id="updatedMessage" class="success">
 	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ConfigurationUpdated'),$_smarty_tpl);?>
 
 </div>
 
-<div id="configSettings" style="width: 50%;margin: 0 auto; ">
-
-    
-
+<div id="configSettings">
     <form id="frmConfigSettings" method="post" ajaxAction="<?php echo ConfigActions::Update;?>
 " action="<?php echo $_SERVER['SCRIPT_NAME'];?>
 ">
-		
-		<fieldset style="background-color:#FFCC99;">
+		<fieldset class="orangeFieldset">
 		<ul class="no-style config-settings">
 			<?php smarty_template_function_list_settings($_smarty_tpl,array('settings'=>$_smarty_tpl->tpl_vars['Settings']->value));?>
 
@@ -176,113 +168,103 @@ $_smarty_tpl->tpl_vars['settings']->_loop = true;
         <input type="hidden" name="setting_names" value="<?php echo $_smarty_tpl->tpl_vars['SettingNames']->value;?>
 "/>		
     </form>
-	<input style="text-align: right;width:90px;float:right;background:url('../img/arrow-circle-135.png');background-position:left;
-background-repeat:no-repeat;" type="button" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
+	
+	<input id="configSubmit" type="button" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Update'),$_smarty_tpl);?>
 " class='button save'/>
 	<form id="frmConfigFile" method="GET" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ">
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'File'),$_smarty_tpl);?>
+		<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'File'),$_smarty_tpl);?>
 :
-	<select name="cf" id="cf" class="textbox">
-	<?php  $_smarty_tpl->tpl_vars['file'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['file']->_loop = false;
+		<select name="cf" id="cf" class="textbox">
+		<?php  $_smarty_tpl->tpl_vars['file'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['file']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['ConfigFiles']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['file']->key => $_smarty_tpl->tpl_vars['file']->value) {
 $_smarty_tpl->tpl_vars['file']->_loop = true;
 ?>
-		<?php $_smarty_tpl->tpl_vars['selected'] = new Smarty_variable('', null, 0);?>
-		<?php if ($_smarty_tpl->tpl_vars['file']->value->Location==$_smarty_tpl->tpl_vars['SelectedFile']->value) {?><?php $_smarty_tpl->tpl_vars['selected'] = new Smarty_variable("selected='selected'", null, 0);?><?php }?>
-		<option value="<?php echo $_smarty_tpl->tpl_vars['file']->value->Location;?>
+			<?php $_smarty_tpl->tpl_vars['selected'] = new Smarty_variable('', null, 0);?>
+			<?php if ($_smarty_tpl->tpl_vars['file']->value->Location==$_smarty_tpl->tpl_vars['SelectedFile']->value) {?><?php $_smarty_tpl->tpl_vars['selected'] = new Smarty_variable("selected='selected'", null, 0);?><?php }?>
+			<option value="<?php echo $_smarty_tpl->tpl_vars['file']->value->Location;?>
 " <?php echo $_smarty_tpl->tpl_vars['selected']->value;?>
 ><?php echo $_smarty_tpl->tpl_vars['file']->value->Name;?>
 </option>
-	<?php } ?>
-	</select>
-</form>
+		<?php } ?>
+		</select>
+	</form>
 </div>
 
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['csrf_token'][0][0]->CSRFToken(array(),$_smarty_tpl);?>
+<div class="hiddenDiv">
+	<input id="string1" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"AppTitle"),$_smarty_tpl);?>
+">
+	<input id="string2" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"DefaultTimezone"),$_smarty_tpl);?>
+">
+	<input id="string3" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"DefaultPageSize"),$_smarty_tpl);?>
+">
+	<input id="string4" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"EnableEmail"),$_smarty_tpl);?>
+">
+	<input id="string5" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"AdminEmail"),$_smarty_tpl);?>
+">
+	<input id="string6" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"DefaultLanguage"),$_smarty_tpl);?>
+">
+	<input id="string7" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"ScriptUrl"),$_smarty_tpl);?>
+">
+	<input id="string8" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"InactivityTimeout"),$_smarty_tpl);?>
+">
+	<input id="string9" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"NameFormat"),$_smarty_tpl);?>
+">
+	<input id="string10" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"LogoutUrl"),$_smarty_tpl);?>
+">
+	<input id="string11" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Host"),$_smarty_tpl);?>
+">
+	<input id="string12" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Port"),$_smarty_tpl);?>
+">
+	<input id="string13" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Version"),$_smarty_tpl);?>
+">
+	<input id="string14" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"StartTLS"),$_smarty_tpl);?>
+">
+	<input id="string15" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"BindDN"),$_smarty_tpl);?>
+">
+	<input id="string16" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"BindPW"),$_smarty_tpl);?>
+">
+	<input id="string17" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"BaseDN"),$_smarty_tpl);?>
+">
+	<input id="string18" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"Filter"),$_smarty_tpl);?>
+">
+	<input id="string19" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"AttributeMapping"),$_smarty_tpl);?>
+">
+	<input id="string20" type="text" value="<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>"UserIdAttribute"),$_smarty_tpl);?>
+">
+</div>
+
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['csrf_token'][0][0]->CSRFToken(array(),$_smarty_tpl);?>
 
 
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/edit.js"),$_smarty_tpl);?>
 
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"js/jquery.form-3.09.min.js"),$_smarty_tpl);?>
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/edit.js"),$_smarty_tpl);?>
 
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"js/jquery.colorbox-min.js"),$_smarty_tpl);?>
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"js/jquery.form-3.09.min.js"),$_smarty_tpl);?>
 
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/configuration.js"),$_smarty_tpl);?>
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"js/jquery.colorbox-min.js"),$_smarty_tpl);?>
 
-	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/help.js"),$_smarty_tpl);?>
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/configuration.js"),$_smarty_tpl);?>
 
 
-<script type="text/javascript">
 
-	url = document.URL;
-		
-	if(url.indexOf("cf=Authentication%2FLdap") != -1){
-	document.getElementById("scope").style.display = "none";
-	document.getElementById("required.group").style.display = "none";
-	document.getElementById("database.auth.when.ldap.user.not.found").style.display = "none";
-	document.getElementById("ldap.debug.enabled").style.display = "none";
-	}
-	else{
-	document.getElementById("allow.self.registration").style.display = "none";
-	document.getElementById("admin.email.name").style.display = "none";
-	//document.getElementById("enable.email").style.display = "none";
-	document.getElementById("image.upload.directory").style.display = "none";
-	document.getElementById("image.upload.url").style.display = "none";
-	document.getElementById("cache.templates").style.display = "none";
-	document.getElementById("use.local.jquery").style.display = "none";
-	document.getElementById("registration.captcha.enabled").style.display = "none";
-	document.getElementById("registration.require.email.activation").style.display = "none";
-	document.getElementById("registration.auto.subscribe.email").style.display = "none";
-	document.getElementById("registration.notify.admin").style.display = "none";
-	document.getElementById("css.extension.file").style.display = "none";
-	document.getElementById("disable.password.reset").style.display = "none";
-	document.getElementById("home.url").style.display = "none";
-	//document.getElementById("logout.url").style.display = "none";
-	document.getElementById("default.homepage").style.display = "none";
-	
+<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['jsfile'][0][0]->IncludeJavascriptFile(array('src'=>"admin/configurationEnhance.js"),$_smarty_tpl);?>
 
-	var userPreferences = $("li[id*='minTime']");
-	for (i=0;i<userPreferences.length;i++){
-		userPreferences[i].style.display = "none";
-	}
-	var userPreferences = $("li[id*='maxTime']");
-	for (i=0;i<userPreferences.length;i++){
-		userPreferences[i].style.display = "none";
-	}
-	var userPreferences = $("li[id*='color']");
-	for (i=0;i<userPreferences.length;i++){
-		userPreferences[i].style.display = "none";
-	}
-	
-	document.getElementById("schedule").style.display = "none";
-	document.getElementById("ics").style.display = "none";
-	document.getElementById("privacy").style.display = "none";
-	document.getElementById("reservation").style.display = "none";
-	document.getElementById("reservation.notify").style.display = "none";
-	document.getElementById("plugins").style.display = "none";
-	document.getElementById("recaptcha").style.display = "none";
-	document.getElementById("email").style.display = "none";
-	document.getElementById("reports").style.display = "none";
-	document.getElementById("password").style.display = "none";
-	document.getElementById("reservation.labels").style.display = "none";
-	document.getElementById("security").style.display = "none";
-	document.getElementById("google.analytics").style.display = "none";
-	
-	document.getElementById("phpmailer").style.display = "none";
-	document.getElementById("uploads").style.display = "none";
-	}
+
+<script type="text/javascript">		
 	
     $(document).ready(function ()
     {
         var config = new Configuration();
         config.init();
     });
+	
+	enhance()
 
 </script>
 
-<div id="modalDiv" style="display:none;text-align:center; top:15%;position:relative;">
+<div id="modalDiv" class="creating">
     <h3><?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'Working'),$_smarty_tpl);?>
 </h3>
 	<?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['html_image'][0][0]->PrintImage(array('src'=>"reservation_submitting.gif"),$_smarty_tpl);?>

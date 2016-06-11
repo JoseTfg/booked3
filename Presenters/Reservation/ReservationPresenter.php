@@ -82,6 +82,7 @@ class ReservationPresenter extends ReservationPresenterBase
 	}
 }
 
+//Class: Supports reservation editing
 class EditReservationPresenter extends ReservationPresenterBase
 {
 	/**
@@ -104,6 +105,7 @@ class EditReservationPresenter extends ReservationPresenterBase
 	 */
 	private $reservationViewRepository;
 
+	//Construct
 	public function __construct(
 		IExistingReservationPage $page,
 		IReservationInitializerFactory $initializationFactory,
@@ -118,6 +120,7 @@ class EditReservationPresenter extends ReservationPresenterBase
 		$this->reservationViewRepository = $reservationViewRepository;
 	}
 
+	//Loads page
 	public function PageLoad()
 	{
 		$user = ServiceLocator::GetServer()->GetUserSession();

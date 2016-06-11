@@ -1,3 +1,57 @@
+<h4>v0.9	-	1/6/2016:</h4>
+
+-config.php:						User preferences has been redefined, now it follows the following
+									structure: userId#Time = minTime#maxTime#firstDay#timeFormat#weekends
+-ManageAnnouncementsPresenter.php:		Changes to match the new pagination
+
+-PersonalCalendarPresenter.php:			Fixed bug related to user preferences
+
+-PersonalCalendarPresenterEnhance.php:	Fixed bug related to user preferences	
+-manage_blackouts.tpl				Updated buttons.
+-manage_configuration.tpl			Changed button and general box style.
+-manage_reservations.tpl			Differentiation between user and administrator view.
+-manage_resources.tpl				Updated table content and popup style.
+-manage_announcements.tpl			Updated popup user interaction.
+-manage_quotas.tpl					Updated table content.
+-manage_groups.tpl					Update table content.
+-manage_schedules.tpl				Re-added. Changed several content.
+-manage_users.tpl					Update table content.
+-respopup.tpl						Update popup content.
+-mycalendar.common.tpl:				More responsive to user preferences.
+-RecurrenceDiv.tpl:					Changed styles. It shows disabled text-boxes when not used.
+-generate-report.tpl				Changed style to match with reservations.
+-print-custom-report.tpl			Changed printable content.
+-results-custom.tpl					Changed result content.
+-create.tpl							New jquery dialog style.
+-view.tpl:							New jquery dialog style.
+-globalheader.tpl:					Updated with final options.
+-globalfooter.tpl:					New marquee.
+-login.tpl							View reservations mode button added.
+-support-and-credits.tpl			Updated information.
+-announcement.js					Restrict user interface to properly submit valid options.
+-blackouts.js						Adapts interface to allow blackout creation from calendar view.
+-group.js							New interface.
+-quota.js							Restrict user interface to properly submit valid options.
+-reservations.js					Adapts to new popup system.
+-resource.js						New interface.
+-schedule.js						New interface.
+-user.js							New interface.
+-approval.js						Adapts to new popup system.
+-calendar.js						New context menu system.
+-calendarEnhance.js					Several changes, please refer to the documentation.
+-configurationEnhance.js			Hides private options.
+-createEnhance.js					Adapts to new popup system.
+-groupEnhance.js					Sorts the table.
+-manageBlackoutsEnhance.js			Adapts to new popup system.
+-manageReservationsEnhance.js		Sorts the table.
+-scheduleEnhance.js					Restrict user interface to properly submit valid options.
+-userEnhance.js						Sorts the table.
+
+Added:
+
+-marquee.js							Supports marquee.
+-jquery.ui-contextmenu.js			Supports context menu.				
+
 <h4>v0.8	-	20/5/2016:</h4>
 
 -Ldap.config.php:					Jumpcloud established as the final authentication server.

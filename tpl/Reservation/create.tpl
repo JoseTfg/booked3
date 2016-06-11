@@ -20,24 +20,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {include file='globalheader.tpl' cssFiles='css/reservation.css,css/jquery.qtip.min.css,scripts/css/jqtree.css'}
 {/block}
 
-<div id="reservationbox">
-
+<div id="reservationbox"> 
 <form id="reservationForm" method="post" enctype="multipart/form-data">
     {csrf_token}
 <div class="clear"></div>
+<div id="result"></div>
 
-{*<div class="reservationHeader">
-    <h3>{block name=reservationHeader}{translate key="CreateReservationHeading"}{/block}</h3>
-</div>*}
-
-
-<div id="reservationDetails">
+<div id="reservationDetails" class="details">
     <ul style="text-align:center;" class="no-style">
-	
-	<div class="warning" id="result" style="display:none;">
-	
+		
 	{if $CanChangeUser}
-            <button id="promptForChangeUsers" type="button" class="button" style="display:inline;">
+            <button id="promptForChangeUsers" type="button" style="display:inline;">
                 {html_image src="users.png"}
 			{*{translate key='ChangeUser'}*}
             </button>
@@ -45,7 +38,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
             <div id="changeUserDialog" title="{translate key=ChangeUser}" class="dialog"></div>
 		{/if}
 
-            <a id="userName" data-userid="{$UserId}">{$ReservationUserName}</a> <input id="userId"
+            <a id="userName" data-userid="{$UserId}">{$ReservationUserName|truncate:25:"...":true}</a> <input id="userId"
                                                                      type="hidden" {formname key=USER_ID}
                                                                      value="{$UserId}"/>
 		
@@ -72,7 +65,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/if}
 		</br>
 		</br>
-		<select id="filter">
+		<select class="pulldown input" id="filter" style="width:230px;font-size: 12px;text-align-last:center;">
 		{foreach from=$AvailableResources item=resource}
 			<option value="{$resource->Id}">{$resource->Name}</option>
 		{/foreach}
@@ -81,31 +74,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<ul class="no-style" >
 		<input id="resourceId" class="resourceId" type="hidden" {formname key=RESOURCE_ID} value="{$ResourceId}"/>
 		<input type="hidden" id="scheduleId" {formname key=SCHEDULE_ID} value="{$ScheduleId}"/>
-		
-{*
-			<div>
-                <div style="float:left;">
-                    <label>{translate key="ResourceList"}</label><br/>
-                    <div id="resourceNames" style="display:inline">
-                        <a>{$ResourceName}</a>
-                        <input class="resourceId" type="hidden" {formname key=RESOURCE_ID} value="{$ResourceId}"/>
-                        <input type="hidden" id="scheduleId" {formname key=SCHEDULE_ID} value="{$ScheduleId}"/>
-                    </div>
-				{if $ShowAdditionalResources}
-                    <a id="btnAddResources" href="#" class="small-action">{html_image src="plus-small-white.png"}</a>
-				{/if}
-                    <div id="additionalResources">
-						{foreach from=$AvailableResources item=resource}
-							{if is_array($AdditionalResourceIds) && in_array($resource->Id, $AdditionalResourceIds)}
-								<p><a href="#" class="resourceDetails">{$resource->Name}</a><input class="resourceId" type="hidden" name="{FormKeys::ADDITIONAL_RESOURCES}[]" value="{$resource->Id}"/></p>
-							{/if}
-						{/foreach}
-                    </div>
-                </div>
-                
-            </div>
-            <div style="clear:both;height:0;">&nbsp;</div>
-*}
+
         </li>
         <li style="text-align: center">
 		<br/>
@@ -118,7 +87,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         </li>
         <li style="text-align: center">
             {*<label for="EndDate" class="reservationDate">{translate key='EndDate'}</label>*}
-<select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:110px;font-size: 12px;">
+<select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:108px;font-size: 12px;text-align-last:center;">
 			{foreach from=$StartPeriods item=period}
 				{if $period->IsReservable()}
 					{assign var='selected' value=''}
@@ -130,7 +99,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/foreach}
             </select>
 			-
-            <select id="EndPeriod" {formname key=END_PERIOD} class="pulldown input" style="width:110px;font-size: 12px;">
+            <select id="EndPeriod" {formname key=END_PERIOD} class="pulldown input" style="width:108px;font-size: 12px;text-align-last:center;">
 			{foreach from=$EndPeriods item=period name=endPeriods}
 				{if $period->BeginDate()->IsMidnight()}
                     <option value="{$period->Begin()}"{$selected}>{$period->Label()}</option>
@@ -150,7 +119,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 {translate key=Duration}: <span id="durationHours">0</span> {translate key=hours}
             </div>
         </li>
-	
+	<br/>
 	
 	{if $HideRecurrence}
         <li style="display:none">
@@ -158,94 +127,21 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     <li id="recurrence" style="text-align:center;">
 	{/if}
 	{control type="RecurrenceControl" RepeatTerminationDate=$RepeatTerminationDate }
-    </li>
+	</li>
 	
 	
         <li class="rsv-box-l" style="text-align: center">
-			{textbox id="title" style="width:180px;" name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
+			{textbox id="title" style="width:230px;" name="RESERVATION_TITLE" placeholder="{translate key="ReservationTitle"}" class="input" tabindex="100" value="ReservationTitle"}
             {*</label>*}
         </li>
+
         <li class="rsv-box-l" style="text-align: center">
-                <textarea id="description" placeholder="{translate key="ReservationDescription"}" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="height:40px;width:180px;"
+                <textarea id="description" placeholder="{translate key="ReservationDescription"}" name="{FormKeys::DESCRIPTION}" class="input" rows="2" cols="52" style="height:40px;width:230px;"
                           tabindex="110">{$Description}</textarea>
             {*</label>*}
         </li>
     </ul>
 </div>
-
-{*
-{if $ShowParticipation && $AllowParticipation}
-	{include file="Reservation/participation.tpl"}
-{else}
-	{include file="Reservation/private-participation.tpl"}
-{/if}
-
-<div style="clear:both;">&nbsp;</div>
-
-{if $RemindersEnabled}
-	<div class="reservationReminders">
-		<div id="reminderOptionsStart">
-			<label>{translate key=SendReminder}</label>
-			<input type="checkbox" class="reminderEnabled" {formname key=START_REMINDER_ENABLED}/>
-			<input type="text" size="3" maxlength="3" value="15"
-				   class="reminderTime textbox" {formname key=START_REMINDER_TIME}/>
-			<select class="reminderInterval textbox" {formname key=START_REMINDER_INTERVAL}>
-				<option value="{ReservationReminderInterval::Minutes}">{translate key=minutes}</option>
-				<option value="{ReservationReminderInterval::Hours}">{translate key=hours}</option>
-				<option value="{ReservationReminderInterval::Days}">{translate key=days}</option>
-			</select>
-			<span class="reminderLabel">{translate key=ReminderBeforeStart}</span>
-		</div>
-		<div id="reminderOptionsEnd">
-			<input type="checkbox" class="reminderEnabled" {formname key=END_REMINDER_ENABLED}/>
-			<input type="text" size="3" maxlength="3" value="15"
-				   class="reminderTime textbox" {formname key=END_REMINDER_TIME}/>
-			<select class="reminderInterval textbox" {formname key=END_REMINDER_INTERVAL}>
-				<option value="{ReservationReminderInterval::Minutes}">{translate key=minutes}</option>
-				<option value="{ReservationReminderInterval::Hours}">{translate key=hours}</option>
-				<option value="{ReservationReminderInterval::Days}">{translate key=days}</option>
-			</select>
-			<span class="reminderLabel">{translate key=ReminderBeforeEnd}</span>
-		</div>
-		<div class="clear">&nbsp;</div>
-	</div>
-{/if}
-
-*}
-{*
-{if $Attributes|count > 0}
-<div class="customAttributes" style="text-align: center;">
-    <span>{translate key=AdditionalAttributes}</span>
-    <ul>
-		{foreach from=$Attributes item=attribute}
-            <li class="customAttribute" style="text-align: center;">
-				{control type="AttributeControl" attribute=$attribute}
-            </li>
-		{/foreach}
-    </ul>
-</div>
-
-	<div class="clear">&nbsp;</div>
-{/if}
-
-{if $UploadsEnabled}
-	<div class="reservationAttachments">
-		<ul>
-			<li>
-				<label>{translate key=AttachFile} <span class="note">({$MaxUploadSize}
-						MB {translate key=Maximum})</span><br/> </label>
-				<ul style="list-style:none;" id="reservationAttachments">
-					<li class="attachment-item">
-						<input type="file" {formname key=RESERVATION_FILE multi=true} />
-						<a class="add-attachment" href="#">{html_image src="plus-button.png"}</a>
-						<a class="remove-attachment" href="#">{html_image src="minus-gray.png"}</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-{/if}
-*}
 
 <input type="hidden" {formname key=reservation_id} value="{$ReservationId}"/>
 <input type="hidden" {formname key=reference_number} value="{$ReferenceNumber}"/>
@@ -263,7 +159,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					<input id="myOption" type="hidden" value="0" />
 				</li>
 	   
-<div class="reservationButtons">
+<div class="reservationButtons" style="position: absolute;
+    left: 56%;">
 	<div class="reservationDeleteButtons">
 	{block name="deleteButtons"}
 		&nbsp;
@@ -362,7 +259,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{/block}
 	{html_image src="reservation_submitting.gif" alt="Creating reservation"}
     </div>
-    <div id="result" style="display:none;"></div>
+    <div id="result" style="display:none;max-width: 100px;"></div>
 </div>*}
 <!-- reservationbox ends -->
 </div>
@@ -389,8 +286,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {*Enhance*}
 <link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.css" />
 <link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.filter.css" />
-{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/style.css" />*}
-{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/prettify.css" />*}
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css"/>
 {jsfile src="multiselect/jquery.multiselect.js"}
 {jsfile src="multiselect/prettify.js"}

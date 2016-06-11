@@ -69,9 +69,8 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 			{
 				//MyCode  (29/3/2016)
 				//Returns directly without sending any message.				
-				//$this->Display('Ajax/reservation/delete_successful.tpl');				
-				//$returnPage = $_SESSION['returnPage'];
-				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";  
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";
+				$this->Display('Ajax/reservation/delete_successful.tpl');						
 			}
 			else
 			{
@@ -107,15 +106,17 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 		return $this->GetForm(FormKeys::REFERENCE_NUMBER);
 	}
 
+	//Gets series scope
 	public function GetSeriesUpdateScope()
 	{
 		return $this->GetForm(FormKeys::SERIES_UPDATE_SCOPE);
 	}
 }
 
-//Class: Supports tje JSON requests and responses
+//Class: Supports the JSON requests and responses
 class ReservationDeleteJsonPage extends ReservationDeletePage implements IReservationDeletePage
 {
+	//Construct
 	public function __construct()
 	{
 		parent::__construct();
@@ -149,6 +150,7 @@ class ReservationDeleteJsonPage extends ReservationDeletePage implements IReserv
 		}
 	}
 
+	//Sends warnings
 	public function SetWarnings($warnings)
 	{
 		// nothing to do

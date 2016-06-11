@@ -22,5 +22,4 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     <h5><a href="{$ReturnUrl}">{translate key='ReturnToPreviousPage'}</a></h5>
 </div>
 
-
 {include file='globalfooter.tpl'}

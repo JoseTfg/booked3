@@ -15,7 +15,6 @@
 	function APIconnection($presenter){
 		$username = $_SESSION['username'];
 		$password = $_SESSION['password'];
-		//if(isset($username)){
 		if ($username == ""){
 			$username = 'blank';
 			$password = 'blank';
@@ -90,7 +89,6 @@
 	//Sets the colros of resources
 	function colors($presenter, $userSession){
 		//MyCode 4/5/2016
-		//Test
 		$colors = $_POST['colors'];
 		$changedSetting = '';
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);

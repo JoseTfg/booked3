@@ -1,5 +1,5 @@
 {*
-Copyright 2011-2015 Nick Korbel, Paul Menchini
+Copyright 2011-2015 Nick Korbel
 
 This file is part of Booked Scheduler.
 
@@ -16,11 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
-<p>{$To},</p>
-
-<p>Se ha registrado un nuevo usuario con la siguiente información:<br/>
-Correo electrónico: {$EmailAddress}<br/>
-Nombre: {$FullName}<br/>
-Teléfono: {$Phone}<br/>
-Organización: {$Organization}<br/>
-Cargo: {$Position}</p>
+<div id="reservationCreated" class="reservationResponseMessage" style="text-align:center;">
+	{html_image src="dialog-success.png" id="imgReservationSuccess"}
+</div>

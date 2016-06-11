@@ -12,9 +12,6 @@ function Calendar(opts, reservations)
 			
 			//Header
 			header: '',
-			//center: 'today',
-			//right: 'prevYear,prev,agendaDay,agendaWeek,month,next,nextYear' // buttons for switching between views
-			//editable: false,
 			
 			//View Options
 			defaultView: _options.view,
@@ -25,31 +22,34 @@ function Calendar(opts, reservations)
 			//Events
 			events: _reservations,
 			eventRender: function(event, element) {			
-			element.attachReservationPopup(event.id);
-			
-			//RightClick enhance
-			//rightClick(element,event);		
-			
-			//Color assign enhance
-			if (event.className != "blackout"){
-					if (_options.myCal == 1){
-						element.find('.fc-event-title').append("<br/>" +event.trueTitle);
-						 var formattedTime = $.fullCalendar.formatDates(event.start, event.end, "HH:mm { - HH:mm}");
-						element.find(".fc-event-time").text(formattedTime);
-						element.addClass("reservationMenu");
-					}
-					else{
-						element.find('.fc-event-title').append("<br/>" + event.owner + "<br/>" + event.trueTitle);
-						element.addClass("reservationMenu");
-					}					
-				colorAssign(element,event);	
-			}
+				element.attachReservationPopup(event.id);
+				
+				//RightClick enhance
+				//rightClick(element,event);		
+				
+				//Color assign enhance
+				if (event.className != "blackout"){
+						if (_options.myCal == 1){
+							element.find('.fc-event-title').append("<br/>" +event.trueTitle);
+							var formattedTime = $.fullCalendar.formatDates(event.start, event.end, "HH:mm { - HH:mm}");
+							element.find(".fc-event-time").text(formattedTime);
+							element.addClass("reservationMenu");
+						}
+						else{
+							element.find('.fc-event-title').append("<br/>" + event.owner + "<br/>" + event.trueTitle);
+							var formattedTime = $.fullCalendar.formatDates(event.start, event.end, "HH:mm { - HH:mm}");
+							element.find(".fc-event-time").text(formattedTime);
+							element.addClass("reservationMenu");
+						}					
+					colorAssign(element,event);	
+				}
 			
 			},			
 			
 			dayRender: function(date, cell){
 				cell.addClass("dayMenu");
 			},
+			
 			//ClickEvents
 			dayClick: dayClick,
 			eventClick: function(event) {
@@ -102,15 +102,12 @@ function Calendar(opts, reservations)
 			
 			//Size
 			contentHeight: $(window).height() - 90,		//To make it smaller
-			//Width: contentHeight,
 			
 			//Sensitivity
 			editable: true,					// Is editable
-			//eventDurationEditable: true,
             droppable: true, 				// Is droppable
 			disableResizing:true,
 			eventDurationEditable:true,
-			//eventDurationEditable:false,
 			selectable: true,				// Is selectable
 
 			//Selection enhance
@@ -147,137 +144,28 @@ function Calendar(opts, reservations)
 			//eventDragStop: function(event, jsEvent, ui, view) {
 			eventDrop: function(event, dayDelta, minuteDelta, jsEvent, ui, view ){
 			
-			//Variables
-			var sd = '';
-			var ed = '';
-			var day = '';
-			
-			//Date generation
-			var coeff = 1000 * 60 * 1;			
-			sd = event.start.getTime() + minuteDelta*60;
-			sd = new Date(Math.round(sd / coeff) * coeff);
-			sd = getUrlFormattedDate(sd);
-			ed = event.end.getTime() + minuteDelta*60;
-			ed = new Date(Math.round(ed / coeff) * coeff);
-			ed = getUrlFormattedDate(ed);
+				//Variables
+				var sd = '';
+				var ed = '';
+				var day = '';
+				
+				//Date generation
+				var coeff = 1000 * 60 * 1;			
+				sd = event.start.getTime() + minuteDelta*60;
+				sd = new Date(Math.round(sd / coeff) * coeff);
+				sd = getUrlFormattedDate(sd);
+				ed = event.end.getTime() + minuteDelta*60;
+				ed = new Date(Math.round(ed / coeff) * coeff);
+				ed = getUrlFormattedDate(ed);
 
-			if (dayDelta != 0){
-				day = sd.substr(sd.lastIndexOf("-")+1,2);
-				if (day.indexOf("%") != -1){ day = "0"+day.substr(0,1)}
-			}
-			
-			//Execute
-			dragStop(event,sd,ed,day);
-			
-			return;
-			
-			/*Unused Code*/
-			//Variables
-			var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
-			var header = null;
-			var username = _options.username;
-			var password = _options.password;			
-			
-			//API: Authentication
-			$.post(url, JSON.stringify({username: username, password: password}), function(data, status){
-					
-					//Authentication Successful.
-					if (data.isAuthenticated)
-						{
-							//Gets the data
-							header = {"X-Booked-SessionToken": data.sessionToken, "X-Booked-UserId": data.userId}
-							userId = data.userId;							
-							reservationID = event.refNumber.substr(19);
-							url = [location.protocol, '//', location.host, "/booked/Web/Services/Reservations/",reservationID].join('');
-							
-							//API: GetReservation
-							$.ajax({
-							 url: url,
-							 type: "GET",
-							 headers: header,
-							 dataType: "json",
-							 
-							 //if Success
-							 success: function(data) {
-							 
-							 //Gets the Data
-							 existingReservation = data;
-							 var request = {     
-								accessories: $.map(existingReservation.accessories, function (n)
-								{
-									return {accessoryId: n.id, quantityRequested: n.quantityReserved };
-								}),
-								customAttributes: $.map(existingReservation.customAttributes, function (n)
-								{
-									return {attributeId: n.id, attributeValue: n.value};
-								}),
-								endDateTime: existingReservation.endDateTime,
-								invitees: $.map(existingReservation.invitees, function (n)
-								{
-									return n.userId;
-								}),
-								participants: $.map(existingReservation.participants, function (n)
-								{
-									return n.userId;
-								}),
-								recurrenceRule: existingReservation.recurrenceRule,
-								resourceId: existingReservation.resourceId,
-								resources: $.map(existingReservation.resources, function (n)
-								{
-									return n.id;
-								}),
-						 
-								startDateTime: existingReservation.startDateTime,
-								title: existingReservation.title,
-								userId: existingReservation.owner.userId,
-								startReminder: existingReservation.startReminder,
-								endReminder: existingReservation.endReminder
-							};	//request
-							 
-							 //Modifies
-							 var d = new Date(event.start);
-							 //d.setHours(d.getHours()+4);
-							 request.startDateTime = d.toISOString();
-							 var e = new Date(event.end);
-							 //e.setHours(e.getHours()+4);
-							 request.endDateTime = e.toISOString();
-							 
-
-							 //request.startDateTime = event.start.toUTCString();
-							 //alert(event.start);
-							 //var a = event.start.toString().substr(0,21).toISOString();
-							 
-							//Check permissions
-							if (userId == existingReservation.owner.userId){
-							//if(false){
-								//API: Update Rservation
-								$.ajax({
-							 url: url,
-							 type: "POST",
-							 headers: header,
-							 data: JSON.stringify(request),
-							 dataType: "json",
-							 
-							 //if Success
-							 success: function(data) {
-								var type = viewGetter();
-								location.reload();
-							 }	//	(function) 	Update success
-						  });	//	(ajax) 		Update Reservation
-							}	// 	(if) 		Check Permissions
-							else{
-							location.reload();}
-							 }, //	(function) 	Get Reservation success
-						  });	// 	(ajax)		Get Reservation							
-						}		//	(if) 		Authentication
-						else
-						{
-							alert(data.message);
-						}
-				}, "json" );	//	(ajax)		Authentication				
-		
-			}					//	(function)	EventDragStop	
-			
+				if (dayDelta != 0){
+					day = sd.substr(sd.lastIndexOf("-")+1,2);
+					if (day.indexOf("%") != -1){ day = "0"+day.substr(0,1)}
+				}
+				
+				//Execute
+				dragStop(event,sd,ed,day);			
+			}			
 		});
 
 		//Fullcalendar Widget Content

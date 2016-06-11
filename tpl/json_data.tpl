@@ -17,8 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {if $data neq ''}
-{$data}
+	{$data}
 {/if}
 {if $error neq ''}
-{$error}
+	{$error}
 {/if}

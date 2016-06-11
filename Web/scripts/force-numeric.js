@@ -1,3 +1,4 @@
+//Force numeric
 jQuery.fn.forceNumeric =
 function()
 {

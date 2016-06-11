@@ -18,7 +18,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <label class="customAttribute" for="{$attributeId}">{$attribute->Label()|escape}:</label>
 {if $align=='vertical'}
-<br/>
+	<br/>
 {/if}
 {if $readonly}
 	<span class="attributeValue {$class}">{if $attribute->Value() == "1"}{translate key='True'}{else}{translate key='False'}{/if}</span>

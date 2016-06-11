@@ -20,70 +20,50 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {*Imports*}
 <link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.css" />
 <link rel="stylesheet" type="text/css" href="scripts/multiselect/jquery.multiselect.filter.css" />
-{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/style.css" />*}
-{*<link rel="stylesheet" type="text/css" href="scripts/multiselect/prettify.css" />*}
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
 {jsfile src="multiselect/jquery.multiselect.js"}
 {jsfile src="multiselect/prettify.js"}
 {jsfile src="multiselect/jquery.multiselect.filter.js"}
 
 <table id="CalendarFilterTable">
-<tr>
-<td>
-
-<div id="filter">
-	{if $GroupName}
-		<span class="groupName">{$GroupName}</span>
-	{else}
-<label for="calendarFilter"></label>
-<select id="calendarFilter"  multiple="multiple">
-{foreach from=$filters->GetFilters() item=filter}
-	{foreach from=$filter->GetFilters() item=subfilter}
-		<option value="{$subfilter->Id()}" class="resource" >{$subfilter->Name()}</option>
-	{/foreach}
-{/foreach}
-	{/if}
-</select>
-</div>
-
-</td>
-<td>
-{*{if ($myCal != 1)}
-<div id="filter2">
-<label for="calendarFilter"></label>
-<select id="calendarFilter2"  multiple="multiple">
-{foreach from=$filters->GetFilters() item=filter}
-	{foreach from=$filter->GetFilters() item=subfilter}
-		<option value="{$subfilter->Id()}" class="resource" >{$subfilter->Name()}</option>
-	{/foreach}
-{/foreach}
-</select>
-</div>
-{/if}
-</td>*}
-<td>
-{if $UserId neq "1"}
-<div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
-    <label class="onoffswitch-label" for="myonoffswitch">
-        <span class="onoffswitch-inner" ></span>
-        <span class="onoffswitch-switch"></span>
-    </label>
-</div>
-{else}
-<div class="onoffswitch" style="display:none;">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
-    <label class="onoffswitch-label" for="myonoffswitch">
-        <span class="onoffswitch-inner" ></span>
-        <span class="onoffswitch-switch"></span>
-    </label>
-</div>
-{/if}
-
-<div id="resourceGroupsContainer">
-	<div id="resourceGroups"></div>
-</div>
-
-</td>
-</tr>
+	<tr>
+		<td>
+		<div id="filter">
+			{if $GroupName}
+				<span class="groupName">{$GroupName}</span>
+			{else}
+				<label for="calendarFilter"></label>
+				<select id="calendarFilter"  multiple="multiple">
+					{foreach from=$filters->GetFilters() item=filter}
+						{foreach from=$filter->GetFilters() item=subfilter}
+							<option value="{$subfilter->Id()}" class="resource" >{$subfilter->Name()}</option>
+						{/foreach}
+					{/foreach}
+				</select>
+			{/if}
+		</div>
+		</td>
+		<td>
+		{if $UserId neq "1"}
+			<div class="onoffswitch">
+				<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
+				<label class="onoffswitch-label" for="myonoffswitch">
+					<span class="onoffswitch-inner" ></span>
+					<span class="onoffswitch-switch"></span>
+				</label>
+			</div>
+		{else}
+			<div class="onoffswitch" style="display:none;">
+				<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" {if ($myCal != 1)}checked="checked"{/if}>
+				<label class="onoffswitch-label" for="myonoffswitch">
+					<span class="onoffswitch-inner"></span>
+					<span class="onoffswitch-switch"></span>
+				</label>
+			</div>
+		{/if}
+		<div id="resourceGroupsContainer">
+			<div id="resourceGroups"></div>
+		</div>
+		</td>
+	</tr>
 </table>   

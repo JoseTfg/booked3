@@ -24,6 +24,7 @@ require_once(ROOT_DIR . 'lib/Application/Authentication/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/User/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Admin/UserImportCsv.php');
 
+//Actions
 class ManageUsersActions
 {
 	const Activate = 'activate';
@@ -224,58 +225,22 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		$this->userRepository->Update($user);
 	}
 
+	//Unused
 	public function AddUser()
 	{
-		//MyCode
-		// $defaultHomePageId = Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_HOMEPAGE, new IntConverter());
-		// $user = $this->manageUsersService->AddUser(
-			// $this->page->GetUserName(),
-			// $this->page->GetEmail(),
-			// $this->page->GetFirstName(),
-			// $this->page->GetLastName(),
-			// $this->page->GetPassword(),
-			// $this->page->GetTimezone(),
-			// Configuration::Instance()->GetKey(ConfigKeys::LANGUAGE),
-			// empty($defaultHomePageId) ? Pages::DEFAULT_HOMEPAGE_ID : $defaultHomePageId,
-			// array(),
-			// $this->GetAttributeValues());
-
-		// $userId = $user->Id();
-		// $groupId = $this->page->GetUserGroup();
-
-		// if (!empty($groupId))
-		// {
-			// $group = $this->groupRepository->LoadById($groupId);
-			// $group->AddUser($userId);
-			// $this->groupRepository->Update($group);
-		// }
+		//No-op
 	}
 
+	//Unused
 	public function UpdateUser()
 	{
-		Log::Debug('Updating user %s', $this->page->GetUserId());
-
-		$extraAttributes = array(
-			UserAttribute::Organization => $this->page->GetOrganization(),
-			UserAttribute::Phone => $this->page->GetPhone(),
-			UserAttribute::Position => $this->page->GetPosition());
-
-		$this->manageUsersService->UpdateUser($this->page->GetUserId(),
-											  $this->page->GetUserName(),
-											  $this->page->GetEmail(),
-											  $this->page->GetFirstName(),
-											  $this->page->GetLastName(),
-											  $this->page->GetTimezone(),
-											  $extraAttributes);
+		//No-op
 	}
 
+	//Unused
 	public function DeleteUser()
 	{
-		//MyCode
-		// $userId = $this->page->GetUserId();
-		// Log::Debug('Deleting user %s', $userId);
-
-		// $this->manageUsersService->DeleteUser($userId);
+		//No-op
 	}
 
 	//Changes permissions of an user
@@ -306,15 +271,10 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 		$this->userRepository->Update($user);
 	}
 
+	//Unused
 	public function ResetPassword()
 	{
-		//MyCode
-		// $salt = $this->passwordEncryption->Salt();
-		// $encryptedPassword = $this->passwordEncryption->Encrypt($this->page->GetPassword(), $salt);
-
-		// $user = $this->userRepository->LoadById($this->page->GetUserId());
-		// $user->ChangePassword($encryptedPassword, $salt);
-		// $this->userRepository->Update($user);
+		//No-op
 	}
 
 	//Unused
@@ -428,110 +388,12 @@ class ManageUsersPresenter extends ActionPresenter implements IManageUsersPresen
 	//Unused
 	public function ChangeColor()
 	{
-		$userId = $this->page->GetUserId();
-		Log::Debug('Changing reservation color for userId: %s', $userId);
-
-		$color = $this->page->GetReservationColor();
-
-		$user = $this->userRepository->LoadById($userId);
-		$user->ChangePreference(UserPreferences::RESERVATION_COLOR, $color);
-
-		$this->userRepository->Update($user);
-
+		//No-op
 	}
 
 	public function ImportUsers()
 	{
-		//MyCode
-		// set_time_limit(300);
-		// $groupsList = $this->groupViewRepository->GetList();
-		/** @var GroupItemView[] $groups */
-		// $groups = $groupsList->Results();
-		// $groupsIndexed = array();
-		// foreach ($groups as $group)
-		// {
-			// $groupsIndexed[$group->Name()] = $group->Id();
-		// }
-
-		// $importFile = $this->page->GetImportFile();
-		// $csv = new UserImportCsv($importFile);
-
-		// $importCount = 0;
-		// $messages = array();
-
-		// $rows = $csv->GetRows();
-
-		// if (count($rows) == 0)
-		// {
-			// $this->page->SetImportResult(new CsvImportResult(0, array(), 'Empty file or missing header row'));
-			// return;
-		// }
-
-		// for ($i = 0; $i < count($rows); $i++)
-		// {
-			// $row = $rows[$i];
-			// try
-			// {
-				// $emailValidator = new EmailValidator($row->email);
-				// $uniqueEmailValidator = new UniqueEmailValidator($this->userRepository, $row->email);
-				// $uniqueUsernameValidator = new UniqueUserNameValidator($this->userRepository, $row->username);
-
-				// $emailValidator->Validate();
-				// $uniqueEmailValidator->Validate();
-				// $uniqueUsernameValidator->Validate();
-
-				// if (!$emailValidator->IsValid())
-				// {
-					// $evMsgs = $emailValidator->Messages();
-					// $messages[] = $evMsgs[0] . " ({$row->email})";
-					// continue;
-				// }
-				// if (!$uniqueEmailValidator->IsValid())
-				// {
-					// $uevMsgs = $uniqueEmailValidator->Messages();
-					// $messages[] = $uevMsgs[0]. " ({$row->email})";
-					// continue;
-				// }
-				// if (!$uniqueUsernameValidator->IsValid())
-				// {
-					// $uuvMsgs = $uniqueUsernameValidator->Messages();
-					// $messages[] = $uuvMsgs[0]. " ({$row->username})";
-					// continue;
-				// }
-
-				// $timezone = empty($row->timezone) ? Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_TIMEZONE) : $row->timezone;
-				// $password = empty($row->password) ? 'password' : $row->password;
-				// $language = empty($row->language) ? 'en_us' : $row->language;
-
-				// $user = $this->manageUsersService->AddUser($row->username, $row->email, $row->firstName, $row->lastName, $password, $timezone, $language,
-												   // Configuration::Instance()->GetKey(ConfigKeys::DEFAULT_HOMEPAGE),
-												   // array(UserAttribute::Phone => $row->phone, UserAttribute::Organization => $row->organization, UserAttribute::Position => $row->position),
-												   // array());
-
-				// $userGroups = array();
-				// foreach ($row->groups as $groupName)
-				// {
-					// if (array_key_exists($groupName, $groupsIndexed))
-					// {
-						// Log::Debug('Importing user %s with group %s', $row->username, $groupName);
-						// $userGroups[] = new UserGroup($groupsIndexed[$groupName], $groupName);
-					// }
-				// }
-
-				// if (count($userGroups) > 0)
-				// {
-					// $user->ChangeGroups($userGroups);
-					// $this->userRepository->Update($user);
-				// }
-
-				// $importCount++;
-			// } catch (Exception $ex)
-			// {
-				// Log::Error('Error importing users. %s', $ex);
-			// }
-		// }
-
-		// $this->page->SetImportResult(new CsvImportResult($importCount, $csv->GetSkippedRowNumbers(), $messages));
+		//No-op
 	}
 
 	/**
@@ -566,6 +428,7 @@ class CsvImportResult
 	 * @param $skippedRows int[]
 	 * @param $messages string|string[]
 	 */
+	//Construct
 	public function __construct($imported, $skippedRows, $messages)
 	{
 		$this->importCount = $imported;

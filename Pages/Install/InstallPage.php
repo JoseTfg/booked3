@@ -161,6 +161,7 @@ class InstallPage extends Page implements IInstallPage
 	 */
 	private $presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('Install', 1);
@@ -195,19 +196,19 @@ class InstallPage extends Page implements IInstallPage
 		return $this->GetForm(FormKeys::INSTALL_PASSWORD);
 	}
 
-	//¿?
+	//Unused
 	public function SetShowPasswordPrompt($showPrompt)
 	{
 		$this->Set('ShowPasswordPrompt', $showPrompt);
 	}
 
-	//¿?
+	//Unused
 	public function SetShowInvalidPassword($showInvalidPassword)
 	{
 		$this->Set('ShowInvalidPassword', $showInvalidPassword);
 	}
 
-	//¿?
+	//Unused
 	public function SetShowDatabasePrompt($showDatabasePrompt)
 	{
 		$this->Set('ShowDatabasePrompt', $showDatabasePrompt);

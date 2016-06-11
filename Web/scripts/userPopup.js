@@ -17,8 +17,10 @@
  along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ //User popup
 $.fn.bindUserDetails = function (userId, options) {
 
+	//Return each
 	return $(this).each(function(index, value)
 	{
 			var self = $(value);
@@ -26,6 +28,7 @@ $.fn.bindUserDetails = function (userId, options) {
 
 			bind(self);
 
+			//Gets div
 			function getDiv() {
 				if ($('#userDetailsDiv').length <= 0)
 				{
@@ -37,6 +40,7 @@ $.fn.bindUserDetails = function (userId, options) {
 				}
 			}
 
+			//Hides div
 			function hideDiv() {
 				var tag = getDiv();
 				var timeoutId = setTimeout(function () {
@@ -45,6 +49,7 @@ $.fn.bindUserDetails = function (userId, options) {
 				tag.data('timeoutId', timeoutId);
 			}
 
+			//Binds data
 			function bind(userElement) {
 				if (userElement.attr('user-details-bound') === '1')
 				{
@@ -98,6 +103,7 @@ $.fn.bindUserDetails = function (userId, options) {
 						});
 					}
 
+					//Shows data
 					function showData(data) {
 						tag.html(data).show();
 						tag.position({my: 'left bottom', at: 'right top', of: userElement});

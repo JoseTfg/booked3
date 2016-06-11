@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once('Language.php');
 
+//American English
 class en_us extends Language
 {
 	public function __construct()
@@ -112,15 +113,15 @@ class en_us extends Language
 		$strings['Monthly'] = 'Monthly';
 		$strings['Yearly'] = 'Yearly';
 		$strings['RepeatPrompt'] = 'Repeat';
-		$strings['hours'] = 'hours';
+		$strings['hours'] = 'Hours';
 		$strings['days'] = 'days';
 		$strings['weeks'] = 'weeks';
 		$strings['months'] = 'months';
 		$strings['years'] = 'years';
-		$strings['day'] = 'day';
-		$strings['week'] = 'week';
-		$strings['month'] = 'month';
-		$strings['year'] = 'year';
+		$strings['day'] = 'Day';
+		$strings['week'] = 'Week';
+		$strings['month'] = 'Month';
+		$strings['year'] = 'Year';
 		$strings['repeatDayOfMonth'] = 'day of month';
 		$strings['repeatDayOfWeek'] = 'day of week';
 		$strings['RepeatUntilPrompt'] = 'Until';
@@ -205,7 +206,7 @@ class en_us extends Language
 		$strings['ApplyUpdatesTo'] = 'Apply Updates To';
 		$strings['CancelParticipation'] = 'Cancel Participation';
 		$strings['Attending'] = 'Attending';
-		$strings['QuotaConfiguration'] = 'On %s for %s users in %s are limited to %s %s per %s';
+		$strings['QuotaConfiguration'] = '%s For %s users in group %s are limited to %s %s per %s';
 		$strings['reservations'] = 'reservations';
 		$strings['reservation'] = 'reservation';
 		$strings['ChangeCalendar'] = 'Change Calendar';
@@ -403,7 +404,7 @@ class en_us extends Language
 		$strings['Total'] = 'Total';
 		$strings['QuantityReserved'] = 'Quantity Reserved';
 		$strings['AllAccessories'] = 'All Accessories';
-		$strings['GetReport'] = 'Get Report';
+		$strings['GetReport'] = 'Generate Report';
 		$strings['NoResultsFound'] = 'No matching results found';
 		$strings['SaveThisReport'] = 'Save This Report';
 		$strings['ReportSaved'] = 'Report Saved!';
@@ -453,7 +454,7 @@ class en_us extends Language
 		$strings['Reminders'] = 'Reminders';
 		$strings['SendReminder'] = 'Send Reminder';
 		$strings['minutes'] = 'minutes';
-		$strings['hours'] = 'hours';
+		$strings['hours'] = 'Hours';
 		$strings['days'] = 'days';
 		$strings['ReminderBeforeStart'] = 'before the start time';
 		$strings['ReminderBeforeEnd'] = 'before the end time';
@@ -687,29 +688,70 @@ class en_us extends Language
 		$strings['UserDeleted'] = 'User account for %s was deleted by %s';
 		// End Email Subjects
 		
-		//Enhance
+		//Enhance		
+		//Calendar
 		$strings['Day'] = 'Day';
 		$strings['Colors'] = 'Colors';
 		$strings['TimeTable'] = 'TimeTable';
 		$strings['TimeTableBoundaries'] = 'Select the boundaries in week and day views';
-		$strings['Export'] = 'Exportar';
+		$strings['Export'] = 'ICS File';
 		$strings['DeleteReservation'] = 'Are you sure you want to delete this element?';
 		$strings['Download'] = 'Download';
-		$strings['Subscribe'] = 'Subscribe to calendar?';
-		$strings['Subscription'] = 'Subscription';
-		$strings['ViewAsList'] = 'View as list';
-		$strings['Columns'] = 'Columns';
-		$strings['Amount'] = 'Amount';
-		$strings['Unit'] = 'Unit';
-		$strings['Roles'] = 'Roles';
-		$strings['RequiresApproval'] = 'RequiresApproval';
-		$strings['WhoApproves'] = 'Who approves?';
-		$strings['FieldWarning'] = 'There are empty fields';
+		$strings['Subscribe'] = 'Export data?';
+		$strings['Subscription'] = 'Export to...';
 		$strings['checkAll'] = 'Check all';
 		$strings['uncheckAll'] = 'Uncheck all';
 		$strings['selectOptions'] = 'Select resources';
 		$strings['selectText'] = 'selected';
 		$strings['GoDay'] = 'Go to day';
+		
+		//Reports
+		$strings['ViewAsList'] = 'View as list';
+		$strings['Columns'] = 'Columns';
+		
+		//Quotas
+		$strings['Amount'] = 'Amount';
+		$strings['Unit'] = 'Unit';
+		
+		//Resources
+		$strings['Roles'] = 'Roles';
+		$strings['RequiresApproval'] = 'RequiresApproval';
+		$strings['WhoApproves'] = 'Who approves?';
+		$strings['FieldWarning'] = 'Invalid options';
+		$strings['Permissions2'] = 'Resources access';
+		$strings['Fullname'] = 'Full name';
+		$strings['Reserved'] = 'Reserved for recurrence';
+		$strings['Superuser'] = 'Superuser';
+		$strings['AllSelected'] = 'All selected';
+		$strings['NoneSelected'] = 'None selected';		
+		
+		//Configuration
+		$strings['AppTitle'] = 'Application Title';
+		$strings['DefaultTimezone'] = 'Default timezone';
+		$strings['DefaultPageSize'] = 'Default page size';
+		$strings['EnableEmail'] = 'Enable emails';
+		$strings['AdminEmail'] = 'Administrator email';
+		$strings['DefaultLanguage'] = 'Default language';
+		$strings['ScriptUrl'] = 'Application URL';
+		$strings['InactivityTimeout'] = 'Inactivity timeout';
+		$strings['NameFormat'] = 'Name format';
+		$strings['LogoutUrl'] = 'Logout URL';
+		$strings['Host'] = 'Host';
+		$strings['Port'] = 'Port';
+		$strings['Version'] = 'Version';
+		$strings['StartTLS'] = 'StartTLS';
+		$strings['BindDN'] = 'BindDN';
+		$strings['BindPW'] = 'Password';
+		$strings['BaseDN'] = 'BaseDN';
+		$strings['AttributeMapping'] = 'Attribute mapping';
+		$strings['UserIdAttribute'] = 'User ID attribute';
+		
+		//Roles
+		$strings['ResAdmin'] = 'Resource administrator';
+		$strings['AppAdmin'] = 'Application administrator';
+		
+		//Others
+		$strings['ViewReservations'] = 'View Reservations';
 		
 		$this->Strings = $strings;
 

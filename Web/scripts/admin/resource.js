@@ -2,6 +2,7 @@
 function ResourceManagement(opts) {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		activeId:$('#activeId'),
 
@@ -102,6 +103,7 @@ function ResourceManagement(opts) {
 		$(".hours").watermark('hrs');
 		$(".minutes").watermark('mins');
 
+		//Configure dialogs
 		ConfigureAdminDialog(elements.renameDialog);
 		ConfigureAdminDialog(elements.imageDialog);
 		ConfigureAdminDialog(elements.scheduleDialog);
@@ -110,7 +112,7 @@ function ResourceManagement(opts) {
 		ConfigureAdminDialog(elements.notesDialog);
 		ConfigureAdminDialog(elements.deleteDialog);
 		ConfigureAdminDialog(elements.configurationDialog);
-		ConfigureAdminDialog(elements.groupAdminDialog, 380, 120);
+		ConfigureAdminDialog(elements.groupAdminDialog);
 		ConfigureAdminDialog(elements.sortOrderDialog);
 		ConfigureAdminDialog(elements.resourceTypeDialog);
 		ConfigureAdminDialog(elements.statusDialog);
@@ -123,6 +125,7 @@ function ResourceManagement(opts) {
 		ConfigureAdminDialog(elements.approveDialog); 	//MyCode
 		ConfigureAdminDialog(elements.addDialog,380, 180);	//MyCode
 		
+		//User events
 		$('.resourceDetails').each(function () {
 			var id = $(this).find(':hidden.id').val();
 			var indicator = $('.indicator');
@@ -148,18 +151,6 @@ function ResourceManagement(opts) {
 				//document.getElementById("imageFile").append("<img src="+document.getElementById(id).src+" />");
 				elements.viewImage.dialog("open");
 				elements.viewImage.dialog( "option", "resizable", false ); /*MyCode*/
-			});
-			
-			elements.statusDialog.on( "dialogclose", function( event, ui ) {
-				elements.statusDialog.dialog("option", "title", originalTitle);
-				elements.statusForm.submit();
-				sleep(1000);
-			});
-			
-			elements.groupAdminDialog.on( "dialogclose", function( event, ui ) {
-				elements.groupAdminDialog.dialog("option", "title", originalTitle);
-				elements.groupAdminForm.submit();
-				sleep(1000);
 			});
 
 			$(this).find('.enableSubscription').click(function (e) {
@@ -249,10 +240,16 @@ function ResourceManagement(opts) {
 		$(".cancel").click(function () {
 			$(this).closest('.dialog').dialog("close");
 		});
-
-		$(".cancelColorbox").click(function () {
-			$('#bulkUpdateDialog').hide();
-			$.colorbox.close();
+		
+					
+		elements.statusDialog.on( "dialogclose", function( event, ui ) {
+			elements.statusDialog.dialog("option", "title", originalTitle);
+			elements.statusForm.submit();
+		});
+			
+		elements.groupAdminDialog.on( "dialogclose", function( event, ui ) {
+			elements.groupAdminDialog.dialog("option", "title", originalTitle);
+			elements.groupAdminForm.submit();
 		});
 		
 		elements.renameDialog.on( "dialogclose", function( event, ui ) {
@@ -312,9 +309,7 @@ function ResourceManagement(opts) {
 
 		elements.clearFilterButton.click(function (e) {
 			e.preventDefault();
-			elements.filterTable.find('input,select,textarea').val('')
-
-			filterResources();
+			window.location = "http://156.35.41.127/booked/Web/admin/manage_resources.php";
 		});
 
 		elements.bulkUpdatePromptButton.click(function(e){
@@ -362,12 +357,14 @@ function ResourceManagement(opts) {
 			var userId = link.siblings('.id').val();
 			addUserPermission(userId);
 			link.find('img').attr('src', '../img/plus-button.png');
+			emptyCheckRemoved(removedMembers,0);
 		});
 
 		elements.addedMembers.delegate('.delete', 'click', function() {
 			var userId = $(this).siblings('.id').val();
 			removeUserPermission($(this), userId);
 			$(this).appendTo(elements.removedMembers);
+			emptyCheckAdded(addedMembers,0);
 		});
 
 		elements.browseUsersButton.click(function() {
@@ -403,12 +400,14 @@ function ResourceManagement(opts) {
 			var groupId = link.siblings('.id').val();
 			addGroupPermission(groupId);
 			link.find('img').attr('src', '../img/plus-button.png');
+			emptyCheckRemoved(removedGroups,0);
 		});
 
 		elements.addedGroups.delegate('.delete', 'click', function() {
 			var groupId = $(this).siblings('.id').val();
 			removeGroupPermission($(this), groupId);
 			$(this).appendTo(elements.removedGroups);
+			emptyCheckAdded(addedGroups,0);
 		});
 
 		//MyCode
@@ -427,12 +426,16 @@ function ResourceManagement(opts) {
 			elements.addedRoles.find('.role-item').clone().appendTo(elements.removedRoles);
 			elements.addedRoles.find('.role-item').remove();
 			$(this).appendTo(elements.addedRoles);
+			var message = addedRoles.parentNode.children[2];
+			message.style.display = 'none';
 		});	
 		
 		elements.addedRoles.delegate('div', 'click', function (e) {
 			e.preventDefault();
-			$('#adminGroupId').val('1');
+			$('#adminGroupId').val('0');
 			$(this).appendTo(elements.removedRoles);
+			var message = addedRoles.parentNode.children[2];
+			message.style.display = 'block';
 		});	
 		
 		var imageSaveErrorHandler = function (result) {
@@ -469,6 +472,7 @@ function ResourceManagement(opts) {
 			$("#bulkUpdateErrors").html(result).show();
 		};
 
+		//Configure forms
 		ConfigureAdminForm(elements.imageForm, defaultSubmitCallback(elements.imageForm), null, imageSaveErrorHandler);
 		ConfigureAdminForm(elements.renameForm, defaultSubmitCallback(elements.renameForm), null, errorHandler);
 		ConfigureAdminForm(elements.scheduleForm, defaultSubmitCallback(elements.scheduleForm));
@@ -543,17 +547,20 @@ function ResourceManagement(opts) {
 		return elements.activeId.val();
 	};
 
+	//Gets active resource name
 	var getActiveResource = function () {
 		return resources[getActiveResourceId()];
 	};
 
 	//MyCode
+	//Open dialog to add resource
 	var addResource = function (e) {
 		elements.addDialog.dialog("open");
 		elements.addDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 	
 	//MyCode
+	//Approvation toggle
 	var approve = function (e) {
 		var resource = getActiveResource();
 		$('#requiresApproval2').val(resource.requiresApproval);
@@ -870,7 +877,7 @@ function ResourceManagement(opts) {
 				shortText = newTitle;
 			}
 			elements.userDialog.dialog("option", "title", elements.userDialog.dialog("option", "title") + ": " + shortText);
-			
+			firstCheck(addedMembers,removedMembers,0);
 		});
 	};
 
@@ -878,12 +885,14 @@ function ResourceManagement(opts) {
 	var addUserPermission = function(userId) {
 		$('#addUserId').val(userId);
 		elements.addUserForm.submit();
+		elements.userDialog.dialog("option", "title", originalTitle);
 	};
 
 	//Removes user permission
 	var removeUserPermission = function(element, userId) {
 		$('#removeUserId').val(userId);
 		elements.removeUserForm.submit();
+		elements.userDialog.dialog("option", "title", originalTitle);
 	};
 
 	var allUserList;
@@ -910,17 +919,10 @@ function ResourceManagement(opts) {
 				if (elements.addedMembers.data('userIds')[item.Id] == undefined) {
 					items.push('<li><a href="#" class="add"><img src="../img/plus-button.png" alt="Add To Group" /> &nbsp; </a> ' + item.DisplayName + '<input type="hidden" class="id" value="' + item.Id + '"/></li></li>');
 				}
-				else {
-					//items.push('<li><img src="../img/plus-button.png" alt="Group Member" /> &nbsp; <span>' + item.DisplayName + '</span></li>');
-					//items.push('<div class="resource-item" resourceId="{$resource->GetResourceId()}"><a href="#">&nbsp;</a> <span>{$resource->GetName()}</span></div>');
-				}
 			});
 		}
 
 		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.removedMembers);
-
-		//elements.browseUserDialog.dialog('open');
-		//elements.browseDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	//Change group permission
@@ -956,6 +958,7 @@ function ResourceManagement(opts) {
 				shortText = newTitle;
 			}
 			elements.groupDialog.dialog("option", "title", elements.groupDialog.dialog("option", "title") + ": " + shortText);
+			firstCheck(addedGroups,removedGroups,0);
 		});
 	};
 
@@ -963,12 +966,14 @@ function ResourceManagement(opts) {
 	var addGroupPermission = function(group) {
 		$('#addGroupId').val(group);
 		elements.addGroupForm.submit();
+		elements.groupDialog.dialog("option", "title", originalTitle);
 	};
 
 	//Removes group permission
 	var removeGroupPermission = function(element, groupId) {
 		$('#removeGroupId').val(groupId);
 		elements.removeGroupForm.submit();
+		elements.groupDialog.dialog("option", "title", originalTitle);
 	};
 
 	var allGroupList;
@@ -995,17 +1000,68 @@ function ResourceManagement(opts) {
 				if (elements.addedGroups.data('groupIds')[item.Id] == undefined) {
 					items.push('<li><a href="#" class="add"><img src="../img/plus-button.png" alt="Add To Group" /> &nbsp; </a> ' + item.Name + '<input type="hidden" class="id" value="' + item.Id + '"/></li></li>');
 				}
-				else {
-					//items.push('<li><img src="../img/plus-button.png" alt="Group Member" /> &nbsp; <span>' + item.DisplayName + '</span></li>');
-					//items.push('<div class="resource-item" resourceId="{$resource->GetResourceId()}"><a href="#">&nbsp;</a> <span>{$resource->GetName()}</span></div>');
-				}
 			});
 		}
-
 		$('<ul/>', {'class': '', html: items.join('')}).appendTo(elements.removedGroups);
-
-		//elements.browseGroupDialog.dialog('open');
-		//elements.browseGroupDialog.dialog( "option", "resizable", false ); /*MyCode*/
+	};
+	
+	//Checks if added objects is empty
+	var emptyCheckAdded = function(element, offset){
+		offset = parseInt(offset);
+		var interval = setInterval(function(){
+		if (element.innerHTML.indexOf("id") == "-1"){
+			var message = element.parentNode.children[0+offset];
+			message.style.display = 'block';
+			var message = element.parentNode.children[3+offset];
+			message.style.display = 'none';
+		}
+		else{
+			var message = element.parentNode.children[0+offset];
+			message.style.display = 'none';
+			var message = element.parentNode.children[3+offset];
+			message.style.display = 'none';
+		}
+		clearInterval(interval);
+		},100);
+	};
+	
+	//Checks if removed objects is empty
+	var emptyCheckRemoved = function(element, offset){
+		offset = parseInt(offset);
+		var interval = setInterval(function(){
+		if (element.innerHTML.indexOf("id") == "-1"){
+			var message = element.parentNode.children[3+offset];
+			message.style.display = 'block';
+			var message = element.parentNode.children[0+offset];
+			message.style.display = 'none';
+		}
+		else{
+			var message = element.parentNode.children[0+offset];
+			message.style.display = 'none';
+			var message = element.parentNode.children[3+offset];
+			message.style.display = 'none';
+		}
+		clearInterval(interval);
+		},100);
+	};
+	
+	//Checks previous functions on dialog open
+	var firstCheck = function(element1,element2,offset){
+		var interval = setInterval(function(){
+		if (element1.innerHTML.indexOf("id") == "-1"){
+			var message = element1.parentNode.children[0+offset];
+			message.style.display = 'block';
+			var message = element1.parentNode.children[3+offset];
+			message.style.display = 'none';
+		}
+		if (element2.innerHTML.indexOf("id") == "-1"){
+			var message = element2.parentNode.children[3+offset];
+			message.style.display = 'block';
+			var message = element2.parentNode.children[0+offset];
+			message.style.display = 'none';
+		}
+		clearInterval(interval);
+		},100);
 	};
 
 }

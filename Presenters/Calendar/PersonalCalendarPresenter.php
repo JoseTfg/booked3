@@ -26,12 +26,14 @@ require_once(ROOT_DIR . 'lib/Config/Configurator.php');									//MyCode (29/3/2
 require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php');					//MyCode (28/4/2016)
 require_once(ROOT_DIR . 'Presenters/Calendar/PersonalCalendarPresenterEnhance.php'); 	//MyCode (7/5/2016)
 
+//Actions
 class PersonalCalendarActions
 {
 	const ActionEnableSubscription = 'enable';
 	const ActionDisableSubscription = 'disable';
 }
 
+//Class: Supports the main calendar controller
 class PersonalCalendarPresenter extends ActionPresenter
 {
 	/**
@@ -82,6 +84,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 	 */
 	public $manageBlackoutsService;		//MyCode
 
+	//Construct
 	public function __construct(
 			IPersonalCalendarPage $page,
 			IReservationViewRepository $repository,
@@ -91,8 +94,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 			IResourceService $resourceService,
 			IScheduleRepository $scheduleRepository,
 			IConfigurationSettings $settings,
-			//new
-			IManageBlackoutsService $manageBlackoutsService)
+			IManageBlackoutsService $manageBlackoutsService)	//MyCode
 	{
 		parent::__construct($page);
 
@@ -118,6 +120,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 	 * @param UserSession $userSession
 	 * @param string $timezone
 	 */
+	//Loads the data for the page
 	public function PageLoad($userSession, $timezone)
 	{
 		$type = $this->page->GetCalendarType();		
@@ -146,11 +149,10 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$resources = $this->resourceService->GetAllResources($showInaccessible, $userSession);
 
 		//MyCode
-		$this->page->Set('resources', $resources);
-		
+		//Unique schedule
+		$this->page->Set('resources', $resources);		
 		$selectedScheduleId = $this->page->GetScheduleId();
-		
-		//MyCode
+
 		foreach ($schedules as $schedule){
 			if ($schedule->GetIsDefault())
 			{
@@ -160,7 +162,6 @@ class PersonalCalendarPresenter extends ActionPresenter
 		}		 
 		
 		$selectedResourceId = $this->page->GetResourceId();	
-
 		$resourceGroups = $this->resourceService->GetResourceGroups($selectedScheduleId, $userSession);
 
 		if (!empty($selectedGroupId))
@@ -208,7 +209,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$newTime = calendarBoundaries($this, $userSession);	
 		
 		//MyCode
-		//settings
+		//Settings
 		$settingType = "";
 		if ($newColor != ""){
 			$settingType = "color";
@@ -232,8 +233,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$calendar_export->AddReservations(CalendarReservation::FromViewList($exports, $timezone, $userSession, true));
 		$this->page->Set('calendar_export', $calendar_export); //A Borrar
 		
-		googleCalendar($this, $userSession,$calendar_export);
-		
+		googleCalendar($this, $userSession,$calendar_export);		
 		APIconnection($this);
 
 	}

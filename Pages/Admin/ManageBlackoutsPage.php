@@ -298,6 +298,7 @@ class ManageBlackoutsPage extends ActionPage implements IManageBlackoutsPage
 		$this->Display('Admin/Blackouts/manage_blackouts.tpl');
 	}
 
+	//Display edit form
 	public function ShowBlackout()
 	{
 		$this->Display('Admin/Blackouts/manage_blackouts_edit.tpl');

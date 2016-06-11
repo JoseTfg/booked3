@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'plugins/Authentication/Ldap/LDAP2.php');
 
+//LDAP wrapper
 class Ldap2Wrapper
 {
 	/**
@@ -46,6 +47,7 @@ class Ldap2Wrapper
 		$this->user = null;
 	}
 
+	//Performs connection
 	public function Connect()
 	{
 		Log::Debug('Trying to connect to LDAP');
@@ -69,6 +71,7 @@ class Ldap2Wrapper
 	 * @param $filter string
 	 * @return bool
 	 */
+	 //Authenticates
      public function Authenticate($username, $password, $filter)
     {
           $this->PopulateUser($username, $filter);
@@ -101,6 +104,7 @@ class Ldap2Wrapper
 	 * @param $configFilter string
 	 * @return void
 	 */
+	//Sends user data
 	public function PopulateUser($username, $configFilter)
 	{
 		$uidAttribute = $this->options->GetUserIdAttribute();
@@ -173,6 +177,7 @@ class Ldap2Wrapper
 	 * @param $username string
 	 * @return LdapUser|null
 	 */
+	//Gets the user
 	public function GetLdapUser($username)
 	{
 		return $this->user;

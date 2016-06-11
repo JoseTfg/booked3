@@ -1,42 +1,42 @@
 Unchanged:
 
--ManageAnnouncementsPresenter.php		Unchanged
--ManageAttributesPresenter.php			Unchanged
--ManageBlackoutsPresenter.php			Unchanged
+-ManageAnnouncementsPresenter.php	Unchanged
+-ManageAttributesPresenter.php		Unchanged
+-ManageBlackoutsPresenter.php		Unchanged
 -ManageGroupsPresenter.php			Unchanged
--ManageResourcesPresenter.php			ToDo
--ManageSchedulesPresenter.php			Unchanged
+-ManageResourcesPresenter.php		ToDo
+-ManageSchedulesPresenter.php		Unchanged
 -ManageUsersPresenter.php			Unchanged
 -CalendarFilters.php				Unchanged
 -ConfigurePresenter.php				Unchanged
 -InstallationResult.php				Unchanged
--Installer.php					Unchanged
+-Installer.php						Unchanged
 -InstallPresenter.php				Unchanged
 -InstallSecurityGuard.php			Unchanged
--MySqlScript.php				Unchanged
+-MySqlScript.php					Unchanged
 -CommonReportsPresenter.php			Unchanged
--GenerateReportPresenter.php			Unchanged
--ReportActions.php				Unchanged
+-GenerateReportPresenter.php		Unchanged
+-ReportActions.php					Unchanged
 -SavedReportsPresenter.php			Unchanged
--ReservationApprovalPresenter.php		Unchanged
--ReservationDeletePresenter.php			Unchanged
--ReservationPresenterFactory.php		Unchanged
--ReservationSavePresenter.php			Unchanged
--ReservationUpdatePresenter.php			Unchanged
+-ReservationApprovalPresenter.php	Unchanged
+-ReservationDeletePresenter.php		Unchanged
+-ReservationPresenterFactory.php	Unchanged
+-ReservationSavePresenter.php		Unchanged
+-ReservationUpdatePresenter.php		Unchanged
 -ActionPresenter.php				Unchanged
--LoginPresenter.php				Unchanged
+-LoginPresenter.php					Unchanged
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 Erased:
 
 -ManageAccessoriesPresenter.php
--ManageConfigurationPresenter.php		Unchanged
--ManageQuotasPresenter.php			Unchanged
+-ManageConfigurationPresenter.php
+-ManageQuotasPresenter.php
 -ManageResourceStatusPresenter.php
 -ManageResourceTypesPresenter.php
--ManageResourceGroupsPresenter.php		Unchanged
--ManageThemePresenter.php			Unchanged
+-ManageResourceGroupsPresenter.php
+-ManageThemePresenter.php
 -AnnouncementPresenter.php
 -ResourceAvailabilityControlPresenter.php
 -UpcomingReservationsPresenter.php
@@ -49,8 +49,8 @@ Erased:
 -RegistrationPresenter.php
 -CalendarExportPresenter.php
 -CalendarSubscriptionPresenter.php
--ReservationAttachmentPresenter.php		Unchanged
--ActivationPresenter.php			Unchanged
+-ReservationAttachmentPresenter.php
+-ActivationPresenter.php
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,19 +60,19 @@ Changed:
 
 2/3/2016
 
--CalendarPresenter.php:			It provides minTime, maxTime and myCal variables.
+-CalendarPresenter.php:				It provides minTime, maxTime and myCal variables.
 
 -PersonalCalendarPresenter.php		It provides minTime, maxTime and myCal variables.
 
--SchedulePageBuilder.php		No longer in use.
+-SchedulePageBuilder.php			No longer in use.
 
--SchedulePresenter.php			No longer in use.
+-SchedulePresenter.php				No longer in use.
 
 ////////////////////////////////////////V0.2//////////////////////////////////////////////////
 
 8/3/2016
 
--LoginPresenter:			Stores login data.
+-LoginPresenter:					Stores login data.
 
 ////////////////////////////////////////V0.3//////////////////////////////////////////////////
 
@@ -80,15 +80,15 @@ Changed:
 
 -PersonalCalendarPresenter.php:		Resource id is now an array. 
 
--CalendarPresenter.php:			Resource id is now an array.
+-CalendarPresenter.php:				Resource id is now an array.
 
--ReservationPresenter.php		Now obtains last page to return.
+-ReservationPresenter.php			Now obtains last page to return.
 
 ////////////////////////////////////////V0.4//////////////////////////////////////////////////
 
 29/3/2016
 
--CalendarPresenter.php:			No longer in use.
+-CalendarPresenter.php:				No longer in use.
 -PersonalCalendarPresenter.php:		Now correctly interacts with the new list view.
 
 31/3/2016
@@ -99,17 +99,35 @@ Changed:
 
 1/5/2016
 
--ManageReservationsPresenter.php	Filter of non-admin returns his own reservations.
+-ManageReservationsPresenter.php:	Filter of non-admin returns his own reservations.
 
 6/5/2016
 
 -PersonalCalendarPresenter.php:		Calendar boundaries can be configured for each user.
-					Resource colors can be configured per user.
-					Exports a reservation file with icalendar format.
+									Resource colors can be configured per user.
+									Exports a reservation file with icalendar format.
 
 Created:
 
--PersonalCalendarPresenterEnhance.php	Delegates several functions from CalendarPresenter.
+-PersonalCalendarPresenterEnhance.php:	Delegates several functions from CalendarPresenter.
+
+////////////////////////////////////////V0.8//////////////////////////////////////////////////
+
+12/5/2016
+-ManageBlackoutsPresenter:			Changed filter default values.
+
+14/5/2016
+-ManageGroupsPresenter:				Changed available roles.
+
+////////////////////////////////////////V0.9//////////////////////////////////////////////////
+
+22/5/2016
+
+-ManageAnnouncementsPresenter.php:		Changes to match the new pagination
+
+-PersonalCalendarPresenter.php:			Fixed bug related to user preferences
+
+-PersonalCalendarPresenterEnhance.php:	Fixed bug related to user preferences
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 

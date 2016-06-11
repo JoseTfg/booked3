@@ -1,6 +1,8 @@
+//Generate reports
 function GenerateReports(reportOptions) {
 	var opts = reportOptions;
 
+	//Elements
 	var elements = {
 		indicator:$('#indicator'),
 		customReportForm:$('#customReportInput'),
@@ -9,6 +11,7 @@ function GenerateReports(reportOptions) {
 		resultsDiv:$('#resultsDiv')
 	};
 
+	//Initialization
 	GenerateReports.prototype.init = function () {
 		$('#selectDiv input').click(function () {
 			$('div.select-toggle').hide();
@@ -45,7 +48,8 @@ function GenerateReports(reportOptions) {
 
 		$('#showHideCustom').click(function (e) {
 			e.preventDefault();
-			$('#customReportInput-container').toggle();
+			$('#custom-report-input').toggle();
+			$('#btnCustomReport').toggle();
 		});
 
 		$(document).on('click', '#btnPrint',function (e) {
@@ -78,6 +82,7 @@ function GenerateReports(reportOptions) {
 		});
 	};
 
+	//Autocomplete filters
 	function wireUpAutocompleteFilters() {
 		$('.link-filter').find('.all, .selected').click(function (e) {
 			e.preventDefault();
@@ -112,6 +117,7 @@ function GenerateReports(reportOptions) {
 		});
 	}
 
+	//Handle save report
 	var handleSave = function (e) {
 		e.preventDefault();
 		var before = function () {
@@ -124,5 +130,4 @@ function GenerateReports(reportOptions) {
 
 		ajaxPost($('#customReportInput, #saveReportForm'), opts.saveUrl, before, after);
 	}
-
 }

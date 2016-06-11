@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Class: Supports differnete languages
 class AvailableLanguage
 {
     /**
@@ -43,6 +44,7 @@ class AvailableLanguage
     /**
      * @return string
      */
+	//Gets display name
     public function GetDisplayName()
     {
         return $this->DisplayName;
@@ -51,6 +53,7 @@ class AvailableLanguage
     /**
      * @return string
      */
+	//Gets the two-character code
     public function GetLanguageCode()
     {
         return $this->LanguageCode;
@@ -61,6 +64,7 @@ class AvailableLanguage
      * @param string $languageFile
      * @param string $displayName
      */
+	//Construct
     public function __construct($languageCode, $languageFile, $displayName)
     {
         $this->LanguageCode = $languageCode;

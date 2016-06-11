@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once('Language.php');
 require_once('en_us.php');
 
+//Great Britain English
 class en_gb extends en_us
 {
     public function __construct()

@@ -149,11 +149,13 @@ abstract class ActionPage extends Page implements IActionPage
 	public abstract function ProcessPageLoad();
 }
 
+//Class: Errors in action page
 class ActionErrors
 {
     public $ErrorIds = array();
 	public $Messages = array();
 
+	//Add error
     public function Add($id, $messages = array())
     {
         $this->ErrorIds[] = $id;

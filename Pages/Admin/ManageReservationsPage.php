@@ -309,8 +309,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 
 	public function ShowCsv()
 	{
-		//MyCode
-		// $this->DisplayCsv('Admin/Reservations/reservations_csv.tpl', 'reservations.csv');
+		//No-op
 	}
 
 	//Sends the reservations information to the smarty page

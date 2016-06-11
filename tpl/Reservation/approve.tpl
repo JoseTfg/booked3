@@ -32,7 +32,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{html_image src="cross-button.png"}
 			{translate key='Delete'}
 		</a>
-		<div class="updateButtons" style="display:none;" title="{translate key=ApplyUpdatesTo}">
+		<div class="updateButtons hiddenDiv" title="{translate key=ApplyUpdatesTo}">
 			<div style="text-align: center;line-height:50px;">
 				<button type="button" class="button save btnUpdateThisInstance">
 					{html_image src="disk-black.png"}

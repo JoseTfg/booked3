@@ -78,8 +78,8 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 
 				//MyCode  (29/3/2016)
 				//Returns directly without sending any message.	
-				//$returnPage = $_SESSION['returnPage'];
-				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";  
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";
+				$this->Display('Ajax/reservation/save_successful.tpl');					
 			}
 			else
 			{
@@ -104,12 +104,13 @@ class ReservationUpdatePage extends ReservationSavePage implements IReservationU
 		$this->Set('ReferenceNumber', $referenceNumber);
 	}
 
-	//sends error messages
+	//Sends error messages
 	public function SetErrors($errors)
 	{
 		$this->Set('Errors', $errors);
 	}
 
+	//Sends warnings
 	public function SetWarnings($warnings)
 	{
 		// set warnings variable

@@ -1,8 +1,12 @@
+/*Contains general styles*/
+
+/*All*/
 * {
 	margin: 0;
 	padding: 0;
 }
 
+/*Body*/
 body {
 	font: 12px Helvetica, "Helvetica Neue", "Lucida Grande", Verdana, Arial, sans-serif;
 	/*background-color: #fefefe;*/	/*MyCode 6/4/2016*/
@@ -10,14 +14,17 @@ body {
 	color: #333333;
 }
 
+/*Body*/
 html, body {
 	height: 100%;
 }
 
+/*Image*/
 img {
 	border: none;
 }
 
+/*H1*/
 h1 {
 	padding-top: 25px;
 	margin-bottom: 10px;
@@ -25,6 +32,7 @@ h1 {
 	border-bottom: solid 1px #999;
 }
 
+/*Textbox and pulldown*/
 .textbox, .pulldown {
 	font-size: 12px;
 	color: #716e71;
@@ -33,6 +41,7 @@ h1 {
 	margin:1px;
 }
 
+/*Button*/
 .button {
 	display: inline;
 	margin: 0 7px 0 0;
@@ -53,6 +62,7 @@ h1 {
 	box-shadow: 0px 0px 3px 0px #ccc;
 }
 
+/*Main div shadow*/
 .main-div-shadow {
 	-moz-box-shadow: 0px 0px 3px 0px #dddddd;
 	-webkit-box-shadow: 0px 0px 3px 0px #dddddd;
@@ -62,6 +72,7 @@ h1 {
 	padding: 10px;
 }
 
+/*Main div header*/
 .main-div-header {
 	background-color: #ddd;
 	margin:-10px -10px 10px -10px;
@@ -73,16 +84,19 @@ h1 {
 	border-bottom: solid 1px #ccc;
 }
 
+/*Button hover*/
 .button:hover {
 	background-color: #e8e8e8;
 }
 
+/*Button disabled*/
 .button.disabled
 {
 	color:#949494;
 }
 
 /*********************************************************/
+/*Error warning and success*/
 div.error, div.warning, div.success, #loginError {
 	border: 1px solid #ba0026;
 	border-radius: 5px 5px 5px 5px;
@@ -96,55 +110,66 @@ div.error, div.warning, div.success, #loginError {
 	text-align: center;
 }
 
+/*Error and success*/
 div.error, div.success {
 	text-align: left;
 	font-size: 13px;
 }
 
+/*Sucess*/
 div.success {
 	border: solid 1px #8CC739;
 	text-align: center;
 	background: #BCE27F url("../img/tick-circle.png") no-repeat scroll 5px 5px;
 }
 
+/*Warnings*/
 div.warning {
 	border: solid 1px #c77600;
 	text-align: center;
 	background: #f6c500;
 }
 
+/*Error table*/
 div.error table {
 	width: 100%;
 }
 
+/*Error image*/
 div.error img {
 	padding: 0px 10px;
 }
 
+/*Error ul*/
 div.error ul {
 	margin-top: 0;
 	margin-bottom: 0;
 	margin-left: 20px;
 }
 
+/*Error li*/
 div.error li {
 	font-size: inherit;
 }
 
+/*Content*/
 #content {
 	margin: 10px 15px 15px 15px;
 	padding: 0;
 }
 
+/*Async validation*/
 .asyncValidation {
 	display: none;
 	color: red;
 }
 
+/*Async validation error*/
 .error .asyncValidation {
 	color: black;
 }
 
+/*Wrapper*/
 #wrapper {
 	min-height: 97%;				/*MyCode*/
 	height: auto !important;
@@ -155,6 +180,7 @@ div.error li {
 	background-position: center; 		/*MyCode*/
 }
 
+/*Page footer*/
 div.page-footer {
 	color: #fafafa;
 	vertical-align: bottom;
@@ -170,23 +196,28 @@ div.page-footer {
 	font-style: oblique;					/* My Code */
 }
 
+/*Push page footer*/
 div.push {
 	height: 0;							/* My Code (20px)*/
 }
 
+/*Page footer href*/
 .page-footer a, .page-footer a:visited {
 	color: #fafafa;
 }
 
+/*Center paragraphs*/
 .p-center {
 	text-align: center;
 }
 
+/*No data*/
 .no-data {
 	font-style: italic;
 	color: #aaa;
 }
 
+/*Forms*/
 form.login, form.forgot, form.register, /*#reservationForm,*/ form.box-form, #activation-body {
 	margin: 0 0 0 8px;
 	padding: 20px 16px 48px 16px;
@@ -203,10 +234,12 @@ form.login, form.forgot, form.register, /*#reservationForm,*/ form.box-form, #ac
 	box-shadow: rgba(200, 200, 200, 1) 0 4px 5px;
 }
 
+/*Form login*/
 form.login {
 	padding-bottom: 18px;
 }
 
+/*Headers*/
 div.registrationHeader, div.forgot_pwdHeader, .reservationHeader, div.box-form div.header {
 	padding: 5px 15px;
 	-moz-border-radius: 3px;
@@ -224,28 +257,34 @@ div.registrationHeader, div.forgot_pwdHeader, .reservationHeader, div.box-form d
 	color: #fff;
 }
 
+/*Headers h3*/
 .registrationHeader h3, .forgot_pwdHeader h3, .reservationHeader h3, div.box-form h3.header {
 	font: bold 18px Helvetica, "Lucida Grande", Verdana, Arial, sans-serif;
 	vertical-align: middle;
 }
 
+/*Boxes*/
 #registrationbox, #forgotbox, div.box-form {
 	width: 550px;
 	margin: 3em auto 1em;
 }
 
+/*Notification preferences*/
 #notificationPreferences {
 	width: 650px;
 }
 
+/*Notification preferences label*/
 #notificationPreferences label {
 	margin-left: 0.3em;
 }
 
+/*Box li*/
 form.box-form li {
 	list-style: none;
 }
 
+/*Registration box input*/
 #registrationbox .input {
 	font-size: 16px;
 	width: 97%;
@@ -256,11 +295,13 @@ form.box-form li {
 	color: #777;
 }
 
+/*Login box*/
 #loginbox {
 	width: 450px;
 	margin: 7em auto 5em;
 }
 
+/*Box input*/
 #loginbox .input, #forgotbox .input {
 	font-size: 24px;
 	width: 97%;
@@ -271,6 +312,7 @@ form.box-form li {
 	color: #777
 }
 
+/*Input small*/
 .input-small {
 	font-size: 12px;
 	width: 97%;
@@ -281,61 +323,74 @@ form.box-form li {
 	color: #777
 }
 
+/*Paragraphs*/
 form p {
 	margin: 0 3px 12px 3px;
 }
 
+/*Labels*/
 label.login, label.forgot {
 	color: #666;
 	font-size: 18px;
 }
 
+/*Stay logged in*/
 form .stayloggedin {
 	font-weight: normal;
 	float: left;
 	margin-bottom: 0;
 }
 
+/*Stay logged in label*/
 form .stayloggedin label {
 	font-size: 13px;
 	line-height: 1.5em;
 }
 
+/*Rss input*/
 form.res-checkbox input {
 	vertical-align: middle;
 }
 
+/*Paragraphs*/
 p.loginsubmit, p.save, p.reg-adminsubmit, p.reporting-submit, p.resetpassword {
 	float: right;
 }
 
+/*Login links*/
 #login-links p, #login-links h4 {
 	text-align: center;
 	font-size: 12pt;
 }
 
+/*Register*/
 h4.register {
 	text-align: center;
 	margin-bottom: 0;
 }
 
+/*Register submit*/
 p.regsubmit {
 	float: left;
 }
 
+/*Reservation form*/
 #reservationForm, label.res, label.reg {
 	font: 14px Helvetica, "Lucida Grande", Verdana, Arial, sans-serif;	/*MyCode*/
 	color: #4f4f4f;
 }
 
+/*Forgot*/
 p.forgot {
 	font: 14px Helvetica, "Lucida Grande", Verdana, Arial, sans-serif;
 }
 
+/*No style list*/
 ul.no-style {
 	list-style-type: none;
 }
 
+/*Textarea*/
 textarea.input-area {
 	font: 14px Helvetica, "Lucida Grande", Verdana, Arial, sans-serif;
 	width: 98%;
@@ -347,14 +402,17 @@ textarea.input-area {
 	overflow: hidden;
 }
 
+/*Center td*/
 td.center {
 	text-align: center;
 }
 
+/*Display inline*/
 .inline {
 	display: inline;
 }
 
+/*Date inputs*/
 .dateinput {
 	width: 100px;
 	padding: 3px;
@@ -365,6 +423,7 @@ td.center {
 	/*text-align: center;*/
 }
 
+/*Recurrence select*/
 .repeatDiv select {
 	width: 100px;
 	padding: 3px;
@@ -374,24 +433,29 @@ td.center {
 	color: #777;
 }
 
+/*Dasboard list*/
 #dashboardList {
 	list-style: none;
 }
 
+/*Fieldset*/
 fieldset {
 	border: solid #dedede 1px;
 	padding: 10px;
 }
 
+/*Legend*/
 legend {
 	font-size: 11px;
 	padding: 0 5px;
 }
 
+/*Href*/
 a, a:visited {
 	color: #006295;
 }
 
+/*Href pages*/
 a.page, a.page:visited {
 	padding: 1px;
 	font-size: larger;
@@ -399,104 +463,125 @@ a.page, a.page:visited {
 	border: solid 1px transparent;
 }
 
+/*Href hover*/
 a.page:hover, a.page.current {
 	background-color: #fafafa;
 	border-color: #bbbbbb;
 }
 
+/*Watermark*/
 .watermark {
 	color: #ebebeb;
 	font-style: italic;
 	font-weight: normal;
 }
 
+/*Dialog*/
 .dialog {
 	display: none;
 	/*max-height: 600px;*/
 	overflow: auto;
 }
 
+/*Notification*/
 .notification-row {
 	display: table-row;
 	font-size: 12pt;
 	font-weight: normal;
 }
 
+/*Notification div*/
 .notification-row div {
 	padding: 5px;
 }
 
+/*Notification alt*/
 .notification-row.alt {
 	background-color: #ced1c5;
 }
 
+/*Notification type*/
 div.notification-type {
 	width: 50%;
 	display: table-cell;
 }
 
+/*Notification status*/
 div.notification-status {
 	width: 50%;
 	display: table-cell;
 }
 
+/*Help h3 and h2*/
 #help h3, #help h2 {
 	/*margin: 10px 0;*/
 }
 
+/*Help h2*/
 #help h2 {
 	padding: 2px;
 	background-color: #e8eef2;
 }
 
+/*Help h3*/
 #help h3 {
 	margin-left: 10px;
 	text-decoration: underline;
 }
 
+/*Help paragraph*/
 #help p {
 	margin: 10px 20px;
 	font-size: 11pt;
 }
 
+/*Help*/
 #help p.setting span, #help span.setting, #helpPopupDiv p.setting span, #helpPopupDiv span.setting {
 	color: green;
 	font-family: Courier, serif;
 	display: block;
 }
 
+/*Help list*/
 #help ul {
 	margin-left: 20px;
 	font-size: 11pt;
 }
 
+/*Note*/
 .note {
 	font-style: italic;
 	color: #8D96A8
 }
 
+/*Custom attributes*/
 .customAttributes {
 	clear: both;	
 }
 
+/*Custom attribute*/
 .customAttribute {
 	font-size: 9pt;
 }
 
+/*Custom attributes label*/
 .customAttributes label.customAttribute {
 	font-weight: bold;
 	font-size: 9pt;
 }
 
+/*Custom attributes h3*/
 .customAttributes h3 {
 	border-bottom: solid 1px #eee;
 }
 
+/*Custom attributes ul*/
 .customAttributes ul {
 	padding-top: 2px;
 	list-style: none outside none;
 }
 
+/*Custom attributes li*/
 .customAttributes li {
 	display: inline-block;	/*MyCode 6/4/2016*/
 	position: relative;
@@ -504,36 +589,39 @@ div.notification-status {
 	vertical-align: top;
 }
 
+/*Custom attributes label*/
 .customAttributes label {
 	vertical-align: top;
 }
 
+/*Custom attributes input*/
 input.customAttribute {
 	width: 150px;
 }
 
+/*Custom attributes textarea*/
 textarea.customAttribute {
 	width: 150px;
 	height: 50px;
 }
 
-select.customAttribute {
-
-}
-
+/*Validation*/
 .validationSummary {
 	display: none;
 }
 
+/*Validation li*/
 .validationSummary li {
 	font-size: 10pt;
 	color: red;
 }
 
+/*Identation*/
 ul.indented li {
 	margin-left: 25px;
 }
 
+/*Clear*/
 .clear {
 	clear: both;
 	height:0 !important;
@@ -541,45 +629,54 @@ ul.indented li {
 	margin: 0 !important;
 }
 
+/*Bold*/
 .bold {
 	font-weight: bold;
 }
 
+/*Resource details*/
 #resourceDetailsPopup, #userDetailsPopup {
 	min-width: 300px;
 	max-width: 1000px;
 	width: auto;
 }
 
+/*Resource details ul*/
 #resourceDetailsPopup ul {
 	margin-left: 25px;
 }
 
+/*Resource details name*/
 #resourceDetailsPopup h4, #userDetailsPopup #userDetailsName {
 	border-bottom: solid 1px #000;
 	font-size: 12pt;
 	margin-bottom: 3px;
 }
 
+/*Resource details custom attributes*/
 #resourceDetailsPopup .customAttribute, #userDetailsPopup .customAttribute {
 	font-size: inherit;
 }
 
+/*Resource details attributes*/
 #resourceDetailsPopup .attributes {
 	border-left: solid 1px #ced1c5;
 }
 
+/*Resource description*/
 #resourceDetailsPopup .description, #resourceDetailsPopup .attributes {
 	padding: 10px 5px;
 	float: left;
 	max-width: 400px;
 }
 
+/*Resource image*/
 #resourceDetailsPopup .resourceImage {
 	width: 200px;
 	float: left;
 }
 
+/*Resource details*/
 #resourceDetailsDiv, #userDetailsDiv, #customize-columns {
 	display: none;
 	position: absolute;
@@ -591,34 +688,42 @@ ul.indented li {
 	box-shadow: 0px 0px 3px 0px #212121;
 }
 
+/*User details*/
 #userDetailsPopup .label {
 	font-weight: bold;
 }
 
+/*Hidden*/
 .hidden {
 	display: none;
 }
 
+/*Center*/
 .center {
 	text-align: center;
 }
 
+/*Image button*/
 .image-button {
 	cursor: pointer;
 }
 
+/*Block*/
 .block {
 	display:block;
 }
 
+/*Reservation resources*/
 #reservationCreated .resources, #reservationUpdated .resources {
 	margin-top:10px;
 }
 
+/*Reservation dates*/
 #reservationCreated .dates, #reservationUpdated .dates {
 	margin-top:10px;
 }
 
+/*Selector*/
 .resourceNameSelector {
 	cursor:pointer;
 }

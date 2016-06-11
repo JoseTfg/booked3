@@ -3,6 +3,7 @@ function Approval(opts)
 {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		approveButton: $('#btnApprove'),
 		referenceNumber: $("#referenceNumber"),

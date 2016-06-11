@@ -33,6 +33,7 @@ interface ISchedulePresenter {
     public function PageLoad(UserSession $user);
 }
 
+//Class: Supports the schedule controller
 class SchedulePresenter extends ActionPresenter implements ISchedulePresenter {
 
     /**
@@ -68,6 +69,7 @@ class SchedulePresenter extends ActionPresenter implements ISchedulePresenter {
      * @param IReservationService $reservationService
      * @param IDailyLayoutFactory $dailyLayoutFactory
      */
+	//Construct
     public function __construct(
         ISchedulePage $page,
         IScheduleService $scheduleService,
@@ -86,6 +88,7 @@ class SchedulePresenter extends ActionPresenter implements ISchedulePresenter {
         $this->_dailyLayoutFactory = $dailyLayoutFactory;
     }
 
+	//Loads page
     public function PageLoad(UserSession $user)
     {
         $showInaccessibleResources = $this->_page->ShowInaccessibleResources();
@@ -131,6 +134,7 @@ class SchedulePresenter extends ActionPresenter implements ISchedulePresenter {
         $this->_builder->BindReservations($this->_page, $resources, $dailyLayout);
     }
 
+	//Gets the layout
 	public function GetLayout(UserSession $user)
 	{
 		$scheduleId = $this->_page->GetScheduleId();

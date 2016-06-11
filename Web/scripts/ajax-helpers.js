@@ -1,3 +1,4 @@
+//Ajax post
 function ajaxPost(formElement, url, onBefore, onAfter) {
 	$.ajax({
 		type:'POST',
@@ -16,6 +17,7 @@ function ajaxPost(formElement, url, onBefore, onAfter) {
 			});
 }
 
+//Ajax get
 var ajaxGet = function (url, onBefore, onAfter) {
 	$.ajax({
 		type:'GET',

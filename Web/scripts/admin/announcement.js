@@ -2,6 +2,7 @@
 function AnnouncementManagement(opts) {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		activeId: $('#activeId'),
 		announcementList: $('table.list'),
@@ -24,15 +25,18 @@ function AnnouncementManagement(opts) {
 	var announcements = new Object();
 
 	//MyCode
+	//Allows dynamic titles
 	var originalTitle = "";
 	
 	//Initialization
     AnnouncementManagement.prototype.init = function() {
 
+		//Configure dialogs
 		ConfigureAdminDialog(elements.editDialog);
 		ConfigureAdminDialog(elements.deleteDialog);
 		ConfigureAdminDialog(elements.newDialog);
 
+		//User events
 		elements.announcementList.delegate('a.update', 'click', function(e) {
 			setActiveId($(this));
 			e.preventDefault();
@@ -47,12 +51,12 @@ function AnnouncementManagement(opts) {
 		});
 
 		$(".save").click(function() {
-			var canSubmit = submitCheck();
+			var canSubmit = submitCheckCreate();
 			if (canSubmit){
 				$(this).closest('form').submit();
 			}
 			else{
-			$(".warning").show();
+				$(".warning").show();
 			}
 		});
 		
@@ -62,7 +66,7 @@ function AnnouncementManagement(opts) {
 		});
 		
 		$(".edit").click(function() {
-			var canSubmit = submitCheck();
+			var canSubmit = submitCheckEdit();
 			if (canSubmit){
 			$(this).closest('form').submit();
 			}
@@ -87,6 +91,7 @@ function AnnouncementManagement(opts) {
 			elements.deleteDialog.dialog("option", "title", originalTitle);
 		});
 
+		//Configure forms
 		ConfigureAdminForm(elements.addForm, getSubmitCallback(options.actions.add));
 		ConfigureAdminForm(elements.deleteForm, getSubmitCallback(options.actions.deleteAnnouncement));
 		ConfigureAdminForm(elements.form, getSubmitCallback(options.actions.edit));
@@ -167,9 +172,37 @@ function AnnouncementManagement(opts) {
 	};
 	
 	//MyCode
-	var submitCheck = function(){
-		if ((document.getElementById("BeginDate").value != "") && (document.getElementById("EndDate").value != "")){
-			return true;
+	//Checks if can submit on creation
+	var submitCheckCreate = function(){
+		if ((document.getElementById("BeginDate").value != "") && (document.getElementById("EndDate").value != "") && (document.getElementById("createPriority").value != "")){
+			var start = document.getElementById("BeginDate").value;
+			start = start.split("/").reverse().join('');
+			var end = document.getElementById("EndDate").value;
+			end = end.split("/").reverse().join('');
+			if (end > start){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	//MyCode
+	//Checks if can submit on edit
+	var submitCheckEdit = function(){
+		if ((document.getElementById("editBegin").value != "") && (document.getElementById("editEnd").value != "") && (document.getElementById("editPriority").value != "")){
+			var start = document.getElementById("editBegin").value;
+			start = start.split("/").reverse().join('');
+			var end = document.getElementById("editEnd").value;
+			end = end.split("/").reverse().join('');
+			if (end > start){
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 		return false;
 	}

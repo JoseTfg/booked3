@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 
+//Actions
 class ManageAnnouncementsActions
 {
 	const Add = 'addAnnouncement';
@@ -61,12 +62,10 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 	//Sends the announcements information
 	public function PageLoad()
 	{
-		//$this->page->BindAnnouncements($this->announcementRepository->GetAll());
-		
-		//MyCode		
+		//MyCode (22/5/2016)
+		//Allows pagination in announcements page		
 		$page_information = $this->announcementRepository->GetList($this->page->GetPageNumber(), $this->page->GetPageSize(), null, null, null);
 		$this->page->BindAnnouncements($page_information->Results());
-		//$page_information = $this->announcementRepository->GetList();		
 		$this->page->BindPageInfo($page_information->PageInfo());
 	}
 
@@ -78,18 +77,7 @@ class ManageAnnouncementsPresenter extends ActionPresenter
 		$start = Date::Parse($this->page->GetStart(), $user->Timezone);
 		$end = Date::Parse($this->page->GetEnd(), $user->Timezone);
 		$priority = $this->page->GetPriority();
-
-		//MyCode
-		if ($this->page->GetStart() == ""){			
-			//$timezone = new DateTimeZone("Europe/Madrid");
-			//$date = DateTime('now');
-			// date_default_timezone_set("Europe/Madrid");
-			//$d=strtotime("10:30pm April 15 2014");
-			//$start = new date();
-			//$end = new date("Y-m-d h:i:sa",$d);			
-			//$start = new date('Y-m-d', strtotime("+30 days"));
-			//$end = new date()
-		}
+		
 		Log::Debug('Adding new Announcement');
 
 		$this->announcementRepository->Add(Announcement::Create($text, $start, $end, $priority));

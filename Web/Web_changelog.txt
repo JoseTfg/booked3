@@ -4,40 +4,32 @@
 
 Unchanged:
 
--manage_admin_groups.php		Unchanged
--manage_admin_resources.php		Unchanged
--manage_announcements.php		Unchanged
--manage_blackouts.php			Unchanged
--manage_group_reservations.php		Unchanged
--manage_group_users.php			Unchanged
--manage_groups.php			Unchanged
--manage_reservations.php		Unchanged
--manage_resource_reservations.php	Unchanged
--manage_resources.php			Unchanged
--manage_users.php			Unchanged
--autocomplete.php			Unchanged
--reservation_approve.php		Unchanged
--reservation_delete.php			Unchanged
--reservation_save.php			Unchanged
--reservation_update.php			Unchanged
--respopup.php				Unchanged
--configure.php				Unchanged
--index.php				Unchanged
--migrate.php				Unchanged
--common-reports.php			Unchanged
--generate-report.php			Unchanged
--saved-reports.php			Unchanged
--ApiHelpPage.php			Unchanged
--index.php				Unchanged
--bookings.php				Unchanged
--error.php				Unchanged
--help.php				Unchanged
--index.php				Unchanged
--logout.php				Unchanged
--my-calendar.php			Unchanged
--reports.php				Unchanged
--reservation.php			Unchanged
--view-reservation.php			Unchanged
+-manage_announcements.php			Unchanged
+-manage_blackouts.php				Unchanged
+-manage_groups.php					Unchanged
+-manage_reservations.php			Unchanged
+-manage_resources.php				Unchanged
+-manage_users.php					Unchanged
+-autocomplete.php					Unchanged
+-reservation_approve.php			Unchanged
+-reservation_delete.php				Unchanged
+-reservation_save.php				Unchanged
+-reservation_update.php				Unchanged
+-respopup.php						Unchanged
+-configure.php						Unchanged
+-index.php							Unchanged
+-generate-report.php				Unchanged
+-ApiHelpPage.php					Unchanged
+-index.php							Unchanged
+-bookings.php						Unchanged
+-error.php							Unchanged
+-help.php							Unchanged
+-index.php							Unchanged
+-logout.php							Unchanged
+-my-calendar.php					Unchanged
+-reports.php						Unchanged
+-reservation.php					Unchanged
+-view-reservation.php				Unchanged
 
 
 Erased:
@@ -56,24 +48,32 @@ Erased:
 -profile.php
 -register.php
 -schedule.php
--activate.php				Unchanged
--manage_admin_schedules.php		Unchanged
--manage_attributes.php			Unchanged
--manage_configuration.php		Unchanged
--manage_quotas.php			Unchanged
--manage_resource_groups.php		Unchanged
--manage_schedule_reservations.php	Unchanged
--manage_theme.php			Unchanged
--server_settings.php			Unchanged
--resource_details.php			Unchanged
--user_details.php			Unchanged
--reservation-file.php			Unchanged
--atom-subscribe.php			Re-added
--ical.php				Re-added
--ical-subscribe.php			Re-added
--show-captcha.php			Unchanged*
--openings.php				Unchanged
--view-schedule.php			Unchanged
+-activate.php
+-manage_admin_schedules.php
+-manage_attributes.php
+-manage_configuration.php	
+-manage_quotas.php
+-manage_resource_groups.php
+-manage_schedule_reservations.php
+-manage_theme.php
+-server_settings.php
+-resource_details.php
+-user_details.php
+-reservation-file.php
+-atom-subscribe.php
+-ical.php
+-ical-subscribe.php
+-show-captcha.php
+-openings.php
+-view-schedule.php
+-manage_admin_groups.php
+-manage_admin_resources.php
+-manage_group_reservations.php
+-manage_group_users.php
+-migrate.php
+-common-reports.php
+-saved-reports.php
+-manage_resource_reservations.php
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////css/////////////////////////////////////////////
@@ -81,8 +81,8 @@ Erased:
 
 Unchanged:
 
--email.css				Unchanged
--jquery.qtip.min.css			Unchanged
+-email.css					Unchanged
+-jquery.qtip.min.css		Unchanged
 -normalize.css				Unchanged
 -null-style.css				Unchanged
 -reports.css				Unchanged
@@ -93,8 +93,8 @@ Changed:
 
 2/3/2016
 
--calendar.css: 		Calendar is now smaller.
-			Filters place is smaller.
+-calendar.css: 				Calendar is now smaller.
+							Filters place is smaller.
 
 .monthCalendar td {
 	height: 120px;
@@ -102,38 +102,37 @@ Changed:
 	padding: 2px;
 }
 
--nav.css:		Navigation bar and logo are smaller.
-
--style.css:		Several styles changes.
+-nav.css:					Navigation bar and logo are smaller.
+-style.css:					Several styles changes.
 
 Added:
 
--propio.css:		On/Off Switch css and Table css to reduce free space.
+-propio.css:				On/Off Switch css and Table css to reduce free space.
 
 ////////////////////////////////////////V0.3//////////////////////////////////////////////////
 
 8/3/2016
 
--propio.css:		Changed styles in header and footer.
--dashboard.css		Changed margin-top
+-propio.css:				Changed styles in header and footer.
+-dashboard.css				Changed margin-top
 
 13/3/2016
--propio.css:		Changed styles in login page.
--style.css:		Changed styles in login page.
--reservation.css	Changed styles in reservation page.
+-propio.css:				Changed styles in login page.
+-style.css:					Changed styles in login page.
+-reservation.css			Changed styles in reservation page.
 
 ////////////////////////////////////////V0.5//////////////////////////////////////////////////
 
 7/4/2016
--style.css:		Updated for new popup system.
--popup.css:		Updated for new popup system.
+-style.css:					Updated for new popup system.
+-popup.css:					Updated for new popup system.
 
 ////////////////////////////////////////V0.7//////////////////////////////////////////////////
 
 8/5/2016
 
--css_enhancemenet:	New file, groups all the css created by Jose.
--dashboard.css:		No longer in use.
+-css_enhancemenet:			New file, groups all the css created by Jose.
+-dashboard.css:				No longer in use.
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////scripts/////////////////////////////////////////////
@@ -145,34 +144,34 @@ Unchanged:
 -attributes.js				Unchanged
 -blackouts.js				Unchanged
 -configuration.js			Unchanged
--edit.js				Unchanged
--group.js				Unchanged
--help.js				Unchanged
--quota.js				Unchanged
+-edit.js					Unchanged
+-group.js					Unchanged
+-help.js					Unchanged
+-quota.js					Unchanged
 -reminder.js				Unchanged
 -reservations.js			Unchanged
 -resource.js				Unchanged
 -resource-groups.js			Unchanged
--user.js				Unchanged
+-user.js					Unchanged
 -canned-reports.js			Unchanged
--chart.js				Unchanged
--common.js				Unchanged
--generate-reports.js			Unchanged
+-chart.js					Unchanged
+-common.js					Unchanged
+-generate-reports.js		Unchanged
 -saved-reports.js			Unchanged
--ajax-form-submit.js			Unchanged
+-ajax-form-submit.js		Unchanged
 -ajax-helpers.js			Unchanged
 -approval.js				Unchanged
 -autocomplete.js			Unchanged
 -calendar_backup.js			Unchanged
 -date-helper.js				Unchanged
 -force-numeric.js			Unchanged
--menubar.js				Unchanged
+-menubar.js					Unchanged
 -phpscheduleit.js			Unchanged
 -recurrence.js				Unchanged
 -reservation.js				Unchanged
 -reservation.js				Unchanged
--reservationPopup.js			Unchanged
--reservation-reminders.js		Unchanged
+-reservationPopup.js		Unchanged
+-reservation-reminders.js	Unchanged
 -resourcePopip.js			Unchanged
 -userPopup.js				Unchanged
 -dashboard.js				Re-added
@@ -195,26 +194,26 @@ Changed:
 2/3/2016
 
 -calendar.js		Calendar is now selectable.
-			Calendar now allows reservations by click and drag.
-			Calendar only shows reservable slots now.
-			Calendar has been resized.
-			DayClick event modified.
+					Calendar now allows reservations by click and drag.
+					Calendar only shows reservable slots now.
+					Calendar has been resized.
+					DayClick event modified.
 
 8/3/2016 - 16/3/2016
 
 -calendar.js		Calendar can now show an array of resources.
-			Calendar now allows click and drag for reservation updating.
-			Calendar now changes view on click.
-			Calendar now connects with the API.
-			Calendar now presents events with colors.
-			Calendar now reacts to right click events.
+					Calendar now allows click and drag for reservation updating.
+					Calendar now changes view on click.
+					Calendar now connects with the API.
+					Calendar now presents events with colors.
+					Calendar now reacts to right click events.
 
 29/3/2016
 
 -calendar.js		Calendar now allowsreservations delete by keyboard input.
-			Calendar can have its boundaries changed by keyboard input.
-			Calendar now have a color legend.
-			Calendar click events are now different.
+					Calendar can have its boundaries changed by keyboard input.
+					Calendar now have a color legend.
+					Calendar click events are now different.
 
 7/4/2016
 -myScript.js		Updated for new popup system.
@@ -229,17 +228,17 @@ Changed:
 
 Created:
 -myScript.js:		Several functions from calendar.js are now here.
-			Supports new popups.
-			Supports new list view.	
+					Supports new popups.
+					Supports new list view.	
 
 8/5/2016
--calendarEnhancement.js:Groups all the functions related to calendar.
-			New selection option.
-			New colors per resource for each user option.
-			New Export/GCalendar option.
+-calendarEnhancement.js:		Groups all the functions related to calendar.
+								New selection option.
+								New colors per resource for each user option.
+								New Export/GCalendar option.
 
--createEnhance.js:	Groups all the functions related to reservations.
--manageBlackoutsEnhance.js:Initial support for blackout in calendar.
--manageReservationsEnhance.js: Group all functions related to reservatiosn manage.
--userenhance.js:	Groups all functions related to user management.
+-createEnhance.js:				Groups all the functions related to reservations.
+-manageBlackoutsEnhance.js:		Initial support for blackout in calendar.
+-manageReservationsEnhance.js: 	Group all functions related to reservatiosn manage.
+-userenhance.js:				Groups all functions related to user management.
 		

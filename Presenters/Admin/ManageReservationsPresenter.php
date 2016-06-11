@@ -186,7 +186,7 @@ class ManageReservationsPresenter extends ActionPresenter
 		$this->page->SetAttributeFilters($attributeFilters);
 		$this->page->SetReservationAttributes($reservationAttributes);
 
-		//MyCode
+		//MyCode (1/5/2016)
 		//This code makes the filter of a non-admin to always return his own reservations.
 		$notAdminId = $session->UserId;
 		if (!$session->IsAdmin){
@@ -351,6 +351,7 @@ class ManageReservationsPresenter extends ActionPresenter
 	}
 }
 
+//Class: Supports the filter preferences
 class ReservationFilterPreferences
 {
 	private $FilterStartDateDelta = 0;
@@ -365,76 +366,91 @@ class ReservationFilterPreferences
 	private $FilterResourceReasonId = '';
 	private $FilterCustomAttributes = '';
 
+	//Gets start date
 	public function GetFilterStartDateDelta()
 	{
 		return empty($this->FilterStartDateDelta) ? -14 : $this->FilterStartDateDelta;
 	}
 
+	//Gets end date
 	public function GetFilterEndDateDelta()
 	{
 		return empty($this->FilterEndDateDelta) ? 14 : $this->FilterEndDateDelta;
 	}
 
+	//Gets user identifier
 	public function GetFilterUserId()
 	{
 		return $this->FilterUserId;
 	}
 
+	//Gets user name
 	public function GetFilterUserName()
 	{
 		return $this->FilterUserName;
 	}
 
+	//Gets schedule identifier
 	public function GetFilterScheduleId()
 	{
 		return $this->FilterScheduleId;
 	}
 
+	//Gets resource identifier
 	public function GetFilterResourceId()
 	{
 		return $this->FilterResourceId;
 	}
 
+	//Gets reservation status identifier
 	public function GetFilterReservationStatusId()
 	{
 		return $this->FilterReservationStatusId;
 	}
 
+	//Gets reference number identifier
 	public function GetFilterReferenceNumber()
 	{
 		return $this->FilterReferenceNumber;
 	}
 
+	//Gets resource status identifier
 	public function GetFilterResourceStatusId()
 	{
 		return $this->FilterResourceStatusId;
 	}
 
+	//Gets reason identifier
 	public function GetFilterResourceReasonId()
 	{
 		return $this->FilterResourceReasonId;
 	}
 
+	//Sets start time
 	public function SetFilterStartDateDelta($FilterStartDateDelta)
 	{
 		$this->FilterStartDateDelta = $FilterStartDateDelta;
 	}
 
+	//Sets end time
 	public function SetFilterEndDateDelta($FilterEndDateDelta)
 	{
 		$this->FilterEndDateDelta = $FilterEndDateDelta;
 	}
 
+	//Sets user identifier
 	public function SetFilterUserId($FilterUserId)
 	{
 		$this->FilterUserId = $FilterUserId;
 	}
 
+	//Sets user name
 	public function SetFilterUserName($FilterUserName)
 	{
 		$this->FilterUserName = $FilterUserName;
 	}
 
+	//Sets schedule identifier
 	public function SetFilterScheduleId($FilterScheduleId)
 	{
 		if (empty($FilterScheduleId))
@@ -445,6 +461,7 @@ class ReservationFilterPreferences
 		$this->FilterScheduleId = $FilterScheduleId;
 	}
 
+	//Sets resource identifier
 	public function SetFilterResourceId($FilterResourceId)
 	{
 		if (empty($FilterResourceId))
@@ -455,6 +472,7 @@ class ReservationFilterPreferences
 		$this->FilterResourceId = $FilterResourceId;
 	}
 
+	//Sets reservation status identifier
 	public function SetFilterReservationStatusId($FilterReservationStatusId)
 	{
 		if (empty($FilterReservationStatusId))
@@ -465,16 +483,19 @@ class ReservationFilterPreferences
 		$this->FilterReservationStatusId = $FilterReservationStatusId;
 	}
 
+	//Sets reference number identifier
 	public function SetFilterReferenceNumber($FilterReferenceNumber)
 	{
 		$this->FilterReferenceNumber = $FilterReferenceNumber;
 	}
 
+	//Sets resource status identifier
 	public function SetFilterResourceStatusId($statusId)
 	{
 		$this->FilterResourceStatusId = $statusId;
 	}
 
+	//Sets reason identifier
 	public function SetFilterResourceReasonId($reasonId)
 	{
 		$this->FilterResourceReasonId = $reasonId;
@@ -483,6 +504,7 @@ class ReservationFilterPreferences
 	/**
 	 * @return array
 	 */
+	//Unused
 	public function GetFilterCustomAttributes()
 	{
 		if (isset($this->FilterCustomAttributes) && !empty($this->FilterCustomAttributes))
@@ -496,6 +518,7 @@ class ReservationFilterPreferences
 	/**
 	 * @param array $filters
 	 */
+	//Unused
 	public function SetFilterCustomAttributes($filters)
 	{
 		$this->FilterCustomAttributes = serialize($filters);
@@ -518,6 +541,7 @@ class ReservationFilterPreferences
 	 * @param IUserPreferenceRepository $userPreferenceRepository
 	 * @param int $userId
 	 */
+	//Loads filter
 	public function Load(IUserPreferenceRepository $userPreferenceRepository, $userId)
 	{
 		foreach (self::$filterKeys as $filterName => $defaultValue)
@@ -539,6 +563,7 @@ class ReservationFilterPreferences
 	 * @param IUserPreferenceRepository $userPreferenceRepository
 	 * @param int $userId
 	 */
+	//Updates filter
 	public function Update(IUserPreferenceRepository $userPreferenceRepository, $userId)
 	{
 		foreach (self::$filterKeys as $filterName => $defaultValue)
@@ -546,6 +571,4 @@ class ReservationFilterPreferences
 			$userPreferenceRepository->SetUserPreference($userId, $filterName, $this->$filterName);
 		}
 	}
-
-
 }

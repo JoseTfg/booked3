@@ -46,6 +46,7 @@ var dateHelper = function ()
 	};
 
 	return {
+		//More than one day
 		MoreThanOneDayBetweenBeginAndEnd: function (beginDateElement, beginTimeElement, endDateElement, endTimeElement)
 		{
 
@@ -57,11 +58,13 @@ var dateHelper = function ()
 			return timeBetweenDates > oneDay;
 		},
 
+		//Get date
 		GetDate: function (dateElement, timeElement)
 		{
 			return moment(dateElement.val() + 'T' + timeElement.val(), 'YYYY-MM-DDTHH:mm:ss');
 		},
 
+		//Get date difference
 		GetDateDifference: function (beginDateElement, beginTimeElement, endDateElement, endTimeElement)
 		{
 			var begin = this.GetDate(beginDateElement, beginTimeElement);
@@ -70,6 +73,7 @@ var dateHelper = function ()
 			return getDifference(end.toDate(), begin.toDate());
 		},
 
+		//Add time difference
 		AddTimeDiff : function(diff, time){
 			var d = parse(time);
 			return d.add('ms', diff).format('HH:mm') + ':00';
@@ -77,6 +81,7 @@ var dateHelper = function ()
 //			return d.add('minutes', minutes).format('HH:mm') + ':00';
 		},
 
+		//Get time difference
 		GetTimeDifference: function (beginTime, endTime)
 		{
 			var start = parse(beginTime);

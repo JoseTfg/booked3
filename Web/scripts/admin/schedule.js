@@ -1,7 +1,9 @@
+//Schedules managements
 function ScheduleManagement(opts)
 {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		activeId:$('#activeId'),
 
@@ -31,11 +33,16 @@ function ScheduleManagement(opts)
 		daysVisible:$('#daysVisible'),
 		dayOfWeek:$('#dayOfWeek'),
 		deleteDestinationScheduleId:$('#targetScheduleId'),
-		usesSingleLayout:$('#usesSingleLayout')
+		usesSingleLayout:$('#usesSingleLayout'),
+		
+		addedTimes: $('#addedTimes'),
+		removedTimes: $('#removedTimes')
 	};
 
+	//Initialization
 	ScheduleManagement.prototype.init = function ()
 	{
+		//Configure dialogs
 		ConfigureAdminDialog(elements.renameDialog, 300, 125);
 		ConfigureAdminDialog(elements.changeSettingsDialog); //MyCode
 		ConfigureAdminDialog(elements.layoutDialog, 725, 'auto');
@@ -44,6 +51,7 @@ function ScheduleManagement(opts)
 
 		$('#tabs').tabs();
 
+		//User events
 		$('.scheduleDetails').each(function ()
 		{
 			var id = $(this).find(':hidden.id').val();
@@ -119,6 +127,7 @@ function ScheduleManagement(opts)
 		$(".save-create").click(function ()
 		{
 			createQuickLayout();
+			setActiveScheduleId("1");
 			$(this).closest('form').submit();
 		});
 
@@ -152,7 +161,31 @@ function ScheduleManagement(opts)
 		{
 			toggleLayoutChange($(this).is(':checked'));
 		});
+		
+		//MyCode
+		elements.removedTimes.delegate('div', 'click', function() {
+			$(this).appendTo(elements.addedTimes);
+			var lines = $('#blockedEdit').val().split('\n');
+			for(var i = 0;i < lines.length-1;i++){
+				if ($(this).text().indexOf(lines[i]) != -1){
+					lines.splice(i,1);
+				}
+			}
+			var toSend = "";
+			for(var i = 0;i < lines.length-1;i++){
+				toSend = toSend + lines[i] + '\n';
+			}
+			$('.blockedEdit:visible', elements.layoutDialog).val(toSend);
+			
+			var toSend2 = $(this).text() + '\n';
+			$('.reservableEdit:visible', elements.layoutDialog).val($('.reservableEdit:visible', elements.layoutDialog).val()+toSend2);
+		});
 
+		elements.addedTimes.delegate('div', 'click', function() {
+			$(this).appendTo(elements.removedTimes);
+		});
+
+		//Configure forms
 		ConfigureAdminForm(elements.renameForm, getSubmitCallback(options.renameAction));
 		ConfigureAdminForm(elements.settingsForm, getSubmitCallback(options.changeSettingsAction));
 		ConfigureAdminForm(elements.changeLayoutForm, getSubmitCallback(options.changeLayoutAction));
@@ -161,6 +194,7 @@ function ScheduleManagement(opts)
 		ConfigureAdminForm(elements.groupAdminForm, getSubmitCallback(options.adminAction));
 	};
 
+	//Gets submit callback
 	var getSubmitCallback = function (action)
 	{
 		return function ()
@@ -169,6 +203,7 @@ function ScheduleManagement(opts)
 		};
 	};
 
+	//Creates layout
 	var createQuickLayout = function ()
 	{
 		var intervalMinutes = elements.quickLayoutConfig.val();
@@ -182,12 +217,42 @@ function ScheduleManagement(opts)
 
 			if (startTime != '00:00')
 			{
-				blocked += '00:00 - ' + startTime + "\n";
+				var startTimes = startTime.split(":");
+				var endDateTime = new Date();
+				endDateTime.setHours(startTimes[0]);
+				endDateTime.setMinutes(startTimes[1]);
+				var currentTime = new Date();
+				currentTime.setHours(0);
+				currentTime.setMinutes(0);
+				var nextTime = new Date(currentTime);
+				var intervalMilliseconds = 60 * 1000 * intervalMinutes;
+				while (currentTime.getTime() < endDateTime.getTime())
+				{					
+					nextTime.setTime(nextTime.getTime() + intervalMilliseconds);
+					blocked += getFormattedTime(currentTime) + ' - ';
+					blocked += getFormattedTime(nextTime) + '\n';
+					currentTime.setTime(currentTime.getTime() + intervalMilliseconds);
+				}
 			}
 
 			if (endTime != '00:00')
 			{
-				blocked += endTime + ' - 00:00';
+				var endTimes = endTime.split(":");
+				var endDateTime = new Date();
+				endDateTime.setHours(24);
+				endDateTime.setMinutes(0);
+				var currentTime = new Date();
+				currentTime.setHours(endTimes[0]);
+				currentTime.setMinutes(endTimes[1]);
+				var nextTime = new Date(currentTime);
+				var intervalMilliseconds = 60 * 1000 * intervalMinutes;
+				while (currentTime.getTime() < endDateTime.getTime())
+				{					
+					nextTime.setTime(nextTime.getTime() + intervalMilliseconds);
+					blocked += getFormattedTime(currentTime) + ' - ';
+					blocked += getFormattedTime(nextTime) + '\n';
+					currentTime.setTime(currentTime.getTime() + intervalMilliseconds);
+				}
 			}
 
 			var startTimes = startTime.split(":");
@@ -219,6 +284,7 @@ function ScheduleManagement(opts)
 		}
 	};
 
+	//Gets formatted time
 	var getFormattedTime = function (date)
 	{
 		var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
@@ -226,39 +292,45 @@ function ScheduleManagement(opts)
 		return hour + ":" + minute;
 	};
 
+	//Handle error
 	var handleAddError = function (responseText)
 	{
 		$('#addScheduleResults').text(responseText);
 		$('#addScheduleResults').show();
 	};
 
+	//Sets active schedule identifier
 	var setActiveScheduleId = function (scheduleId)
 	{
 		elements.activeId.val(scheduleId);
 	};
 
+	//Gets active schedule identifier
 	var getActiveScheduleId = function ()
 	{
+		alert(elements.activeId.val());
 		return elements.activeId.val();
 	};
 
+	//Unused
 	var showRename = function (e)
 	{
 		elements.renameDialog.dialog("option", "position", [e.pageX, e.pageY]);
 		elements.renameDialog.dialog("open");
 	};
 
+	//Unused
 	var showChangeSettings = function (e, daysVisible, dayOfWeek)
 	{
 		elements.daysVisible.val(daysVisible.val());
 		elements.dayOfWeek.val(dayOfWeek.val());
 
 		//MyCode
-		//elements.changeSettingsDialog.dialog("option", "position", [e.pageX, e.pageY]);
 		elements.changeSettingsDialog.dialog("open");
 		elements.changeSettingsDialog.dialog("option", "resizable", false);
 	};
 
+	//Show change layout dialog
 	var showChangeLayout = function (e, reservableDiv, blockedDiv, timezone, usesSingleLayout)
 	{
 		$.each(reservableDiv, function(index, val){
@@ -282,8 +354,19 @@ function ScheduleManagement(opts)
 
 		elements.layoutDialog.dialog("open");
 		elements.layoutDialog.dialog("option", "resizable", false);
+		
+		//MyCode
+		var lines = $('#reservableEdit').val().split('\n');
+		for(var i = 0;i < lines.length-1;i++){
+			$("#addedTimes").append( "<div class='time-item' timeId='"+i+"'><a href='#'>&nbsp;</a>"+lines[i]+"</div>" );
+		}
+		var lines = $('#blockedEdit').val().split('\n');
+		for(var i = 0;i < lines.length-1;i++){
+			$("#removedTimes").append( "<div class='time-item' timeId='"+i+"'><a href='#'>&nbsp;</a>"+lines[i]+"</div>" );
+		}
 	};
 
+	//Unused
 	var toggleLayoutChange = function (useSingleLayout)
 	{
 		if (useSingleLayout)
@@ -298,6 +381,7 @@ function ScheduleManagement(opts)
 		}
 	};
 
+	//Unused
 	var showDeleteDialog = function (e)
 	{
 		var scheduleId = getActiveScheduleId();
@@ -308,12 +392,14 @@ function ScheduleManagement(opts)
 		elements.deleteDialog.dialog('open');
 	};
 
+	//Unused
 	var showScheduleAdmin = function (e, adminGroupId)
 	{
 		$('#adminGroupId').val(adminGroupId);
 		elements.groupAdminDialog.dialog("open");
 	};
 
+	//Unused
 	var reformatTimeSlots = function (div)
 	{
 		var text = $.trim(div.text());

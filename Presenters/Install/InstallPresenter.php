@@ -47,6 +47,7 @@ class InstallPresenter
 	 * Get and Set data to be process by template engine
 	 * @return void
 	 */
+	//Page load
 	public function PageLoad()
 	{
 		if ($this->page->RunningInstall())

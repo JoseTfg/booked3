@@ -60,7 +60,6 @@ class AnnouncementRepository implements IAnnouncementRepository
     {
         $command = new GetAllAnnouncementsCommand();
 
-		//$builder = 'announce';
 		$builder = array('AnnounceItemView', 'Create');
 		return PageableDataStore::GetList($command, $builder, $pageNumber, $pageSize);
     }
@@ -222,20 +221,19 @@ class AnnounceItemView
 
 	public function __construct($id, $text, $priority, $start_date, $end_date)
 	{
+		$user = ServiceLocator::GetServer()->GetUserSession();
 		$this->Id = $id;
 		$this->Text = $text;
 		$this->Priority = $priority;
 		$this->Start = $start_date;
 		$this->End = $end_date;
-		if ($start_date == $end_date){
-			//$this->Text = $start_date;
-			//$this->Start = new date($start_date);
-			//$this->End = new date($end_date);
-		}
-		else{
-			//$this->Start = new date($start_date);
-			//$this->End = new date($end_date);
-		}
+		
+		$add_days = 1;
+		$date = date('Y-m-d',strtotime($start_date) + (24*3600*$add_days));		
+		$this->Start = Date::Parse($date,$user->Timezone);
+		
+		$date = date('Y-m-d',strtotime($end_date) + (24*3600*$add_days));		
+		$this->End = Date::Parse($date,$user->Timezone);	
 	}
 }
 

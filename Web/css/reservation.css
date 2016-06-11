@@ -1,12 +1,17 @@
+/*Contains reservations related stylesheets*/
+
+/*Additional resources*/
 #additionalResources {
 	display: inline;
 }
 
+/*Additional resources paragraph*/
 #additionalResources p {
 	margin: 0px;
 	font-style: italic;
 }
 
+/*Duration text*/
 .durationText {
 	font-size: 13px;
 	font-weight: bold;
@@ -14,19 +19,23 @@
 	color: #000;
 }
 
+/*Reservation box*/
 #reservationbox {
 	/*width: 50%;*/					/*MyCode*/
 	/*margin: 3em auto 1em;*/
 }
 
+/*Reservation box list*/
 #reservationbox ul {
 	list-style: none;
 }
 
+/*Reservation box input file*/
 #reservationbox input[type="file"] {
 	font-size: 10pt;
 }
 
+/*Reservation box input*/
 #reservationbox .input {
 	font-size: 12px;		/*MyCode*/
 	width: 98%;
@@ -37,26 +46,31 @@
 	color: #777;
 }
 
+/*Reservation box label*/
 #reservationbox.readonly label {
 	font-size: 16px;
 	font-weight: bold;
 	color: #000;
 }
 
+/*Reservation box readonly list*/
 #reservationbox.readonly ul {
 	font-size: 16px;
 	color: #333;
 }
 
+/*Reservation box readonly section*/
 #reservationbox.readonly .section {
 	padding-top: 15px;
 }
 
+/*Reservation box recurrence details*/
 #reservationbox.readonly .repeat-details, #reservationbox.readonly .repeat-details label {
 	margin-left: 10px;
 	font-size: 14px;
 }
 
+/*Reservation details*/
 #reservationDetails {
 	margin: 0 auto;			/*MyCode*/
 	width: 100%;
@@ -64,30 +78,36 @@
 	padding-right: 25px;
 }
 
+/*Reservation buttons*/
 .reservationButtons {
 	margin-top: 20px;
 }
 
+/*Reservation reminders*/
 .reservationReminders, .reservationAttachments, .customAttributes {
 	margin: 5px 15px;
 	padding: 5px;
 	border-top: solid 1px #f0f0f0;
 }
 
+/*Reservation delete buttons*/
 .reservationDeleteButtons {
 	float: left;
 }
 
+/*Reservation submit buttons*/
 .reservationSubmitButtons {
 	float: right;
 }
 
+/*Reservation participation*/
 #reservationParticipation {
 	float: right;
 	width: 45%;
 	height: 100%;
 }
 
+/*Reservation participation list*/
 #participantList, #inviteeList {
 	height: 100px;
 	width: 100%;
@@ -95,40 +115,49 @@
 	border: solid 1px #ededed;
 }
 
+/*Reservation accessories*/
 #accessories {
 	max-height: 200px;
 	overflow: auto;
 }
 
+/*Reservation accessories paragraph*/
 #accessories p {
 	margin: 1px;
 }
 
+/*Reservation box href*/
 #reservationbox a {
 	font-size: 12pt;
 }
 
+/*Reservation save dialog*/
 #dialogSave ul {
 	text-align: left;
 }
 
+/*Reservation save error*/
 #dialogSave .error {
 	background-image: none;
 }
 
+/*Reservation save dialog h2*/
 #dialogSave h2 {
 	font-size: 18pt;
 }
 
+/*Reservation save dialog*/
 #dialogSave div {
 	font-size: 16pt;
 	text-align: center;
 }
 
+/*Reservation save dialog input and button*/
 #dialogSave input, #dialogSave button {
 	font-size: 11pt;
 }
 
+/*Reservation attachments*/
 .res-attachments {
 
 	padding-top: 10px;
@@ -136,60 +165,73 @@
 	border-top: 1px solid #dedede;
 }
 
+/*Reservation attachments heading*/
 .res-attachments .heading {
 	font-size: 10pt;
 	font-weight: bold;
 }
 
+/*Reservation attachments href*/
 #reservationbox .res-attachments a {
 	font-size: 9pt;
 }
 
+/*Reservation reminder options*/
 #reminderOptionsStart {
 	float: left;
 	padding-right: 30px;
 }
 
+/*Reservation reminder label*/
 .reminderLabel {
 	font-size: 10pt;
 }
 
+/*Reservation small action*/
 #reservationbox a.small-action {
 	font-size: 9pt;
 	color: #3d5b74;
 }
 
+/*Reservation custom attributes*/
 .customAttributes {
 	margin-top: 10px;
 }
 
+/*Jqtree*/
 ul.jqtree-tree li.jqtree-selected > .jqtree-element, ul.jqtree-tree .jqtree-toggler {
 	top: 10%;
 }
 
+/*Jqtree*/
 ul.jqtree-tree .group-resource .jqtree-title {
 	color: #111111;
 }
 
+/*Reservation buttons top*/
 .buttonsTop {
 	margin-bottom: 10px;
 }
 
+/*Reservation date*/
 label.reservationDate {
 	width: 50px;
 	display: inline-block;
 }
 
+/*Reservation created and updated*/
 #reservationCreated .approvalMessage, #reservationUpdated .approvalMessage
 {
 	margin: 15px 0;
 	font-size:smaller;
 }
 
+/*Reservation allow participation*/
 #allowParticipation {
 	margin-top:5px;
 }
 
+/*Reservation invitation error*/
 #invite-error {
 	font-weight: bold;
 	color: #CE0000;

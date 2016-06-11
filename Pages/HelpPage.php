@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Pages/Page.php');
 //Class: Supports the help page controller
 class HelpPage extends Page
 {
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('Help');
@@ -31,11 +32,6 @@ class HelpPage extends Page
 	//Process page load
 	public function PageLoad()
 	{
-		//MyCode
-		//date_default_timezone_set('Europe/Madrid');
-		//$this->Set('RemindersPath', realpath(ROOT_DIR . 'Jobs/sendreminders.php'));
-		//$this->Set('ServerTimezone', date_default_timezone_get());
-
 		$helpType = $this->GetQuerystring('ht');
 
 		if ($helpType == 'about')

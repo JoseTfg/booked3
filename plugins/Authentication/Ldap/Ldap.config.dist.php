@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// see http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
 
+//Distributable file to fill the config options for LDAP authentication
 $conf['settings']['host'] = 'localhost'; // comma separated list of ldap servers such as mydomain1,localhost
 $conf['settings']['port'] = '389';      // default ldap port 389 or 636 for ssl.
 $conf['settings']['version'] = '3';		// LDAP protocol version

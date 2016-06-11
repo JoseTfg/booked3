@@ -18,29 +18,23 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
 <form id="editBlackoutForm" method="post">
-	<div id="updateBlackout" style="position: absolute;">
+	<div id="updateBlackout">
 		<ul>
 			<li>
 				<label for="updateStartDate" class="wideLabel">{translate key=BeginDate}</label>
-				<input type="text" id="updateStartDate" class="textbox" size="10"
-					   value="{formatdate date=$BlackoutStartDate}"/>
-				<input {formname key=BEGIN_DATE} id="formattedUpdateStartDate" type="hidden"
-												 value="{formatdate date=$BlackoutStartDate key=system}"/>
-				<input {formname key=BEGIN_TIME} type="text" id="updateStartTime" class="textbox" size="7"
-												 value="{formatdate date=$BlackoutStartDate format='h:i A'}"/>
+				<input type="text" id="updateStartDate" class="textbox" size="10" value="{formatdate date=$BlackoutStartDate}"/>
+				<input {formname key=BEGIN_DATE} id="formattedUpdateStartDate" type="hidden" value="{formatdate date=$BlackoutStartDate key=system}"/>
+				<input {formname key=BEGIN_TIME} type="text" id="updateStartTime" class="textbox" size="7" value="{formatdate date=$BlackoutStartDate format='h:i A'}"/>
 			</li>
 			<li>
 				<label for="updateEndDate" class="wideLabel">{translate key=EndDate}</label>
-				<input type="text" id="updateEndDate" class="textbox" size="10"
-					   value="{formatdate date=$BlackoutEndDate}"/>
-				<input {formname key=END_DATE} type="hidden" id="formattedUpdateEndDate"
-											   value="{formatdate date=$BlackoutEndDate key=system}"/>
-				<input {formname key=END_TIME} type="text" id="updateEndTime" class="textbox" size="7"
-											   value="{formatdate date=$BlackoutEndDate format='h:i A'}"/>
+				<input type="text" id="updateEndDate" class="textbox" size="10" value="{formatdate date=$BlackoutEndDate}"/>
+				<input {formname key=END_DATE} type="hidden" id="formattedUpdateEndDate" value="{formatdate date=$BlackoutEndDate key=system}"/>
+				<input {formname key=END_TIME} type="text" id="updateEndTime" class="textbox" size="7" value="{formatdate date=$BlackoutEndDate format='h:i A'}"/>
 			</li>
 			</br>
 			<label for="addResourceId" class="wideLabel"> <a href="#" id="myLabel">{translate key=Resources}</a></label>
-			<li class="blackoutResources" id="myResourceList" style="display:none;">
+			<li class="blackoutResources" id="myResourceList">
 				{foreach from=$Resources item=resource}
 					{assign var=checked value=""}
 					{if in_array($resource->GetId(), $BlackoutResourceIds)}
@@ -50,10 +44,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				{/foreach}
 			</li>
 			<li>
-						</br>
+				</br>
 				<label for="blackoutReason" class="wideLabel">{translate key=Reason}</label>
-				<input {formname key=SUMMARY} type="text" id="blackoutReason" class="textbox required" size="35"
-											  maxlength="85" value="{$BlackoutTitle}"/>
+				<input {formname key=SUMMARY} type="text" id="blackoutReason" class="textbox required" size="35" maxlength="85" value="{$BlackoutTitle}"/>
 			</li>
 			<li>
 			</br>
@@ -61,36 +54,33 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</li>
 			<li>
 			</br>
-				<input {formname key=CONFLICT_ACTION} type="radio" id="notifyExisting" name="existingReservations"
-													  checked="checked"
-													  value="{ReservationConflictResolution::Notify}"/>
+				<input {formname key=CONFLICT_ACTION} type="radio" id="notifyExisting" name="existingReservations" checked="checked" value="{ReservationConflictResolution::Notify}"/>
 				<label for="notifyExisting">{translate key=BlackoutShowMe}</label>
 			</li>
 			<li>
-				<input {formname key=CONFLICT_ACTION} type="radio" id="deleteExisting" name="existingReservations"
-													  value="{ReservationConflictResolution::Delete}"/>
+				<input {formname key=CONFLICT_ACTION} type="radio" id="deleteExisting" name="existingReservations" value="{ReservationConflictResolution::Delete}"/>
 				<label for="deleteExisting">{translate key=BlackoutDeleteConflicts}</label>
 			</li>
 		</ul>
 
 		{if $IsRecurring}
 			<div>{translate key=ApplyUpdatesTo}</div>
-			<button type="button" class="button save btnUpdateThisInstance" style="float:right;">
+			<button type="button" class="button save btnUpdateThisInstance">
 				{html_image src="disk-black.png"}
 				{translate key='ThisInstance'}
 			</button>
-			<button type="button" class="button save btnUpdateAllInstances" style="float:right;">
+			<button type="button" class="button save btnUpdateAllInstances">
 				{html_image src="disks-black.png"}
 				{translate key='AllInstances'}
 			</button>
 		{else}
-			<button type="button" class="button save update btnUpdateAllInstances" style="float:right;">
+			<button type="button" class="button save update btnUpdateAllInstances">
 				{html_image src="disk-black.png"}
 				{translate key='Update'}
 			</button>
 		{/if}
 
-		<button type="button" class="button" id="cancelUpdate" style="float:right;">
+		<button type="button" class="button" id="cancelUpdate">
 			{html_image src="slash.png"}
 			{translate key='Cancel'}
 		</button>

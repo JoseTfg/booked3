@@ -1,29 +1,27 @@
 Unchanged:
 
 -delete_failed.tpl			Unchanged
--reservation_error.tpl			Unchanged
+-reservation_error.tpl		Unchanged
 -save_failed.tpl			Unchanged
--respopup.tpl				Unchanged
--DatePickerSetup.tpl			Unchanged
+-respopup.tpl				Si
+-DatePickerSetup.tpl		Unchanged
 -emailfooter.tpl			Unchanged
 -emailheader.tpl			Unchanged
--configure.tpl				Unchanged
--install.tpl				Unchanged
+-configure.tpl				Si
+-install.tpl				Si
 -migrate.tpl				Unchanged
--chart.tpl				Unchanged
--common-reports.tpl			Unchanged
--custom-csv.tpl				Unchanged
--error.tpl				Unchanged
--generate-report.tpl			Unchanged
--print-custom-report.tpl		Unchanged
--results-custom.tpl			Unchanged
--saved-reports.tpl			Unchanged
+-chart.tpl					Si
+-common-reports.tpl			Si
+-error.tpl					Unchanged
+-generate-report.tpl		Si
+-print-custom-report.tpl	Unchanged
+-results-custom.tpl			Si
 -approve.tpl				Unchanged
--error.tpl				Unchanged
+-error.tpl					Unchanged
 -json_data.tpl				Unchanged
 -Checkbox.tpl				Re-added
--Date.tpl				Re-added
--MultiLineTextbox.tpl			Re-added
+-Date.tpl					Re-added
+-MultiLineTextbox.tpl		Re-added
 -SelectList.tpl				Re-added
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,13 +61,15 @@ Erased:
 -server_settings.tpl
 -activation-error.tpl
 -activation-sent.tpl
--import_user_template_csv.tpl		Unchanged
--resourcedetails.tpl			Unchanged
--user_details.tpl			Unchanged
--attachment-error.tpl			Unchanged
--maintenance.tpl			Unchanged
--openings.tpl				Unchanged
--reservations_csv.tpl			Unchanged
+-import_user_template_csv.tpl
+-resourcedetails.tpl
+-user_details.tpl
+-attachment-error.tpl
+-maintenance.tpl
+-openings.tpl
+-reservations_csv.tpl
+-custom-csv.tpl
+-saved-reports.tpl
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,19 +82,19 @@ Changed:
 -calendar.common.tpl:			Loads reservation screen on dayClick.
 
 -calendar.filter.tpl:			Only loads reources.
-					Includes a button to swap between my-calendar and calendar.					
+								Includes a button to swap between my-calendar and calendar.					
 
 -mycalendar.common.tpl:			Loads reservation screen on dayClick.
 
--globalheader.tpl:			Display correct targets for calendar page.
+-globalheader.tpl:				Display correct targets for calendar page.
 
--schedule.tpl:				No longer in use.
+-schedule.tpl:					No longer in use.
 
--schedule-days-horizontal.tpl:		No longer in use.
+-schedule-days-horizontal.tpl:	No longer in use.
 
 -schedule-flipped.tpl:			No longer in use.
 
--schedule-week-condensed.tpl:		No longer in use.
+-schedule-week-condensed.tpl:	No longer in use.
 
 -view-schedule.tpl:
 
@@ -102,17 +102,17 @@ Changed:
 
 8/3/2016
 
--globalfooter.tpl:			Now display announcements while logged in.
--globalheader.tpl			Now display 2 logos, one of them is homepage.
+-globalfooter.tpl:				Now display announcements while logged in.
+-globalheader.tpl				Now display 2 logos, one of them is homepage.
 
 12/3/2016
 
--login.tpl				Removed "forgot password".
-					Now shows RSS feed in login page.
+-login.tpl						Removed "forgot password".
+								Now shows RSS feed in login page.
 
--create.tpl				Several changes in structure. Removed participation.
--edit.tpl				Several changes in structure. Removed participation.
--view.tpl				Several changes in structure. Removed participation.
+-create.tpl						Several changes in structure. Removed participation.
+-edit.tpl						Several changes in structure. Removed participation.
+-view.tpl						Several changes in structure. Removed participation.
 
 13/3/2016
 
@@ -128,41 +128,41 @@ Changed:
 29/3/2016
 
 -mycalendar.common.tpl:			Displays color legend.
--create.tpl:				New list to select resource. Removed accesories.
--view.tpl				Removed accesories.
+-create.tpl:					New list to select resource. Removed accesories.
+-view.tpl						Removed accesories.
 
 Created:
 -mycalendar.list.tpl:			List view.
 
 31/3/2016
--mycalendar.x.tpl:			Several changes, includes list view.
+-mycalendar.x.tpl:				Several changes, includes list view.
 -mycalendar.common.tpl:			Icludes new popups and a new filter.
 
 ////////////////////////////////////////V0.5//////////////////////////////////////////////////
 
 7/4/2016
 -mycalendar.common.tpl:			Updated for new popup system.
--create.tpl:				Updated for new popup system.
--edit.tpl:				Updated for new popup system.
+-create.tpl:					Updated for new popup system.
+-edit.tpl:						Updated for new popup system.
 
 8/4/2016
--globalheader.tpl:			Updated for new popup system.
+-globalheader.tpl:				Updated for new popup system.
 
 9/4/2016
 -mycalendar.list.tpl:			Updated to make use of TableSorter.
 
 10/4/2016
--view.tpl:				Updated for new popup system.
+-view.tpl:						Updated for new popup system.
 
 ////////////////////////////////////////V0.6//////////////////////////////////////////////////
 
 17/4/2016
 -single line textbox.tpl		View scaled in multireservations display.
--create.tpl				View scaled in multireservations display.
--recurrencediv.tpl			View scaled in multireservations display.
+-create.tpl						View scaled in multireservations display.
+-recurrencediv.tpl				View scaled in multireservations display.
 
 18/4/2016
--globalheader.tpl			Updated nav bar.
+-globalheader.tpl				Updated nav bar.
 
 19/4/2016
 -manage_reservations.tpl		Several display changes.
@@ -176,11 +176,11 @@ Created:
 -support-and-credits.tpl		Several display changes.
 
 22/4/2016
--manage_quotas.tpl			Several display changes.
--manage_groups.tpl			Several display changes.
+-manage_quotas.tpl				Several display changes.
+-manage_groups.tpl				Several display changes.
 
 23/4/2016
--manage_users.tpl			Several display changes.
+-manage_users.tpl				Several display changes.
 
 25/4/2016
 -manage_resources.tpl			Several display changes.

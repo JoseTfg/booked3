@@ -1,9 +1,12 @@
+//Dashboard
 function Dashboard(opts)
 {
 	var options = opts;
 	
+	//Initialization
 	Dashboard.prototype.init = function()
 	{
+		//User events
 		$(".dashboard").each(function() { 
 			var id = $(this).attr('id');
 			var visibility = readCookie(id);
@@ -28,6 +31,7 @@ function Dashboard(opts)
 			});
 		});
 
+		//Each resource name
 		$('.resourceNameSelector').each(function ()
 		{
 			$(this).bindResourceDetails($(this).attr('resource-id'));
@@ -36,6 +40,7 @@ function Dashboard(opts)
 			});
 		});
 
+		//Each reservation
 		$(".reservation").each(function() {
 			var refNum = $(this).attr('id');
 
@@ -66,6 +71,7 @@ function Dashboard(opts)
 
 			});
 			
+			//Mouse events
 			$(this).hover(
 				 function () {
 				    $(this).addClass('hover');

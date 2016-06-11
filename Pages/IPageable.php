@@ -42,6 +42,7 @@ interface IPageable
 	function BindPageInfo(PageInfo $pageInfo);
 }
 
+//Class: Supports pagination in pages
 class PageablePage extends Page implements IPageable
 {
 	/**
@@ -49,6 +50,7 @@ class PageablePage extends Page implements IPageable
 	 */
 	private $page;
 
+	//Construct
 	public function __construct(Page $wrappedPage)
 	{
 		$this->page = $wrappedPage;
@@ -57,6 +59,7 @@ class PageablePage extends Page implements IPageable
 	/**
 	 * @return int
 	 */
+	//Gets page number
 	public function GetPageNumber()
 	{
 		return $this->page->GetQuerystring(QueryStringKeys::PAGE);
@@ -65,6 +68,7 @@ class PageablePage extends Page implements IPageable
 	/**
 	 * @return int
 	 */
+	//Gets page size
 	public function GetPageSize()
 	{
 		$size = $this->page->GetQuerystring(QueryStringKeys::PAGE_SIZE);
@@ -79,11 +83,13 @@ class PageablePage extends Page implements IPageable
 	 * @param PageInfo $pageInfo
 	 * @return void
 	 */
+	//Sends the page information
 	public function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->page->Set('PageInfo', $pageInfo);
 	}
 
+	//Loads the page
 	public function PageLoad()
 	{
 		$this->page->PageLoad();

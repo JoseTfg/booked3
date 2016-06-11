@@ -1,10 +1,11 @@
+//Resets the search
 var reset = function(){
-	//window.location = "http://localhost/booked/Web/admin/manage_users.php";
 	url = document.URL;
 	url = url.substr(0,url.indexOf("php")+3);
 	window.location = url;
 }
 
+//Sorts the table
 var sorting = function(){
 	$("#userTable").tablesorter({
 	widgets: ["zebra"],

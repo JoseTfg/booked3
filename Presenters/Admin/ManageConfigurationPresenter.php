@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once(ROOT_DIR . 'Pages/Admin/ManageConfigurationPage.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 
+//Actions
 class ConfigActions
 {
 	const Update = 'update';
@@ -301,6 +302,7 @@ class ConfigSetting
 	public $Type;
 	public $Name;
 
+	//Construct
 	public function __construct($key, $section, $value)
 	{
 		$key = trim($key);
@@ -327,6 +329,7 @@ class ConfigSetting
 		}
 	}
 
+	//Parse
 	public static function ParseForm($key, $value)
 	{
 		$k = self::decode($key);
@@ -334,11 +337,13 @@ class ConfigSetting
 		return new ConfigSetting($keyAndSection[0], $keyAndSection[1], $value);
 	}
 
+	//Encode
 	private static function encode($value)
 	{
 		return str_replace('.', '__', $value);
 	}
 
+	//Decode
 	private static function decode($value)
 	{
 		return str_replace('__', '.', $value);

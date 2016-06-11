@@ -135,7 +135,6 @@ class ManageGroupsPage extends ActionPage implements IManageGroupsPage
 	{
 		parent::__construct('ManageGroups', 1);
 		$this->presenter = new ManageGroupsPresenter($this, new GroupRepository(), new ResourceRepository());
-
 		$this->pageable = new PageablePage($this);
 	}
 

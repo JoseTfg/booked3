@@ -19,7 +19,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 require_once(ROOT_DIR . 'Pages/Admin/AdminPage.php');
-require_once(ROOT_DIR . 'Pages/IPageable.php'); //MyCode
+require_once(ROOT_DIR . 'Pages/IPageable.php'); 								//MyCode
 require_once(ROOT_DIR . 'Presenters/Admin/ManageAnnouncementsPresenter.php');
 
 interface IManageAnnouncementsPage extends IActionPage
@@ -88,7 +88,6 @@ class ManageAnnouncementsPage extends ActionPage implements IManageAnnouncements
 
         $this->Set('priorities', range(1,10));
         $this->Set('timezone', ServiceLocator::GetServer()->GetUserSession()->Timezone);
-
 		$this->Display('Admin/manage_announcements.tpl');
 	}
 	

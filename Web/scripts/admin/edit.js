@@ -177,6 +177,8 @@ function BeforeSerializeDecorator(onBeforeSerialize)
 		}
 	}
 }
+
+//Before serialize
 function BeforeSerialize(jqForm, options)
 {
 	var csrf_token = $('#csrf_token');

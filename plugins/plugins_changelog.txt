@@ -4,8 +4,8 @@
 
 Unchanged:
 
--Ldap.config.dist.php			Unchanged
--Ldap.php				Unchanged
+-Ldap.config.dist.php		Unchanged
+-Ldap.php					Unchanged
 -Ldap2Wrapper.php			Unchanged
 -LdapConfig.php				Unchanged
 -LdapOptions.php			Unchanged
@@ -73,3 +73,9 @@ Plugins implemented:	Authentication
 12/4/2016
 
 -Ldap.config.php:	First Test with uniovi LDAP.
+
+////////////////////////////////////////V0.8//////////////////////////////////////////////////
+
+15/5/2016
+
+-Ldap.config.php:	Jumpcloud established as the final authentication server.

@@ -263,7 +263,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	 * @param int $reminderValue
 	 * @param ReservationReminderInterval $reminderInterval
 	 */
-	//Sets start reminder
+	//Unused
 	public function SetStartReminder($reminderValue, $reminderInterval)
 	{
 		$this->Set('ReminderTimeStart', $reminderValue);
@@ -274,7 +274,7 @@ class ExistingReservationPage extends ReservationPage implements IExistingReserv
 	 * @param int $reminderValue
 	 * @param ReservationReminderInterval $reminderInterval
 	 */
-	//Sets end reminder
+	//Unused
 	public function SetEndReminder($reminderValue, $reminderInterval)
 	{
 		$this->Set('ReminderTimeEnd', $reminderValue);

@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Pages/Page.php');
 //Class: Supports the error page controller
 class ErrorPage extends Page
 {
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('Error');

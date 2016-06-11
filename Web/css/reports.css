@@ -1,72 +1,89 @@
+/*Contains all reports stylesheets*/
+
+/*Report input*/
 #custom-report-input {
     font-size: 10pt;
 }
 
+/*Report input label*/
 #custom-report-input .label {
     display: inline-block;
     width: 95px;
     font-size: 11pt;
 }
 
+/*Report input label*/
 #custom-report-input label {
     display: inline-block;
     width: 100px;
 }
 
+/*Report input*/
 #custom-report-input .input-set {
     /*float: left;*/
     padding-right: 15px;
     padding-bottom: 2px;
 }
 
+/*Report input select*/
 #custom-report-input input, #custom-report-input select {
     margin-right: 5px;
     margin-left: 15px;
 }
 
+/*Report results*/
 #report-results {
     margin-top: 15px;
     width: 100%;
     border-collapse: collapse;;
 }
 
+/*Report results header*/
 #report-results th {
     text-align: left;
     border-bottom: solid 3px #333;
     font-size: 9pt;
 }
 
+/*Report results cells*/
 #report-results td {
     padding: 3px 2px;
     border-bottom: solid 1px #ccc;
 }
 
+/*Report results table*/
 #report-results tr.alt td, #report-list li.alt {
     background-color: #ededed;
 }
 
+/*Report actions*/
 #report-actions {
     text-align: right;
     margin: 15px;
 }
 
+/*Report list*/
 #report-list {
     max-height: 300px;
     overflow-y: scroll;
 }
 
+/*Report list*/
 #report-list ul {
     list-style-type: none;
 }
 
+/*Report list*/
 #report-list li {
     padding: 3px 0;
 }
 
+/*Report list*/
 #report-list li:hover {
     background-color: #FFFF99;
 }
 
+/*Report title*/
 .report-title {
     font-weight: bold;
     color: #444;
@@ -75,11 +92,13 @@
     min-width: 200px;
 }
 
+/*Report date created*/
 .report-created-date {
     font-style: italic;
     margin-right: 25px;
 }
 
+/*Report action*/
 .report-action {
     display: inline-block;
     margin: 0 25px;
@@ -87,14 +106,17 @@
     font-size: 10pt;
 }
 
+/*Filter off*/
 .filter-off {
     display:none;
 }
 
+/*Filter on*/
 .link-filter {
     display:inline-block;
 }
 
+/*Report list*/
 #report-list .right {
     float: right;
 }

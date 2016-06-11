@@ -17,21 +17,13 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <table style="align: center;">
-{*<tr style="align: center;">
-<td style="align: center;">
-<label class="customAttribute" for="{$attributeId}">{$attribute->Label()|escape}:</label>
-</td>
-</tr>
-{if $align=='vertical'}
-<br/>
-{/if}*}
-<tr style="align: center;">
-<td style="align: center;">
-{if $readonly}
-<span class="attributeValue {$class}">{$attribute->Value()|escape}</span>
-{else}
-<input type="text" placeholder="{$attribute->Label()|escape}" id="{$attributeId}" name="{$attributeName}" value="{$attribute->Value()|escape}" class="customAttribute textbox {$class}" />
-{/if}
-</td>
-</tr>
+	<tr style="align: center;">
+		<td style="align: center;">
+		{if $readonly}
+			<span class="attributeValue {$class}">{$attribute->Value()|escape}</span>
+		{else}
+			<input type="text" placeholder="{$attribute->Label()|escape}" id="{$attributeId}" name="{$attributeName}" value="{$attribute->Value()|escape}" class="customAttribute textbox {$class}" />
+		{/if}
+		</td>
+	</tr>
 </table>

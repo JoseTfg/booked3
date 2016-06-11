@@ -22,7 +22,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div>
     <form class="register" method="post" action="{$smarty.server.SCRIPT_NAME}">
-
         {if $ShowInvalidPassword}
             <div class="error">{translate key=IncorrectInstallPassword}</div>
         {/if}
@@ -35,25 +34,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         {/if}
 
 		{if $ShowUpToDateMessage}
-			<div class="error" style="margin-bottom: 10px;">
+			<div class="error" id="marginError">
 				<h3>{translate key=NoUpgradeNeeded}</h3>
 			</div>
 		{/if}
 
         {if $ShowPasswordPrompt}
-            <ul class="no-style">
+            <ul class="no-style" style="text-align:center;">
                 <li>{translate key=ProvideInstallPassword}</li>
                 <li>{translate key=InstallPasswordLocation args="$ConfigPath,$ConfigSetting"}</li>
-                <li>{textbox type="password" name="INSTALL_PASSWORD" class="textbox" size="20"}
-                    <button type="submit" name="" class="button" value="submit">{translate key=Next} {html_image src="arrow_large_right.png"}</button>
-                </li>
+				</br>
+                <li>{textbox placeholder="Password" type="password" name="INSTALL_PASSWORD" class="textbox" size="20"}</li>				
+                <li><button type="submit" name="" class="button" value="submit">{translate key=Next} {html_image src="arrow_large_right.png"}</button></li>
             </ul>
         {/if}
 
         {if $ShowDatabasePrompt}
             <ul class="no-style">
-                <li>1) {translate key=VerifyInstallSettings args=$ConfigPath}
+                <li>1) {translate key=VerifyInstallSettings args=$ConfigPath}					
                     <ul class="no-style" style="margin-left: 20px;">
+						</br>
                         <li><b>{translate key=DatabaseName}:</b> {$dbname}</li>
                         <li><b>{translate key=DatabaseUser}:</b> {$dbuser}</li>
                         <li><b>{translate key=DatabaseHost}:</b> {$dbhost}</li>
@@ -61,13 +61,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 </li>
                 <li>&nbsp;</li>
                 <li>2) {translate key=DatabaseCredentials}</li>
+				</br>
                 <li>{translate key=MySQLUser}</li>
-                <li>{textbox name="INSTALL_DB_USER" class="textbox" size="20"}</li>
+                <li>{textbox name="INSTALL_DB_USER" placeholder="User" class="textbox" size="20"}</li>
                 <li>{translate key=Password}</li>
-                <li>{textbox type="password" name="INSTALL_DB_PASSWORD" class="textbox" size="20"}</li>
+                <li>{textbox type="password" name="INSTALL_DB_PASSWORD" class="textbox" placeholder="Password" size="20"}</li>
                 <li>&nbsp;</li>
 				{if $ShowInstallOptions}
 					<li>3)<i>{translate key=InstallOptionsWarning}</i></li>
+					</br>
 					<li><input type="checkbox" name="create_database" /> {translate key=CreateDatabase} ({$dbname}) <span style="color:Red;">{translate key=DataWipeWarning}</span></li>
 					<li><input type="checkbox" name="create_user" /> {translate key=CreateDatabaseUser} ({$dbuser})</li>
 					<li><input type="checkbox" name="create_sample_data" /> {translate key=PopulateExampleData}</li>
@@ -76,7 +78,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					</li>
 				{/if}
 				{if $ShowUpgradeOptions}
-					<li>3) {translate key=UpgradeNotice args="$CurrentVersion,$TargetVersion"}</li>
+					<li>3) {translate key=UpgradeNotice args="$CurrentVersion,$TargetVersion"}</li>					
 					<li>
 						<br/><button type="submit" name="run_upgrade" class="button" value="submit">{translate key=RunUpgrade} {html_image src="arrow_large_right.png"}<br/>
 					</li>
@@ -116,8 +118,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 {/if}
             </li>
         </ul>
-
-
     </form>
 </div>
 

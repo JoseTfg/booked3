@@ -1,11 +1,22 @@
+/*Contains admin view style sheets*/
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////Admin////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Admin classes*/
 .admin {
 	width: 100%;
+	border: solid 1px #CECFCE;
+	font-size:12px;
 }
 
+/*Admin ul*/
 .admin ul {
 	list-style: none;
 }
 
+/*Admin title*/
 .admin .title{
 	background-color: #f6f6f6;
 	font-weight: bold;
@@ -16,60 +27,50 @@
 	position: relative;
 }
 
-.admin {
-	border: solid 1px #CECFCE;
-	font-size:12px;
-}
-
+/*Admin div*/
 .admin div {
 	padding: 5px;
 }
+
+/*Admin href*/
 .admin a {
 	color: #005B9A;
 }
 
+/*Admin label*/
 .admin .label {
 	font-weight: bold;
 }
 
+/*Admin note*/
 .admin .note {
 	font-style: italic;
 	color: #8D96A8
 }
 
+/*Admin h4 and h5*/
 .admin h4, .admin h5 {
 	display:inline;
 	color: #666666;
 }
 
+/*Admin h4*/
 .admin h4 {
 	font-size: 12px;
 }
 
+/*Admin h5*/
 .admin h5 {
 	font-size: 10px;
 }
 
+/*Error*/
 span.error {
 	font-weight: bold;
 	color: #CE0000;
 }
 
-#changeLayoutDialog textarea {
-	width: 300px;
-	height: 375px;
-}
-
-#changeLayoutDialog p {
-	margin: 0;
-}
-
-.scheduleDetails .layout {
-	border-left:solid 1px #f0f0f0;
-	float:right;
-	width:550px;
-}
-
+/*Admin actions*/
 .actions {
 	clear:both;
 	border-top:solid 1px #f0f0f0;
@@ -78,6 +79,160 @@ span.error {
 	line-height: 20px;
 }
 
+/*Table*/
+.admin table {
+	border-collapse: collapse;
+}
+
+/*Th and Td*/
+.admin th, .admin td {
+	padding: 5px;
+}
+
+/*Th*/
+.admin th {
+	padding-bottom: 2px;
+	text-align:left;
+	font-size:14px;
+}
+
+/*Dialogs list*/
+.dialog ul, .dialog li {
+	font-size: 12px;
+	list-style: none;
+}
+
+/*Dialogs list*/
+.dialog li {
+	margin-bottom: 5px;
+}
+
+/*Table*/
+table.list {
+    border-collapse:collapse
+}
+
+/*Table*/
+table.list, .list td, .list th {    
+	 border: solid 1px #e6EEEE;	/*MyCode*/
+}
+
+/*Table*/
+.list td, .list th {
+    padding: 4px;
+}
+
+/*MyCode*/
+/*Rows*/
+.row0 {
+    background-color: #eeeeee;
+}
+
+.row1 {
+    background-color: #fafafa;
+}
+
+/*Table*/
+.list th.id, .list td.id {
+	display: none;
+}
+
+/*Colorbox close icon*/
+#cboxClose {
+	display:none !important;
+}
+
+/*Colorbox content*/
+#cboxContent{
+	background-color: #FFCC99;
+}
+
+/*Ajax indicator*/
+.ajax-indicator {
+	display:none;
+	background-image: url(../img/admin-ajax-indicator.gif);
+	width: 35px;
+	height:35px;
+}
+
+/*Horizontal list*/
+.horizontal-list {clear:both;}
+
+/*Horizontal list ul*/
+.horizontal-list ul {
+	display:block;
+	width:100%;
+	clear:both;
+	margin:auto;
+	list-style-type: none;
+}
+
+/*Horizontal list li*/
+.horizontal-list li {
+	clear:both;
+	display: inline-block;
+	list-style-type: none;
+	min-width:165px;
+	margin-right:20px;
+}
+
+/*Labels*/
+label.label-top, .label-top label {
+	display: block;
+	clear:left;
+	font-size:.9em;
+}
+
+/*Update buttons*/
+.admin-update-buttons{
+	margin-top:5px;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////Schedules////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Textarea in manage schedules view*/
+#changeLayoutDialog textarea {
+	width: 300px;
+	height: 375px;
+}
+
+/*Paragraph in manage schedules view*/
+#changeLayoutDialog p {
+	margin: 0;
+}
+
+/*Layout in manage schedules view*/
+.scheduleDetails .layout {
+	border-left:solid 1px #f0f0f0;
+	float:right;
+	width:550px;
+}
+
+/*Static slots*/
+#staticSlots {
+	height: 375px;
+}
+
+/*Daily slots*/
+#dailySlots, #tabs {
+	height: 450px;
+	margin-bottom:4px;
+}
+
+/*All day layouts*/
+.allDailyLayouts {
+	display:none;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////Resources////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*No image resource*/
 .noImage {
 	width: 98px;
 	height: 60px;
@@ -88,65 +243,111 @@ span.error {
 	border: solid 1px #ccc;
 }
 
+/*Image in resource view*/
 .resourceDetails img.image {
 	width: 100px;
 }
 
-.admin table {
-	border-collapse: collapse;
+/*Group of resources*/
+#group-tree {
+	width:auto;
+	float:left;
 }
 
-.admin th, .admin td {
-	padding: 5px;
+/*Resource list*/
+#resource-list
+{
+	width:auto;
+	float:right;
 }
 
-.admin th {
-	padding-bottom: 2px;
+/*Resource list*/
+#resource-list, #group-tree, #new-group {
+	font-size:12pt;
 }
 
-.admin th {
-	text-align:left;
-	font-size:14px;
+/*Draggable resource*/
+.resource-draggable {
+	cursor: move;
+	border: solid 1px transparent;
+	padding:3px;
 }
 
-.dialog ul, .dialog li {
-	font-size: 12px;
-	list-style: none;
+/*Draggable resource: hover*/
+.resource-draggable:hover
+{
+	border: dotted 1px #666;
 }
 
-.dialog li {
-	margin-bottom: 5px;
+/*Drop resource*/
+.drop-resource {
+	background-color: #fffcd3;
 }
 
-table.list {
-    border-collapse:collapse
+/*Resource group ul*/
+ul.jqtree-tree .group-resource .jqtree-title {
+	color:#111111;
 }
 
-table.list, .list td, .list th {    
-	 border: solid 1px #e6EEEE;	/*MyCode*/
+/*Remove resource*/
+.remove-resource {
+	display:inline;
+	width:16px;
+	margin-left:10px;
+	background: url(../img/minus-circle.png) no-repeat 50%;
 }
 
-.list td, .list th {
-    padding: 4px;
+/*Resource list h4*/
+#resource-list h4
+{
+	font-size:13pt;
+	padding-left:4px;
 }
 
-/*MyCode*/
-.row0 {
-    background-color: #eeeeee;
+/*Resource group container*/
+#manage-resource-groups-container
+{
+	max-width: 700px;
 }
 
-.row1 {
-    background-color: #fafafa;
+/*Resource item*/
+.resourceItem {
+	display:block;
 }
 
-.list th.id, .list td.id {
-	display: none;
+/*Status reason*/
+.reservationResourceStatusReason {
+	display:block;
+	font-weight: bold;
 }
 
+/*Status reason li*/
+ul.resource-status-reasons li {
+	padding: 5px 5px;
+}
+
+/*Status reason ul*/
+ul.resource-status-reasons {
+	padding-bottom: 20px;
+	padding-top: 5px;
+}
+
+/*Inline update*/
+.inlineUpdate:hover {
+	background-color: #fff;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////User////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Table in manage users view*/
 #groupUserList {
 	overflow-y: auto;
 }
 
+/*Editable table in manage user view*/
 .list tr.editable:hover {
 	cursor: pointer;
 	/*background-color: #FFFF99;*/ /*MyCode*/
@@ -158,24 +359,24 @@ table.list, .list td, .list th {
 	/*background-color: #FFFF33;*/
 /*}*/
 
+/*Custom attributes in manage users view*/
 .userList .customAttributes {
 
     font-size: 9pt;
     font-weight: normal;
 }
 
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////Reservation////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Pending reservation*/
 tr.pending {
 	background-color: #ffb540;
 }
 
-#cboxClose {
-	display:none !important;
-}
-
-#cboxContent{
-	background-color: #FFCC99;
-}
-
+/*Wide label*/
 .wideLabel { display:inline-block; min-width: 100px;}
 
 /*MyCode*/
@@ -183,54 +384,131 @@ tr.pending {
     /*width: 300px;*/
 /*}*/
 
+/*Wide label for attributes dialog*/
 .attributeDialog .wideLabel {
     min-width: 160px;
     text-align: right;
     padding-right: 4px;
 }
 
+/*Textbox options*/
 .attributeDialog .textBoxOptions {
 	padding-bottom: 10px;
 }
 
+/*Reservation table*/
+#reservationTable {
+	width:100%;
+}
+
+/*Dates header*/
+th.date {
+	width:120px;
+}
+
+/*Action header*/
+th.action {
+	max-width:50px;
+}
+
+/*Filter buttons*/
+#adminFilterButtons {
+	padding-top:5px;
+	margin-top:15px;
+	clear:both;
+	border-top: solid 1px #cfcfcf;
+}
+
+/*Filter fields*/
+.filterTable input, .filterTable textarea, .filterTable select
+{
+	width:150px;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////Blackout////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Table in manage blackouts view*/
 #blackoutTable
 {
     width: 100%;
 }
 
+/*Resource*/
+.resourceValue {
+	font-weight: bold;
+}
+
+/*Recurrence*/
+#repeatDiv, #repeatDiv div {
+	padding:0;
+}
+
+/*Recurrence label*/
+#repeatDiv label {
+	display: inline-block;
+	min-width: 100px;
+}
+
+/*Weekly label*/
+#repeatOnWeeklyDiv label {min-width:30px;}
+
+/*Update blackout*/
+#updateBlackout {
+	margin:20px;
+}
+
+/*Update blackout list*/
+#updateBlackout ul{
+	margin-bottom:15px;
+	list-style: none;
+}
+
+/*Resources selected*/
+.blackoutResources {
+	margin: 10px 0;
+}
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////Configuration////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Config settings*/
 #configSettings {
 	margin: 10px 0;
 	padding: 10px;
 	border: solid 1px #333333;
 }
 
+/*Fieldset in config settings view*/
 #configSettings fieldset {
 	margin-bottom: 10px;
 }
 
+/*Label in config settings view*/
 #configSettings .label, #configSettings label {
 	font-weight: normal;
 	font-size: 12px;
 	color: black;
 }
 
+/*Label in config settings view*/
 #configSettings .label {
 	min-width: 200px;
 	display: inline-block;
 }
 
-#staticSlots {
-	height: 375px;
+/*Config settings li*/
+.config-settings li {
+	padding:3px 0;
 }
 
-#dailySlots, #tabs {
-	height: 450px;
-	margin-bottom:4px;
-}
-
-.allDailyLayouts {
-	display:none;
-}
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////Dialogs////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 #removedGroups {
 	margin-top: 5px;
@@ -293,10 +571,6 @@ tr.pending {
 	background: url('../img/minus-gray.png') no-repeat;
 }
 
-#removedMembers a {
-	/*background: url('../img/plus-button.png') no-repeat;*/
-}
-
 #removedRoles {
 	margin-top: 5px;
 	padding-top: 5px;
@@ -339,60 +613,34 @@ tr.pending {
 	background: url('../img/plus-button.png') no-repeat;
 }
 
-/**/
-
-#group-tree {
-	width:auto;
-	float:left;
+#removedTimes {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: solid 1px #777777;
 }
 
-#resource-list
-{
-	width:auto;
-	float:right;
+#addedTimes a, #removedTimes a {
+	width:30px;
+	display:block;
+	float: left;;
+	text-decoration: none;
 }
 
-#resource-list, #group-tree, #new-group {
-	font-size:12pt;
+#addedTimes a {
+	background: url('../img/minus-gray.png') no-repeat;
 }
 
-.resource-draggable {
-	cursor: move;
-	border: solid 1px transparent;
-	padding:3px;
+#removedTimes a {
+	background: url('../img/plus-button.png') no-repeat;
 }
 
-.resource-draggable:hover
-{
-	border: dotted 1px #666;
-}
 
-.drop-resource {
-	background-color: #fffcd3;
-}
+/*************************************************************************************************************************************************************/
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////Help////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-ul.jqtree-tree .group-resource .jqtree-title {
-	color:#111111;
-}
-
-.remove-resource {
-	display:inline;
-	width:16px;
-	margin-left:10px;
-	background: url(../img/minus-circle.png) no-repeat 50%;
-}
-
-#resource-list h4
-{
-	font-size:13pt;
-	padding-left:4px;
-}
-
-#manage-resource-groups-container
-{
-	max-width: 700px;
-}
-
+/*Help title*/
 .title .help {
 	background: url(../img/question-button.png) no-repeat 50% 50%;
 	width:16px;
@@ -403,15 +651,23 @@ ul.jqtree-tree .group-resource .jqtree-title {
 	margin:0;
 }
 
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////Attributes////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*Header*/
 #customAttributeHeader {
 	font-size: 13pt;
 	margin-bottom: 10px;
 }
 
+/*Textbox options*/
 .textBoxOptions div {
 	margin: 1px 0;
 }
 
+/*Choices*/
 #entityChoices {
 	display: none;
 	min-width:150px;
@@ -428,173 +684,9 @@ ul.jqtree-tree .group-resource .jqtree-title {
 	box-shadow: 0px 0px 3px 0px #ccc;
 }
 
+/*Choices list*/
 #entityChoices li
 {
 	list-style: none;
 	font-size:10pt;
-}
-
-.ajax-indicator {
-	display:none;
-	background-image: url(../img/admin-ajax-indicator.gif);
-	width: 35px;
-	height:35px;
-}
-
-.resourceValue {
-	font-weight: bold;
-}
-
-#repeatDiv, #repeatDiv div {
-	padding:0;
-}
-
-#repeatDiv label {
-	display: inline-block;
-	min-width: 100px;
-}
-
-#repeatOnWeeklyDiv label {min-width:30px;}
-
-#updateBlackout {
-	margin:20px;
-}
-
-#updateBlackout ul{
-	margin-bottom:15px;
-	list-style: none;
-}
-
-.blackoutResources {
-	margin: 10px 0;
-}
-.resourceItem {
-	display:block;
-}
-
-.admin-update-buttons{
-	margin-top:5px;
-}
-
-#reservationColor {
-	width:75px;
-}
-
-.user-color {
-	border:solid 1px #000;
-	display:inline-block;
-	margin-left:4px;
-	width:16px;
-	height:16px;
-}
-
-.reservationResourceStatusReason {
-	display:block;
-	font-weight: bold;
-}
-
-.config-settings li {
-	padding:3px 0;
-}
-
-#reservationTable {
-	width:100%;
-}
-
-th.date {
-	width:120px;
-}
-
-th.action {
-	max-width:50px;
-}
-
-#adminFilterButtons {
-	padding-top:5px;
-	margin-top:15px;
-	clear:both;
-	border-top: solid 1px #cfcfcf;
-}
-
-.filterTable input, .filterTable textarea, .filterTable select
-{
-	width:150px;
-}
-
-.horizontal-list {clear:both;}
-
-.horizontal-list ul {
-	display:block;
-	width:100%;
-	clear:both;
-	margin:auto;
-	list-style-type: none;
-}
-
-.horizontal-list li {
-	clear:both;
-	display: inline-block;
-	list-style-type: none;
-	min-width:165px;
-	margin-right:20px;
-}
-
-label.label-top, .label-top label {
-	display: block;
-	clear:left;
-	font-size:.9em;
-}
-
-ul.resource-status-reasons li {
-	padding: 5px 5px;
-}
-
-ul.resource-status-reasons {
-	padding-bottom: 20px;
-	padding-top: 5px;
-}
-
-.inlineUpdate:hover {
-	background-color: #fff;
-}
-
-#bulkUpdatePromptButton {
-	margin-top:4px;
-	font-size:1.1em;
-	font-weight:bold;
-	display:inline-block;
-}
-
-#bulkUpdateDialog .title {
-	font-size:1.1em;
-	font-weight:bold;
-	border-top:solid 1px #ccc;
-	border-bottom:solid 1px #ccc;
-	background-color:#eee;
-	padding:3px 3px;
-	margin:7px 0;
-}
-
-#helpPopupDiv {
-	max-width:850px;
-	max-height:650px;
-	overflow-y:auto;;
-	display: none;
-	position: absolute;
-	border: solid 2px #212121;
-	background-color: #fff;
-	-moz-box-shadow: 0 0 3px 0 #212121;
-	-webkit-box-shadow: 0 0 3px 0 #212121;
-	box-shadow: 0 0 3px 0 #212121;
-	padding:10px;
-}
-
-#helpPopupDiv p {
-	margin-top: 15px;
-	margin-left:10px;
-}
-
-#helpPopupDiv h3:not(:first-of-type)
-{
-	margin-top:20px;
 }

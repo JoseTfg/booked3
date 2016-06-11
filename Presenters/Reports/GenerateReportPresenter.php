@@ -123,23 +123,13 @@ class GenerateReportPresenter extends ActionPresenter
 	//Unused
 	public function ExportToCsv()
 	{
-		$this->BindReport();
-		$this->page->ShowCsv();
+		//No-op
 	}
 
 	//Unused
 	public function SaveReport()
 	{
-		$reportName = $this->page->GetReportName();
-		$usage = $this->GetUsage();
-		$selection = $this->GetSelection();
-		$groupBy = $this->GetGroupBy();
-		$range = $this->GetRange();
-		$filter = $this->GetFilter();
-
-		$userId = $this->user->UserId;
-
-		$this->reportingService->Save($reportName, $userId, $usage, $selection, $groupBy, $range, $filter);
+		//No-op
 	}
 
 	//Sends the information of the report to the Smarty page

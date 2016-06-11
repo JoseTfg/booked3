@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 
+//Actions
 class ManageAttributesActions
 {
     const AddAttribute = 'addAttribute';
@@ -28,6 +29,7 @@ class ManageAttributesActions
     const UpdateAttribute = 'updateAttribute';
 }
 
+//Unused
 class ManageAttributesPresenter extends ActionPresenter
 {
 	/**
@@ -40,6 +42,7 @@ class ManageAttributesPresenter extends ActionPresenter
 	 */
 	private $attributeRepository;
 
+	//Construct
 	public function __construct(IManageAttributesPage $page, IAttributeRepository $attributeRepository)
 	{
 		parent::__construct($page);
@@ -52,10 +55,13 @@ class ManageAttributesPresenter extends ActionPresenter
         $this->AddAction(ManageAttributesActions::UpdateAttribute, 'UpdateAttribute');
 	}
 
+	//Unused
 	public function PageLoad()
 	{
+		//No-op
 	}
 
+	//Adds new attribute
     public function AddAttribute()
     {
         $attributeName = $this->page->GetLabel();
@@ -75,33 +81,19 @@ class ManageAttributesPresenter extends ActionPresenter
 		return $attributeId;
     }
 
+	//Unused
 	public function DeleteAttribute()
 	{
-		//MyCode
-		// $attributeId = $this->page->GetAttributeId();
-		// Log::Debug('Deleting attribute with id: %s', $attributeId);
-		// $this->attributeRepository->DeleteById($attributeId);
+		//No-op
 	}
 
+	//Unused
 	public function UpdateAttribute()
 	{
-		//MyCode
-		// $attributeId = $this->page->GetAttributeId();
-		// $attributeName = $this->page->GetLabel();
-		// $regex = $this->page->GetValidationExpression();
-		// $required = $this->page->GetIsRequired();
-		// $possibleValues = $this->page->GetPossibleValues();
-		// $sortOrder = $this->page->GetSortOrder();
-		// $entityId = $this->page->GetEntityId();
-
-		// Log::Debug('Updating attribute with id: %s', $attributeId);
-
-		// $attribute = $this->attributeRepository->LoadById($attributeId);
-		// $attribute->Update($attributeName, $regex, $required, $possibleValues, $sortOrder, $entityId);
-
-		// $this->attributeRepository->Update($attribute);
+		//No-op
 	}
 
+	//Handles data request
 	public function HandleDataRequest($dataRequest)
 	{
 		$categoryId = $this->page->GetRequestedCategory();

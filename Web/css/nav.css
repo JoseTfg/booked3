@@ -1,3 +1,6 @@
+/*Contains the header style sheets*/
+
+/*Logo*/
 #logo {
 	float:left;
 	color:#fff;
@@ -5,16 +8,19 @@
 	height:40px;	/* My Code */
 }
 
+/*Logo image*/
 #logo img {
 	max-width: 100%;
 	padding-left:12px;
 }
 
+/*Nav bar*/
 #nav {
 	list-style: none none;
 	padding-left:25px;
 }
 
+/*Nav list*/
 #nav ul {
 	margin: 0;
 	padding: 0;
@@ -25,12 +31,14 @@
 	z-index: 999;
 }
 
+/*Nav list elements*/
 #nav li {
 	float: left;
 	position: relative;
 	border-right: solid 1px #5e5d69;
 }
 
+/*Nav href*/
 #nav a {
 	display: block;
 	padding: 0 5px;
@@ -38,24 +46,29 @@
 	text-decoration: none;
 }
 
+/*Nav hover*/
 #nav a:hover {
 	color: #fff;
 }
 
+/*Nav options*/
 #nav li ul ul {
 	left: 190px;
 	top: 7px;
 	margin: 0 0 0 10px;
 }
 
+/*Nav options*/
 #nav li:hover ul ul,#nav li:hover ul ul ul,#nav li:hover ul ul ul ul {
 	display: none;
 }
 
+/*Nav options*/
 #nav li:hover ul,#nav li li:hover ul,#nav li li li:hover ul,#nav li li li li:hover ul {
 	display: block;
 }
 
+/*Header*/
 #header {
     min-width: 900px;
     margin-right: 10px;
@@ -73,12 +86,14 @@
 	box-shadow: 2px 2px 3px 2px #aaa;
 }
 
+/*Header top*/
 #header-top {
     height:45px;							/* My Code */
 	background-color: #fff;
     border-bottom: solid 1px #272632;
 }
 
+/*Nav menubar item*/
 #nav .menubaritem {
     font-size: 10pt;
 	height: 15px;							/* My Code */
@@ -87,21 +102,25 @@
 	font-style: italic; 					/* My Code */
 }
 
+/*Nav menubar item list*/
 li.menubaritem {
 	border-top: 1px;
 	min-width: 90px;
 }
 
+/*Nav menubar item href*/
 li.menubaritem a {
 	line-height: 15px;						/* My Code */
 	font-weight: bold;
 }
 
+/*Nav menubar item options*/
 .menubaritem a:hover, li.menubaritem:hover, li.menubaritem ul li {
 	background: #4a4a56;
 	color: #fff;
 }
 
+/*Nav menubar item options*/
 li.menubaritem ul li a {
 	line-height:40px;
 	font-size: 9pt;
@@ -110,19 +129,23 @@ li.menubaritem ul li a {
 	font-weight: normal;
 }
 
+/*Nav menubar item options*/
 li.menubaritem ul {
 	margin-top: 15px;
 }
 
+/*Nav menubar item options*/
 li.menubaritem ul li {
 	border: solid 1px #5e5d69;
 	border-top-width: 0;
 }
 
+/*Nav menubar item options*/
 li.menubaritem ul li a:hover{
 	background: #5a5965;
 }
 
+/*Signout*/
 #signout {
 	float: right;
 	padding-right: 10px;
@@ -133,15 +156,18 @@ li.menubaritem ul li a:hover{
 	font-style: italic;					/* My Code */
 }
 
+/*Signout href*/
 #signout a {
 	color: #0f1723;
 }
 
+/*Nav help menu*/
 #nav li.help {
 	float:right;
 	width:60px;
 }
 
+/*Nav help menu item*/
 #nav li.help ul {
 	left: -106px;
 }

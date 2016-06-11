@@ -78,128 +78,59 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div id="logo"><a href="http://www.uniovi.es/">{html_image src="$LogoUrl"}</a></div>
 		<div id="header">
 			<div id="header-top">
-<table id="HeaderTable">
-<tr>
-<td>		
-<td>
-
-
-	<div><a href="{$HomeUrl}">{html_image src="$Logo2"}</a></div>
-
-
-
-</td>
-	
-				<div id="signout">
-					{if $LoggedIn}
-						{*{translate key="SignedInAs"}*} <div id="HeaderUserName">{html_image src="status.png"} {$UserName}</div>		
-						<br/>
-						<a href="{$Path}logout.php">{html_image src="exit.png"}{translate key="SignOut"}</a>
-					{else}
-						<div id="HeaderNotSignedIn">{translate key="NotSignedIn"}</div>
-						<br/>
-						<a href="{$Path}index.php">{translate key="LogIn"} {html_image src="status-offline.png"}</a>
-					{/if}
-				</div>				
-</td>
-</tr>
-</table>  
+				<table id="HeaderTable">
+				<tr>
+				<td>		
+				<td>
+					<div><a href="{$HomeUrl}">{html_image src="$Logo2"}</a></div>
+				</td>	
+					<div id="signout">
+						{if $LoggedIn}
+							<div id="HeaderUserName">{html_image src="status.png"} {$UserName}</div>		
+							<br/>
+							<a href="{$Path}logout.php">{html_image src="exit.png"}{translate key="SignOut"}</a>
+						{else}
+							<div id="HeaderNotSignedIn">{translate key="NotSignedIn"}</div>
+							<br/>
+							<a href="{$Path}index.php">{translate key="LogIn"} {html_image src="status-offline.png"}</a>
+						{/if}
+					</div>				
+				</td>
+				</tr>
+				</table>  
 			</div>
 			<div>
 				<ul id="nav" class="menubar">
 					{if $LoggedIn}
-					{if $CanViewAdmin}
-					<li class="menubaritem"><a href="{$HomeUrl}">{html_image src="folder.png"}{* Calendario*}</a>						
-						<ul>						
-							<li class="menuitem"><a href="{$Path}my-calendar.php">{html_image src="calendar.png"} Calendario</a></li>
-							<li class="menuitem"><a href="{$Path}admin/manage_resources.php">{html_image src="resource.png"} {translate key="ManageResources"}</a></li>
-							<li class="menuitem"><a href="{$Path}admin/manage_users.php">{html_image src="user-small.png"} {translate key="ManageUsers"}</a></li>
-							<li class="menuitem"><a href="{$Path}admin/manage_groups.php">{html_image src="users.png"} {translate key="ManageGroups"}</a></li>
-							<li class="menuitem"><a href="{$Path}admin/manage_quotas.php">{html_image src="quotas.png"}  {translate key="ManageQuotas"}</a></li>
-							<li class="menuitem"><a href="{$Path}admin/manage_announcements.php">{html_image src="announce2.png"} {translate key="ManageAnnouncements"}</a></li>			
-							<li class="menuitem"><a	href="{$Path}admin/manage_schedules.php">{html_image src="schedule.jpg"} {translate key="ManageSchedules"}</a></li>
-							<li class="menuitem"><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{html_image src="chart.png"} {translate key=Reports}</a></li>	
-							<li class="menuitem"><a href="{$Path}admin/manage_configuration.php">{html_image src="tools-icon.jpg"} {translate key="Customization"}</a></li>
-						</ul>
+						{if $CanViewAdmin}
+							<li class="menubaritem"><a href="{$HomeUrl}">{html_image src="folder.png"}</a>						
+								<ul>						
+									<li class="menuitem"><a href="{$Path}my-calendar.php">{html_image src="calendar.png"} Calendario</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_resources.php">{html_image src="resource.png"} {translate key="ManageResources"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_users.php">{html_image src="user-small.png"} {translate key="ManageUsers"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_groups.php">{html_image src="users.png"} {translate key="ManageGroups"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_quotas.php">{html_image src="quotas.png"}  {translate key="ManageQuotas"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_announcements.php">{html_image src="announce2.png"} {translate key="ManageAnnouncements"}</a></li>			
+									<li class="menuitem"><a	href="{$Path}admin/manage_schedules.php">{html_image src="schedule.jpg"} {translate key="ManageSchedules"}</a></li>
+									<li class="menuitem"><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{html_image src="chart.png"} {translate key=Reports}</a></li>	
+									<li class="menuitem"><a href="{$Path}admin/manage_configuration.php">{html_image src="tools-icon.jpg"} {translate key="Customization"}</a></li>
+									<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{html_image src="calendar.png"} Probando</a></li>
+								</ul>
+							</li>
 						{else}
-						<li class="menubaritem"><a href="{$Path}">{html_image src="calendar.png"}{* Calendario*}</a> </li>
-						{/if}						
-					</li>
-					{if ( $pageTile eq "Mi Calendario" or $pageTile eq "My Calendar" ) && ( $UserId neq "1" )}
-					<li class="menubaritem"><a href="#">{html_image src="tools.png"}{* Preferencias*}</a>
-						<ul>
-							<li class="menuitem"><a href="#" id="timeTable"> {html_image src="horario.png"} {translate key="TimeTable"}</a></li>
-							<li class="menuitem"><a href="#" onclick="$('#dialogColors').dialog('open')"> {html_image src="paint2.png"} {translate key="Colors"}</a></li>
-							<li class="menuitem"><a href="#" onclick="$('#dialogSubscribe').dialog('open')"> {html_image src="cloud.png"} {translate key="Subscription"}</a></li>								
-						</ul>
-					</li>
-					{/if}
-						{if false}
-							{*<li class="menubaritem"><a href="#">{translate key="ManageReservations"}</a>
+							<li class="menubaritem"><a href="{$Path}">{html_image src="calendar.png"}</a> </li>							
+						{/if}
+						{if ( $pageTile eq "Mi Calendario" or $pageTile eq "My Calendar" ) && ( $UserId neq "1" )}
+							<li class="menubaritem"><a href="#">{html_image src="tools.png"}</a>
 								<ul>
-									<li class="menuitem"><a href="{$Path}admin/manage_reservations.php">{translate key="ManageReservations"}</a>
-									<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>										
-								</ul>
-									</li>*}
-							<li class="menubaritem"><a href="{$Path}admin/manage_resources.php">{html_image src="resource.png"}{*{translate key="ManageResources"}*}</a>
-								{*<ul>
-									<li class="menuitem"><a href="{$Path}admin/manage_resources.php">{translate key="ManageResources"}</a>
-									<li class="menuitem"><a href="{$Path}admin/manage_resource_groups.php">{translate key="ManageGroups"}</a></li>
-								</ul>*}
-									</li>
-							<li class="menubaritem"><a href="{$Path}admin/manage_users.php">{html_image src="user-small.png"}{*{translate key="ManageUsers"}*}</a>
-								{*<ul>
-									<li class="menuitem"><a href="{$Path}admin/manage_users.php">{translate key="ManageUsers"}</a>
-									<li class="menuitem"><a href="{$Path}admin/manage_groups.php">{translate key="ManageGroups"}</a></li>
-									<li class="menuitem"><a href="{$Path}admin/manage_quotas.php">{translate key="ManageQuotas"}</a></li>
-								</ul>*}
-								</li>
-							<li class="menubaritem"><a href="{$Path}admin/manage_groups.php">{html_image src="users.png"}{*{translate key="ManageAnnouncements"}*}</a></li>
-							<li class="menubaritem"><a href="{$Path}admin/manage_announcements.php">{html_image src="announce2.png"}{*{translate key="ManageAnnouncements"}*}</a></li>
-							{*<li class="menubaritem"><a href="#">{translate key="Customization"}</a>
-								<ul>
-									<li class="menuitem"><a href="{$Path}admin/manage_configuration.php">{translate key="Customization"}</a>
-									<li class="menuitem"><a href="{$Path}admin/manage_attributes.php">{translate key="Attributes"}</a></li>
-									*}{*<li class="menuitem"><a href="{$Path}admin/manage_theme.php">{translate key="LookAndFeel"}</a></li>*}{*
-								</ul>
-									</li>*}		
-						{/if}						
-						{*{if $CanViewResponsibilities}
-							<li class="menubaritem"><a href="#">{translate key=Responsibilities}</a>
-								<ul>
-									{if $CanViewGroupAdmin}
-										<li class="menuitem"><a
-													href="{$Path}admin/manage_group_users.php">{translate key="ManageUsers"}</a></li>
-										<li class="menuitem"><a href="{$Path}admin/manage_group_reservations.php">{translate key=GroupReservations}</a></li>
-										<li class="menuitem"><a href="{$Path}admin/manage_admin_groups.php">{translate key="ManageGroups"}</a></li>
-									{/if}
-									{if $CanViewResourceAdmin || $CanViewScheduleAdmin}
-										<li class="menuitem"><a href="{$Path}admin/manage_admin_resources.php">{translate key="ManageResources"}</a></li>
-										<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>
-									{/if}
-									{if $CanViewResourceAdmin}
-										<li class="menuitem"><a href="{$Path}admin/manage_resource_reservations.php">{translate key=ResourceReservations}</a></li>
-									{/if}
-									{if $CanViewScheduleAdmin}
-										<li class="menuitem"><a href="{$Path}admin/manage_admin_schedules.php">{translate key="ManageSchedules"}</a></li>
-										<li class="menuitem"><a href="{$Path}admin/manage_schedule_reservations.php">{translate key=ScheduleReservations}</a></li>
-									{/if}
+									<li class="menuitem"><a href="#" id="timeTable"> {html_image src="horario.png"} {translate key="TimeTable"}</a></li>
+									<li class="menuitem"><a href="#" onclick="$('#dialogColors').dialog('open')"> {html_image src="paint2.png"} {translate key="Colors"}</a></li>
+									<li class="menuitem"><a href="#" onclick="$('#dialogSubscribe').dialog('open')"> {html_image src="cloud.png"} {translate key="Subscription"}</a></li>								
 								</ul>
 							</li>
-						{/if}*}
-						{*{if $CanViewReports}
-							<li class="menubaritem"><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{html_image src="chart.png"}{translate key=Reports}</a>
-								<ul>
-									<li><a href="{$Path}reports/{Pages::REPORTS_GENERATE}">{translate key=GenerateReport}</a></li>
-									<li><a href="{$Path}reports/{Pages::REPORTS_SAVED}">{translate key=MySavedReports}</a></li>
-									<li><a href="{$Path}reports/{Pages::REPORTS_COMMON}">{translate key=CommonReports}</a></li>
-								</ul>
-							</li>
-						{/if}*}
+						{/if}
 					{/if}
-					<li class="menubaritem help"><a href="{$Path}help.php?ht=about">{html_image src="ayuda.png"}{*{translate key=About}*}</a></li>
-					{*<li class="menubaritem help"><a href="{$Path}help.php">{html_image src="question-button.png"}{translate key=Help}</a>	</li>*}
-
+					<li class="menubaritem help"><a href="{$Path}help.php?ht=about">{html_image src="ayuda.png"}</a></li>
 				</ul>
 			</div>
 			<!-- end #nav -->

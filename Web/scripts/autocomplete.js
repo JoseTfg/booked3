@@ -1,3 +1,4 @@
+//User autocomplete
 $.fn.userAutoComplete = function(url, selectionCallback)
 {
 	var textbox = $(this);
@@ -46,6 +47,7 @@ $.fn.userAutoComplete = function(url, selectionCallback)
 		});
 };
 
+//Group autocomplete
 $.fn.groupAutoComplete = function(url, selectionCallback)
 {
 	var textbox = $(this);

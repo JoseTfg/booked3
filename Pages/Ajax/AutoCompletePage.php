@@ -113,6 +113,7 @@ class AutoCompletePage extends SecurePage
 	 * @param $term string
 	 * @return array|AutocompleteUser[]
 	 */
+	//Unused
 	private function GetMyUsers($term)
 	{
 		$userSession = ServiceLocator::GetServer()->GetUserSession();
@@ -151,6 +152,7 @@ class AutoCompletePage extends SecurePage
 		return array_values($users);
 	}
 
+	//Unused
 	private function GetGroupUsers($groupId)
 	{
 		$groupRepo = new GroupRepository();
@@ -177,6 +179,7 @@ class AutocompleteUser
 	public $Email;
 	public $UserName;
 
+	//Construct
 	public function __construct($userId, $firstName, $lastName, $email, $userName)
 	{
 		$full = new FullName($firstName, $lastName);

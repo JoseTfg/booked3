@@ -17,6 +17,7 @@
  along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ //Resource popups
 $.fn.bindResourceDetails = function (resourceId, options)
 {
 	var opts = $.extend({preventClick:false}, options);
@@ -24,6 +25,7 @@ $.fn.bindResourceDetails = function (resourceId, options)
 	$(this).removeAttr('resource-details-bound');
 	bindResourceDetails($(this));
 
+	//Gets div
 	function getDiv()
 		{
 			if ($('#resourceDetailsDiv').length <= 0)
@@ -36,6 +38,7 @@ $.fn.bindResourceDetails = function (resourceId, options)
 			}
 		}
 
+		//Hides div
 		function hideDiv()
 		{
 			var tag = getDiv();
@@ -46,6 +49,7 @@ $.fn.bindResourceDetails = function (resourceId, options)
 			tag.data('timeoutId', timeoutId);
 		}
 
+	//Binds details
 	function bindResourceDetails(resourceNameElement)
 	{
 		if (resourceNameElement.attr('resource-details-bound') === '1')
@@ -101,6 +105,7 @@ $.fn.bindResourceDetails = function (resourceId, options)
 				});
 			}
 
+			//Show data
 			function showData(data)
 			{
 				tag.html(data).show();

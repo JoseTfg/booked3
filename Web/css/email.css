@@ -1,5 +1,7 @@
+/*Contains email style sheets*/
 * { margin:0; padding:0; }
 
+/*Email's body*/
 body {
     font: 13px Helvetica, "Lucida Grande", Verdana, Arial, sans-serif;
     background-color: #fefefe;
@@ -8,6 +10,7 @@ body {
     height: 100%;
 }
 
+/*Image*/
 div.resource-image
 {
     padding-bottom:25px;

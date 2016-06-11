@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//LDAP user
 class LdapUser
 {
 	private $fname;
@@ -33,6 +34,7 @@ class LdapUser
 	 * @param $entry Net_LDAP2_Entry
 	 * @param $mapping string[]|array
 	 */
+	//Construct
 	public function __construct($entry, $mapping)
 	{
 		$this->mapping = $mapping;
@@ -45,36 +47,43 @@ class LdapUser
 		$this->dn = $entry->dn();
 	}
 
+	//Gets first name
 	public function GetFirstName()
 	{
 		return $this->fname;
 	}
 
+	//Gets last name
 	public function GetLastName()
 	{
 		return $this->lname;
 	}
 
+	//Gets email
 	public function GetEmail()
 	{
 		return $this->mail;
 	}
 
+	//Gets phone
 	public function GetPhone()
 	{
 		return $this->phone;
 	}
 
+	//Gets institution
 	public function GetInstitution()
 	{
 		return $this->institution;
 	}
 
+	//Gets title
 	public function GetTitle()
 	{
 		return $this->title;
 	}
 
+	//Gets DN
 	public function GetDn()
 	{
 		return $this->dn;
@@ -85,6 +94,7 @@ class LdapUser
 	 * @param string $field
 	 * @return string
 	 */
+	//Get
 	private function Get($entry, $field)
 	{
 		$actualField = $field;

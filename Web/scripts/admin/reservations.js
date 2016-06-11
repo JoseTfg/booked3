@@ -3,6 +3,7 @@ function ReservationManagement(opts, approval)
 {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		userFilter: $("#userFilter"),
 		startDate: $("#formattedStartDate"),
@@ -48,11 +49,13 @@ function ReservationManagement(opts, approval)
 	ReservationManagement.prototype.init = function ()
 	{
 
+		//Configure dialogs
 		ConfigureAdminDialog(elements.deleteInstanceDialog);
 		ConfigureAdminDialog(elements.deleteSeriesDialog);
 		ConfigureAdminDialog(elements.statusDialog);
 		ConfigureAdminDialog(elements.inlineUpdateErrorDialog);
 
+		//User events
 		$(".save").click(function ()
 		{
 			$(this).closest('form').submit();
@@ -133,8 +136,6 @@ function ReservationManagement(opts, approval)
 		elements.reservationTable.find('.editable').each(function ()
 		{
 			var refNum = $(this).find('.referenceNumber').text();
-			//MyCode
-			//$(this).attachReservationPopup(refNum, options.popupUrl);
 		});
 
 		elements.reservationTable.delegate('.delete', 'click', function ()
@@ -201,6 +202,7 @@ function ReservationManagement(opts, approval)
 			}
 		};
 
+		//Configure forms
 		ConfigureAdminForm(elements.deleteInstanceForm, getDeleteUrl, null, deleteReservationResponseHandler, {dataType: 'json'});
 		ConfigureAdminForm(elements.deleteSeriesForm, getDeleteUrl, null, deleteReservationResponseHandler, {dataType: 'json'});
 		ConfigureAdminForm(elements.statusForm, getUpdateStatusUrl, function ()
@@ -517,13 +519,11 @@ function ReservationManagement(opts, approval)
 	function viewReservation(referenceNumber)
 	{
 		//MyCode
-		//window.location = options.reservationUrlTemplate.replace('[refnum]', referenceNumber);
+		//Allows new reservation view popups
 		var popup = new $.Popup({
 			modal:true
 			});
 			popup.open('http://localhost/booked/Web/reservation.php?rn='+referenceNumber);
-			//alert(options.reservationUrlTemplate.replace('[refnum]', referenceNumber))
-			//alert('http://localhost/booked/Web/reservations.php?'+referenceNumber);
 			$('.popup_close').hide();
 			interval = setInterval(function(){
 				popup_status = sessionStorage.getItem("popup_status");

@@ -62,11 +62,13 @@ class Ldap extends Authentication implements IAuthentication
 	 */
 	private $password;
 
+	//Sets the registration
 	public function SetRegistration($registration)
 	{
 		$this->_registration = $registration;
 	}
 
+	//Gets the registration
 	private function GetRegistration()
 	{
 		if ($this->_registration == null)
@@ -77,11 +79,13 @@ class Ldap extends Authentication implements IAuthentication
 		return $this->_registration;
 	}
 
+	//Sets encryption
 	public function SetEncryption($passwordEncryption)
 	{
 		$this->_encryption = $passwordEncryption;
 	}
 
+	//Gets encryption
 	private function GetEncryption()
 	{
 		if ($this->_encryption == null)
@@ -120,6 +124,7 @@ class Ldap extends Authentication implements IAuthentication
 		}
 	}
 
+	//Validates
 	public function Validate($username, $password)
 	{
 		$this->password = $password;
@@ -157,6 +162,7 @@ class Ldap extends Authentication implements IAuthentication
 		return false;
 	}
 
+	//Performs log in
 	public function Login($username, $loginContext)
 	{
 		$username = $this->CleanUsername($username);
@@ -175,21 +181,25 @@ class Ldap extends Authentication implements IAuthentication
 		return $this->authToDecorate->Login($username, $loginContext);
 	}
 
+	//Logout
 	public function Logout(UserSession $user)
 	{
 		$this->authToDecorate->Logout($user);
 	}
 
+	//Unused
 	public function AreCredentialsKnown()
 	{
 		return false;
 	}
 
+	//Checks if user exists
 	private function LdapUserExists()
 	{
 		return $this->user != null;
 	}
 
+	//Synchronize with database
 	private function Synchronize($username)
 	{
 		$registration = $this->GetRegistration();
@@ -208,6 +218,7 @@ class Ldap extends Authentication implements IAuthentication
 		);
 	}
 
+	//Cleans the name
 	private function CleanUsername($username)
 	{
 		if (BookedStringHelper::Contains($username, '@'))
@@ -225,37 +236,44 @@ class Ldap extends Authentication implements IAuthentication
 
 		return $username;
 	}
-
+	
+	//Unused
 	public function AllowUsernameChange()
 	{
 		return false;
 	}
 
+	//Unused
 	public function AllowEmailAddressChange()
 	{
 		return false;
 	}
 
+	//Unused
 	public function AllowPasswordChange()
 	{
 		return false;
 	}
 
+	//Unused
 	public function AllowNameChange()
 	{
 		return false;
 	}
 
+	//Unused
 	public function AllowPhoneChange()
 	{
 		return true;
 	}
 
+	//Unused
 	public function AllowOrganizationChange()
 	{
 		return true;
 	}
 
+	//Unused
 	public function AllowPositionChange()
 	{
 		return true;

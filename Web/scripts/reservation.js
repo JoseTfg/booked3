@@ -1,7 +1,9 @@
+//Reservation
 function Reservation(opts)
 {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		beginDate: $('#formattedBeginDate'),
 		endDate: $('#formattedEndDate'),
@@ -55,11 +57,13 @@ function Reservation(opts)
 
 	var _ownerId;
 
+	//Initialization
 	Reservation.prototype.init = function (ownerId)
 	{
 		_ownerId = ownerId;
 		participation.addedUsers.push(ownerId);
 
+		//Dialogs
 		$('.dialog').dialog({
 			bgiframe: true,
 			autoOpen: false,
@@ -79,6 +83,8 @@ function Reservation(opts)
 		scheduleId = $('#scheduleId').val();
 
 		elements.accessoriesDialog.dialog({ width: 450 });
+		
+		//User events
 		elements.accessoriesPrompt.click(function ()
 		{
 			ShowAccessoriesPrompt();
@@ -180,15 +186,23 @@ function Reservation(opts)
 			window.location = options.returnUrl;
 		});
 
+		//$('#creatingNotification').hide();
+		$('#result').show();
+		//$('.details').hide();
+		//alert("aa");
+		
 		$('#btnSaveFailed').click(function ()
 		{
-			CloseSaveDialog();
+			//CloseSaveDialog();
+			//alert("aa");			
+			$('.details').show();
+			$('#result').hide();
+			location.reload();
 		});
-
-		$('#creatingNotification').hide();
-		$('#result').show();
+		
 	};
 
+	//Add accesories
 	var AddAccessories = function ()
 	{
 		elements.accessoriesList.empty();
@@ -199,11 +213,13 @@ function Reservation(opts)
 		});
 	};
 
+	//Add accesory
 	Reservation.prototype.addAccessory = function (accessoryId, quantity, name)
 	{
 		AddAccessory(name, accessoryId, quantity);
 	};
 
+	//Add resource group
 	Reservation.prototype.addResourceGroups = function (resourceGroups)
 	{
 		elements.groupDiv.tree({
@@ -238,6 +254,7 @@ function Reservation(opts)
 		});
 	};
 
+	//Show accessories prompt
 	var ShowAccessoriesPrompt = function ()
 	{
 		elements.accessoriesDialog.find('input:text').val('0');
@@ -259,6 +276,7 @@ function Reservation(opts)
 		elements.accessoriesDialog.dialog('open');
 	};
 
+	//Add accessory
 	var AddAccessory = function (name, id, quantity)
 	{
 		if (quantity == 0 || isNaN(quantity))
@@ -271,6 +289,7 @@ function Reservation(opts)
 		elements.accessoriesList.append('<p accessoryId="' + id + '"><span class="quantity">(' + quantity + ')</span> ' + name + '<input type="hidden" name="' + options.accessoryListInputId + '" value="' + x + '"/></p>');
 	};
 
+	//Add resource
 	var AddResources = function ()
 	{
 		var displayDiv = $('#additionalResources');
@@ -321,6 +340,7 @@ function Reservation(opts)
 		elements.resourceGroupsDialog.dialog('close');
 	};
 
+	//Initialize additional resources
 	var InitializeAdditionalResources = function()
 	{
 		elements.groupDiv.find('input[type=checkbox]').attr('checked', false);
@@ -334,6 +354,7 @@ function Reservation(opts)
 		});
 	};
 
+	//Handle additional resources
 	var handleAdditionalResourceChecked = function (checkbox, event)
 	{
 		var isChecked = checkbox.is(':checked');
@@ -376,6 +397,7 @@ function Reservation(opts)
 		}
 	};
 
+	//Adjust end date
 	var AdjustEndDate = function ()
 	{
 		var firstDate = new Date(elements.beginDate.data['beginPreviousVal'] + 'T' + elements.beginTime.val());
@@ -390,11 +412,13 @@ function Reservation(opts)
 		elements.endDate.trigger('change');
 	};
 
+	//Change scope
 	var ChangeUpdateScope = function (updateScopeValue)
 	{
 		$('#hdnSeriesUpdateScope').val(updateScopeValue);
 	};
 
+	//Display duration
 	var DisplayDuration = function ()
 	{
 		var rounded = dateHelper.GetDateDifference(elements.beginDate, elements.beginTime, elements.endDate, elements.endTime);
@@ -403,11 +427,13 @@ function Reservation(opts)
 		elements.durationHours.text(rounded.RoundedHours);
 	};
 
+	//Close save dialog
 	var CloseSaveDialog = function ()
 	{
 		$('#dialogSave').dialog('close');
 	};
 
+	//Wire up actions
 	var WireUpActions = function ()
 	{
 		$('.create').click(function ()
@@ -426,12 +452,13 @@ function Reservation(opts)
 		});
 	};
 
+	//Wire up buttons
 	var WireUpButtonPrompt = function ()
 	{
 		var updateButtons = $('.updateButtons');
 		updateButtons.dialog({
-			autoOpen: false, modal: true, draggable: false, resizable: false, closeOnEscape: false,
-			minWidth: 700, width: 700, height: 100
+			autoOpen: false, modal: true, resizable: false, closeOnEscape: false,
+			minWidth: 200, width: 200, height: 210,position: ['top',60]
 		});
 
 		updateButtons.find('.button').click(function ()
@@ -445,11 +472,12 @@ function Reservation(opts)
 		});
 	};
 
+	//Wire up save dialog
 	var WireUpSaveDialog = function ()
 	{
 		$('#dialogSave').dialog({
 			autoOpen: false, modal: true, draggable: false, resizable: false, closeOnEscape: false,
-			minHeight: 400, minWidth: 700, width: 700,
+			minHeight: 200, minWidth: 300, width: 300, position: ['top',30],
 			open: function (event, ui)
 			{
 				$(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").hide();
@@ -463,6 +491,7 @@ function Reservation(opts)
 		});
 	};
 
+	//Wire up resource details popup
 	function WireUpResourceDetailPopups()
 	{
 		$('#resourceNames, #additionalResources').find('.resourceDetails').each(function ()
@@ -472,6 +501,7 @@ function Reservation(opts)
 		});
 	}
 
+	//Initialize checkboxes
 	function InitializeCheckboxes(dialogBoxId, displayDivId)
 	{
 		var selectedItems = [];
@@ -496,6 +526,7 @@ function Reservation(opts)
 		});
 	}
 
+	//Initialize date elements
 	function InitializeDateElements()
 	{
 		var periodsCache = [];
@@ -581,6 +612,7 @@ function Reservation(opts)
 		};
 	}
 
+	//Initialize participation
 	function InitializeParticipationElements()
 	{
 		elements.participantDialogPrompt.click(function ()
@@ -650,6 +682,7 @@ function Reservation(opts)
 		});
 	}
 
+	//Wire up attachments
 	function WireUpAttachments()
 	{
 		var enableCorrectButtons = function()
@@ -706,6 +739,7 @@ function Reservation(opts)
 		});
 	}
 
+	//Change user
 	changeUser.init = function ()
 	{
 		$('#showChangeUsers').click(function (e)
@@ -731,9 +765,15 @@ function Reservation(opts)
 		});
 	};
 
+	//Choose user to change
 	changeUser.chooseUser = function (id, name)
 	{
+		if (name.length > 20){
+		elements.userName.text(name.substr(0,20)+"...");
+		}
+		else{
 		elements.userName.text(name);
+		}
 		elements.userName.attr('data-userid', id);
 		elements.userId.val(id);
 
@@ -746,6 +786,7 @@ function Reservation(opts)
 		$('#changeUsers').hide();
 	};
 
+	//Show all users
 	changeUser.showAll = function ()
 	{
 		var dialogElement = $('#changeUserDialog');
@@ -772,10 +813,11 @@ function Reservation(opts)
 
 		$('<ul/>', {'class': 'no-style', html: items.join('')}).appendTo(dialogElement);
 
-		dialogElement.dialog({minHeight: 400, minWidth: 700, width: 700});
+		dialogElement.dialog({minHeight: 200, minWidth: 300, width: 300, position: ['top',30]});
 		dialogElement.dialog('open');
 	};
 
+	//Add participant
 	participation.addParticipant = function (name, userId)
 	{
 		if ($.inArray(userId, participation.addedUsers) >= 0)
@@ -794,16 +836,19 @@ function Reservation(opts)
 		participation.addedUsers.push(userId);
 	};
 
+	//Add participant
 	Reservation.prototype.addParticipant = function (name, userId)
 	{
 		participation.addParticipant(name, userId);
 	};
 
+	//Add invitee
 	Reservation.prototype.addInvitee = function (name, userId)
 	{
 		participation.addInvitee(name, userId);
 	};
 
+	//Add invitee
 	participation.addInvitee = function (name, userId)
 	{
 		if ($.inArray(userId, participation.addedUsers) >= 0)
@@ -822,6 +867,7 @@ function Reservation(opts)
 		participation.addedUsers.push(userId);
 	};
 
+	//Remove participant
 	participation.removeParticipant = function (userId)
 	{
 		var index = $.inArray(userId, participation.addedUsers);
@@ -831,6 +877,7 @@ function Reservation(opts)
 		}
 	};
 
+	//Remove invitee
 	participation.removeInvitee = function (userId)
 	{
 		var index = $.inArray(userId, participation.addedUsers);
@@ -840,6 +887,7 @@ function Reservation(opts)
 		}
 	};
 
+	//Show all users
 	participation.showAllUsersToAdd = function (dialogElement)
 	{
 		var allUserList;
@@ -871,6 +919,7 @@ function Reservation(opts)
 		dialogElement.dialog('open');
 	};
 
+	//Show all groups
 	participation.showAllGroupsToAdd = function(dialogElement){
 		var allUserList;
 		if (allUserList == null)
@@ -901,6 +950,7 @@ function Reservation(opts)
 		dialogElement.dialog('open');
 	};
 
+	//Add groups
 	participation.addGroupUsers = function(groupId, addUserCallback){
 		$.ajax({
 			url: options.userAutocompleteUrl + '&term=group&gid=' + groupId,
@@ -914,10 +964,12 @@ function Reservation(opts)
 		});
 	};
 
+	//Add participants group
 	participation.addGroupParticipants = function(groupId) 	{
 		participation.addGroupUsers(groupId, participation.addParticipant);
 	};
 
+	//Add invitees groups
 	participation.addGroupInvitees = function(groupId) 	{
 		participation.addGroupUsers(groupId, participation.addInvitee);
 	};

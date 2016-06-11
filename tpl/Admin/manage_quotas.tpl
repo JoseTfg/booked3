@@ -18,161 +18,101 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='globalheader.tpl' cssFiles='css/admin.css'}
 
-<h1>{translate key=ManageQuotas} {*{html_image src="question-button.png" id="help-prompt" ref="help-quotas"}*}</h1>
+<h1>{translate key=ManageQuotas}</h1>
 
-<div id="addDialog" class="dialog" style="display:none;background-color:#FFCC99" title="{translate key=AddQuota}">
-		<form id="addQuotaForm" method="post">
-		{*{capture name="schedules" assign="schedules"}
-			<select class='textbox' {formname key=SCHEDULE_ID}>
-				<option selected='selected' value=''>{translate key=AllSchedules}</option>
-			{foreach from=$Schedules item=schedule}
-				<option value='{$schedule->GetId()}'>{$schedule->GetName()|replace:',':' '}</option>
-			{/foreach}
-			</select>
-		{/capture}*}
-
-		{capture name="resources" assign="resources"}
-			<select class='textbox' {formname key=RESOURCE_ID}>
-				<option selected='selected' value=''>{translate key=AllResources}</option>
+<div id="addDialog" class="dialog" title="{translate key=AddQuota}">
+	<div class="warning">{translate key=FieldWarning}</div>
+	<form id="addQuotaForm" method="post">
+	{capture name="resources" assign="resources"}
+		<select class='textbox' {formname key=RESOURCE_ID}>
+			<option selected='selected' value=''>{translate key=AllResources}</option>
 			{foreach from=$Resources item=resource}
 				<option value='{$resource->GetResourceId()}'>{$resource->GetName()|replace:',':' '}</option>
 			{/foreach}
-			</select>
-		{/capture}
+		</select>
+	{/capture}
 
-		{capture name="groups" assign="groups"}
-			<select class='textbox' {formname key=GROUP}>
-				<option selected='selected' value=''>{translate key=AllGroups}</option>
+	{capture name="groups" assign="groups"}
+		<select class='textbox' {formname key=GROUP}>
+			<option selected='selected' value=''>{translate key=AllGroups}</option>
 			{foreach from=$Groups item=group}
 				<option value='{$group->Id}'>{$group->Name|replace:',':' '}</option>
 			{/foreach}
-			</select>
-		{/capture}
+		</select>
+	{/capture}
 
-		{capture name="amount" assign="amount"}
-			<input type='text' class='textbox' value='0' size='5' {formname key=LIMIT} />
-		{/capture}
+	{capture name="amount" assign="amount"}
+		<input type='number' class='textbox' value='1' size='5' min='1' max='24' {formname key=LIMIT} />
+	{/capture}
 
-		{capture name="unit" assign="unit"}
-			<select class='textbox' {formname key=UNIT}>
-				<option value='{QuotaUnit::Hours}'>{translate key=hours}</option>
-				<option value='{QuotaUnit::Reservations}'>{translate key=reservations}</option>
-			</select>
-		{/capture}
+	{capture name="unit" assign="unit"}
+		<select class='textbox' {formname key=UNIT}>
+			<option value='{QuotaUnit::Hours}'>{translate key=hours}</option>
+			<option value='{QuotaUnit::Reservations}'>{translate key=Reservations}</option>
+		</select>
+	{/capture}
 
-		{capture name="duration" assign="duration"}
-			<select class='textbox' {formname key=DURATION}>
-				<option value='{QuotaDuration::Day}'>{translate key=day}</option>
-				<option value='{QuotaDuration::Week}'>{translate key=week}</option>
-				<option value='{QuotaDuration::Month}'>{translate key=month}</option>
-				<option value='{QuotaDuration::Year}'>{translate key=year}</option>
-			</select>
-		{/capture}
+	{capture name="duration" assign="duration"}
+		<select class='textbox' {formname key=DURATION}>
+			<option value='{QuotaDuration::Day}'>{translate key=day}</option>
+			<option value='{QuotaDuration::Week}'>{translate key=week}</option>
+			<option value='{QuotaDuration::Month}'>{translate key=month}</option>
+			<option value='{QuotaDuration::Year}'>{translate key=year}</option>
+		</select>
+	{/capture}
 
-		{translate key=QuotaConfiguration args="$schedules,$resources,$groups,$amount,$unit,$duration"}		
-		</br>
-		</br>
-		<button type="button" class="button save" style="float:right;">{html_image src="plus-circle.png"} {translate key="Add"}</button>
+	{translate key=QuotaConfiguration args="$schedules,$resources,$groups,$amount,$unit,$duration"}		
+	</br></br></br>
+	<button type="button" class="button save">{html_image src="plus-circle.png"} {translate key="Add"}</button>
 		
-		{html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
-		</form>
+	{html_image src="admin-ajax-indicator.gif" class="indicator"}
+	</form>
 </div>
 
-{*<div class="admin">*}
-	{*<div class="title">
-		<a id="quotaListLabel" href="#"> {translate key=AllQuotas} </a>
-		{translate key=AllQuotas}
-	</div>*}
-	<table id="quotaTable" class="list">
-	<thead>
+<table id="quotaTable" class="list">
+<thead>
 	<th> {translate key="Resources"} </th>
 	<th> {translate key="Groups"} </th>
 	<th> {translate key="Amount"} </th>
 	<th> {translate key="Unit"} </th>
 	<th> {translate key="Duration"} </th>
 	<th> {translate key="Delete"} </th>
-	</thead>
-	<tbody>
-	{*<div class="list" id="quotaList" style="background-color:#FFCC99">*}
-		{foreach from=$Quotas item=quota}
-			{cycle values='row0,row1' assign=rowCss}		
-	<tr>	
-		{*	{capture name="scheduleName" assign="scheduleName"}
-				<h4>{if $quota->ScheduleName ne ""}
-					{$quota->ScheduleName|replace:',':' '}
-				{else}
-					{translate key="AllSchedules"}
-				{/if}
-				</h4>
-			{/capture}
-			{capture name="resourceName" assign="resourceName"}
-				<h4>{if $quota->ResourceName ne ""}
-					{$quota->ResourceName|replace:',':' '}
-				{else}
-					{translate key="AllResources"}
-				{/if}
-				</h4>
-			{/capture}*}
-			<td align="center">
+</thead>
+<tbody>
+	{foreach from=$Quotas item=quota}		
+	<tr>
+		<td align="center">
 			{if $quota->ResourceName ne ""}
-					{$quota->ResourceName|replace:',':' '}
-				{else}
-					{translate key="AllResources"}
-					{/if}
-			</td>
-			{*{capture name="groupName" assign="groupName"}
-				<h4>
-				{if $quota->GroupName ne ""}
-					{$quota->GroupName|replace:',':' '}
-				{else}
-					{translate key="AllGroups"}
-				{/if}
-				</h4>
-			{/capture}*}
-			<td align="center">
+				{$quota->ResourceName|replace:',':' '}
+			{else}
+				{translate key="AllResources"}
+			{/if}
+		</td>
+		<td align="center">
 			{if $quota->GroupName ne ""}
-					{$quota->GroupName|replace:',':' '}
-				{else}
-					{translate key="AllGroups"}
-				{/if}
-			</td>
-			{*{capture name="amount" assign="amount"}
-				<h4>{$quota->Limit}</h4>
-			{/capture}
-		
-			{capture name="unit" assign="unit"}
-				<h4>{translate key=$quota->Unit}</h4>
-			{/capture}
-			{capture name="duration" assign="duration"}
-				<h4>{translate key=$quota->Duration}</h4>
-			{/capture}*}
-			<td align="center">{$quota->Limit}</td>
-			<td align="center">{translate key=$quota->Unit}</td>
-			<td align="center">{translate key=$quota->Duration}</td>
-			<td align="center"><a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a></td>
-			{*
-			<div class="{$rowCss}">
-				<a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a>
-				{translate key=QuotaConfiguration args="$scheduleName,$resourceName,$groupName,$amount,$unit,$duration"}
-			</div>*}
-		{*{foreachelse}
-			{translate key=None}*}
-			</tr>
-		{/foreach}
-		</tbody>
-		</table>
-	{*</div>*}
-{*</div>*}
+				{$quota->GroupName|replace:',':' '}
+			{else}
+				{translate key="AllGroups"}
+			{/if}
+		</td>
 
-<button id="newButton" class="button add" style="float:right;" type="button">{html_image src="plus-button.png"} {translate key=Add}</button>
+		<td align="center">{$quota->Limit}</td>
+		<td align="center">{translate key=$quota->Unit}</td>
+		<td align="center">{translate key=$quota->Duration}</td>
+		<td align="center"><a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a></td>
+	</tr>
+	{/foreach}
+</tbody>
+</table>
 
-<div id="deleteDialog" class="dialog" style="display:none;background-color:#FFCC99"" title="{translate key=Delete}">
+<button id="newButton" class="button save" type="button">{html_image src="plus-button.png"} {translate key=Add}</button>
+
+<div id="deleteDialog" class="dialog" title="{translate key=Delete}">
 	<form id="deleteQuotaForm" method="post">
-		<div class="error" style="margin-bottom: 25px;">
+		<div class="error" id="marginError">
 			<h3>{translate key=DeleteWarning}</h3>
 		</div>
-		<button type="button" class="button save" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
-		{*<button type="button" class="button cancel" style="float:right;">{html_image src="slash.png"} {translate key='Cancel'}</button>*}
+		<button type="button" class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>		
 	</form>
 </div>
 
@@ -181,21 +121,21 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="admin/edit.js"}
 {jsfile src="admin/quota.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
-{jsfile src="admin/help.js"}
 
 {*Enhance*}
 {jsfile src="TableSorter/jquery.tablesorter.js"}
 
 {*Code*}
 <script type="text/javascript">
-	$(document).ready(function() {
 
+$(document).ready(function(){
+	
 	$("#quotaTable").tablesorter({
-			widgets: ["zebra"],
-			widgetOptions : {
-				zebra : [ "normal-row", "alt-row" ]
-				}
-				});
+		widgets: ["zebra"],
+		widgetOptions : {
+			zebra : [ "normal-row", "alt-row" ]
+		}
+	});
 	
 	var actions = {
 		addQuota: '{ManageQuotasActions::AddQuota}',
@@ -210,6 +150,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	var quotaManagement = new QuotaManagement(quotaOptions);
 	quotaManagement.init();
-	});
+	
+});
+	
 </script>
 {include file='globalfooter.tpl'}

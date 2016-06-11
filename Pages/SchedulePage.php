@@ -199,6 +199,7 @@ interface ISchedulePage extends IActionPage
 	public function GetDisplayTimezone(UserSession $user, Schedule $schedule);
 }
 
+//Unused
 class ScheduleStyle
 {
 	const Wide = 'Wide';
@@ -207,6 +208,7 @@ class ScheduleStyle
 	const CondensedWeek = 'CondensedWeek';
 }
 
+//Class: Supports the schedule controller
 class SchedulePage extends ActionPage implements ISchedulePage
 {
 	protected $ScheduleStyle = ScheduleStyle::Standard;
@@ -229,6 +231,7 @@ class SchedulePage extends ActionPage implements ISchedulePage
 	 */
 	private $_isFiltered = true;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('Schedule');
@@ -244,6 +247,7 @@ class SchedulePage extends ActionPage implements ISchedulePage
 		$this->_presenter = new SchedulePresenter($this, $scheduleService, $resourceService, $pageBuilder, $reservationService, $dailyLayoutFactory);
 	}
 
+	//Page load
 	public function ProcessPageLoad()
 	{
 		$start = microtime(true);
@@ -280,66 +284,78 @@ class SchedulePage extends ActionPage implements ISchedulePage
 		Log::Debug('Schedule took %s sec to load, %s sec to render. Total %s sec', $load, $display, $total);
 	}
 
+	//Process request
 	public function ProcessDataRequest($dataRequest)
 	{
 		$this->_presenter->GetLayout(ServiceLocator::GetServer()
 									 ->GetUserSession());
 	}
 
+	//Unused
 	public function GetScheduleId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::SCHEDULE_ID);
 	}
 
+	//Unused
 	public function SetScheduleId($scheduleId)
 	{
 		$this->Set('ScheduleId', $scheduleId);
 	}
 
+	//Unused
 	public function SetScheduleName($scheduleName)
 	{
 		$this->Set('ScheduleName', $scheduleName);
 	}
 
+	//Unused
 	public function SetSchedules($schedules)
 	{
 		$this->Set('Schedules', $schedules);
 	}
 
+	//Unused
 	public function SetFirstWeekday($firstWeekday)
 	{
 		$this->Set('FirstWeekday', $firstWeekday);
 	}
 
+	//Unused
 	public function SetResources($resources)
 	{
 		$this->resourceCount = count($resources);
 		$this->Set('Resources', $resources);
 	}
 
+	//Unused
 	public function SetDailyLayout($dailyLayout)
 	{
 		$this->Set('DailyLayout', $dailyLayout);
 	}
 
+	//Unused
 	public function SetDisplayDates($dateRange)
 	{
 		$this->Set('DisplayDates', $dateRange);
 		$this->Set('BoundDates', $dateRange->Dates());
 	}
 
+	//Unused
 	public function SetPreviousNextDates($previousDate, $nextDate)
 	{
 		$this->Set('PreviousDate', $previousDate);
 		$this->Set('NextDate', $nextDate);
 	}
 
+	//Unused
 	public function GetSelectedDate()
 	{
 		// TODO: Clean date
 		return $this->server->GetQuerystring(QueryStringKeys::START_DATE);
 	}
 
+	//Unused
 	public function ShowInaccessibleResources()
 	{
 		return Configuration::Instance()
@@ -348,11 +364,13 @@ class SchedulePage extends ActionPage implements ISchedulePage
 							   new BooleanConverter());
 	}
 
+	//Unused
 	public function ShowFullWeekToggle($showShowFullWeekToggle)
 	{
 		$this->Set('ShowFullWeekLink', $showShowFullWeekToggle);
 	}
 
+	//Unused
 	public function GetShowFullWeek()
 	{
 		$showFullWeek = $this->GetQuerystring(QueryStringKeys::SHOW_FULL_WEEK);
@@ -360,21 +378,25 @@ class SchedulePage extends ActionPage implements ISchedulePage
 		return !empty($showFullWeek);
 	}
 
+	//Unused
 	public function ProcessAction()
 	{
 		// no-op
 	}
 
+	//Unused
 	public function SetLayoutResponse($layoutResponse)
 	{
 		$this->SetJson($layoutResponse);
 	}
 
+	//Unused
 	public function GetLayoutDate()
 	{
 		return $this->GetQuerystring(QueryStringKeys::LAYOUT_DATE);
 	}
 
+	//Unused
 	public function GetScheduleStyle($scheduleId)
 	{
 		$cookie = $this->server->GetCookie("schedule-direction-$scheduleId");
@@ -386,6 +408,7 @@ class SchedulePage extends ActionPage implements ISchedulePage
 		return ScheduleStyle::Standard;
 	}
 
+	//Unused
 	public function SetScheduleStyle($direction)
 	{
 		$this->ScheduleStyle = $direction;
@@ -396,6 +419,7 @@ class SchedulePage extends ActionPage implements ISchedulePage
 	/**
 	 * @return int
 	 */
+	//Unused
 	public function GetGroupId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::GROUP_ID);
@@ -404,31 +428,37 @@ class SchedulePage extends ActionPage implements ISchedulePage
 	/**
 	 * @return int
 	 */
+	//Unused
 	public function GetResourceId()
 	{
 		return $this->GetQuerystring(QueryStringKeys::RESOURCE_ID);
 	}
 
+	//Unused
 	public function SetResourceGroupTree(ResourceGroupTree $resourceGroupTree)
 	{
 		$this->Set('ResourceGroupsAsJson', json_encode($resourceGroupTree->GetGroups()));
 	}
 
+	//Unused
 	public function SetResourceTypes($resourceTypes)
 	{
 		$this->Set('ResourceTypes', $resourceTypes);
 	}
 
+	//Unused
 	public function SetResourceCustomAttributes($attributes)
 	{
 		$this->Set('ResourceAttributes', $attributes);
 	}
 
+	//Unused
 	public function SetResourceTypeCustomAttributes($attributes)
 	{
 		$this->Set('ResourceTypeAttributes', $attributes);
 	}
 
+	//Unused
 	public function FilterSubmitted()
 	{
 		$k = $this->GetForm(FormKeys::SUBMIT);
@@ -436,27 +466,32 @@ class SchedulePage extends ActionPage implements ISchedulePage
 		return !empty($k);
 	}
 
+	//Unused
 	public function GetResourceTypeId()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_TYPE_ID);
 	}
 
+	//Unused
 	public function GetMaxParticipants()
 	{
 		$max = $this->GetForm(FormKeys::MAX_PARTICIPANTS);
 		return intval($max);
 	}
 
+	//Unused
 	public function GetResourceAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm('r' . FormKeys::ATTRIBUTE_PREFIX));
 	}
 
+	//Unused
 	public function GetResourceTypeAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm('rt' . FormKeys::ATTRIBUTE_PREFIX));
 	}
 
+	//Unused
 	public function SetFilter($resourceFilter)
 	{
 		$this->Set('ResourceIdFilter', $this->GetResourceId());
@@ -465,24 +500,29 @@ class SchedulePage extends ActionPage implements ISchedulePage
 		$this->_isFiltered = $resourceFilter->HasFilter();
 	}
 
+	//Unused
 	public function SetSubscriptionUrl(CalendarSubscriptionUrl $subscriptionUrl)
 	{
 		$this->Set('SubscriptionUrl', $subscriptionUrl);
 	}
 
+	//Unused
 	public function ShowPermissionError($shouldShow)
 	{
 		$this->Set('IsAccessible', !$shouldShow);
 	}
 
+	//Unused
 	public function GetDisplayTimezone(UserSession $user, Schedule $schedule)
 	{
 		return $user->Timezone;
 	}
 }
 
+//Class: Supports the period slots
 class DisplaySlotFactory
 {
+	//Gets function
 	public function GetFunction(IReservationSlot $slot, $accessAllowed = false)
 	{
 		if ($slot->IsReserved())
@@ -529,12 +569,14 @@ class DisplaySlotFactory
 		return null;
 	}
 
+	//Is admin
 	private function UserHasAdminRights()
 	{
 		return ServiceLocator::GetServer()
 			   ->GetUserSession()->IsAdmin;
 	}
 
+	//Is personal reservation
 	private function IsMyReservation(IReservationSlot $slot)
 	{
 		$mySession = ServiceLocator::GetServer()
@@ -542,6 +584,7 @@ class DisplaySlotFactory
 		return $slot->IsOwnedBy($mySession);
 	}
 
+	//Is personal participation
 	private function AmIParticipating(IReservationSlot $slot)
 	{
 		$mySession = ServiceLocator::GetServer()

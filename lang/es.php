@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 require_once('Language.php');
 require_once('en_us.php');
 
+//Spanish language
 class es extends en_us
 {
     public function __construct()
@@ -103,15 +104,15 @@ class es extends en_us
         $strings['Monthly'] = 'Mensual';
         $strings['Yearly'] = 'Anual';
         $strings['RepeatPrompt'] = 'Repetir';
-        $strings['hours'] = 'horas';
+        $strings['hours'] = 'Horas';
         $strings['days'] = 'd&iacute;as';
         $strings['weeks'] = 'semanas';
         $strings['months'] = 'meses';
         $strings['years'] = 'a&ntilde;os';
-        $strings['day'] = 'd&iacute;a';
-        $strings['week'] = 'semana';
-        $strings['month'] = 'mes';
-        $strings['year'] = 'a&ntilde;o';
+        $strings['day'] = 'D&iacute;a';
+        $strings['week'] = 'Semana';
+        $strings['month'] = 'Mes';
+        $strings['year'] = 'A&ntilde;o';
         $strings['repeatDayOfMonth'] = 'd&iacute;a del mes';
         $strings['repeatDayOfWeek'] = 'd&iacute;a de la semana';
         $strings['RepeatUntilPrompt'] = 'Hasta';
@@ -195,7 +196,7 @@ class es extends en_us
         $strings['ApplyUpdatesTo'] = 'Aplicar Actualizaciones A';
         $strings['CancelParticipation'] = 'Cancelar Participaci&oacute;n';
         $strings['Attending'] = 'Asistencia';
-        $strings['QuotaConfiguration'] = 'En %s para %s usuarios en %s est&aacute;n limitados a %s %s por cada %s';
+        $strings['QuotaConfiguration'] = '%s Para %s usuarios del grupo %s est&aacute;n limitados a %s %s por cada %s';
         $strings['reservations'] = 'reservas';
         $strings['ChangeCalendar'] = 'Cambiar Calendario';
         $strings['AddQuota'] = 'A&ntilde;adir Cuota';
@@ -522,7 +523,7 @@ class es extends en_us
 		$strings['Total'] = 'Total';
 		$strings['QuantityReserved'] = 'Cantidad Reservada';
 		$strings['AllAccessories'] = 'Todos los Accesorios';
-		$strings['GetReport'] = 'Conseguir Informe';
+		$strings['GetReport'] = 'Generar Informe';
 		$strings['NoResultsFound'] = 'No hemos encontrado coincidencias';
 		
 		$strings['SaveThisReport'] = 'Guardar este informe';
@@ -600,29 +601,70 @@ class es extends en_us
         $strings['LoginError2'] = 'Tu suscripción ha caducado, debes ponerte en contacto con el administrador.';
        
 	    //Enhance
+		//Calendario
 	    $strings['Day'] = 'Dia';
 		$strings['Colors'] = 'Colores';
 		$strings['TimeTable'] = 'Horarios';
 		$strings['TimeTableBoundaries'] = 'Seleccione el horario de visualización de las vistas diaria y semanal';
-		$strings['Export'] = 'Exportar';
+		$strings['Export'] = 'Fichero .ics';
 		$strings['DeleteReservation'] = '¿Estas seguro de que deseas borrar este elemento?';
 		$strings['Download'] = 'Descargar';
-		$strings['Subscribe'] = '¿Suscribirse al calendario?';
-		$strings['Subscription'] = 'Suscripción';
-		$strings['ViewAsList'] = 'Ver como lista';
-		$strings['Columns'] = 'Columnas';
-		$strings['Amount'] = 'Cantidad';
-		$strings['Unit'] = 'Unidad';
-		$strings['Roles'] = 'Roles';
-		$strings['RequiresApproval'] = 'Requiere aprobación';
-		$strings['WhoApproves'] = '¿Quién aprueba?';
-		$strings['FieldWarning'] = 'Hay campos vacíos';
+		$strings['Subscribe'] = '¿Exportar datos?';
+		$strings['Subscription'] = 'Exportar como...';
 		$strings['checkAll'] = 'Marcar todos';
 		$strings['uncheckAll'] = 'Desmarcar todos';
 		$strings['selectOptions'] = 'Selección de recursos';
 		$strings['selectText'] = 'seleccionados';
 		$strings['GoDay'] = 'Ir al día';
 				
+		//Informes
+		$strings['ViewAsList'] = 'Ver como lista';
+		$strings['Columns'] = 'Columnas';
+		
+		//Cuotas
+		$strings['Amount'] = 'Cantidad';
+		$strings['Unit'] = 'Unidad';
+		
+		//Recursos
+		$strings['Roles'] = 'Roles';
+		$strings['RequiresApproval'] = 'Requiere aprobación';
+		$strings['WhoApproves'] = '¿Quién aprueba?';
+		$strings['FieldWarning'] = 'Opciones inválidas';
+		$strings['Permissions2'] = 'Acceso a recursos';
+		$strings['Fullname'] = 'Nombre completo';
+		$strings['Reserved'] = 'Reservado para recurrencia';
+		$strings['Superuser'] = 'Superusuario';
+		$strings['AllSelected'] = 'Todos seleccionados';
+		$strings['NoneSelected'] = 'Ninguno seleccionado';
+		
+		//Configuracion
+		$strings['AppTitle'] = 'Título de la aplicación';
+		$strings['DefaultTimezone'] = 'Zona horaria';
+		$strings['DefaultPageSize'] = 'Tamaño de página';
+		$strings['EnableEmail'] = 'Habilitar emails';
+		$strings['AdminEmail'] = 'Email de la aplicación';
+		$strings['DefaultLanguage'] = 'Idioma por defecto';
+		$strings['ScriptUrl'] = 'URL de la aplicación';
+		$strings['InactivityTimeout'] = 'Temporizador de inactividad';
+		$strings['NameFormat'] = 'Formato de nombre';
+		$strings['LogoutUrl'] = 'URL de cierre de sesión';
+		$strings['Host'] = 'Dirección';
+		$strings['Port'] = 'Puerto';
+		$strings['Version'] = 'Versión';
+		$strings['StartTLS'] = 'Comenzar TLS';
+		$strings['BindDN'] = 'BindDN';
+		$strings['BindPW'] = 'Contraseña';
+		$strings['BaseDN'] = 'BaseDN';
+		$strings['AttributeMapping'] = 'Mapeo de atributos';
+		$strings['UserIdAttribute'] = 'Identificador de usuario';
+		
+		//Roles
+		$strings['ResAdmin'] = 'Administrador de recurso';
+		$strings['AppAdmin'] = 'Administrador del sistema';
+		
+		//Otros
+		$strings['ViewReservations'] = 'Ver reservas';
+		
         $this->Strings = $strings;
     }
 

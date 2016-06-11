@@ -18,57 +18,42 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
 <div id="calendar"></div>
-<div style="display:none;">
-<a id="legendHide" href="#" style="float:left;">{html_image src="script.png"}Leyenda</a>
-<div style="float:left;"> &nbsp|&nbsp</div>
-{*<a id="timeTable" href="#" style="float:left;">{html_image src="horario.png"}Horarios</a>*}
-<a id="export" href="#" style="float:right;">{html_image src="cloud.png"}Exportar</a>
-<div id="legend_old" style="text-align:center;"></div>
-</div>
 
-<div id="dialogDeleteReservation" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="Delete"}>
+<div id="dialogDeleteReservation" class="dialog" title={translate key="Delete"}>
   <div class="warning">{translate key=DeleteWarning}</div>
-  <button type="button" class="button deleteReservation" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+  </br>
+  <button id="deleteReservation" type="button" class="button deleteReservation">{html_image src="cross-button.png"} {translate key='Delete'}</button>
 </div>
 
-<div id="dialogDeleteBlackout" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="Delete"}>
+<div id="dialogDeleteBlackout" class="dialog" title={translate key="Delete"}>
   <div class="warning">{translate key=DeleteWarning}</div>
-  <button type="button" class="button deleteBlackout" style="float:right;">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+  </br>
+  <button id="deleteBlackout" type="button" class="button deleteBlackout">{html_image src="cross-button.png"} {translate key='Delete'}</button>
 </div>
 
-<div id="dialogColors" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="Colors"}>
+<div id="dialogColors" class="dialog" title={translate key="Colors"}>
 	<div id="legend">
-	{foreach from=$resources item=resource}
-	<input type='button' id='{$resource->GetName()|escape}' class="jscolor">&nbsp{$resource->GetName()|escape}</input> </br> </br>
-	{/foreach}
+		{foreach from=$resources item=resource}
+			<input type='button' id='{$resource->GetName()|escape}' class="jscolor">&nbsp{$resource->GetName()|escape}</input> </br> </br>
+		{/foreach}
 	</div>
 </div>
 
-<div id="dialogBoundaries" class="dialog" style="display:none;background-color:#FFCC99" "title={translate key="TimeTable"}>
+<div id="dialogBoundaries" class="dialog" "title={translate key="TimeTable"}>
   <div class="warning">{translate key=TimeTableBoundaries}</div>
   </br>
-  <div id="selects" style="text-align: center;">
-  <select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
-  </select>
-  -
-  <select id="EndPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
-  </select>
-  </br>
-  </br>
-  <button type="button" class="button timeTable" style="float:right;">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-  
-</div>
-  
-<div id="dialogSucessful" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="Update"}>
-  <p>{translate key="ReservationUpdatedSubject"}</p>
-</div>
-  
-<div id="dialogFailed" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="Update"}>
-  <p>{translate key="ReservationFailed"}</p>
+  <div id="selects">
+	<select id="BeginPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+	</select>
+	-
+	<select id="EndPeriod" {formname key=BEGIN_PERIOD} class="pulldown input" style="width:150px">
+	</select>
+	</br></br>
+	<button type="button" class="button timeTable">{html_image src="tick-circle.png"} {translate key='Update'}</button>
   </div>
 </div>
 
-<div id="hidden" style="visibility:hidden;">
+<div id="hidden" class="hiddenDiv">
 	<form id='myform' method="post">
 		<input id="minTime" name="minTime" type="text" value="">
 		<input id="maxTime" name="maxTime" type="text" value="">
@@ -76,18 +61,16 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 	
-<div id="dialogSubscribe" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="Subscription"}>
+<div id="dialogSubscribe" class="dialog" title={translate key="Subscription"}>
 	 <div class="warning">{translate key=Subscribe}</div>
 	 </br>
-	<button type="button" class="button export" style="float:right;">{html_image src="disk-arrow.png"} {translate key='Export'}</button>
-	<button type="button" class="button gcalendar" style="float:right;">{html_image src="google.png"} GCalendar</button>
+	<button type="button" class="button export">{html_image src="disk-arrow.png"} {translate key='Export'}</button>
+	<button type="button" class="button gcalendar">{html_image src="google.png"} GCalendar</button>
 </div>
 
-<div id="reservationColorbox" class="dialog" style="display:none;background-color:#FFCC99" title={translate key="CreateReservationHeading"}>
+<div id="reservationColorbox" class="dialog" title={translate key="CreateReservationHeading"}></div>
 
-</div>
-
-<div style="display:none;" id="strings">
+<div class="hiddenDiv" id="strings">
    <input id="createString" type="text" value="{translate key="Create"}">
    <input id="editString" type="text" value="{translate key="Edit"}">
    <input id="deleteString" type="text" value="{translate key="Delete"}">
@@ -113,7 +96,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="Popup-master/assets/js/jquery.popup.js"}
 {jsfile src="jscolor-2.0.4/jscolor.js"}
 {jsfile src="enhancement/calendarEnhance.js"}
-{*{jsfile src="enhancement/createEnhance.js"}*}
 {cssfile src="admin.css"}
 {jsfile src="menu/jquery.ui-contextmenu.min.js"}
 
@@ -126,11 +108,9 @@ $(document).ready(function() {
 	{foreach from=$Calendar->Reservations() item=reservation}
 		reservations.push({
 			id: '{$reservation->ReferenceNumber}',
-			{*title: '{$reservation->DisplayTitle|escape:javascript}',*}
 			title: '{$reservation->ResourceName}',
 			start: '{format_date date=$reservation->StartDate key=fullcalendar}',
 			end: '{format_date date=$reservation->EndDate key=fullcalendar}',
-			/*url: 'reservation.php?rn={$reservation->ReferenceNumber}',*/
 			allDay: false,
 			color: '{$reservation->Color}',
 			textColor: '{$reservation->TextColor}',
@@ -148,7 +128,7 @@ $(document).ready(function() {
 			start: '{formatdate date=$blackout->StartDate timezone=$Timezone key=res_popup}',
 			end: '{formatdate date=$blackout->EndDate timezone=$Timezone key=res_popup}',
 			allDay: false,
-			color: '#202020 ',
+			color: '#202020',
 			textColor: '#F0099CC',
 			className: 'blackout',
 			colorID:'{$blackout->Title}'
@@ -180,9 +160,6 @@ $(document).ready(function() {
 					readOnly: '{$UserId}'
 				};
 	
-	//alert(options.username);
-	//alert(options.password);
-	
 	if (options.password.indexOf('blank') != -1){
 		options.username = sessionStorage.getItem('username');
 		options.password = sessionStorage.getItem('password');
@@ -200,6 +177,7 @@ $(document).ready(function() {
 	calendar.bindResourceGroups({$ResourceGroupsAsJson}, {$SelectedGroupNode|default:0});	
 	
 	enhanceCalendar(options, reservations);
+	
 	{if $CanViewAdmin}
 		sessionStorage.setItem('isAdmin', {$CanViewAdmin});
 	{else}
@@ -207,13 +185,3 @@ $(document).ready(function() {
 	{/if}
 });
 </script>	
-
-
-
-
-
-	
-	
-
-
-

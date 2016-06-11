@@ -50,7 +50,7 @@ class ConfigurePresenter
 		$this->Configure();
 	}
 
-	//¿?
+	//Unused
 	private function CheckForInstallPasswordInConfig()
 	{
 		$this->page->SetPasswordMissing(!$this->securityGuard->CheckForInstallPasswordInConfig());

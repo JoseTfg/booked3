@@ -26,51 +26,57 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{translate key="EditReservationHeading" args=''}
 {/block}
 
-{block name=deleteButtons}
-	{if $IsRecurring}
-		<a href="#" class="delete prompt">
-			{html_image src="cross-button.png"}
-			{translate key='Delete'}
-		</a>
-	{else}
-		<a href="#" class="delete save">
-			{html_image src="cross-button.png"}
-			{translate key='Delete'}
-		</a>
-	{/if}
-{/block}
-
+<div>
 {block name=submitButtons}
 	{if $IsRecurring}
-		<button type="button" class="button update prompt">
+		<button type="button" class="button update prompt" id="submitButton4">
 			<img src="img/tick-circle.png" />
 			{translate key='Update'}
 		</button>
-		<div class="updateButtons" style="display:none;" title="{translate key=ApplyUpdatesTo}">
+		<div class="updateButtons hiddenDiv" title="{translate key=ApplyUpdatesTo}">
 			<div style="text-align: center;line-height:50px;">
-				<button type="button" class="button save btnUpdateThisInstance">
+				<button type="button" class="button save btnUpdateThisInstance" id="submitButton1">
 					{html_image src="disk-black.png"}
 					{translate key='ThisInstance'}
 				</button>
-				<button type="button" class="button save btnUpdateAllInstances">
+				</br>
+				<button type="button" class="button save btnUpdateAllInstances" id="submitButton2">
 					{html_image src="disks-black.png"}
 					{translate key='AllInstances'}
 				</button>
-				<button type="button" class="button save btnUpdateFutureInstances">
+				</br>
+				<button type="button" class="button save btnUpdateFutureInstances" id="submitButton3">
 					{html_image src="disk-arrow.png"}
 					{translate key='FutureInstances'}
 				</button>
-				<button type="button" class="button">
-					{html_image src="slash.png"}
-					{translate key='Cancel'}
-				</button>
+				</br>
 			</div>
 		</div>
 	{else}
-		<button type="button" id="submitButton" class="button save update btnCreate">
+		<button type="button" id="submitButton" class="button save update btnCreate" style="position: absolute;left: 22%;">
 			<img src="img/disk-black.png" />
 			{translate key='Update'}
 		</button>
+	{/if}
+{/block}
+</div>
+{block name=deleteButtons}
+	{if $IsRecurring}
+		</br>
+		</br>
+		</br>
+		<a href="#" class="delete prompt" style="float:right;" id="delete">
+			{html_image src="cross-button.png"}
+			{translate key='Delete'}
+		</a>
+	{else}
+		</br>
+		</br>
+		</br>
+		<a href="#" class="delete save" style="float:right; id="delete">
+			{html_image src="cross-button.png"}
+			{translate key='Delete'}
+		</a>
 	{/if}
 {/block}
 
@@ -80,14 +86,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {block name='attachments'}
 <div style="clear:both">&nbsp;</div>
-
 	<div id="attachmentDiv" class="res-attachments">
-	<span class="heading">{translate key=Attachments} ({$Attachments|count})</span>
-	{if $Attachments|count > 0}
-		<a href="#" class="remove" id="btnRemoveAttachment">({translate key="Remove"})</a><br/>
-		{foreach from=$Attachments item=attachment}
-			<a href="attachments/{Pages::RESERVATION_FILE}?{QueryStringKeys::ATTACHMENT_FILE_ID}={$attachment->FileId()}&{QueryStringKeys::REFERENCE_NUMBER}={$ReferenceNumber}" target="_blank">{$attachment->FileName()}</a>&nbsp;<input style='display: none;' type="checkbox" name="{FormKeys::REMOVED_FILE_IDS}[{$attachment->FileId()}]" />&nbsp;
-		{/foreach}
-	{/if}
+		<span class="heading">{translate key=Attachments} ({$Attachments|count})</span>
 	</div>
 {/block}

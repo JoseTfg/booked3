@@ -96,8 +96,8 @@ class ManageBlackoutsPresenter extends ActionPresenter
 		$this->page->SetScheduleId($scheduleId);
 		$this->page->SetResourceId($resourceId);
 
-		//MyCode
-		//$filter = new BlackoutFilter($startDate, $endDate, $scheduleId, $resourceId);
+		//MyCode (12/5/2016)
+		//Resets the filter when loading page
 		$filter = new BlackoutFilter('', '', '', '');
 	
 		$blackouts = $this->manageBlackoutsService->LoadFiltered($this->page->GetPageNumber(),

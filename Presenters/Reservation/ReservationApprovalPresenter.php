@@ -53,6 +53,7 @@ class ReservationApprovalPresenter implements IReservationApprovalPresenter
 	 */
 	private $userSession;
 
+	//Construct
 	public function __construct(
 		IReservationApprovalPage $page,
 		IUpdateReservationPersistenceService $persistenceService,
@@ -83,8 +84,10 @@ class ReservationApprovalPresenter implements IReservationApprovalPresenter
 	}
 }
 
+//View adapter
 class ReservationViewAdapter extends ReservationView
 {
+	//Construct
 	public function __construct(ExistingReservationSeries $series)
 	{
 		foreach ($series->Accessories() as $accessory)

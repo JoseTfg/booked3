@@ -1,38 +1,38 @@
 Unchanged:
 
--AdminPage.php					Unchanged
+-AdminPage.php							Unchanged
 -GroupAdminManageGroupsPage.php			Unchanged
 -GroupAdminManageUsersPage.php			Unchanged
 -ManageAnnouncementsPage.php			Unchanged
--ManageBlackoutsPage.php			Unchanged
--ManageGroupsPage.php				Unchanged
--ManageReservationsPage.php			Unchanged
--ManageResourcesPage.php			Unchanged
--ManageUsersPage.php				Unchanged
+-ManageBlackoutsPage.php				Unchanged
+-ManageGroupsPage.php					Unchanged
+-ManageReservationsPage.php				Unchanged
+-ManageResourcesPage.php				Unchanged
+-ManageUsersPage.php					Unchanged
 -ResourceAdminManageReservationsPage.php	Unchanged
 -ResourceAdminManageResourcesPage.php		Unchanged
--AutoCompletePage.php				Unchanged
+-AutoCompletePage.php					Unchanged
 -IReservationSaveResultsView.php		Unchanged
 -ReservationApprovalPage.php			Unchanged
--ReservationDeletePage.php			Unchanged
--ConfigurePage.php				Unchanged
--InstallPage.php				Unchanged
--CommonReportsPage.php				Unchanged
--GenerateReportPage.php				Unchanged
--IDisplayableReportPage.php			Unchanged
--SavedReportsPage.php				Unchanged
--ActionPage.php					Unchanged
--ErrorPage.php					ToDo
+-ReservationDeletePage.php				Unchanged
+-ConfigurePage.php						Unchanged
+-InstallPage.php						Unchanged
+-CommonReportsPage.php					Unchanged
+-GenerateReportPage.php					Unchanged
+-IDisplayableReportPage.php				Unchanged
+-SavedReportsPage.php					Unchanged
+-ActionPage.php							Unchanged
+-ErrorPage.php							ToDo
 -ExistingReservationPage.php			Unchanged
--HelpPage.php					Unchanged
--IPage.php					Unchanged
--IPageable.php					Unchanged
--LoginPage.php					Unchanged
--LogoutPage.php					Unchanged
--NewReservationPage.php				Unchanged
--OpeningsPage.php				Unchanged
+-HelpPage.php							Unchanged
+-IPage.php								Unchanged
+-IPageable.php							Unchanged
+-LoginPage.php							Unchanged
+-LogoutPage.php							Unchanged
+-NewReservationPage.php					Unchanged
+-OpeningsPage.php						Unchanged
 -ReadOnlyReservationPage.php			Unchanged
--SecurePage.php					Unchanged
+-SecurePage.php							Unchanged
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,27 +80,27 @@ Changed:
 -ManageSchedulesPage.php: 	Several functions have been copied in other pages.
 
 
--CalendarPage.php:		Now it obtains the minimun and maximun reservable times to display the calendar accordingly.
-				Now it gets a variable to differentiate from PersonalCalendarPage.
+-CalendarPage.php:			Now it obtains the minimun and maximun reservable times to display the calendar accordingly.
+							Now it gets a variable to differentiate from PersonalCalendarPage.
 
--Pages.php:			Now it targets the correct pages with the new changes.
+-Pages.php:					Now it targets the correct pages with the new changes.
 
 -PersonalCalendarPage.php:	Now it obtains the minimun and maximun reservable times to display the calendar accordingly.
-				Now it gets a variable to differentiate from CalendarPage.
+							Now it gets a variable to differentiate from CalendarPage.
 
--SchedulePage.php:		No longer in use.
+-SchedulePage.php:			No longer in use.
 
 
 ////////////////////////////////////////V0.2//////////////////////////////////////////////////
 
 8/3/2016
--Page.php:			Pages now gets the announcements from server.
-				Pages now display new logo.
+-Page.php:					Pages now gets the announcements from server.
+							Pages now display new logo.
 
 ////////////////////////////////////////V0.3//////////////////////////////////////////////////
 
 14/3/2016
--CalendarPage.php:		Resource id is now an array.
+-CalendarPage.php:			Resource id is now an array.
 -PersonalCalendarPage.php:	Resource id is now an array.
 
 15/3/2016
@@ -111,7 +111,7 @@ Changed:
 
 29/3/2016
 -ReservationDeletePage.php:	Now returns to last page after success.
--CalendarPage.php:		No longer in use.
+-CalendarPage.php:			No longer in use.
 -ManageSchedulesPage.php:	No longer in use.
 
 31/3/2016

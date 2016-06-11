@@ -19,77 +19,70 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {include file='globalheader.tpl'}
 
 {if $ShowLoginError}
-<div id="loginError">
-	{translate key='LoginError'}
-</div>
+	<div id="loginError">
+		{translate key='LoginError'}
+	</div>
 {/if}
 
 <div class="container">
-   <div class="column-left">
-	<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+    <div class="column-left">
+		<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
 	</div>
 	
-   <div class="column-right">
-   <script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
-   </div>
-   
+    <div class="column-right">
+		<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+    </div>   
 
-<div class="column-center">
-	<div id="loginbox">
-		<!--This "$smarty.server.SCRIPT_NAME" sets up the form to post back to the same page that it is on.-->
-		<form name="login" id="login" class="login" method="post" action="{$smarty.server.SCRIPT_NAME}">
-			<div>
-				{if $ShowUsernamePrompt}
-				<p>
-					<label class="login">{translate key='UsernameOrEmail'}<br/>
-					{textbox name="EMAIL" class="input" size="20" tabindex="10"}</label>
-				</p>
-				{/if}
+	<div class="column-center">
+		<div id="loginbox">
+			<!--This "$smarty.server.SCRIPT_NAME" sets up the form to post back to the same page that it is on.-->
+			<form name="login" id="login" class="login" method="post" action="{$smarty.server.SCRIPT_NAME}">
+				<div>
+					{if $ShowUsernamePrompt}
+						<p>
+							<label class="login">{translate key='UsernameOrEmail'}<br/>
+							{textbox name="EMAIL" class="input" size="20" tabindex="10"}</label>
+						</p>
+					{/if}
 
-				{if $ShowPasswordPrompt}
-				<p>
-					<label class="login">{translate key='Password'}<br/>
-					{textbox type="password" name="PASSWORD" class="input" value="" size="20" tabindex="20"}</label>
-				</p>
-				{/if}
+					{if $ShowPasswordPrompt}
+						<p>
+							<label class="login">{translate key='Password'}<br/>
+							{textbox type="password" name="PASSWORD" class="input" value="" size="20" tabindex="20"}</label>
+						</p>
+					{/if}
 
-				<p>
-					<label class="login">{translate key='Language'}<br/>
+					<p>
+						<label class="login">{translate key='Language'}<br/>
 						<select {formname key='LANGUAGE'} class="input-small" id="languageDropDown">
-						{object_html_options options=$Languages key='GetLanguageCode' label='GetDisplayName' selected=$SelectedLanguage}
+							{object_html_options options=$Languages key='GetLanguageCode' label='GetDisplayName' selected=$SelectedLanguage}
 						</select>
-				</p>
+					</p>
 
-				{if $ShowPersistLoginPrompt}
-				<p class="stayloggedin">
-					<label class="login"><input type="checkbox" name="{FormKeys::PERSIST_LOGIN}" value="true"
-												tabindex="30"/> {translate key='RememberMe'}</label>
+					{if $ShowPersistLoginPrompt}
+						<p class="stayloggedin">
+							<label class="login"><input type="checkbox" name="{FormKeys::PERSIST_LOGIN}" value="true" tabindex="30"/> {translate key='RememberMe'}</label>
+						</p>
+					{/if}
 
-				</p>
-				{/if}
-
-				<p class="loginsubmit">
-					<button type="submit" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img
-							src="img/door-open-in.png"/> {translate key='LogIn'} </button>
-					{*<button class="button" tabindex="100" onClick="login"><img
-							src="img/door-open-in.png"/> {translate key='LogIn'} </button>*}
-					<input type="hidden" name="{FormKeys::RESUME}" value="{$ResumeUrl}"/>
-				</p>
-			</div>
-			<div style="clear:both;">&nbsp;</div>
-			<input type="hidden" id="myLogin" value=""/>
-		</form>
+					<p class="loginsubmit">					
+						<button type="submit" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img src="img/door-open-in.png"/> {translate key='LogIn'} </button>
+						<button type="button" id="viewReservations" class="button" tabindex="100"><img src="img/search.png"/> {translate key='ViewReservations'} </button>
+						<input type="hidden" name="{FormKeys::RESUME}" value="{$ResumeUrl}"/>
+					</p>
+				</div>
+				<div style="clear:both;">&nbsp;</div>
+				<input type="hidden" id="myLogin" value=""/>
+			</form>
+		</div>
 	</div>
-</div>
-
-
 </div>
 
 
 <div id="login-links">
 	<p>
 		{if $ShowScheduleLink}
-		<a href="view-schedule.php">{translate key='ViewSchedule'}</a>
+			<a href="view-schedule.php">{translate key='ViewSchedule'}</a>
 		{/if}	
 	</p>
 </div>
@@ -106,8 +99,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 		var langCode = readCookie('{CookieKeys::LANGUAGE}');
 
-		if (!langCode) {
-		}
+		$('#viewReservations').click(function()
+		{
+			document.getElementsByClassName("input")[0].value = "user";
+			document.getElementsByClassName("input")[1].value = "password";
+			document.getElementsByClassName("button")[0].click();
+		});
+
 	});
 </script>
+
 {include file='globalfooter.tpl'}

@@ -1,6 +1,8 @@
+//Saved reports
 function SavedReports(reportOptions) {
 	var opts = reportOptions;
 
+	//Elements
 	var elements = {
 		indicator:$('#indicator'),
 		resultsDiv:$('#resultsDiv'),
@@ -12,6 +14,7 @@ function SavedReports(reportOptions) {
 
 	var reportId = 0;
 
+	//Initialization
 	this.init = function () {
 
 		wireUpReportLinks();
@@ -55,6 +58,7 @@ function SavedReports(reportOptions) {
 		});
 	};
 
+	//Wire up report links
 	var wireUpReportLinks = function () {
 		$('#report-list a.report').click(function (e) {
 			e.preventDefault();

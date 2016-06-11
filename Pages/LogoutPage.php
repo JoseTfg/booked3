@@ -22,7 +22,7 @@ require_once(ROOT_DIR . 'Pages/LoginPage.php');
 require_once(ROOT_DIR . 'Presenters/LoginPresenter.php');
 require_once(ROOT_DIR . 'lib/Application/Authentication/namespace.php');
 
-//Class: Supports the log out controller
+//Class: Supports the logout controller
 class LogoutPage extends LoginPage
 {
 	//Construct

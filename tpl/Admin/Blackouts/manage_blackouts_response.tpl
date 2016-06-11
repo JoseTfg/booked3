@@ -38,7 +38,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	{if !empty($Reservations)}
 		<h5>{translate key=ReservationConflicts}</h5>
-        <table class="list" id="reservationTable" style="margin-left: auto; margin-right: auto;">
+        <table class="list" id="reservationTable">
         	<tr>
         		<th class="id">&nbsp;</th>
         		<th>{translate key='User'}</th>

@@ -149,7 +149,6 @@ class PopupFormatter
 				}
 			}
 		}
-
 		return $label;
 	}
 }
@@ -217,13 +216,13 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 		$this->Set('fullName', new FullName($first, $last));
 	}
 
-	//Gets resorces
+	//Gets resources
 	function SetResources($resources)
 	{
 		$this->Set('resources', $resources);
 	}
 
-	//Sets participants
+	//Unused
 	function SetParticipants($users)
 	{
 		$this->Set('participants', $users);
@@ -262,7 +261,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	 * @param bool $hideReservationDetails
 	 * @return void
 	 */
-	//¿?
+	//Unused
 	public function SetHideDetails($hideReservationDetails)
 	{
 		$this->Set('hideDetails', $hideReservationDetails);
@@ -272,7 +271,7 @@ class ReservationPopupPage extends Page implements IReservationPopupPage
 	 * @param bool $hideUserInfo
 	 * @return void
 	 */
-	//¿?
+	//Unused
 	public function SetHideUser($hideUserInfo)
 	{
 		$this->Set('hideUserInfo', $hideUserInfo);

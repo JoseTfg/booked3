@@ -71,13 +71,11 @@ abstract class Page implements IPage
 		$this->smarty->assign('LoggedIn', $userSession->IsLoggedIn());
 		$this->smarty->assign('Version', Configuration::VERSION);
 		$this->smarty->assign('Path', $this->path);
-		//echo '<script type="text/javascript">alert("'.$pageTile.'");</script>';
 		$this->smarty->assign('pageTile', $pageTile);
 		$this->smarty->assign('ScriptUrl', Configuration::Instance()->GetScriptUrl());
 		$this->smarty->assign('UserName', !is_null($userSession) ? $userSession->FirstName : '');		
 		$this->smarty->assign('DisplayWelcome', $this->DisplayWelcome());
 		$this->smarty->assign('UserId', $userSession->UserId);
-		//echo '<script type="text/javascript">alert("'.$userSession->UserId.'");</script>';
 		$this->smarty->assign('CanViewAdmin', $userSession->IsAdmin);
 		$this->smarty->assign('CanViewGroupAdmin', $userSession->IsGroupAdmin);
 		$this->smarty->assign('CanViewResourceAdmin', $userSession->IsResourceAdmin);
@@ -102,26 +100,7 @@ abstract class Page implements IPage
 																				 new BooleanConverter()));
 
 		$this->smarty->assign('LogoUrl', 'booked.png');
-		//MyCode
-		// if (file_exists($this->path . 'img/custom-logo.png'))
-		// {
-			// $this->smarty->assign('LogoUrl', 'custom-logo.png');
-		// }
-		// if (file_exists($this->path . 'img/custom-logo.gif'))
-		// {
-			// $this->smarty->assign('LogoUrl', 'custom-logo.gif');
-		// }
-		// if (file_exists($this->path . 'img/custom-logo.jpg'))
-		// {
-			// $this->smarty->assign('LogoUrl', 'custom-logo.jpg');
-		// }
-
 		$this->smarty->assign('CssUrl', 'null-style.css');
-		// if (file_exists($this->path . 'css/custom-style.css'))
-		// {
-			// $this->smarty->assign('CssUrl', 'custom-style.css');
-		// }
-
 		$logoUrl = Configuration::Instance()->GetKey(ConfigKeys::HOME_URL);
 		if (empty($logoUrl))
 		{
@@ -138,7 +117,7 @@ abstract class Page implements IPage
 			$this->_announcements = new AnnouncementRepository();
 		}
 		$this->smarty->assign('Announcements', $this->GetFuture());
-		$this->smarty->assign('Logo2', 'booked_prueba.png');
+		$this->smarty->assign('Logo2', 'booked2.png');
 	}
 
 	//Sets title

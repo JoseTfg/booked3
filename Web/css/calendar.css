@@ -1,32 +1,41 @@
+/*Contains all the calendar style sheets*/
+
+/*Month view*/
 .monthCalendar {
 	width: 100%;
 	border-collapse: collapse;
 }
 
+/*Month view href*/
 .monthCalendar a {
 	text-decoration: none;
 }
 
+/*Month view href:hover*/
 .monthCalendar a:hover {
 	text-decoration: underline;
 }
 
+/*Month view cells*/
 .monthCalendar, .monthCalendar td, .monthCalendar th {
 	border: solid 1px #dddddd;
 }
 
+/*Header daynames*/
 .dayName th {
 	background-color: #fcfcfc;
 	padding: 3px 0px;
 	width: 14%;
 }
 
+/*Month view cells*/
 .monthCalendar td {
 	height: 120px;
 	vertical-align: top;
 	padding: 2px;
 }
 
+/*Today*/
 .today {
 	background-color: #FFFFE0;
 }
@@ -35,11 +44,13 @@
 	background-color: #ededed;
 }
 
+/*Hover*/
 .hover {
 	cursor: pointer;
 	background-color: #D9E9FA;
 }
 
+/*Heading*/
 .calendarHeading {	color: #666666;	
 	border-bottom: solid 1px #666666;
 	padding: 1px 0px 3px 5px;;	/* My Code */
@@ -48,52 +59,63 @@
 	font-weight: bold;
 }
 
+/*Heading href*/
 .calendarHeading a {
 	font-weight: normal;
 	font-size: 10pt;
 }
 
+/*No result*/
 .noresults {
 	font-style: italic;
 	font-size: 14pt;
 }
 
+/*Allday events hidden*/
 .fc-agenda-allday {
 	display: none;
 }
 
+/*Filter*/
 #filter {
 	margin: 5px;				/* My Code */
 	text-align: center;
 }
 
+/*Filter options*/
 option.schedule {
 	padding-left: 2px;
 }
 
+/*Filter options*/
 option.resource {
 	padding-left: 15px;
 }
 
+/*Calendar subscriptions*/
 .calendar-subscription {
 	text-align: right;
 	padding: 2px 0px;			/* My Code */
 }
 
+/*Calendar events*/
 #calendar a, #calendar a:visited {
 	color: #fff;
 }
 
+/*Jqtree li and elements*/
 ul.jqtree-tree li.jqtree-selected > .jqtree-element,
 ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
 	background: none;
 	font-weight: bold;
 }
 
+/*Jqtree ul*/
 ul.jqtree-tree .jqtree-toggler {
 	top: 10%;
 }
 
+/*Resource groups container*/
 #resourceGroupsContainer {
 	background-color: #fff;
 	padding:10px;
@@ -105,6 +127,7 @@ ul.jqtree-tree .jqtree-toggler {
 	position:absolute;
 }
 
+/*Group name*/
 .groupName {
 	font-size:1.5em;
 	font-weight: bold;

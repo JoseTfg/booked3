@@ -21,23 +21,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <h1>Migrate phpScheduleIt v1.2 to Booked Scheduler v2.x (MySQL only)</h1>
 
-<div class="migratingElements hidden">Migrating <span
-			class="elementType"></span> {html_image src="admin-ajax-indicator.gif"}</div>
+<div class="migratingElements hidden">Migrating <span class="elementType"></span> {html_image src="admin-ajax-indicator.gif"}</div>
 <div class="migratedElements hidden">
 	Migrated <span class="migratedCount">-</span> out of <span class="legacyCount">-</span>
 	<span class="elementType"></span> (<span class="percentComplete">-</span>%)
 </div>
 
-<div id="migrationResults">
-
-</div>
+<div id="migrationResults"></div>
 
 <div id="done" class="hidden">
 Done!
 </div>
 
 <div id="errorMessage" class="error hidden">There was an error running the migration. See details below.</div>
-<div id="errorContents" class="hidden" style="width:100%"></div>
+<div id="errorContents" class="hidden"></div>
 <div>
 	{if $StartMigration}
 		<script type="text/javascript">

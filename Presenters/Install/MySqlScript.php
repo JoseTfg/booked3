@@ -34,6 +34,7 @@ class MySqlScript {
      */
     private $tokens = array();
 
+	//Construct
     public function __construct($path) {
         $this->path = $path;
     }

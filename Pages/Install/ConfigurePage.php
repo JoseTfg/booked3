@@ -68,6 +68,7 @@ class ConfigurePage extends Page implements IConfgurePage
 	 */
 	private $presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('Install', 1);

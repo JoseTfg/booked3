@@ -43,10 +43,8 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 			$reservationAction = ReservationAction::Approve;
 			$factory = new ReservationPersistenceFactory();
 			$persistenceService = $factory->Create($reservationAction);
-			$handler = ReservationHandler::Create($reservationAction, $persistenceService,
-												  ServiceLocator::GetServer()->GetUserSession());
+			$handler = ReservationHandler::Create($reservationAction, $persistenceService,ServiceLocator::GetServer()->GetUserSession());
 			$auth = new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization());
-
 			$presenter = new ReservationApprovalPresenter($this, $persistenceService, $handler, $auth, ServiceLocator::GetServer()->GetUserSession());
 			$presenter->PageLoad();
 		} catch (Exception $ex)
@@ -77,7 +75,7 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 		}
 	}
 
-	//Sends the rror messages
+	//Sends the error messages
 	public function SetErrors($errors)
 	{
 		if (!empty($errors))
@@ -86,6 +84,7 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 		}
 	}
 
+	//Sends warnings
 	public function SetWarnings($warnings)
 	{
 		// nothing to do

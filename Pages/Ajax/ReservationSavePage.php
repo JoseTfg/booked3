@@ -179,9 +179,8 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 				
 				//MyCode (29/3/2016)
 				//Returns directly without sending any message.	
-				//$this->Display('Ajax/reservation/save_successful.tpl');
-				//$returnPage = $_SESSION['returnPage'];
-				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";  
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";
+				$this->Display('Ajax/reservation/save_successful.tpl');				
 			}
 			else
 			{
@@ -389,7 +388,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return int[]
 	 */
-	//Gets participants
+	//Unused
 	public function GetParticipants()
 	{
 		$participants = $this->GetForm(FormKeys::PARTICIPANT_LIST);
@@ -404,7 +403,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return int[]
 	 */
-	//Gets invitees
+	//Unused
 	public function GetInvitees()
 	{
 		$invitees = $this->GetForm(FormKeys::INVITATION_LIST);
@@ -419,7 +418,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return AccessoryFormElement[]
 	 */
-	//Gets accesories
+	//Unused
 	public function GetAccessories()
 	{
 		$accessories = $this->GetForm(FormKeys::ACCESSORY_LIST);
@@ -440,7 +439,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return AttributeFormElement[]|array
 	 */
-	//Gets attributes
+	//Unused
 	public function GetAttributes()
 	{
 		return AttributeFormParser::GetAttributes($this->GetForm(FormKeys::ATTRIBUTE_PREFIX));
@@ -449,7 +448,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return UploadedFile[]
 	 */
-	//Gets uploads
+	//Unused
 	public function GetAttachments()
 	{
 		if ($this->AttachmentsEnabled())
@@ -459,7 +458,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 		return array();
 	}
 
-	//Checks if attachments are enabled
+	//Unused
 	private function AttachmentsEnabled()
 	{
 		return Configuration::Instance()->GetSectionKey(ConfigSection::UPLOADS,
@@ -470,7 +469,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return bool
 	 */
-	//Checks if it has reminder
+	//Unused
 	public function HasStartReminder()
 	{
 		$val = $this->server->GetForm(FormKeys::START_REMINDER_ENABLED);
@@ -480,7 +479,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
-	//Gets the start reminder time
+	//Unused
 	public function GetStartReminderValue()
 	{
 		return $this->server->GetForm(FormKeys::START_REMINDER_TIME);
@@ -489,7 +488,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
-	//Gets the reminder interval
+	//Unused
 	public function GetStartReminderInterval()
 	{
 		return $this->server->GetForm(FormKeys::START_REMINDER_INTERVAL);
@@ -498,7 +497,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return bool
 	 */
-	//Check when the reminders end
+	//Unused
 	public function HasEndReminder()
 	{
 		$val = $this->server->GetForm(FormKeys::END_REMINDER_ENABLED);
@@ -508,7 +507,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
-	//Gets the end reminder value
+	//Unused
 	public function GetEndReminderValue()
 	{
 		return $this->server->GetForm(FormKeys::END_REMINDER_TIME);
@@ -517,7 +516,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return string
 	 */
-	//Gets the reminder interval
+	//Unused
 	public function GetEndReminderInterval()
 	{
 		return $this->server->GetForm(FormKeys::END_REMINDER_INTERVAL);
@@ -526,7 +525,7 @@ class ReservationSavePage extends SecurePage implements IReservationSavePage
 	/**
 	 * @return bool
 	 */
-	//Checks participation allowance
+	//Unused
 	public function GetAllowParticipation()
 	{
 		$val = $this->server->GetForm(FormKeys::ALLOW_PARTICIPATION);
@@ -540,6 +539,7 @@ class AccessoryFormElement
 	public $Id;
 	public $Quantity;
 
+	//Construct
 	public function __construct($formValue)
 	{
 		$idAndQuantity = $formValue;
@@ -554,6 +554,7 @@ class AccessoryFormElement
 		$this->Name = urldecode($name[1]);
 	}
 
+	//Creates
 	public static function Create($id, $quantity)
 	{
 		$element = new AccessoryFormElement("accessory-id=$id,quantity=$quantity,name=");

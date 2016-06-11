@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// see http://pear.php.net/manual/en/package.networking.net-ldap2.connecting.php
-
+//Jumpcloud server
 $conf['settings']['host'] = 'ldap.jumpcloud.com'; // comma separated list of ldap servers such as mydomain1,localhost
 $conf['settings']['port'] = '389';      // default ldap port 389 or 636 for ssl.
 $conf['settings']['version'] = '3';		// LDAP protocol version
@@ -30,7 +29,7 @@ $conf['settings']['basedn'] = 'ou=Users,o=56d6fc6e62695b7f543ae469,dc=jumpcloud,
 $conf['settings']['filter'] = '';	// Default search filter
 $conf['settings']['scope'] = '';	// Search scope (eg. uid)
 $conf['settings']['required.group'] = '';	// Required group (empty if not necessary) (eg. cn=MyGroup,cn=Groups,dc=example,dc=com)
-$conf['settings']['database.auth.when.ldap.user.not.found'] = 'false';	// if ldap auth fails, authenticate against Booked Scheduler database
+$conf['settings']['database.auth.when.ldap.user.not.found'] = 'true';	// if ldap auth fails, authenticate against Booked Scheduler database
 $conf['settings']['ldap.debug.enabled'] = 'true';	// if LDAP2 should use debug logging
 $conf['settings']['attribute.mapping'] = 'sn=sn,givenname=givenname,mail=mail,telephonenumber=telephonenumber,physicaldeliveryofficename=physicaldeliveryofficename,title=title';	// mapping of required attributes to attribute names in your directory
 $conf['settings']['user.id.attribute'] = 'uid';	// the attribute name for user identification

@@ -67,13 +67,16 @@ class InstallationResult
 
 }
 
+//Unused
 class InstallationResultSkipped extends InstallationResult
 {
+	//Construct
 	public function __construct($versionNumber)
 	{
 		$this->taskName = "Skipping $versionNumber";
 	}
 
+	//Success
 	public function WasSuccessful()
 	{
 		true;

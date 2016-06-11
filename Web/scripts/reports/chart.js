@@ -1,3 +1,4 @@
+//Time formatter
 var TimeTickFormatter = function (format, val) {
 	var numdays = Math.floor(val / 86400);
 	var numhours = Math.floor((val % 86400) / 3600);
@@ -11,15 +12,18 @@ var TimeTickFormatter = function (format, val) {
 	return $hoursAndMinutes;
 };
 
+//Main chart function
 function Chart() {
 	var chartDiv = $('#chartdiv');
 	var chartIndicator = $('#chart-indicator');
 
+	//Clear
 	this.clear = function () {
 		chartDiv.empty();
 		chartDiv.hide();
 	};
 
+	//Generate
 	this.generate = function () {
 		var resultsDiv = $('#report-results');
 		chartDiv.show();
@@ -79,6 +83,7 @@ function Chart() {
 		chartIndicator.hide();
 	};
 
+	//Series
 	function Series() {
 		this.Add = function (row) {
 		};
@@ -122,6 +127,7 @@ function Chart() {
 		};
 	}
 
+	//Total series
 	function TotalSeries() {
 		this.series = new Array();
 		this.labels = new Array();
@@ -143,6 +149,7 @@ function Chart() {
 
 	TotalSeries.prototype = new Series();
 
+	//Total time series
 	function TotalTimeSeries() {
 
 		this.series = new Array();
@@ -155,6 +162,7 @@ function Chart() {
 
 	TotalTimeSeries.prototype = new TotalSeries();
 
+	//Date series
 	function DateSeries() {
 		this.labels = new Array();
 		this.groups = [];

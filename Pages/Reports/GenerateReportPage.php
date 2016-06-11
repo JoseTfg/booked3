@@ -341,7 +341,7 @@ class GenerateReportPage extends ActionPage implements IGenerateReportPage
 	//Unused
 	public function ShowCsv()
 	{
-		$this->DisplayCsv('Reports/custom-csv.tpl', 'report.csv');
+		//No-op
 	}
 
 	//Unused

@@ -21,6 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<div class="push">&nbsp;</div>
 	</div><!-- close wrapper-->
 
+{*Imports*}	
 <link rel="stylesheet" type="text/css" href="css/dashboard.css">
 <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 {jsfile src="js/jquery.qtip.min.js"}
@@ -33,32 +34,22 @@ $(document).ready(function() {
 	var dashboard = new Dashboard(dashboardOpts);
 	dashboard.init();
 });
+
 </script>
 {if $LoggedIn}
-{*<div class="dashboard" id="announcementsDashboard">*}
 	<div id="announcementsHeader" class="dashboardHeader">
-		{*<a href="javascript:void(0);" title="{translate key='ShowHide'}">{translate key="Announcements"} {html_image src="announce.png"}</a>*}
 		<marquee id="marquee" behavior="scroll" scrollamount="5" direction="left" onmousedown="this.stop();" onmouseup="this.start();">
-		{foreach from=$Announcements item=each}
-			   ||| {$each|html_entity_decode|url2link|nl2br}
-			{foreachelse}
-				{translate key="NoAnnouncements"}
-			{/foreach}</marquee>
-	</div>
-	{*<div class="dashboardContents" style="display:none">
-		<ul>
 			{foreach from=$Announcements item=each}
-			    <li>{$each|html_entity_decode|url2link|nl2br}</li>
+				| {$each|html_entity_decode|url2link|nl2br}
 			{foreachelse}
-				<div class="noresults">{translate key="NoAnnouncements"}</div>
+				| {translate key="NoAnnouncements"}
 			{/foreach}
-		</ul>
-	</div>*}
-{*</div>*}
-	{*</body>*}
-	{else}
+			|
+		</marquee>
+	</div>
+{else}
 	<div class="page-footer">
-			&copy; 2015 <a href="http://www.twinkletoessoftware.com">Twinkle Toes Software</a> &nbsp;<a href="http://www.bookedscheduler.com">Booked Scheduler v{$Version}</a>
-    	</div>
-	{/if}
+		&copy; 2011-2016 &nbsp;<a href="http://github.com/JoseTfg/booked3">Booked Scheduler Enhanced v0.9</a>
+    </div>
+{/if}
 </html>

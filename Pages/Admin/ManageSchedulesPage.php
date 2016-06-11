@@ -110,6 +110,7 @@ interface IManageSchedulesPage extends IUpdateSchedulePage, IActionPage, IPageab
 	public function GetAdminGroupId();
 }
 
+//Class: Supports schedule management controller
 class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 {
 	/**
@@ -117,6 +118,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 	 */
 	protected $_presenter;
 
+	//Construct
 	public function __construct()
 	{
 		parent::__construct('ManageSchedules', 1);
@@ -126,6 +128,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 														 new GroupRepository());
 	}
 
+	//Displays page
 	public function ProcessPageLoad()
 	{
 		$this->_presenter->PageLoad();
@@ -136,17 +139,20 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 		$this->Display('Admin/manage_schedules.tpl');
 	}
 
+	//Process action
 	public function ProcessAction()
 	{
 		$this->_presenter->ProcessAction();
 	}
 
+	//Sets timezones
 	public function SetTimezones($timezoneValues, $timezoneOutput)
 	{
 		$this->Set('TimezoneValues', $timezoneValues);
 		$this->Set('TimezoneOutput', $timezoneOutput);
 	}
 
+	//Sends schedule information to the Smarty page
 	public function BindSchedules($schedules, $layouts, $sourceSchedules)
 	{
 		$this->Set('Schedules', $schedules);
@@ -154,36 +160,43 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 		$this->Set('SourceSchedules', $sourceSchedules);
 	}
 
+	//Unused
 	public function GetScheduleId()
 	{
 		return $this->server->GetQuerystring(QueryStringKeys::SCHEDULE_ID);
 	}
 
+	//Unused
 	public function GetScheduleName()
 	{
 		return $this->server->GetForm(FormKeys::SCHEDULE_NAME);
 	}
 
+	//Unused
 	function GetStartDay()
 	{
 		return $this->server->GetForm(FormKeys::SCHEDULE_WEEKDAY_START);
 	}
 
+	//Unused
 	function GetDaysVisible()
 	{
 		return $this->server->GetForm(FormKeys::SCHEDULE_DAYS_VISIBLE);
 	}
 
+	//Gets reservable periods
 	public function GetReservableSlots()
 	{
 		return $this->server->GetForm(FormKeys::SLOTS_RESERVABLE);
 	}
 
+	//Gets blocked periods
 	public function GetBlockedSlots()
 	{
 		return $this->server->GetForm(FormKeys::SLOTS_BLOCKED);
 	}
 
+	//Unused
 	public function GetDailyReservableSlots()
 	{
 		$slots = array();
@@ -194,6 +207,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 		return $slots;
 	}
 
+	//Unused
 	public function GetDailyBlockedSlots()
 	{
 		$slots = array();
@@ -204,6 +218,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 		return $slots;
 	}
 
+	//Unused
 	public function GetUsingSingleLayout()
 	{
 		$singleLayout = $this->server->GetForm(FormKeys::USING_SINGLE_LAYOUT);
@@ -211,16 +226,19 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 		return !empty($singleLayout);
 	}
 
+	//Gets the layout timezone
 	public function GetLayoutTimezone()
 	{
 		return $this->server->GetForm(FormKeys::TIMEZONE);
 	}
 
+	//Unused
 	public function GetSourceScheduleId()
 	{
 		return $this->server->GetForm(FormKeys::SCHEDULE_ID);
 	}
 
+	//Unused
 	public function GetTargetScheduleId()
 	{
 		return $this->server->GetForm(FormKeys::SCHEDULE_ID);
@@ -234,6 +252,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 	/**
 	 * @param GroupItemView[] $groups
 	 */
+	//Unused
 	public function BindGroups($groups)
 	{
 		$this->Set('AdminGroups', $groups);
@@ -248,6 +267,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 	/**
 	 * @return int
 	 */
+	//Unused
 	public function GetAdminGroupId()
 	{
 		return $this->server->GetForm(FormKeys::SCHEDULE_ADMIN_GROUP_ID);
@@ -256,6 +276,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 	/**
 	 * @return int
 	 */
+	//Unused
 	function GetPageNumber()
 	{
 		return $this->pageablePage->GetPageNumber();
@@ -264,6 +285,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 	/**
 	 * @return int
 	 */
+	//Unused
 	function GetPageSize()
 	{
 		$pageSize = $this->pageablePage->GetPageSize();
@@ -279,6 +301,7 @@ class ManageSchedulesPage extends ActionPage implements IManageSchedulesPage
 	 * @param PageInfo $pageInfo
 	 * @return void
 	 */
+	//Unused
 	function BindPageInfo(PageInfo $pageInfo)
 	{
 		$this->pageablePage->BindPageInfo($pageInfo);

@@ -102,6 +102,7 @@ interface ISchedulePageBuilder
 									   $resourceTypeCustomAttributes);
 }
 
+//Class: Builds schedule pages
 class SchedulePageBuilder implements ISchedulePageBuilder
 {
 	/**
@@ -109,6 +110,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param array[int]ISchedule $schedules
 	 * @param ISchedule $currentSchedule
 	 */
+	//Sends the information to the Smarty page
 	public function BindSchedules(ISchedulePage $page, $schedules, $currentSchedule)
 	{
 		$scheduleId = $currentSchedule->GetId();
@@ -130,6 +132,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param UserSession $user
 	 * @return Schedule
 	 */
+	//Gets the schedule
 	public function GetCurrentSchedule(ISchedulePage $page, $schedules, UserSession $user)
 	{
 		$requestedScheduleId = $page->GetScheduleId();
@@ -156,6 +159,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	/**
 	 * @see ISchedulePageBuilder::GetScheduleDates()
 	 */
+	//Gets dates
 	public function GetScheduleDates(UserSession $user, ISchedule $schedule, ISchedulePage $page)
 	{
 		$userTimezone = $user->Timezone;
@@ -208,6 +212,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		return $applicableDates;
 	}
 
+	//Display dates
 	public function BindDisplayDates(ISchedulePage $page, DateRange $dateRange, ISchedule $schedule)
 	{
 		$scheduleLength = $schedule->GetDaysVisible();
@@ -240,6 +245,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	/**
 	 * @see ISchedulePageBuilder::BindReservations()
 	 */
+	//Sends reservation information to the Smarty page
 	public function BindReservations(ISchedulePage $page, $resources, IDailyLayout $dailyLayout)
 	{
 		$page->SetResources($resources);
@@ -250,6 +256,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param array|Schedule[] $schedules
 	 * @return Schedule
 	 */
+	//Gets default schedule
 	private function GetDefaultSchedule($schedules)
 	{
 		foreach ($schedules as $schedule)
@@ -268,6 +275,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param int $scheduleId
 	 * @return Schedule
 	 */
+	//Gets schedule
 	private function GetSchedule($schedules, $scheduleId)
 	{
 		foreach ($schedules as $schedule)
@@ -282,11 +290,13 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		return $schedules[0];
 	}
 
+	//Unused
 	public function BindResourceGroups(ISchedulePage $page, ResourceGroupTree $resourceGroupTree)
 	{
 		$page->SetResourceGroupTree($resourceGroupTree);
 	}
 
+	//Unused
 	public function GetGroupId($scheduleId, ISchedulePage $page)
 	{
 		$groupId = $page->GetGroupId();
@@ -308,6 +318,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		return null;
 	}
 
+	//Gets resource identifier
 	public function GetResourceId($scheduleId, ISchedulePage $page)
 	{
 		$resourceId = $page->GetResourceId();
@@ -331,6 +342,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		return null;
 	}
 
+	//Unused
 	private function getTreeCookie($scheduleId)
 	{
 		$cookie = ServiceLocator::GetServer()
@@ -344,6 +356,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		return null;
 	}
 
+	//Unused
 	public function BindResourceTypes(ISchedulePage $page, $resourceTypes)
 	{
 		$page->SetResourceTypes($resourceTypes);
@@ -354,6 +367,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param ISchedulePage $page
 	 * @return ScheduleResourceFilter
 	 */
+	//Unused
 	public function GetResourceFilter($scheduleId, ISchedulePage $page)
 	{
 		$filter = new ScheduleResourceFilter();
@@ -383,6 +397,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		return $filter;
 	}
 
+	//Unused
 	public function BindResourceFilter(ISchedulePage $page, ScheduleResourceFilter $filter, $resourceCustomAttributes,
 									   $resourceTypeCustomAttributes)
 	{
@@ -414,6 +429,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param $attributeFormElements AttributeFormElement[]
 	 * @return AttributeValue[]
 	 */
+	//Unused
 	private function AsAttributeValues($attributeFormElements)
 	{
 		$vals = array();
@@ -431,6 +447,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	 * @param AttributeValue $attributeFilter
 	 * @param Attribute[] $attributes
 	 */
+	//Unused
 	private function SetAttributeValue($attributeFilter, $attributes) {
 
 		foreach ($attributes as $attribute)

@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Supports the security guard
 class InstallSecurityGuard
 {
 	const VALIDATED_INSTALL = 'validated_install';
@@ -27,6 +28,7 @@ class InstallSecurityGuard
 	 * false if password is missing
 	 * @return bool
 	 */
+	//Checks for install password
 	public function CheckForInstallPasswordInConfig()
 	{
 		$installPassword = Configuration::Instance()->GetKey(ConfigKeys::INSTALLATION_PASSWORD);
@@ -45,6 +47,7 @@ class InstallSecurityGuard
 	 * @param string $installPassword
 	 * @return bool
 	 */
+	//Validates the password
 	public function ValidatePassword($installPassword)
 	{
 		$validated = $installPassword == Configuration::Instance()->GetKey(ConfigKeys::INSTALLATION_PASSWORD);
@@ -60,7 +63,7 @@ class InstallSecurityGuard
 		return $validated;
 	}
 
-
+	//Checks if user is authenticated
 	public function IsAuthenticated()
 	{
 		return ServiceLocator::GetServer()->GetSession(SessionKeys::INSTALLATION) == self::VALIDATED_INSTALL;

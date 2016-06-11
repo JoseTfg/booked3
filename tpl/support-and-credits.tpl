@@ -16,62 +16,53 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+
 {include file='globalheader.tpl'}
+
 <h1>About Booked Scheduler</h1>
 
 <div id="help">
+	<h2>Support</h2>
+	<p><a href="http://www.bookedscheduler.com/">Booked Scheduler Official Project Home</a></p>
+	<p><a href="http://php.brickhost.com/forums/">Community Support</a></p>
+	<p><a href="http://github.com/JoseTfg/booked3/">Booked Scheduler Project Repository</a></p>
+	<h2>Credits</h2>
+	<h3>Original Authors</h3>
+	<p>
+	Nick Korbel
+	</br>
+	Dung Le
+	</br>
+	Jan Mattila
+	</br>
+	Paul Menchini
+	</p>
 
-<h2>Support</h2>
+	<h3>Extended By</h3>
+	<p>
+	José Szklarz de Quesada
+	</p>
 
-<p><a href="http://www.bookedscheduler.com/">Booked Scheduler Official Project Home</a></p>
+	<h3>Thank you to the following projects and libraries</h3>
+	<p>
+	Smarty
+	</br>
+	PEAR
+	</br>
+	adLDAP
+	</br>
+	jQuery
+	</br>
+	FullCalendar
+	</br>
+	PHPMailer
+	</br>
+	jqplot
+	</br>
+	</p>
+	<h2>License</h2>
 
-<p><a href="http://php.brickhost.com/forums/">Community Support</a></p>
-
-<p><a href="https://sourceforge.net/projects/Booked Scheduler/">Booked Scheduler SourceForge Project Home</a></p>
-
-<h2>Credits</h2>
-
-<h3>Authors</h3>
-<p>
-Nick Korbel
-</br>
-Dung Le
-</br>
-Jan Mattila
-</br>
-Paul Menchini
-</p>
-<h3>Thank you to the following projects and libraries</h3>
-<p>
-Smarty
-</br>
-PEAR
-</br>
-adLDAP
-</br>
-jQuery
-</br>
-FullCalendar
-</br>
-{*log4php
-</br>
-securimage
-</br>
-SimpleImage
-</br>*}
-PHPMailer
-</br>
-jsTimezoneDetect
-</br>
-jqplot
-</br>
-{*FeedWriter
-</br>
-lim*}
-</p>
-<h2>License</h2>
-
-<p>Booked Scheduler free and open source, licenced under the GNU GENERAL PUBLIC LICENSE. Please see the included
-	License file for more details.</p>
-
+	<p>Booked Scheduler free and open source, licenced under the GNU GENERAL PUBLIC LICENSE. Please see the included License file for more details.</p>
+</div>	
+	
 {include file='globalfooter.tpl'}

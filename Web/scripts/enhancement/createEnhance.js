@@ -30,10 +30,10 @@ var blackoutTick = function(){
 //Turns on and off the option "allResources" for blackouts	
 var allResources = function(){
 	if (document.getElementById("allBlack").checked){
-		$("#filter").multiselect( "disable" );
+		//$("#filter").multiselect( "disable" );
 	}
 	else{
-		$("#filter").multiselect( "enable" );
+		//$("#filter").multiselect( "enable" );
 	}
 }
 
@@ -58,7 +58,7 @@ var blackoutPopup = function(){
 		modal:true,
 		backOpacity: 0
 	});
-	popup.open('http://localhost/booked/Web/admin/manage_blackouts.php');
+	popup.open('http://156.35.41.127/booked/Web/admin/manage_blackouts.php');
 	$('.popup').hide();
 	popup_status = sessionStorage.getItem("popup_status");
 	if (popup_status.indexOf("blackoutWait") != 0){
@@ -91,35 +91,56 @@ var blackoutPopup = function(){
 //Enhance functions
 var enhanceCreate = function(){
 	
+	$('.save').click(function (e){
+		$('.details').hide();
+		$(this).hide();
+		$('#submitButton4').hide();
+	});
+		
 	//Filter
-	$('#filter').multiselect({
-		header: false,
-		multiple: false,
-		selectedList: 1,
-		autoOpen: true,
-		height: "auto",
-		open: function(){		   
-		  if (isOpenedFirstTime){
-			 $('#filter').multiselect("close");
-		  }		
-		},
-		 close: function(event, ui){
-			 if (isOpenedFirstTime){
-				isOpenedFirstTime = false;
-				var url = document.URL;
-				rid = url.substr(url.indexOf("rid"));
-				if (rid.indexOf("&") != -1){
-					rid = rid.substr(0,rid.indexOf("&"));
-				}
-				rid = rid.substr(4);
-				$(this).val(rid);
-				$(this).multiselect("refresh");
-			}
-			else{
-				resourceId = $(this).val();
-				document.getElementById("resourceId").value = resourceId;
-			}
-		}
+	// $('#filter').multiselect({
+		// header: false,
+		// multiple: false,
+		// selectedList: 1,
+		// autoOpen: true,
+		// height: "auto",
+		// open: function(){		   
+		  // if (isOpenedFirstTime){
+			 // $('#filter').multiselect("close");
+		  // }		
+		// },
+		 // close: function(event, ui){
+			 // if (isOpenedFirstTime){
+				// isOpenedFirstTime = false;
+				// var url = document.URL;
+				// rid = url.substr(url.indexOf("rid"));
+				// if (rid.indexOf("&") != -1){
+					// rid = rid.substr(0,rid.indexOf("&"));
+				// }
+				// rid = rid.substr(4);
+				// $(this).val(rid);
+				// $(this).multiselect("refresh");
+			// }
+			// else{
+				// resourceId = $(this).val();
+				// document.getElementById("resourceId").value = resourceId;
+			// }
+		// }
+	// });
+	
+	var url = document.URL;
+	rid = url.substr(url.indexOf("rid"));
+	if (rid.indexOf("&") != -1){
+		rid = rid.substr(0,rid.indexOf("&"));
+	}
+	rid = rid.substr(4);
+	$('#filter').val(rid);
+	document.getElementById("resourceId").value = $('#filter').val();
+	
+	if (sessionStorage.getItem("resource"))
+	
+	$('#filter').change(function (e){
+		document.getElementById("resourceId").value = $(this).val();
 	});
 		
 	//Hides interface	
@@ -131,6 +152,7 @@ var enhanceCreate = function(){
 	getSession();
 	drag();
 	blackUpdate();
+	deleteCommand();
 } 
 
 //Gets session
@@ -157,7 +179,7 @@ var drag = function(){
 		//alert(document.getElementById("BeginPeriod").value);
 		document.getElementById("formattedEndDate").value = document.getElementById("formattedEndDate").value.substr(0,document.getElementById("formattedEndDate").value.lastIndexOf("-")+1)+day;
 		}
-		document.getElementsByTagName('button')[2].click();
+		document.getElementsByTagName('button')[1].click();
 	}
 }
 
@@ -180,5 +202,14 @@ var blackUpdate = function(){
 		blackoutTick();
 		document.getElementById("blackDiv").style.display = "none";
 	}	
+}
+
+
+//Executes drag update
+var deleteCommand = function(){
+	if(popup_status == "delete"){	
+		sessionStorage.setItem("popup_status", "none");		
+		document.getElementsByClassName('delete')[0].click();
+	}
 }
 

@@ -20,10 +20,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . '/lib/Config/namespace.php');
 
+//Options
 class LdapOptions
 {
 	private $_options = array();
 
+	//Construct
 	public function __construct()
 	{
 		require_once(dirname(__FILE__) . '/Ldap.config.php');
@@ -33,6 +35,7 @@ class LdapOptions
 			LdapConfig::CONFIG_ID);
 	}
 
+	//Sends the options
 	public function Ldap2Config()
 	{
 		$hosts = $this->GetHosts();
@@ -49,16 +52,19 @@ class LdapOptions
 		return $this->_options;
 	}
 
+	//Retry against database
 	public function RetryAgainstDatabase()
 	{
 		return $this->GetConfig(LdapConfig::RETRY_AGAINST_DATABASE, new BooleanConverter());
 	}
 
+	//Sends hosts
 	public function Controllers()
 	{
 		return $this->GetHosts();
 	}
 
+	//Sets option
 	private function SetOption($key, $value)
 	{
 		if (empty($value))
@@ -69,11 +75,13 @@ class LdapOptions
 		$this->_options[$key] = $value;
 	}
 
+	//Gets config
 	private function GetConfig($keyName, $converter = null)
 	{
 		return Configuration::Instance()->File(LdapConfig::CONFIG_ID)->GetKey($keyName, $converter);
 	}
 
+	//Gets hosts
 	private function GetHosts()
 	{
 		$hosts = explode(',', $this->GetConfig(LdapConfig::HOST));
@@ -86,22 +94,26 @@ class LdapOptions
 		return $hosts;
 	}
 
+	//Gets BaseDN
 	public function BaseDn()
 	{
 		return $this->_options[LdapConfig::BASEDN];
 	}
 
+	//Unused
 	public function IsLdapDebugOn()
 	{
 		return $this->GetConfig('ldap.debug.enabled', new BooleanConverter());
 	}
 
+	//Gets attribute mapping
 	public function Attributes()
 	{
 		$attributes = $this->AttributeMapping();
 		return array_values($attributes);
 	}
 
+	//Maps attributes
 	public function AttributeMapping()
 	{
 		$attributes = array('sn' => 'sn',
@@ -125,6 +137,7 @@ class LdapOptions
 		return $attributes;
 	}
 
+	//Gets identifier attributes
 	public function GetUserIdAttribute()
 	{
 		$attribute = $this->GetConfig(LdapConfig::USER_ID_ATTRIBUTE);
@@ -137,11 +150,13 @@ class LdapOptions
 		return $attribute;
 	}
 
+	//Gets required group
 	public function GetRequiredGroup()
 	{
 		return $this->GetConfig(LdapConfig::REQUIRED_GROUP);
     }
 
+	//Filters
      public function Filter()
      {
           return $this->_options[LdapConfig::FILTER];

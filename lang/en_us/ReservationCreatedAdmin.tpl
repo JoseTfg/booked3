@@ -27,18 +27,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{/if}
 	Starting: {formatdate date=$StartDate key=reservation_email}<br/>
 	Ending: {formatdate date=$EndDate key=reservation_email}<br/>
-	{if $ResourceNames|count > 1}
-		Resources:<br/>
-		{foreach from=$ResourceNames item=resourceName}
-			{$resourceName}<br/>
-		{/foreach}
-		{else}
-		Resource: {$ResourceName}<br/>
-	{/if}
-
-	{if $ResourceImage}
-		<div class="resource-image"><img src="{$ScriptUrl}/{$ResourceImage}"/></div>
-	{/if}
+	Resource: {$ResourceName}<br/>
 
 	Title: {$Title}<br/>
 	Description: {$Description}<br/>
@@ -53,20 +42,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{formatdate date=$date}<br/>
 	{/foreach}
 
-	{if $Accessories|count > 0}
-		<br/>Accessories:<br/>
-		{foreach from=$Accessories item=accessory}
-			({$accessory->QuantityReserved}) {$accessory->Name}<br/>
-		{/foreach}
-	{/if}
-
-	{if $Attributes|count > 0}
-		<br/>
-		{foreach from=$Attributes item=attribute}
-			<div>{control type="AttributeControl" attribute=$attribute readonly=true}</div>
-		{/foreach}
-	{/if}
-
 	{if $RequiresApproval}
 		<br/>
 		One or more of the resources reserved require approval before usage.  Please ensure that this reservation request is approved or rejected.
@@ -74,4 +49,4 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	<br/>
 	<br/>
-	<a href="{$ScriptUrl}/{$ReservationUrl}">View this reservation</a> | <a href="{$ScriptUrl}">Log in to Booked Scheduler</a>
+	<a href="{$ScriptUrl}">Log in to Booked Scheduler</a>

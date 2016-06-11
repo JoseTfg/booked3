@@ -1,7 +1,9 @@
+//Blackouts managements
 function BlackoutManagement(opts)
 {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		startDate: $("#formattedStartDate"),
 		endDate: $("#formattedEndDate"),
@@ -27,13 +29,17 @@ function BlackoutManagement(opts)
 	var blackouts = new Object();
     var blackoutId;
 
+	//Init
 	BlackoutManagement.prototype.init = function()
 	{
+		//Dialogs
         ConfigureAdminDialog(elements.deleteDialog, 'auto', 'auto');
         ConfigureAdminDialog(elements.deleteRecurringDialog, 'auto', 'auto');
 
+		//Wireup buttons
 		wireUpUpdateButtons();
 
+		//User events
 		$(".save").click(function() {
 			$(this).closest('form').submit();
 		});
@@ -128,29 +134,36 @@ function BlackoutManagement(opts)
 		});
 		$('#filter').click(filterReservations);
 
+		//Configure forms
 		ConfigureAdminForm(elements.addBlackoutForm, getAddUrl, onAddSuccess, null, {onBeforeSubmit: onBeforeAddSubmit, target: '#result'});
 		ConfigureAdminForm(elements.deleteForm, getDeleteUrl, onDeleteSuccess, null, {onBeforeSubmit: onBeforeDeleteSubmit, target: '#result'});
 		ConfigureAdminForm(elements.deleteRecurringForm, getDeleteUrl, onDeleteSuccess, null, {onBeforeSubmit: onBeforeDeleteSubmit, target: '#result'});
 	};
 
+	//Show delete blackouts
     function showDeleteBlackout() {
         elements.deleteDialog.dialog('open');
 		//MyCode
+		//Deletes without dialog
 		document.getElementsByTagName("button")[3].click();
     }
 
+	//Show delete recurrent blackouts
 	function showDeleteRecurringBlackout() {
         elements.deleteRecurringDialog.dialog('open');
     }
 
+	//Sets active blackout identifier
     function setActiveBlackoutId(id) {
         blackoutId = id;
     }
 
+	//Gets active blackout identifier
     function getActiveBlackoutId() {
        return blackoutId;
     }
 
+	//Before submit
 	function onBeforeAddSubmit(formData, jqForm, opts)
 	{
 		var isValid = BeforeFormSubmit(formData, jqForm, opts);
@@ -164,6 +177,7 @@ function BlackoutManagement(opts)
 		return isValid;
 	}
 
+	//Before delete submit
     function onBeforeDeleteSubmit()
     {
         $.colorbox({inline:true, href:"#createDiv", transition:"none", width:"75%", height:"75%", overlayClose: false});
@@ -171,6 +185,7 @@ function BlackoutManagement(opts)
         $('#creating, #createDiv').show();
     }
 
+	//Creation successful
 	function onAddSuccess()
 	{
 		$('#creating').hide();
@@ -188,47 +203,56 @@ function BlackoutManagement(opts)
         });
 	}
 
+	//Unused
     function onDeleteSuccess()
     {
         //MyCode
 		//location.reload();
     }
 	
+	//Delete url
 	function getDeleteUrl()
 	{
 		return opts.deleteUrl + getActiveBlackoutId();
 	}
 
+	//Creation url
 	function getAddUrl()
 	{
 		return opts.addUrl;
 	}
 
+	//Update url
 	function getUpdateUrl()
 	{
 		return opts.updateUrl;
 	}
 
+	//Sets active reference number
 	function setActiveReferenceNumber(referenceNumber)
 	{
 		this.referenceNumber = referenceNumber;
 	}
 
+	//Gets active reference number
 	function getActiveReferenceNumber()
 	{
 		return this.referenceNumber;
 	}
 
+	//Sets active reservation identifier
 	function setActiveReservationId(reservationId)
 	{
 		this.reservationId = reservationId;
 	}
 
+	//Gets active reservation identifier
 	function getActiveReservationId()
 	{
 		return this.reservationId;
 	}
 
+	//Deletes reservation
 	function showDeleteReservation(referenceNumber)
 	{
 		if (reservations[referenceNumber].isRecurring == '1')
@@ -241,6 +265,7 @@ function BlackoutManagement(opts)
 		}
 	}
 	
+	//Filters reservations
 	function filterReservations()
 	{
 		var filterQuery =
@@ -252,11 +277,13 @@ function BlackoutManagement(opts)
 		window.location = document.location.pathname + '?' + encodeURI(filterQuery);
 	}
 
+	//View reservations
 	function viewReservation(referenceNumber)
 	{
 		window.location = options.reservationUrlTemplate.replace('[refnum]', referenceNumber);
 	}
 
+	//Handles applicability
 	function handleBlackoutApplicabilityChange()
 	{
 		elements.allResources.change(function(){
@@ -273,6 +300,7 @@ function BlackoutManagement(opts)
 		});
 	}
 
+	//Wire up time pick
 	function wireUpTimePickers()
 	{
 		$('#addStartTime').timepicker({
@@ -283,11 +311,13 @@ function BlackoutManagement(opts)
 		});
 	}
 
+	//Change scope
 	function ChangeUpdateScope(updateScopeValue)
 	{
 		$('.hdnSeriesUpdateScope').val(updateScopeValue);
 	}
 
+	//Wire up buttons
 	function wireUpUpdateButtons()
 	{
 		$('.btnUpdateThisInstance').click(function ()

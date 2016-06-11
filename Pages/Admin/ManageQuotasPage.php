@@ -121,7 +121,6 @@ class ManageQuotasPage extends ActionPage implements IManageQuotasPage
 	public function ProcessPageLoad()
 	{
 		$this->presenter->PageLoad();
-
 		$this->Display('Admin/manage_quotas.tpl');
 	}
 
@@ -156,7 +155,6 @@ class ManageQuotasPage extends ActionPage implements IManageQuotasPage
 	{
 		$this->Set('Groups', $groups);
 	}
-
 
 	/**
 	 * @param array|Schedule[] $schedules

@@ -41,6 +41,7 @@ class CalendarFilters
 	 * @param int $selectedResourceId
 	 * @param ResourceGroupTree $resourceGroupTree
 	 */
+	//Construct
 	public function __construct($schedules, $resources, $selectedScheduleId, $selectedResourceId, ResourceGroupTree $resourceGroupTree)
 	{
 		$this->resourceGroupTree = $resourceGroupTree;
@@ -65,7 +66,6 @@ class CalendarFilters
 					$filter->AddSubFilter(new CalendarFilter(self::FilterResource, $resource->GetResourceId(), $resource->GetName(), ($selectedResourceId == $resource->GetResourceId())));
 				}
 			}
-
 			$this->filters[] = $filter;
 		}
 	}
@@ -73,7 +73,7 @@ class CalendarFilters
 	/**
 	 * @return bool
 	 */
-	//checks if is empty
+	//Checks if is empty
 	public function IsEmpty()
 	{
 		return empty($this->filters);
@@ -117,6 +117,7 @@ class CalendarFilters
 	}
 }
 
+//Supports the filter
 class CalendarFilter
 {
 	/**
@@ -176,6 +177,7 @@ class CalendarFilter
 		return $this->selected;
 	}
 
+	//Construct
 	public function __construct($type, $id, $name, $selected)
 	{
 		$this->type = $type;
@@ -184,6 +186,7 @@ class CalendarFilter
 		$this->selected = $selected;
 	}
 
+	//Adds a sub filter
 	public function AddSubFilter(CalendarFilter $subfilter)
 	{
 		$this->filters[] = $subfilter;
@@ -192,6 +195,7 @@ class CalendarFilter
 	/**
 	 * @return array|CalendarFilter[]
 	 */
+	//Gets the filter
 	public function GetFilters()
 	{
 		return $this->filters;

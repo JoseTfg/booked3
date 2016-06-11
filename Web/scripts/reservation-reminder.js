@@ -17,25 +17,30 @@
  along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ //Reminder
 function Reminder(opts)
 {
 	var options = opts;
 
+	//Elements
 	var elements = {
 		startDiv:$('#reminderOptionsStart'),
 		endDiv:$('#reminderOptionsEnd')
 	};
 
+	//Initialization
 	Reminder.prototype.init = function ()
 	{
 		$('.reminderTime').forceNumeric();
 
+		//Enable
 		var enable = function (div)
 		{
 			div.find('.reminderEnabled').attr('checked', 'checked');
 			div.find('.reminderTime, .reminderInterval').removeAttr('disabled', 'disabled');
 		};
 
+		//Disable
 		var disable = function (div)
 		{
 			div.find('.reminderEnabled').removeAttr('checked');
@@ -64,6 +69,7 @@ function Reminder(opts)
 			disable(elements.endDiv);
 		}
 
+		//Wire up
 		var wireUp = function (div)
 		{
 			div.find('.reminderEnabled').change(function ()

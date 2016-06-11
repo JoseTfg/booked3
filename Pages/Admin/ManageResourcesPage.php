@@ -690,31 +690,31 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		return $this->GetForm(FormKeys::ALLOW_CALENDAR_SUBSCRIPTIONS);
 	}
 
-	//¿?
+	//No minimum duration
 	public function GetMinimumDurationNone()
 	{
 		return $this->GetForm(FormKeys::MIN_DURATION_NONE);
 	}
 
-	//¿?
+	//No maximum duration
 	public function GetMaximumDurationNone()
 	{
 		return $this->GetForm(FormKeys::MAX_DURATION_NONE);
 	}
 	
-	//¿?
+	//No buffer duration
 	public function GetBufferTimeNone()
 	{
 		return $this->GetForm(FormKeys::BUFFER_TIME_NONE);
 	}
 
-	//¿?
+	//No minimum notice
 	public function GetStartNoticeNone()
 	{
 		return $this->GetForm(FormKeys::MIN_NOTICE_NONE);
 	}
 
-	//¿?
+	//No maximum notice
 	public function GetEndNoticeNone()
 	{
 		return $this->GetForm(FormKeys::MAX_NOTICE_NONE);
@@ -780,7 +780,7 @@ class ResourceFilterValues
 	 * @param CustomAttribute[] $customAttributes
 	 * @return ISqlFilter
 	 */
-	//¿?
+	//Filters the data
 	public function AsFilter($customAttributes)
 	{
 		$filter = new SqlFilterNull();

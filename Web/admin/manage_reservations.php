@@ -24,5 +24,6 @@ require_once(ROOT_DIR . 'Pages/Admin/ManageReservationsPage.php');
 require_once(ROOT_DIR . 'Presenters/Admin/ManageReservationsPresenter.php');
 
 //MyCode
+//Allows any kind of user to load this page
 $page = new ManageReservationsPage();
 $page->PageLoad();

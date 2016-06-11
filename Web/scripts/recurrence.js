@@ -49,10 +49,11 @@ function Recurrence(recurOptions, recurElements, prefix) {
 	var ChangeRepeatOptions = function () {
 		var repeatDropDown = elements.repeatOptions;
 		if (repeatDropDown.val() != 'none') {
-			$('#' + prefix + 'repeatUntilDiv').show();
+			$('#' + prefix + 'repeatUntilDiv').show();			
 		}
 		else {
 			$('div[id!=' + prefix + 'repeatOptions]', elements.repeatDiv).hide();
+			$('.reserved').show();
 		}
 
 		if (repeatDropDown.val() == 'daily') {
@@ -61,6 +62,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 			$('.years', elements.repeatDiv).hide();
 
 			$('.days', elements.repeatDiv).show();
+			$('.reserved').hide();
 		}
 
 		if (repeatDropDown.val() == 'weekly') {
@@ -69,6 +71,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 			$('.years', elements.repeatDiv).hide();
 
 			$('.weeks', elements.repeatDiv).show();
+			$('.reserved').hide();
 		}
 
 		if (repeatDropDown.val() == 'monthly') {
@@ -77,6 +80,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 			$('.years', elements.repeatDiv).hide();
 
 			$('.months', elements.repeatDiv).show();
+			$('.reserved').hide();
 		}
 
 		if (repeatDropDown.val() == 'yearly') {
@@ -85,6 +89,7 @@ function Recurrence(recurOptions, recurElements, prefix) {
 			$('.months', elements.repeatDiv).hide();
 
 			$('.years', elements.repeatDiv).show();
+			$('.reserved').hide();
 		}
 	};
 

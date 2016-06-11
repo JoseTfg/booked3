@@ -16,12 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
-Here is your temporary Booked Scheduler password: {$TemporaryPassword}
-
-<br/>
-
-Your old password will no longer work.
-<br/>
-<br/>
-
-Please <a href="{$ScriptUrl}">Log in to Booked Scheduler</a> and change your password as soon as possible.
+<div id="reservationCreated" class="reservationResponseMessage" style="text-align:center;">
+	{html_image src="dialog-success.png" id="imgReservationSuccess"}
+</div>

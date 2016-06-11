@@ -17,13 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <div class="clear"></div>
-<div id="chart-indicator" style="display:none; text-align: center;">
+<div id="chart-indicator">
 	<h3>{translate key=Working}</h3>
-{html_image src="admin-ajax-indicator.gif"}
+	{html_image src="admin-ajax-indicator.gif"}
 </div>
 
-<div id="chartdiv" style="margin:auto;height:400px;width:80%"></div>
+<div id="chartdiv"></div>
 
+{*Imports*}
 <!--[if lt IE 9]>{jsfile src="js/jqplot/excanvas.min.js"}<![endif]-->
 {jsfile src="js/jqplot/jquery.jqplot.min.js"}
 {jsfile src="js/jqplot/plugins/jqplot.barRenderer.min.js"}
@@ -33,6 +34,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="js/jqplot/plugins/jqplot.pointLabels.min.js"}
 {jsfile src="js/jqplot/plugins/jqplot.dateAxisRenderer.min.js"}
 
+{*Code*}
 <script type="text/javascript">
 	$(document).ready(function () {
 		$(document).on('loaded', '#report-no-data, #report-results', function () {

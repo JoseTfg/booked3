@@ -20,8 +20,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<div id="report-actions">
 		<a href="#" id="btnList">{html_image src="list.png"}{translate key=ViewAsList}</a> |
 		<a href="#" id="btnChart">{html_image src="chart.png"}{translate key=ViewAsChart}</a> |
-		{*{if !$HideSave}<a href="#" id="btnSaveReportPrompt">{html_image src="disk-black.png"}{translate key=SaveThisReport}</a> | {/if}*}
-		{*<a href="#" id="btnCsv">{html_image src="table-export.png"}{translate key=ExportToCSV}</a> |*}
 		<a href="#" id="btnPrint">{html_image src="printer.png"}{translate key=Print}</a> |
 		<a href="#" id="btnCustomizeColumns">{html_image src="funnel.png"}{translate key=Columns}</a>
 	</div>
@@ -32,15 +30,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				{capture name="columnTitle"}{if $column->HasTitle()}{$column->Title()}{else}{translate key=$column->TitleKey()}{/if}{/capture}
 				<th data-columnTitle="{$smarty.capture.columnTitle}">
 					{if $column->Title() eq "Resource"}
-					{translate key=Resources}
+						{translate key=Resources}
 					{elseif $column->Title() eq "Title"}
-					{translate key=Title}
+						{translate key=Title}
 					{elseif $column->Title() eq "Description"}
-					{translate key=Description}
+						{translate key=Description}
 					{elseif $column->Title() eq "User"}
-					{translate key=User}
+						{translate key=User}
 					{else}
-					{$smarty.capture.columnTitle}
+						{$smarty.capture.columnTitle}
 					{/if}
 				</th>
 			{/foreach}
@@ -55,24 +53,24 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</tr>
 		{/foreach}
 	</table>
-	<h4>{$Report->ResultCount()} {translate key=Rows}
-		{if $Definition->GetTotal() != ''}
-			| {$Definition->GetTotal()} {translate key=Total}
-		{/if}
-	</h4>
 {else}
-	<h2 id="report-no-data" class="no-data" style="text-align: center;">{translate key=NoResultsFound}</h2>
+	<h2 id="report-no-data" class="no-data">{translate key=NoResultsFound}</h2>
 {/if}
+
+<div class="hiddenDiv">
+	<input id="ResourceString" type="text" value="{translate key="Resource"}">
+	<input id="TitleString" type="text" value="{translate key="Title"}">
+	<input id="DescriptionString" type="text" value="{translate key="Description"}">
+	<input id="UserString" type="text" value="{translate key="User"}">
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function ()
 	{
-		//MyCode
 		$('#btnList').click(function() {
 			$('#report-results').show();
 			$('#chartdiv').hide();
 		});
-
 		$('#report-no-data, #report-results').trigger('loaded');
 	});
 </script>

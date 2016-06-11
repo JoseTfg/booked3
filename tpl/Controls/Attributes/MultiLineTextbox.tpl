@@ -18,10 +18,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <label class="customAttribute" for="{$attributeId}">{$attribute->Label()|escape}:</label>
 {if $align=='vertical'}
-<br/>
+	<br/>
 {/if}
 {if $readonly}
-<span class="attributeValue {$class}">{$attribute->Value()|escape|nl2br}</span>
+	<span class="attributeValue {$class}">{$attribute->Value()|escape|nl2br}</span>
 {else}
-<textarea id="{$attributeId}" name="{$attributeName}" class="customAttribute textbox {$class}">{$attribute->Value()|escape}</textarea>
+	<textarea id="{$attributeId}" name="{$attributeName}" class="customAttribute textbox {$class}">{$attribute->Value()|escape}</textarea>
 {/if}

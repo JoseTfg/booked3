@@ -1,3 +1,4 @@
+//Reservation popup
 $.fn.attachReservationPopup = function (refNum, detailsUrl)
 {
 	var me = $(this);

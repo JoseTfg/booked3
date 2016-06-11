@@ -18,11 +18,33 @@ var enhanceCalendar = function(opts, reservations) {
 	ConfigureAdminDialog($('#dialogSubscribe'));
 	ConfigureAdminDialog($('#dialogColors'));
 	ConfigureAdminDialog($('#dialogDeleteReservation'));
-	ConfigureAdminDialog($('#dialogDeleteBlackout'));
-	//ConfigureAdminDialog($('#reservationColorbox'));
-	//$('#dialogColors').dialog("option","modal",false);
+	ConfigureAdminDialog($('#dialogDeleteBlackout'));	
 	
-		
+	$('#deleteReservation').click(function (){
+		reservationID = info2;
+		url = 'http://156.35.41.127/booked/Web/reservation.php?rn='+reservationID; 
+		//url = [location.protocol, '//', location.host, "/booked/Web/Services/Reservations/",reservationID].join('');
+		var a = $('#reservationColorbox')
+			 .html('<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+               .dialog({
+                   autoOpen: false,
+                   modal: true,
+                   height: 500,
+                   width: 400
+                   //title: "Some title"
+               });
+			a.dialog("open");
+			document.body.style.overflow = "hidden"; /*MyCode*/
+			popup_status = sessionStorage.setItem("popup_status","delete");
+		interval = setInterval(function(){
+			//popup.close();
+			clearInterval(interval);
+			popup_status = sessionStorage.getItem("popup_status");
+			popupCheck(a,interval);
+			//location.reload();	
+		},1000);		
+	});
+	
 	$(".dayMenu").contextmenu({
 		//delegate: ".dayMenu",
 		menu: [
@@ -72,10 +94,10 @@ var enhanceCalendar = function(opts, reservations) {
 	$(".gcalendar").click(function (){
 		window.open("http://www.google.com/calendar/render?cid=webcal://156.35.41.127/booked/Web/uploads/calendars/"+opts.filename+".ics");
 		$("#dialogSubscribe").dialog('close');
-		alert("yo");
 	});
 	
 	$(".deleteReservation").click(function (){
+	return;
 		//Variables
 			var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
 			var header = null;
@@ -148,59 +170,6 @@ var enhanceCalendar = function(opts, reservations) {
 		document.getElementById("selects").style.visibility = "visible";	
 	});
 	
-	//Erase Reservation Dialog
-	// $("#dialogDeleteReservation").dialog({
-		// buttons: {
-        // "Delete": function() {
-            // $(this).dialog("close");
-			
-			// Variables
-			// var url = [location.protocol, '//', location.host, "/booked/Web/Services/Authentication/Authenticate"].join('');
-			// var header = null;
-			// var username = opts.username;
-			// var password = opts.password;		
-			// var isAdmin = sessionStorage.getItem('isAdmin');
-			
-			// API: Authentication
-			// $.post(url, JSON.stringify({username: username, password: password}), function(data, status){
-
-				// Authentication Successful
-				// if (data.isAuthenticated){
-					// Gets the data
-					// header = {"X-Booked-SessionToken": data.sessionToken, "X-Booked-UserId": data.userId};						
-					// reservationID = info2;
-					// url = [location.protocol, '//', location.host, "/booked/Web/Services/Reservations/",reservationID].join('');
-					
-					// Check permissions
-					// if ((opts.myCal == 1) || (isAdmin == "1")){
-						// API: Delete Reservation
-						// $.ajax({
-							// url: url,
-							// type: "DELETE",
-							// headers: header,
-							// dataType: "json",
-							 
-							// if Success
-							// success: function(data) {
-								// location.reload();
-							// }
-						// });
-					// }
-				// }
-			// });
-        // }
-      // }
-	// });
-	
-	//Colors
-	// $("#dialogColors").dialog({
-		// buttons: {
-         // "Actualizar": function() {
-             // $(this).dialog("close");
-			// }
-		// }
-	// });
-	
 	//Delete BlackoutDialog
 	$("#dialogDeleteBlackout").dialog({
 		buttons: {
@@ -251,14 +220,6 @@ var enhanceCalendar = function(opts, reservations) {
 	
 	//CalendarFilter
 	$('#calendarFilter').multiselect({
-			
-		//Before Open: used to fix bugs.
-		beforeopen: function(){
-			//$("#dialogDeleteReservation").dialog('close');
-			//$("#dialogDeleteBlackout").dialog('close');
-			//$("#dialogSucessful").dialog('close');
-			//$("#dialogFailed").dialog('close');
-		},
 			
 		//Options
 		header: true,
@@ -359,6 +320,7 @@ var enhanceCalendar = function(opts, reservations) {
                    //title: "Some title"
                });
 			a.dialog("open");
+			document.body.style.overflow = "hidden"; /*MyCode*/
 			
 			//$('#reservationColorbox').dialog("open");			
 			break;
@@ -394,8 +356,7 @@ var enhanceCalendar = function(opts, reservations) {
 	
 	//DayClick
 	var dayClick = function(date, allDay, jsEvent, view)
-	{
-		
+	{		
 		if (readOnly == "1"){
 		return;
 		}
@@ -460,12 +421,25 @@ var enhanceCalendar = function(opts, reservations) {
 				var end = new Date(dateVar);
 				end.setMinutes(dateVar.getMinutes()+30);
 				data = url + '&y=' + dateVar.getFullYear() + '&m=' + month + '&d=' + dateVar.getDate() + "&sd=" + getUrlFormattedDate(dateVar) + "&ed=" + getUrlFormattedDate(end);
-				var popup = new $.Popup({modal:true});
-				popup.open(data);
-				$('.popup_close').hide();
+				// var popup = new $.Popup({modal:true});
+				// popup.open(data);
+				// $('.popup_close').hide();
+				
+				var a = $('#reservationColorbox')
+			 .html('<iframe style="border: 0px; " src="' + data + '" width="100%" height="100%"></iframe>')
+               .dialog({
+                   autoOpen: false,
+                   modal: true,
+                   height: 500,
+                   width: 400
+                   //title: "Some title"
+               });
+			a.dialog("open");
+				document.body.style.overflow = "hidden"; /*MyCode*/
+			
 				interval = setInterval(function(){
 					popup_status = sessionStorage.getItem("popup_status");
-					popupCheck(popup,interval);
+					popupCheck(a,interval);
 				},100);
 			}				
 			});
@@ -553,12 +527,24 @@ var enhanceCalendar = function(opts, reservations) {
 		
 		//EventDoubleClick
 		else if (event == "eventDoubleClick"){
-			var popup = new $.Popup({modal:true});
-			popup.open('http://156.35.41.127/booked/Web/reservation.php?rn='+data.id);
-			$('.popup_close').hide();
+			// var popup = new $.Popup({modal:true});
+			// popup.open('http://156.35.41.127/booked/Web/reservation.php?rn='+data.id);
+			// $('.popup_close').hide();
+			url = 'http://156.35.41.127/booked/Web/reservation.php?rn='+data.id; 
+			var a = $('#reservationColorbox')
+			 .html('<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+               .dialog({
+                   autoOpen: false,
+                   modal: true,
+                   height: 500,
+                   width: 400
+                   //title: "Some title"
+               });
+			a.dialog("open");
+			
 			interval = setInterval(function(){
 				popup_status = sessionStorage.getItem("popup_status");
-				popupCheck(popup,interval);
+				popupCheck(a,interval);
 			},100);
 			sleep(1000);
 		}
@@ -610,12 +596,14 @@ var enhanceCalendar = function(opts, reservations) {
 	var popupCheck = function(popup,interval){
 		if(popup_status == "close"){
 			sessionStorage.setItem("popup_status", "none");
-			popup.close();
+			//popup.close();
+			popup.dialog("close");
 			clearInterval(interval);
 		}
 		if(popup_status == "update"){
 			sessionStorage.setItem("popup_status", "none");
-			popup.close();
+			//popup.close();
+			popup.dialog("close");
 			clearInterval(interval);
 			location.reload();
 		}		
@@ -666,12 +654,25 @@ var enhanceCalendar = function(opts, reservations) {
 		if (readOnly == "1"){
 		return;
 		}
-		popup = new $.Popup({modal:true});
-		popup.open(url);
-		$('.popup_close').hide();
+		// popup = new $.Popup({modal:true});
+		// popup.open(url);
+		// $('.popup_close').hide();
+		
+		var a = $('#reservationColorbox')
+			 .html('<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+               .dialog({
+                   autoOpen: false,
+                   modal: true,
+                   height: 500,
+                   width: 400
+                   //title: "Some title"
+               });
+			a.dialog("open");
+				document.body.style.overflow = "hidden"; /*MyCode*/
+		
 		interval = setInterval(function(){
 			popup_status = sessionStorage.getItem("popup_status");
-			popupCheck(popup,interval);
+			popupCheck(a,interval);
 		},100);
 	}
 	
@@ -702,20 +703,34 @@ var enhanceCalendar = function(opts, reservations) {
 		sd = sd+":00"
 		ed = ed+":00"
 					
-		var popup = new $.Popup({
-			modal:true,
-			backOpacity: 0
-		});
-		popup.open('reservation.php?rn='+event.id);
-		$('.popup').hide();
+		// var popup = new $.Popup({
+			// modal:true,
+			// backOpacity: 0
+		// });
+		// popup.open('reservation.php?rn='+event.id);
+		// $('.popup').hide();
+		url = "http://156.35.41.127/booked/Web/reservation.php?rn="+event.id;
+		var a = $('#reservationColorbox')
+			 .html('<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+               .dialog({
+                   autoOpen: false,
+                   modal: true,
+                   height: 500,
+                   width: 400
+                   //title: "Some title"
+               });
+			a.dialog("open");
+				document.body.style.overflow = "hidden"; /*MyCode*/
 		sessionStorage.setItem("popup_status", "drag");
 		sessionStorage.setItem("start", sd);
 		sessionStorage.setItem("end", ed);
 		sessionStorage.setItem("day", day);
 		interval = setInterval(function(){
-			popup.close();
+			//popup.close();
 			clearInterval(interval);
-			location.reload();	
+			popup_status = sessionStorage.getItem("popup_status");
+			popupCheck(a,interval);
+			//location.reload();	
 		},1000);
 	}
 	
@@ -731,4 +746,8 @@ var enhanceCalendar = function(opts, reservations) {
 	
 	$( ".jscolor" ).change(function() {
 	  changeColor(this.id,this.value);
+	});
+	
+	$('.dialog').on( "dialogclose", function( event, ui ) {
+		document.body.style.overflow = "initial";
 	});

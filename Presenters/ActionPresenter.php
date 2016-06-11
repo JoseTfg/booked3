@@ -38,6 +38,7 @@ abstract class ActionPresenter
 	 */
 	private $validations;
 
+	//Construct
 	protected function __construct(IActionPage $page)
 	{
 		$this->actionPage = $page;
@@ -68,6 +69,7 @@ abstract class ActionPresenter
 		return isset($this->actions[$action]);
 	}
 
+	//Loads validators
 	protected function LoadValidators($action)
 	{
 		// Hook for children to load validators

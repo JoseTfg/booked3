@@ -18,13 +18,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <div>
 	{html_image src="dialog-warning.png"}<br/>
-
 	{translate key=ReservationFailed}
 	<ul>
-	{foreach from=$Errors item=each}
-		<li>{$each}</li>
-	{/foreach}
+		{foreach from=$Errors item=each}
+			<li>{$each}</li>
+		{/foreach}
 	</ul>
-
 	<input type="button" id="btnSaveFailed" value="{translate key='CorrectErrors'}" class="button" />
 </div>

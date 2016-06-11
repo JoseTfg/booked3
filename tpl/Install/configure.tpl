@@ -22,7 +22,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div>
     <form class="register" method="post" action="{$smarty.server.SCRIPT_NAME}">
-
         {if $ShowInvalidPassword}
             <div class="error">{translate key=IncorrectInstallPassword}</div>
         {/if}
@@ -51,14 +50,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{if $ShowManualConfig}
 			{translate key=ConfigUpdateFailure}
 
-			<div style="font-family: courier; border: solid 1px #666;padding: 10px;margin-top: 20px;background-color: #eee">
+			<div id="configureDiv">
 				&lt;?php<br/>
 				error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);<br/>
 				{$ManualConfig|nl2br}
 				?&gt;
 			</div>
 		{/if}
-
     </form>
 </div>
 

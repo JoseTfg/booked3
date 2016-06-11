@@ -1,5 +1,5 @@
-var sorting = function(){
-	//$("#groupTable").tablesorter();	
+//Sorts the table
+var sorting = function(){	
 	$("#groupTable").tablesorter({ 
 	widgets: ["zebra"],
 	widgetOptions : {

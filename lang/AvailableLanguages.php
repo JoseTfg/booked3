@@ -20,6 +20,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(ROOT_DIR . 'lang/AvailableLanguage.php');
 
+//Available languages
 class AvailableLanguages
 {
     /**

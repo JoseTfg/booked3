@@ -1,15 +1,20 @@
+//Canned reports
 function CannedReports(reportOptions) {
 	var opts = reportOptions;
 
+	//Elements
 	var elements = {
 		indicator:$('#indicator'),
 		resultsDiv:$('#resultsDiv')
 	};
 
+	//Initialization
 	this.init = function () {
 
+		//Wire up report links
 		wireUpReportLinks();
 
+		//User events
 		$(document).on('click', '#btnPrint',function (e) {
 			e.preventDefault();
 
@@ -36,24 +41,9 @@ function CannedReports(reportOptions) {
 			e.preventDefault();
 			$(this).closest('.dialog').dialog('close');
 		});
-
-//		elements.sendEmailButton.click(function (e) {
-//			e.preventDefault();
-//			var before = function () {
-//				elements.sendEmailButton.hide();
-//				elements.emailIndicator.show()
-//			};
-//			var after = function (data) {
-//				$('#emailSent').show().delay(3000).fadeOut(1000);
-//				elements.emailIndicator.hide();
-//				elements.sendEmailButton.show();
-//				$('#emailDiv').dialog('close');
-//			};
-//
-//			ajaxPost(elements.emailForm, opts.emailUrl + reportId, before, after);
-//		});
 	};
 
+	//Wire up report links
 	var wireUpReportLinks = function () {
 		$('#report-list a.report').click(function (e) {
 			e.preventDefault();

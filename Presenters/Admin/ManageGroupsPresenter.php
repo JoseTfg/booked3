@@ -97,12 +97,11 @@ class ManageGroupsPresenter extends ActionPresenter
 
 		$this->page->BindResources($this->resourceRepository->GetResourceList());
 
-		//MyCode
+		//MyCode (14/5/2016)
+		//The supported roles have been changed
 		$this->page->BindRoles(array(
-                                   //new RoleDto(1,'Group Admin', RoleLevel::GROUP_ADMIN),
                                    new RoleDto(2, 'Application Admin', RoleLevel::APPLICATION_ADMIN),
                                    new RoleDto(3, 'Resource Admin', RoleLevel::RESOURCE_ADMIN)
-                                   //new RoleDto(4, 'Schedule Admin', RoleLevel::SCHEDULE_ADMIN)
                                 ));
 		$this->page->BindAdminGroups($this->groupRepository->GetGroupsByRole(RoleLevel::GROUP_ADMIN));
 	}
@@ -257,12 +256,14 @@ class ManageGroupsPresenter extends ActionPresenter
 	}
 }
 
+//Unused
 class UserGroupResults
 {
 	/**
 	 * @param UserItemView[] $users
 	 * @param int $totalUsers
 	 */
+	//Construct
 	public function __construct($users, $totalUsers)
 	{
 		foreach ($users as $user)

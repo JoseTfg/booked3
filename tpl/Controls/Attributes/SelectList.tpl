@@ -18,17 +18,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <label class="customAttribute" for="{$attributeId}">{$attribute->Label()|escape}:</label>
 {if $align=='vertical'}
-<br/>
+	<br/>
 {/if}
 {if $readonly}
-<span class="attributeValue {$class}">{$attribute->Value()|escape}</span>
+	<span class="attributeValue {$class}">{$attribute->Value()|escape}</span>
 {else}
-<select id="{$attributeId}" name="{$attributeName}" class="customAttribute textbox {$class}">
-	{if !$attribute->Required() || $searchmode}
-	<option value="">--</option>
-	{/if}
-	{foreach from=$attribute->PossibleValueList() item=value}
-	<option value="{$value|escape}" {if $attribute->Value() == $value}selected="selected"{/if}>{$value|escape}</option>
-	{/foreach}
-</select>
+	<select id="{$attributeId}" name="{$attributeName}" class="customAttribute textbox {$class}">
+		{if !$attribute->Required() || $searchmode}
+			<option value="">--</option>
+		{/if}
+		{foreach from=$attribute->PossibleValueList() item=value}
+			<option value="{$value|escape}" {if $attribute->Value() == $value}selected="selected"{/if}>{$value|escape}</option>
+		{/foreach}
+	</select>
 {/if}

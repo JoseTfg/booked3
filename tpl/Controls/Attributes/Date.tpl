@@ -19,12 +19,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {assign value="{$attribute->Value()|escape}" var="attributeValue"}
 <label class="customAttribute" for="{$attributeId}">{$attribute->Label()|escape}:</label>
 {if $align=='vertical'}
-<br/>
+	<br/>
 {/if}
 {if $readonly}
-<span class="attributeValue {$class}">{formatdate date=$attributeValue key=general_datetime}</span>
+	<span class="attributeValue {$class}">{formatdate date=$attributeValue key=general_datetime}</span>
 {else}
-<input type="text" id="{$attributeId}" value="{formatdate date=$attributeValue key=general_datetime}" class="customAttribute textbox {$class}" />
-<input type="hidden" id="formatted{$attributeId}" name="{$attributeName}" value="{formatdate date=$attributeValue key=system_datetime}" />
-{control type="DatePickerSetupControl" ControlId="{$attributeId}" AltId="formatted{$attributeId}" HasTimepicker=true}
+	<input type="text" id="{$attributeId}" value="{formatdate date=$attributeValue key=general_datetime}" class="customAttribute textbox {$class}" />
+	<input type="hidden" id="formatted{$attributeId}" name="{$attributeName}" value="{formatdate date=$attributeValue key=system_datetime}" />
+	{control type="DatePickerSetupControl" ControlId="{$attributeId}" AltId="formatted{$attributeId}" HasTimepicker=true}
 {/if}
