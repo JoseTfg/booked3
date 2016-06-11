@@ -26,17 +26,34 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {translate key=Created}: {format_date date=Date::Now() key=general_datetime}
 <table width="100%" border="1">
 	<tr>
-		{foreach from=$Definition->GetColumnHeaders() item=column}
-			{capture name="columnTitle"}{if $column->HasTitle()}{$column->Title()}{else}{translate key=$column->TitleKey()}{/if}{/capture}
-			<th data-columnTitle="{$smarty.capture.columnTitle}">
-				{$smarty.capture.columnTitle}
-			</th>
+		{foreach from=$Definition->GetColumnHeaders() item=column}			
+				{if $column->HasTitle()}
+					{if $column->Title() eq "Resource"}
+						<th>{translate key=Resource}</th>
+					{elseif $column->Title() eq "Title"}
+						<th>{translate key=Title}</th>
+					{elseif $column->Title() eq "Description"}
+						<th>{translate key=Description}</th>
+					{elseif $column->Title() eq "User"}
+						<th>{translate key=User}</th>
+					{/if}
+				{else}
+					{if $column->TitleKey() eq "Created"}
+					{elseif $column->TitleKey() eq "LastModified"}
+					{else}
+						<th>{translate key=$column->TitleKey()}</th>
+					{/if}
+				{/if}				
 		{/foreach}
 	</tr>
 	{foreach from=$Report->GetData()->Rows() item=row}
+		{assign var=val value=0}
 		<tr>
-			{foreach from=$Definition->GetRow($row) item=data}
-				<td>{$data->Value()|escape}&nbsp;</td>
+			{foreach from=$Definition->GetRow($row) item=data}				
+				{if $val != 5 && $val < 7}	
+					<td>{$data->Value()|escape}&nbsp;</td>
+				{/if}
+				{assign var=val value=$val+1}
 			{/foreach}
 		</tr>
 	{/foreach}

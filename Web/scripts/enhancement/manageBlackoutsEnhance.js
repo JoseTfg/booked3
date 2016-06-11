@@ -6,20 +6,18 @@ sday = "";
 eday = "";
 description = "";
 resource = "";
-myOption = "";
 
 //Enhance functions
 var enhance = function(){
-	clickInputs();
-	$("#blackoutTable").tablesorter();
 	getSession();
 	createBlackout();
-	updateBlackout();
 	deleteBlackout();
 } 
 
-//ClickInputs
+//ClickInputs (Unused)
 var clickInputs = function(){
+	
+	//Blackout Form
 	$("#myBlackoutLabel").on('click', function() {
 		   if (document.getElementById("addBlackoutForm").style.display == "none"){
 				document.getElementById("addBlackoutForm").style.display = "initial";
@@ -28,19 +26,20 @@ var clickInputs = function(){
 				document.getElementById("addBlackoutForm").style.display = "none";
 			}
 		});
-		
-		$("#myFilterLabel").on('click', function() {
-		   if (document.getElementById("myFilter").style.display == "none"){
-				document.getElementById("myFilter").style.display = "initial";
-				document.getElementById("filter").style.display = "initial";
-				document.getElementById("showAll").style.display = "initial";
-		   }
-		   else{
-				document.getElementById("myFilter").style.display = "none";
-				document.getElementById("filter").style.display = "none";
-				document.getElementById("showAll").style.display = "none";
-			}
-		});
+	
+	//Filter
+	$("#myFilterLabel").on('click', function() {
+	   if (document.getElementById("myFilter").style.display == "none"){
+			document.getElementById("myFilter").style.display = "initial";
+			document.getElementById("filter").style.display = "initial";
+			document.getElementById("showAll").style.display = "initial";
+	   }
+	   else{
+			document.getElementById("myFilter").style.display = "none";
+			document.getElementById("filter").style.display = "none";
+			document.getElementById("showAll").style.display = "none";
+		}
+	});
 }
 
 //GetSession
@@ -52,24 +51,24 @@ var getSession = function(){
 	eday = sessionStorage.getItem("eday");
 	description = sessionStorage.getItem("description");
 	resource = sessionStorage.getItem("resource");
-	myOption = sessionStorage.getItem("myOption");
 }
 
 //CreateBlackout
 var createBlackout = function(){
 	if(popup_status == "black"){	
-
+		sessionStorage.setItem("popup_status", "none");	
+		
 		//GetFormattedDates
 		aux = sday.split("/");
-		aux1= aux[0];
+		aux1 = aux[0];
 		aux2 = aux[1];
 		aux3 =  aux[2];
-		document.getElementById("formattedAddStartDate").value = aux3+"-"+aux1+"-"+aux2;
+		document.getElementById("formattedAddStartDate").value = aux1+"-"+aux2+"-"+aux3;
 		aux = eday.split("/");
 		aux1= aux[0];
 		aux2 = aux[1];
 		aux3 =  aux[2];
-		document.getElementById("formattedAddEndDate").value = aux3+"-"+aux1+"-"+aux2;
+		document.getElementById("formattedAddEndDate").value = aux1+"-"+aux2+"-"+aux3;
 		
 		//GetDates
 		document.getElementById("addStartDate").value = sday;
@@ -85,12 +84,7 @@ var createBlackout = function(){
 			document.getElementById("addResourceId").value = resource;				
 		}
 		
-		//GetOption
-		if(myOption == 1){
-			document.getElementById("notifyExisting").checked = true;			
-		}else{
-			document.getElementById("deleteExisting").checked = true;	
-		}
+		document.getElementById("deleteExisting").checked = true;	
 		
 		//Do
 		interval = setInterval(function(){
@@ -154,8 +148,12 @@ var updateBlackout = function(){
 //DeleteBlackout
 var deleteBlackout = function(){
 	if(popup_status == "blackDelete"){
+		interval = setInterval(function(){
+		sessionStorage.setItem("popup_status", "none");	
 		id = sessionStorage.getItem("id");
 		document.getElementById(id).click();
+		clearInterval(interval);
+		},10);	
 	}
 }
 

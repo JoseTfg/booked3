@@ -524,8 +524,9 @@ class ReservationFilterPreferences
 		$this->FilterCustomAttributes = serialize($filters);
 	}
 
-	static $filterKeys = array('FilterStartDateDelta' => -7,
-		'FilterEndDateDelta' => +7,
+	//MyCode
+	static $filterKeys = array('FilterStartDateDelta' => -30,
+		'FilterEndDateDelta' => +30,
 		'FilterUserId' => '',
 		'FilterUserName' => '',
 		'FilterScheduleId' => '',

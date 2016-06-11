@@ -17,47 +17,27 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {block name="header"}
-{include file='globalheader.tpl' TitleKey='ViewReservationHeading' TitleArgs=$ReferenceNumber cssFiles='css/reservation.css'}
+	{include file='globalheader.tpl' TitleKey='ViewReservationHeading' TitleArgs=$ReferenceNumber cssFiles='css/reservation.css'}
 {/block}
 
 <div id="reservationbox" class="readonly">
+	<div id="result"></div>
 	<div id="reservationFormDiv">
-		<div class="reservationHeader">
-			<h3>{translate key="ViewReservationHeading"}</h3>
-		</div>
+		</br>
+		</br>
 		<div id="reservationDetails">
-			<ul id="reservationDetailsLeft" class="no-style">				
+			<ul class="no-style" style="text-align: center">				
 				<li>
-					<label>{translate key='Resources'}</label> <br/>{$ResourceName}					
-					{foreach from=$AvailableResources item=resource}
-						{if is_array($AdditionalResourceIds) && in_array($resource->Id, $AdditionalResourceIds)}
-							,{$resource->Name}
-						{/if}
-					{/foreach}
-				</li>
-				
-				{*
-				<br/>				
-				<li>
-					{if $ShowReservationDetails}
-					<label>{translate key='Accessories'}</label><br/>
-					{if $Accessories|count > 0}
-					{foreach from=$Accessories item=accessory name=accessoryLoop}
-						({$accessory->QuantityReserved})
-						{if $smarty.foreach.accessoryLoop.last}
-							{$accessory->Name}
-						{else}
-							{$accessory->Name},
-						{/if}
-					{/foreach}
+					<label>{translate key='Resource'}</label> <br/>
+					{if $ResourceName == ""}
+						<span class="no-data">{translate key='NotAvailable'}</span>
 					{else}
-							Ninguno
-					{/if}
-					{/if}
-				</li>
-				*}
+						{$ResourceName}
+					{/if}					
+				</li>				
+				
 				<li class="section">
-					<label>Periodo</label><br/>
+					<label>{translate key='Period'}</label><br/>
 					{formatdate date=$StartDate}
 					<input type="hidden" id="formattedBeginDate" value="{formatdate date=$StartDate key=system}"/>
 					{foreach from=$StartPeriods item=period}
@@ -75,14 +55,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 							<input type="hidden" id="EndPeriod" value="{$period->End()}"/>
 						{/if}
 					{/foreach}
-				</li>
-				{*
-				<li>
-					<div class="durationText">
-						<span id="durationHours">0</span> {translate key='hours'}
-					</div>
-				</li>
-				*}
+				</li>				
 				
 				{if $ShowReservationDetails}
 					<li class="section">
@@ -90,7 +63,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{if $ReservationTitle neq ''}
 							<br/>{$ReservationTitle}
 						{else}
-							<span class="no-data">{translate key='None'}</span>
+							<span class="no-data"><br/>{translate key='None'}</span>
 						{/if}
 					</li>
 					<br/>
@@ -99,72 +72,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{if $Description neq ''}
 							<br/>{$Description|nl2br}
 						{else}
-							<span class="no-data">{translate key='None'}</span>
+							<span class="no-data"><br/>{translate key='None'}</span>
 						{/if}
 					</li>
 				{/if}
 			</ul>
 		</div>
-
-		
-
-		{if $ShowReservationDetails}
-			{if $Attributes|count > 0}
-			<div class="customAttributes">
-				<ul>
-				{foreach from=$Attributes item=attribute}				
-					<li class="customAttribute">
-						{control type="AttributeControl" attribute=$attribute readonly=true}						
-					</li>
-					<br/>
-				{/foreach}
-				</ul>
-			</div>
-			<div style="clear:both;">&nbsp;</div>
-			{/if}
-		{/if}
-
-		{if $ShowReservationDetails}
-			<div id="reservationDetailsLeft" style="float:left;">
-				{block name="deleteButtons"}
-					<a href="{$Path}export/{Pages::CALENDAR_EXPORT}?{QueryStringKeys::REFERENCE_NUMBER}={$ReferenceNumber}">
-					{html_image src="calendar-plus.png"}
-					{translate key=AddToOutlook}</a>
-				{/block}
-			</div>
-		{/if}
-		<div id="reservationDetailsRight" style="float:right;">
+		</br></br>		
+		<div id="reservationDetailsRight" style="text-align:center;">
 			{block name="submitButtons"}
-				&nbsp
+				<span class="no-data">{translate key='NoActions'}</span>
 			{/block}
-			<button type="button" class="button" onclick="closePopup()">
-				<img src="img/slash.png"/>
-				{translate key='Close'}			
 		</div>
-
-		{if $ShowReservationDetails}
-			{if $Attachments|count > 0}
-				<div style="clear:both">&nbsp;</div>
-				<div class="res-attachments">
-				<span class="heading">{translate key=Attachments}</span>
-					{foreach from=$Attachments item=attachment}
-						<a href="attachments/{Pages::RESERVATION_FILE}?{QueryStringKeys::ATTACHMENT_FILE_ID}={$attachment->FileId()}&{QueryStringKeys::REFERENCE_NUMBER}={$ReferenceNumber}" target="_blank">{$attachment->FileName()}</a>&nbsp;
-					{/foreach}
-				</div>
-			{/if}
-		{/if}
 		<input type="hidden" id="referenceNumber" {formname key=reference_number} value="{$ReferenceNumber}"/>
 	</div>
-</div>
-
-<div id="dialogSave" style="display:none;">
-	<div id="creatingNotification" style="position:relative; top:170px;">
-	{block name="ajaxMessage"}
-		{translate key=UpdatingReservation}...<br/>
-	{/block}
-		<img src="{$Path}img/reservation_submitting.gif" alt="Creating reservation"/>
-	</div>
-	<div id="result" style="display:none;"></div>
 </div>
 
 <div style="display: none">
@@ -177,21 +98,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 {*Imports*}
-{*{jsfile src="participation.js"}*}
 {jsfile src="approval.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
 {jsfile src="js/moment.min.js"}
 {jsfile src="date-helper.js"}
 {jsfile src="reservation.js"}
 {jsfile src="autocomplete.js"}
-{*{jsfile src="userPopup.js"}*}
 
 {*Code*}
 <script type="text/javascript">
 	
-	var closePopup = function(){
-	sessionStorage.setItem("popup_status", "close");
-	};
+	sessionStorage.setItem("popup_status","view");
 	
 	$(document).ready(function() {	
 	
@@ -238,9 +155,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			$(this).ajaxSubmit(options);
 			return false;
 		});
+		
+		$("#btnApprove").click(function(){
+			approveInterval = setInterval(function(){
+				sessionStorage.setItem("popup_status", "update");
+				clearInterval(approveInterval);
+			},3000);	
+		});
 
 		$('.bindableUser').bindUserDetails();	
 	
 	});
-
-	</script>
+</script>

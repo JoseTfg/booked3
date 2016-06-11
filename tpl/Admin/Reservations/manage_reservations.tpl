@@ -17,45 +17,27 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{include file='globalheader.tpl' cssFiles='scripts/css/colorbox.css,css/admin.css,css/jquery.qtip.min.css'}
-
-<table id="CalendarFilterTable" style="visibility:hidden;">
-<tr>
-	<td>
-	<div id="filter">
-		<label for="calendarFilter"></label>
-		<select id="calendarFilter"  multiple="multiple">
-				<option value="">My Option</option>
-		</select>
-		</div>
-	</td>
-</tr>
-</table>   
+{include file='globalheader.tpl' cssFiles='scripts/css/colorbox.css,css/admin.css,css/jquery.qtip.min.css,css/calendar.css'}
 
 <div id="{$PageId}">
-
+</br></br></br>
 <div class="calendarHeading">
-
-	<div class="leftFloater">
-		<h2>{translate key=List}</h2>
+	<div class="listHeader">
+		{translate key=List}
 	</div>
-
 	<div class="rightFloater">
 		<a href="manage_reservations.php" id="goList" alt="List" title="List">{translate key=List} {html_image src="list.png"}</a>
 		<a href="../my-calendar.php?&ct=day" id="goDay" alt="Today" title="Today">	{translate key=Day} {html_image src="calendar-day.png"}</a>
 		<a href="../my-calendar.php?&ct=week" id="goWeek" alt="Week" title="Week">{translate key=Week} {html_image src="calendar-select-week.png"}</a>
 		<a href="../my-calendar.php?&ct=month" id="goMonth" alt="View Month" title="View Month">{translate key=Month} {html_image src="calendar-select-month.png"}</a>
 	</div>
-
-	<div class="clear">&nbsp;</div>
-	</br>
+	<div class="clear">&nbsp;</div>	
 </div>
-
-
+</br>
 <div class="filterTable horizontal-list label-top main-div-shadow" id="filterTable">
-		<div id="adminFilterButtons">
-	</br>
-		<button id="filter" class="button">{html_image src="search.png"}{translate key=Filter}</button>
+	<div id="adminFilterButtons">
+		</br>
+		<button id="filterButton" class="button">{html_image src="search.png"} {translate key=Filter}</button>
 		<button id="clearFilter" class="button">{html_image src="reset.png"} {translate key=Reset}</button>
 	</div>	
 	<form id="filterForm">
@@ -70,17 +52,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<input id="formattedEndDate" type="hidden" value="{formatdate date=$EndDate key=system}"/>
 			</li>
 			{if $CanViewAdmin}
-			<li class="filter-user">
-				<label for="userFilter">{translate key=User}</label>
-				<input id="userFilter" type="text" class="textbox" value="{$UserNameFilter}"/>
-				<input id="userId" type="hidden" value="{$UserIdFilter}"/>
-			</li>
+				<li class="filter-user">
+					<label for="userFilter">{translate key=User}</label>
+					<input id="userFilter" type="text" class="textbox" value="{$UserNameFilter}"/>
+					<input id="userId" type="hidden" value="{$UserIdFilter}"/>
+				</li>
 			{else}
-			<li class="filter-user" style="display:none;">
-				<label for="userFilter">{translate key=User}</label>
-				<input id="userFilter" type="text" class="textbox" value="{$UserNameFilter}"/>
-				<input id="userId" type="hidden" value="{$UserIdFilter}"/>
-			</li>
+				<li class="filter-user" style="display:none;">
+					<label for="userFilter">{translate key=User}</label>
+					<input id="userFilter" type="text" class="textbox" value="{$UserNameFilter}"/>
+					<input id="userId" type="hidden" value="{$UserIdFilter}"/>
+				</li>
 			{/if}
 			<li class="filter-schedule" id="hiddenFilterSchedule">
 				<label for="scheduleId">{translate key=Schedule}</label>
@@ -97,23 +79,23 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				</select>
 			</li>
 			{if $CanViewAdmin}
-			<li class="filter-status">
-				<label for="statusId">{translate key=Status}</label>
-				<select id="statusId" class="textbox">
-					<option value="">{translate key=AllReservations}</option>
-					<option value="{ReservationStatus::Pending}"
-					{if $ReservationStatusId eq ReservationStatus::Pending}selected="selected"{/if}>{translate key=PendingReservations}</option>
-				</select>
-			</li>
+				<li class="filter-status">
+					<label for="statusId">{translate key=Status}</label>
+					<select id="statusId" class="textbox">
+						<option value="">{translate key=AllReservations}</option>
+						<option value="{ReservationStatus::Pending}"
+						{if $ReservationStatusId eq ReservationStatus::Pending}selected="selected"{/if}>{translate key=PendingReservations}</option>
+					</select>
+				</li>
 			{else}
-			<li class="filter-status" style="display:none;">
-				<label for="statusId">{translate key=Status}</label>
-				<select id="statusId" class="textbox">
-					<option value="">{translate key=AllReservations}</option>
-					<option value="{ReservationStatus::Pending}"
-					{if $ReservationStatusId eq ReservationStatus::Pending}selected="selected"{/if}>{translate key=PendingReservations}</option>
-				</select>
-			</li>
+				<li class="filter-status" style="display:none;">
+					<label for="statusId">{translate key=Status}</label>
+					<select id="statusId" class="textbox">
+						<option value="">{translate key=AllReservations}</option>
+						<option value="{ReservationStatus::Pending}"
+						{if $ReservationStatusId eq ReservationStatus::Pending}selected="selected"{/if}>{translate key=PendingReservations}</option>
+					</select>
+				</li>
 			{/if}			
 			<li class="filter-referenceNumber" id="hiddenFilterRN">
 				<label for="referenceNumber">{translate key=ReferenceNumber}</label>
@@ -141,6 +123,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 
+<div class="hiddenDiv">
+	<input id="dialogString" type="text" value="{translate key="CheckReservation"}">
+</div>
+
+<div id="reservationColorbox" class="dialog" title={translate key="CreateReservationHeading"}></div>
 
 <div>&nbsp;</div>
 
@@ -153,14 +140,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<th class="restrictedTh">{translate key='Title'}</th>
 		<th class="restrictedTh">{translate key='Description'}</th>
 		<th class="date">{translate key='BeginDate'}</th>
-		<th>{translate key='Duration'}</th>
+		<th class="date">{translate key='EndDate'}</th>
 		<th class="hiddenTh">{translate key='ReferenceNumber'}</th>
 		{foreach from=$ReservationAttributes item=attr}
 			<th class="hiddenTh">{$attr->Label()}</th>
 		{/foreach}
-		<td class="action">{translate key='Delete'}</th>
+		<td class="action">{translate key='Delete'}</td>
 		{if $CanViewAdmin}
-			<td class="action">{translate key='Approve'}</th>
+			<td class="action">{translate key='Approve'}</td>
 		{/if}
 	</tr>
 	</thead> 
@@ -179,7 +166,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<td align="center">{$reservation->Title}</td>
 			<td align="center">{$reservation->Description}</td>
 			<td align="center">{formatdate date=$reservation->StartDate timezone=$Timezone key=res_popup}</td>
-			<td align="center">{$reservation->GetDuration()->__toString()}</td>
+			<td align="center">{formatdate date=$reservation->EndDate timezone=$Timezone key=res_popup}</td>
+			{*<td align="center">{$reservation->GetDuration()->__toString()}</td>*}
 			<td class="referenceNumber" style="display:none">{$reservation->ReferenceNumber}</td>
 			{foreach from=$ReservationAttributes item=attribute}
 				<td class="update inlineUpdate updateCustomAttribute" style="display:none;" attributeId="{$attribute->Id()}" attributeType="{$attribute->Type()}">
@@ -196,16 +184,22 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{$attrVal}
 					{/if}
 				</td>
-			{/foreach}
-			<td class="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
-			{if $CanViewAdmin}
-				<td class="center">
-					{if $reservation->RequiresApproval}
-						<a href="#" class="update approve">{html_image src='tick-button.png'}</a>
-					{else}
-						-
-					{/if}
-				</td>
+			{/foreach}				
+			{if $CanViewAdmin}				
+				<td class="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+				{if $reservation->RequiresApproval}
+					<td class="center">
+						<a href="#" class="update approve">{html_image src='tick-button.png'}</a>					
+					</td>
+				{else}
+					<td class="center">-</td>
+				{/if}			
+			{else}
+				{if $reservation->StartDateNumber > $date}
+					<td class="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+				{else}
+					<td class="center">-</td>
+				{/if}
 			{/if}
 		</tr>
 	{/foreach}
@@ -213,7 +207,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </table>
 
 <div class="pagination">
-{pagination pageInfo=$PageInfo}
+	{pagination pageInfo=$PageInfo}
 </div>
 
 <div id="deleteInstanceDialog" class="dialog" title="{translate key='Delete'}">
@@ -297,8 +291,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {*Enhance*}
 {jsfile src="TableSorter/jquery.tablesorter.js"}
 {jsfile src="enhancement/manageReservationsEnhance.js"}
-<link rel="stylesheet" href="../scripts/Popup-master/assets/css/popup.css">
-{jsfile src="Popup-master/assets/js/jquery.popup.js"}
 
 {*Code*}
 <script type="text/javascript">
@@ -337,21 +329,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		reservationManagement.init();
 
 		{foreach from=$reservations item=reservation}
-
-		reservationManagement.addReservation(
-				{
-					id: '{$reservation->ReservationId}',
-					referenceNumber: '{$reservation->ReferenceNumber}',
-					isRecurring: '{$reservation->IsRecurring}',
-					resourceStatusId: '{$reservation->ResourceStatusId}',
-					resourceStatusReasonId: '{$reservation->ResourceStatusReasonId}',
-					resourceId: '{$reservation->ResourceId}'
-				}
-		);
+			reservationManagement.addReservation(
+					{
+						id: '{$reservation->ReservationId}',
+						referenceNumber: '{$reservation->ReferenceNumber}',
+						isRecurring: '{$reservation->IsRecurring}',
+						resourceStatusId: '{$reservation->ResourceStatusId}',
+						resourceStatusReasonId: '{$reservation->ResourceStatusReasonId}',
+						resourceId: '{$reservation->ResourceId}'
+					}
+			);
 		{/foreach}
 
 		{foreach from=$StatusReasons item=reason}
-		reservationManagement.addStatusReason('{$reason->Id()}', '{$reason->StatusId()}', '{$reason->Description()|escape:javascript}');
+			reservationManagement.addStatusReason('{$reason->Id()}', '{$reason->StatusId()}', '{$reason->Description()|escape:javascript}');
 		{/foreach}
 
 		reservationManagement.initializeStatusFilter('{$ResourceStatusFilterId}', '{$ResourceStatusReasonFilterId}');
@@ -367,5 +358,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 </div>
+
 {include file='globalfooter.tpl'}
 

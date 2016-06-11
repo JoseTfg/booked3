@@ -16,7 +16,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+
 {include file='globalheader.tpl'}
+
 <div class="error">
     <h3>{translate key=$ErrorMessage}</h3>
     <h5><a href="{$ReturnUrl}">{translate key='ReturnToPreviousPage'}</a></h5>

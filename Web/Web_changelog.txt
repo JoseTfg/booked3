@@ -131,8 +131,12 @@ Added:
 
 8/5/2016
 
--css_enhancemenet:			New file, groups all the css created by Jose.
+-css_enhancement:			New file, groups all the css created by Jose.
 -dashboard.css:				No longer in use.
+
+////////////////////////////////////////V0.9//////////////////////////////////////////////////
+
+-css_enhancement:			Update several styles from all admin views and reservation view.
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////scripts/////////////////////////////////////////////
@@ -191,6 +195,8 @@ Erased:
 
 Changed:
 
+////////////////////////////////////////V0.1//////////////////////////////////////////////////
+
 2/3/2016
 
 -calendar.js		Calendar is now selectable.
@@ -199,6 +205,8 @@ Changed:
 					Calendar has been resized.
 					DayClick event modified.
 
+////////////////////////////////////////V0.3//////////////////////////////////////////////////	
+					
 8/3/2016 - 16/3/2016
 
 -calendar.js		Calendar can now show an array of resources.
@@ -208,19 +216,24 @@ Changed:
 					Calendar now presents events with colors.
 					Calendar now reacts to right click events.
 
+////////////////////////////////////////V0.4//////////////////////////////////////////////////										
 29/3/2016
 
--calendar.js		Calendar now allowsreservations delete by keyboard input.
+-calendar.js		Calendar now allows reservations delete by keyboard input.
 					Calendar can have its boundaries changed by keyboard input.
 					Calendar now have a color legend.
 					Calendar click events are now different.
 
+////////////////////////////////////////V0.5//////////////////////////////////////////////////					
+					
 7/4/2016
 -myScript.js		Updated for new popup system.
 -calendar.js		Updated for new popup system.
 
 8/4/2016
 -myScript.js		Fixed multiselect.
+
+////////////////////////////////////////V0.6//////////////////////////////////////////////////
 
 17/4/2016
 -myScript.js		Updated drag events.
@@ -231,6 +244,8 @@ Created:
 					Supports new popups.
 					Supports new list view.	
 
+////////////////////////////////////////V0.8//////////////////////////////////////////////////					
+					
 8/5/2016
 -calendarEnhancement.js:		Groups all the functions related to calendar.
 								New selection option.
@@ -239,6 +254,48 @@ Created:
 
 -createEnhance.js:				Groups all the functions related to reservations.
 -manageBlackoutsEnhance.js:		Initial support for blackout in calendar.
--manageReservationsEnhance.js: 	Group all functions related to reservatiosn manage.
--userenhance.js:				Groups all functions related to user management.
-		
+-manageReservationsEnhance.js: 	Group all functions related to reservations manage.
+-userEnhance.js:				Groups all functions related to user management.
+
+////////////////////////////////////////V0.9//////////////////////////////////////////////////
+
+-announcement.js				Restrict user interface to properly submit valid options.
+-blackouts.js					Adapts interface to allow blackout creation from calendar view.
+-group.js						New interface.
+-quota.js						Restrict user interface to properly submit valid options.
+-reservations.js				Adapts to new popup system.
+-resource.js					New interface.
+-schedule.js					New interface.
+-user.js						New interface.
+-approval.js					Adapts to new popup system.
+-calendar.js					New context menu system.
+-calendarEnhance.js				Several changes, please refer to the documentation.
+-configurationEnhance.js		Hides private options.
+-createEnhance.js				Adapts to new popup system.
+-groupEnhance.js				Sorts the table.
+-manageBlackoutsEnhance.js		Adapts to new popup system.
+-manageReservationsEnhance.js	Sorts the table.
+-scheduleEnhance.js				Restrict user interface to properly submit valid options.
+-userEnhance.js					Sorts the table.
+
+Added:
+
+-marquee.js						Supports marquee.
+-jquery.ui-contextmenu.js		Supports context menu.
+
+////////////////////////////////////////V1.0//////////////////////////////////////////////////		
+
+-footerEnhance.js				New announcements context menu.
+-announcement.js				Show invalid options message.
+-group.js						Show messages to better display the situation.
+-quota.js						Show invalid options message.
+-reservations.js				Popup updated.
+-resource.js					Show messages to better display the situation.
+-schedule.js					Remove unused options.
+-user.js						Show messages to better display the situation.
+-calendar.js					New color system.
+-calendarEnhance.js				Several changes, please refer to the documentation.
+-configurationEnhance.js		Translate options.
+-createEnhance.js				Finish adapting the popup system.
+-manageBlackoutsEnhance.js		Finish adapting the popup system.
+-scheduleEnhance.js				Show invalid options message.

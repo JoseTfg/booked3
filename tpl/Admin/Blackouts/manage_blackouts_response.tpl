@@ -48,15 +48,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         		<th>{translate key='ReferenceNumber'}</th>
         	</tr>
         	{foreach from=$Reservations item=reservation}
-        	{cycle values='row0,row1' assign=rowCss}
-        	<tr class="{$rowCss} editable">
-        		<td class="id">{$reservation->ReservationId}</td>
-        		<td>{$reservation->FirstName} {$reservation->LastName}</td>
-        		<td>{$reservation->ResourceName}</td>
-        		<td>{formatdate date=$reservation->StartDate timezone=$Timezone key=res_popup}</td>
-        		<td>{formatdate date=$reservation->EndDate timezone=$Timezone key=res_popup}</td>
-        		<td class="referenceNumber">{$reservation->ReferenceNumber}</td>
-        	</tr>
+				{cycle values='row0,row1' assign=rowCss}
+				<tr class="{$rowCss} editable">
+					<td class="id">{$reservation->ReservationId}</td>
+					<td>{$reservation->FirstName} {$reservation->LastName}</td>
+					<td>{$reservation->ResourceName}</td>
+					<td>{formatdate date=$reservation->StartDate timezone=$Timezone key=res_popup}</td>
+					<td>{formatdate date=$reservation->EndDate timezone=$Timezone key=res_popup}</td>
+					<td class="referenceNumber">{$reservation->ReferenceNumber}</td>
+				</tr>
         	{/foreach}
         </table>
 	{/if}

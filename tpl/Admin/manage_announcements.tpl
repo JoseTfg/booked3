@@ -21,28 +21,28 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <h1>{translate key=ManageAnnouncements}</h1>
 
 <table id="announceTable" class="list">
-<thead>
-	<th class="id">&nbsp;</th>
-	<th>{translate key='Announcement'}</th>
-	<th>{translate key='Priority'}</th>
-	<th>{translate key='BeginDate'}</th>
-	<th>{translate key='EndDate'}</th>
-	<td class="action">{translate key='Edit'}</th>
-	<td class="action">{translate key='Delete'}</th>
-</thead>
-<tbody>
-	{foreach from=$announcements item=announcement}
-		<tr>
-			<td class="id"><input type="hidden" class="id" value="{$announcement->Id()}"/></td>
-			<td class="announceTableLongCell">{$announcement->Text()|nl2br}</td>
-			<td align="center" class="announceTableCell">{$announcement->Priority()}</td>
-			<td align="center" class="announceTableCell">{formatdate date=$announcement->Start()->ToTimezone($timezone)}</td>
-			<td align="center" class="announceTableCell">{formatdate date=$announcement->End()->ToTimezone($timezone)}</td>		
-			<td align="center" class="announceTableCell"><a href="#" class="update edit">{html_image src='my_edit.png'}</a></td>
-			<td align="center" class="announceTableCell"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
-		</tr>
-	{/foreach}
-</tbody>
+	<thead>
+		<th class="id">&nbsp;</th>
+		<th>{translate key='Announcement'}</th>
+		<th>{translate key='Priority'}</th>
+		<th>{translate key='BeginDate'}</th>
+		<th>{translate key='EndDate'}</th>
+		<td class="action">{translate key='Edit'}</th>
+		<td class="action">{translate key='Delete'}</th>
+	</thead>
+	<tbody>
+		{foreach from=$announcements item=announcement}
+			<tr>
+				<td class="id"><input type="hidden" class="id" value="{$announcement->Id()}"/></td>
+				<td>{$announcement->Text()|truncate:300:"...":true}</td>
+				<td align="center" class="announceTableCell">{$announcement->Priority()}</td>
+				<td align="center" class="announceTableCell">{formatdate date=$announcement->Start()->ToTimezone($timezone)}</td>
+				<td align="center" class="announceTableCell">{formatdate date=$announcement->End()->ToTimezone($timezone)}</td>		
+				<td align="center" class="announceTableCell"><a href="#" class="update edit">{html_image src='my_edit.png'}</a></td>
+				<td align="center" class="announceTableCell"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+			</tr>
+		{/foreach}
+	</tbody>
 </table>
 
 <input type="hidden" id="activeId" />
@@ -88,17 +88,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
         <textarea rows="4" class="textbox required" placeholder="{translate key=Announcement}" style="width:500px;resize: none;" {formname key=ANNOUNCEMENT_TEXT}></textarea><br/>
 		<br/>
 		<div align="center">
-        <input style="text-align: center;width:100px;" type="text" placeholder="{translate key=BeginDate}" id="BeginDate" class="textbox" {formname key=ANNOUNCEMENT_START} />
-		<input type="hidden" id="formattedBeginDate" {formname key=ANNOUNCEMENT_START} />
-		-
-        <input style="text-align: center;width:100px;" type="text" placeholder="{translate key=EndDate}" id="EndDate" class="textbox" {formname key=ANNOUNCEMENT_END} />
-		<input type="hidden" id="formattedEndDate" {formname key=ANNOUNCEMENT_END} />
-		<br/><br/>
-        {translate key='Priority'} <br/>
-		<select id="createPriority" class="textbox" {formname key=ANNOUNCEMENT_PRIORITY}>
-                <option value="">---</option>
-                {html_options values=$priorities output=$priorities}
-        </select>
+			<input style="text-align: center;width:100px;" type="text" placeholder="{translate key=BeginDate}" id="BeginDate" class="textbox" {formname key=ANNOUNCEMENT_START} />
+			<input type="hidden" id="formattedBeginDate" {formname key=ANNOUNCEMENT_START} />
+			-
+			<input style="text-align: center;width:100px;" type="text" placeholder="{translate key=EndDate}" id="EndDate" class="textbox" {formname key=ANNOUNCEMENT_END} />
+			<input type="hidden" id="formattedEndDate" {formname key=ANNOUNCEMENT_END} />
+			<br/><br/>
+			{translate key='Priority'} <br/>
+			<select id="createPriority" class="textbox" {formname key=ANNOUNCEMENT_PRIORITY}>
+				<option value="">---</option>
+				{html_options values=$priorities output=$priorities}
+			</select>
 		</div>
 		<button type="button" class="button save">{html_image src="plus-button.png"} {translate key=AddAnnouncement}</button>
 	</form>

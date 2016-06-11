@@ -35,7 +35,7 @@ function BlackoutManagement(opts)
 		//Dialogs
         ConfigureAdminDialog(elements.deleteDialog, 'auto', 'auto');
         ConfigureAdminDialog(elements.deleteRecurringDialog, 'auto', 'auto');
-
+		
 		//Wireup buttons
 		wireUpUpdateButtons();
 
@@ -143,8 +143,10 @@ function BlackoutManagement(opts)
 	//Show delete blackouts
     function showDeleteBlackout() {
         elements.deleteDialog.dialog('open');
+		
 		//MyCode
 		//Deletes without dialog
+		sessionStorage.setItem("popup_status","update");
 		document.getElementsByTagName("button")[3].click();
     }
 

@@ -605,7 +605,7 @@ class es extends en_us
 	    $strings['Day'] = 'Dia';
 		$strings['Colors'] = 'Colores';
 		$strings['TimeTable'] = 'Horarios';
-		$strings['TimeTableBoundaries'] = 'Seleccione el horario de visualización de las vistas diaria y semanal';
+		$strings['TimeTableBoundaries'] = 'Seleccione las opciones de visualización';
 		$strings['Export'] = 'Fichero .ics';
 		$strings['DeleteReservation'] = '¿Estas seguro de que deseas borrar este elemento?';
 		$strings['Download'] = 'Descargar';
@@ -616,6 +616,10 @@ class es extends en_us
 		$strings['selectOptions'] = 'Selección de recursos';
 		$strings['selectText'] = 'seleccionados';
 		$strings['GoDay'] = 'Ir al día';
+		$strings['Calendar'] = 'Calendario';
+		$strings['Period'] = 'Período';
+		$strings['Until'] = 'hasta';
+		$strings['Pending'] = 'Pendiente de confirmación';
 				
 		//Informes
 		$strings['ViewAsList'] = 'Ver como lista';
@@ -664,6 +668,79 @@ class es extends en_us
 		
 		//Otros
 		$strings['ViewReservations'] = 'Ver reservas';
+		$strings['Blackout'] = 'No disponibilidad';
+		$strings['CheckReservation'] = 'Comprobar reserva';
+		$strings['Monday'] = 'Lunes';
+		$strings['Tuesday'] = 'Martes';
+		$strings['Wednesday'] = 'Miércoles';
+		$strings['Thursday'] = 'Jueves';
+		$strings['Friday'] = 'Viernes';
+		$strings['Saturday'] = 'Sábado';
+		$strings['Sunday'] = 'Domingo';
+		$strings['Weekends'] = 'Mostrar fines de semana';
+		$strings['FirstDay'] = 'Primer día de la semana';
+		$strings['Format12'] = 'Formato 12 horas';
+		$strings['Format24'] = 'Formato 24 horas';
+		$strings['NotAvailable'] = 'No disponible';
+		$strings['NoActions'] = 'No hay acciones disponibles';
+		$strings['WorkSchedule'] = 'Horario de Trabajo';
+		$strings['Configuration'] = 'Configuración';
+		$strings['PermissionsAll'] = 'Todos pueden reservarlo por defecto';
+		$strings['PermissionsNone'] = 'Nadie puede reservarlo por defecto';	
+		$strings['Reason'] = 'Razón';
+		$strings['Stop'] = 'Parar';	
+		$strings['Hide'] = 'Mostrar / Ocultar';	
+		
+		//Ayuda
+		$strings['Help2'] = 'Guía de usuario';
+		$strings['Help3'] = 'Guía de administración';
+		$strings['AboutBookedScheduler'] = 'Acerca de Booked Scheduler';
+		$strings['Support'] = 'Soporte y colaboración';
+		$strings['Credits'] = 'Créditos';
+		$strings['OriginalAuthors'] = 'Autores originales';
+		$strings['ExtendedBy'] = 'Extendida por';
+		$strings['ThankYou'] = 'Gracias a los siguientes proyectos';
+		$strings['License'] = 'Licencia';
+		$strings['License2'] = 'Booked Scheduler es gratis y de código libre, bajo licencia GNU General Public License. Por favor comprueben el archivo de licencia incluido para más detalles.';
+		
+		//Instalación
+		$strings['InstallApplication'] = 'Instalar Booked Scheduler (solo MySQL)';
+		$strings['IncorrectInstallPassword'] = 'La contraseña no es correcta.';
+		$strings['SetInstallPassword'] = 'Es necesario establecer una contraseña antes de comenzar la instalación.';
+		$strings['InstallPasswordInstructions'] = 'En %s por favor establezca %s con una contraseña seguro, después regrese a esta página.<br/>Puede usar %s';
+		$strings['NoUpgradeNeeded'] = 'El proceso de instalación borrará todos los datos contenidos en la base de datos de Booked Scheduler';
+		$strings['ProvideInstallPassword'] = 'Introduzca la contraseña de instalación.';
+		$strings['InstallPasswordLocation'] = 'La puede encontrar en el fichero %s en la directiva %s.';
+		$strings['VerifyInstallSettings'] = 'Verifique las siguienets opciones antes de continuar, o las puede cambiar en el fichero %s.';
+		$strings['DatabaseName'] = 'Nombre de la base de datos';
+		$strings['DatabaseUser'] = 'Usuario de la base de datos';
+		$strings['DatabaseHost'] = 'Host de la base de datos';
+		$strings['DatabaseCredentials'] = 'Es necesario otorgar credenciales de la base de datos con permisos de creación de tablas. Sino, contacte a un administrador.';
+		$strings['MySQLUser'] = 'Usuario MySQL';
+		$strings['InstallOptionsWarning'] = 'Las siguientes opciones pueden no funcionar en todos los entornos. Si fuera necesario, use el asistente de MySQL para completar estos pasos.';
+		$strings['CreateDatabase'] = 'Crear la base de datos';
+		$strings['CreateDatabaseUser'] = 'Crear el usuario de la base de datos';
+		$strings['PopulateExampleData'] = 'Importar datos de ejemplo. Crea los siguientes usuarios: admin/password y user/password';
+		$strings['DataWipeWarning'] = 'Atención: Se borrará cualquier información existente';
+		$strings['RunInstallation'] = 'Comenzar instalación';
+		$strings['UpgradeNotice'] = 'Está actualizando desde la versión <b>%s</b> hacia la versión <b>%s</b>';
+		$strings['RunUpgrade'] = 'Comenzar actualización';
+		$strings['Executing'] = 'Ejecutando';
+		$strings['StatementFailed'] = 'Fallo. Detalles:';
+		$strings['SQLStatement'] = 'Sentencia SQL:';
+		$strings['ErrorCode'] = 'Código de error:';
+		$strings['ErrorText'] = 'Mensaje de error:';
+		$strings['InstallationSuccess'] = 'La instalación se completó con éxito.';
+		$strings['RegisterAdminUser'] = 'Registre su cuenta de administrador. Esto es requerido si no se importaron los datos de ejemplo. Asegurese de que la opción  $conf[\'settings\'][\'allow.self.registration\'] = \'true\' está configurada en el fichero %s.';
+		$strings['LoginWithSampleAccounts'] = 'Si ha importado los datos de ejemplo, puede autenticarse con las credenciales admin/password para el modo administración o user/password para un usuario básico.';
+		$strings['InstalledVersion'] = 'Actualmente está ejecutando la versión %s de Booked Scheduler';
+		$strings['InstallUpgradeConfig'] = 'Se recomienza actualizar el fichero de configuración';
+		$strings['InstallationFailure'] = 'Hubo problemas con la instalación.  Por favor corrijalos y ejecute de nuevo.';
+		$strings['ConfigureApplication'] = 'Configurar Booked Scheduler';
+		$strings['ConfigUpdateSuccess'] = 'Su archivo de configuración ha sido actualizado.';
+		$strings['ConfigUpdateFailure'] = 'No se pudo actualizar el fichero de configuración. Por favor sobreescriba el contenido del fichero config.php con lo siguiente:';
+		$strings['SelectUser'] = 'Seleccione usuario';
+		// End Install
 		
         $this->Strings = $strings;
     }

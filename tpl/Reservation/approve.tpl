@@ -61,10 +61,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/block}
 
 {block name=submitButtons}
-	<button type="button" class="button" id="btnApprove">
-		<img src="img/tick-circle.png" />
-		{translate key='Approve'}
-	</button>
+	<div style="position: absolute;left: 56%;">
+		<button type="button" class="button" id="btnApprove">
+			<img src="img/tick-circle.png" />
+			{translate key='Approve'}
+		</button>
+	</div>
 {/block}
 
 {block name="ajaxMessage"}

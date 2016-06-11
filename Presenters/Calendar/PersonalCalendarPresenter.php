@@ -147,7 +147,7 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$showInaccessible = Configuration::Instance()
 										 ->GetSectionKey(ConfigSection::SCHEDULE, ConfigKeys::SCHEDULE_SHOW_INACCESSIBLE_RESOURCES, new BooleanConverter());
 		$resources = $this->resourceService->GetAllResources($showInaccessible, $userSession);
-
+		
 		//MyCode
 		//Unique schedule
 		$this->page->Set('resources', $resources);		
@@ -202,8 +202,8 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$this->page->BindFilters(new CalendarFilters($schedules, $resources, $selectedScheduleId, $selectedResourceId, $resourceGroups));
 		$this->page->SetScheduleId($selectedScheduleId);
 		$this->page->SetResourceId($selectedResourceId);
-		$this->page->SetFirstDay($selectedSchedule->GetWeekdayStart());	
-
+		$this->page->SetFirstDay(1);
+		
 		//MyCode (29/3/2016)
 		//This code sets the minTime and maxTime of the calendar.
 		$newTime = calendarBoundaries($this, $userSession);	
@@ -230,11 +230,8 @@ class PersonalCalendarPresenter extends ActionPresenter
 		$calendar_export = $this->calendarFactory->Create($type, $year, $month, $day, $timezone, $selectedSchedule->GetWeekdayStart());
 		$exports =  $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddMonths(12), $userSession->UserId,
 		ReservationUserLevel::ALL, $selectedScheduleId, 0);
-		$calendar_export->AddReservations(CalendarReservation::FromViewList($exports, $timezone, $userSession, true));
-		$this->page->Set('calendar_export', $calendar_export); //A Borrar
-		
-		googleCalendar($this, $userSession,$calendar_export);		
-		APIconnection($this);
+		$calendar_export->AddReservations(CalendarReservation::FromViewList($exports, $timezone, $userSession, true));		
+		googleCalendar($this, $userSession,$calendar_export);
 
 	}
 }

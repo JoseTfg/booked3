@@ -19,50 +19,54 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {include file='globalheader.tpl'}
 
-<h1>About Booked Scheduler</h1>
+<h1>{translate key=AboutBookedScheduler}</h1>
 
 <div id="help">
-	<h2>Support</h2>
-	<p><a href="http://www.bookedscheduler.com/">Booked Scheduler Official Project Home</a></p>
-	<p><a href="http://php.brickhost.com/forums/">Community Support</a></p>
-	<p><a href="http://github.com/JoseTfg/booked3/">Booked Scheduler Project Repository</a></p>
-	<h2>Credits</h2>
-	<h3>Original Authors</h3>
+	<h2>{translate key=Support}</h2>
 	<p>
-	Nick Korbel
+		<a href="http://www.bookedscheduler.com/">Booked Scheduler Official Project Home</a> |
+		<a href="http://php.brickhost.com/forums/">Community Support</a> |
+		<a href="http://github.com/JoseTfg/booked3/">Booked Scheduler Project Repository</a>
+	</p>
+	<h2>{translate key=Credits}</h2>
 	</br>
-	Dung Le
-	</br>
-	Jan Mattila
-	</br>
-	Paul Menchini
+	<h3>{translate key=OriginalAuthors}</h3>
+	<p>
+		Nick Korbel
+		</br>
+		Dung Le
+		</br>
+		Jan Mattila
+		</br>
+		Paul Menchini
 	</p>
 
-	<h3>Extended By</h3>
+	<h3>{translate key=ExtendedBy}</h3>
 	<p>
-	José Szklarz de Quesada
+		José Szklarz de Quesada
 	</p>
 
-	<h3>Thank you to the following projects and libraries</h3>
+	<h3>{translate key=ThankYou}</h3>
 	<p>
-	Smarty
-	</br>
-	PEAR
-	</br>
-	adLDAP
-	</br>
-	jQuery
-	</br>
-	FullCalendar
-	</br>
-	PHPMailer
-	</br>
-	jqplot
-	</br>
+		Smarty
+		</br>
+		PEAR
+		</br>
+		adLDAP
+		</br>
+		jQuery
+		</br>
+		FullCalendar
+		</br>
+		PHPMailer
+		</br>
+		jscolor
+		</br>
+		jqplot
+		</br>
 	</p>
-	<h2>License</h2>
-
-	<p>Booked Scheduler free and open source, licenced under the GNU GENERAL PUBLIC LICENSE. Please see the included License file for more details.</p>
+	<h2>{translate key=License}</h2>
+	<p>{translate key=License2}</p>
 </div>	
 	
 {include file='globalfooter.tpl'}

@@ -84,7 +84,7 @@ function QuotaManagement(opts)
 	//Checks before submit
 	var submitCheck = function(){
 		var check = document.getElementsByClassName('textbox')[2].value;
-		if ((check > 0) && (check < 25)){
+		if ((check > 0) && (check < 100)){
 			return true;
 		}
 		return false;

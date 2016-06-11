@@ -110,7 +110,7 @@ class ManageBlackoutsService implements IManageBlackoutsService
 			}
 			$adminFilter = new SqlFilterIn(new SqlFilterColumn('r', ColumnNames::RESOURCE_ADMIN_GROUP_ID), $groupIds);
 			$adminFilter->_Or(new SqlFilterIn(new SqlFilterColumn(TableNames::SCHEDULES, ColumnNames::SCHEDULE_ADMIN_GROUP_ID), $groupIds));
-			$blackoutFilter->_And($adminFilter);
+			//$blackoutFilter->_And($adminFilter);
 		}
 
 		return $this->reservationViewRepository->GetBlackoutList($pageNumber, $pageSize, null, null, $blackoutFilter);

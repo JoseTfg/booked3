@@ -240,13 +240,13 @@ position: fixed;
 #reservationFormDiv
 {
 	 overflow:hidden;
-	 background-color: #CC9966;
+	 /*background-color: #CC9966;*/
 }
 
 /*Reservation right details*/
 #reservationDetailsRight{
-	margin-bottom: 10px;
-	margin-right: 10px;
+	/*margin-bottom: 10px;
+	margin-right: 10px;*/
 }
 
 /*Reservation left details*/
@@ -343,7 +343,7 @@ margin-right: auto;
 */
 position:fixed;
 left:0;
-top: 100px;
+top: 80px;
 }
 
 /*Dialog title*/
@@ -547,10 +547,6 @@ z-index:99999;
 	text-align: right;width:90px;float:right;background:url('../img/arrow-circle-135.png');background-position:left;background-repeat:no-repeat;
 }
 
-/*Config buttons*/
-#adminFilterButtons{
-	display:none;float:right;
-}
 
 /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////ManageReservations///////////////////////////////////////////////////////////////////////////////
@@ -569,6 +565,20 @@ z-index:99999;
 /*Hidden*/
 #hiddenFilterSchedule,#hiddenFilterRN,#hiddenFilterRS,#hiddenFilterRSR{
 	display:none;
+}
+
+/*Config buttons*/
+#adminFilterButtons{
+	display:none;float:right;
+}
+
+#ulFilter{
+	display:none;
+}
+
+.listHeader{
+	font-size: 18px;
+	float:left;
 }
 
 /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -601,17 +611,12 @@ z-index:99999;
 
 /*Table*/
 #announceTable{
-	width: 50%;margin: 0 auto;
+	width: 100%;margin: 0 auto;
 }
 
 /*Table cell*/
 .announceTableCell{
-	width: 100px;
-}
-
-/*Table long cell*/
-.announceTableLongCell{
-	width: 300px;
+	width: 80px;
 }
 
 /*Dialogs*/

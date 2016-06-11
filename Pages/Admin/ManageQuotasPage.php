@@ -173,6 +173,11 @@ class ManageQuotasPage extends ActionPage implements IManageQuotasPage
 	//send the quota information to the Smarty page
 	public function BindQuotas($quotas)
 	{
+		//MyCode
+		foreach ($quotas as $quota){
+			$value = explode(".",$quota->Limit);
+			$quota->Limit = $value[0];
+		}
 		$this->Set('Quotas', $quotas);
 	}
 

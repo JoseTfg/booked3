@@ -16,6 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+
 	Detalles de la Reserva:
 	<br/>
 	<br/>
@@ -57,5 +58,5 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{/if}
 
 	<br/>
-        <br/>
+    <br/>
 	<a href="{$ScriptUrl}">Iniciar sesión en Booked Scheduler</a>

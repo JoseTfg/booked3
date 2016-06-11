@@ -22,32 +22,70 @@ function Calendar(opts, reservations)
 			//Events
 			events: _reservations,
 			eventRender: function(event, element) {			
-				element.attachReservationPopup(event.id);
+				element.attachReservationPopup(event.id);					
 				
-				//RightClick enhance
-				//rightClick(element,event);		
+				readOnly = opts.readOnly;
 				
-				//Color assign enhance
+				//Color and menu assign
 				if (event.className != "blackout"){
-						if (_options.myCal == 1){
-							element.find('.fc-event-title').append("<br/>" +event.trueTitle);
-							var formattedTime = $.fullCalendar.formatDates(event.start, event.end, "HH:mm { - HH:mm}");
-							element.find(".fc-event-time").text(formattedTime);
-							element.addClass("reservationMenu");
-						}
-						else{
-							element.find('.fc-event-title').append("<br/>" + event.owner + "<br/>" + event.trueTitle);
-							var formattedTime = $.fullCalendar.formatDates(event.start, event.end, "HH:mm { - HH:mm}");
-							element.find(".fc-event-time").text(formattedTime);
-							element.addClass("reservationMenu");
-						}					
-					colorAssign(element,event);	
+					rightClick(element,event, "res");
+					var originalTitle = element.find('.fc-event-title').text();
+					var formattedTime = $.fullCalendar.formatDates(event.start, event.end, opts.timeFormat+" { - "+opts.timeFormat+"}");
+					element.find(".fc-event-time").text(formattedTime);
+					if (readOnly != "1"){
+						element.addClass("reservationMenu");
+					}
+					if (_options.myCal == 1){
+						element.find('.fc-event-title').append("<br/>" +event.trueTitle);					
+					}
+					else{
+						element.find('.fc-event-title').append("<br/>" + event.owner + "<br/>" + event.trueTitle);
+					}					
+					colorAssign(element,event,"res");
+					if (event.className.indexOf("pending") != -1){
+						var stage = 0;						
+						var approveInterval = setInterval(function(){
+							if (stage == 0){
+								element.find('.fc-event-title').text(originalTitle);
+								if (_options.myCal == 1){
+									element.find('.fc-event-title').append("<br/>" +event.trueTitle);					
+								}
+								else{
+									element.find('.fc-event-title').append("<br/>" + event.owner + "<br/>" + event.trueTitle);
+								}	
+								stage = 1;
+							}
+							else{
+								element.find('.fc-event-title').text(document.getElementById("pendingString").value);
+								stage = 0;
+							}
+						},2000);	
+					}
+				}
+				else{
+					rightClick(element,event, "black");
+					var formattedTime = $.fullCalendar.formatDates(event.start, event.end, opts.timeFormat+" { - "+opts.timeFormat+"}");
+					element.find(".fc-event-time").text(formattedTime);
+					if (readOnly != "1" && opts.isAdmin == "1"){
+						element.addClass("blackoutMenu");
+					}
+					colorAssign(element,event,"black");	
 				}
 			
 			},			
 			
-			dayRender: function(date, cell){
-				cell.addClass("dayMenu");
+			//DayRender
+			dayRender: function(date, cell, element){
+				readOnly = opts.readOnly;				
+				if (readOnly == "1"){
+					return;
+				}
+				cell.addClass("dayMenu");	
+				cell.bind('mousedown', function (e) {
+					if (e.which == 3) {
+						dayClick(date);
+					}
+				});
 			},
 			
 			//ClickEvents
@@ -69,7 +107,6 @@ function Calendar(opts, reservations)
 					
 					//Blackout Double Click enhance
 					if(event.className.indexOf("blackout") == 0){
-						mouseInput("blackoutDoubleClick",event);
 					}
 					
 					//Event Double Click enhance
@@ -85,17 +122,18 @@ function Calendar(opts, reservations)
 			monthNames: _options.monthNames,
 			monthNamesShort: _options.monthNamesShort,
 			weekMode: 'variable',
+			weekends: _options.weekends,
 			
 			//Formats
-			timeFormat: 'H:mm', //_options.timeFormat,
+			timeFormat: _options.timeFormat,
 			columnFormat:  {
 				month: 'dddd',
 			    week: 'dddd ' + _options.dayMonth,
 			    day: 'dddd ' + _options.dayMonth
 			},
-			axisFormat: 'H:mm', //_options.timeFormat,
+			axisFormat: _options.timeFormat,
 			
-			//Min and Max Time
+			//User Preferences
 			firstDay: _options.firstDay,
 			minTime: _options.minTime,
 			maxTime: _options.maxTime,
@@ -116,7 +154,7 @@ function Calendar(opts, reservations)
 				//Variables
 				var sd = '';
 				var ed = '';
-				var url =  [location.protocol, '//', location.host, "/booked/Web/",_options.dayClickUrl].join('');
+				var url =  [location.protocol, '//', location.host, "/Web/",_options.dayClickUrl].join('');
 				sd = getUrlFormattedDate(start);
 				ed = getUrlFormattedDate(end);
 				addToUrl = "&sd=" + sd + "&ed=" + ed;
@@ -144,6 +182,10 @@ function Calendar(opts, reservations)
 			//eventDragStop: function(event, jsEvent, ui, view) {
 			eventDrop: function(event, dayDelta, minuteDelta, jsEvent, ui, view ){
 			
+				if (event.className == "blackout"){
+					location.reload();
+				}
+				
 				//Variables
 				var sd = '';
 				var ed = '';

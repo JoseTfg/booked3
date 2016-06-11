@@ -32,32 +32,33 @@
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);		
 		$minTimeNew = $_POST["minTime"];
 		$maxTimeNew = $_POST["maxTime"];
+		$firstDayNew = $_POST["firstDay"];
+		$firstDayNew = "0";
+		$weekendsNew = $_POST["weekends"];
+		$format = $_POST["format"];
 		$changedSetting = '';		
 	
 		if ($minTimeNew != "" && $maxTimeNew != ""){		
-			$newSettings = array();
-			$newSettings[$userSession->FirstName."_".$userSession->LastName.'#minTime'] = $minTimeNew;
-			$newSettings[$userSession->FirstName."_".$userSession->LastName.'#maxTime'] = $maxTimeNew;			
+			$newSettings = array();			
+			$newSettings[$userSession->UserId.'#Time'] = $minTimeNew."#".$maxTimeNew."#".$firstDayNew."#".$format."#".$weekendsNew;
 			$mergedSettings = array_merge($existingSettings, $newSettings);
 			$presenter->configSettings->WriteSettings($presenter->configFilePath, $mergedSettings);
-			$changedSetting = $minTimeNew."#".$maxTimeNew;
+			$changedSetting = $minTimeNew."#".$maxTimeNew."#".$firstDayNew."#".$format."#".$weekendsNew;
 			}
 		return $changedSetting;
 	}
 	
 	//Gets blackouts
 	function blackoutsList($presenter){
-		$filter = new BlackoutFilter('', '', '', '');
-		
-		$session = ServiceLocator::GetServer()->GetUserSession();
-		
-		$blackouts = $presenter->manageBlackoutsService->LoadFiltered(1,50,$filter,$session);
+		$filter = new BlackoutFilter('', '', '', '');		
+		$session = ServiceLocator::GetServer()->GetUserSession();		
+		$blackouts = $presenter->manageBlackoutsService->LoadFiltered(1,200,$filter,$session);	
 		$presenter->page->Set('blackouts', $blackouts->Results());
 	}
 	
 	//Exports reservations file
-	function googleCalendar($presenter,$userSession,$calendar_export){
-		$filename = $userSession->FirstName.''.$userSession->LastName.''.$userSession->UserId;
+	function googleCalendar($presenter,$userSession,$calendar_export){		
+		$filename = crypt($filename,$userSession->UserId);
 		$presenter->page->Set('filename', $filename);
 		$myfile = fopen("uploads/calendars/".$filename.".ics", "w") or die("Unable to open file!");
 		$HeaderGC = 'BEGIN:VCALENDAR'.'#VERSION:2.0'.'#PRODID:Booked Scheduler';
@@ -73,7 +74,7 @@
 			
 			$BodyGC[$k] = 	'BEGIN:VEVENT'.'#CLASS:PUBLIC'.'#DESCRIPTION:'.$exp->Title.'#DTSTART;TZID=Europe/Copenhagen:'
 							.$start->format('Ymd').'T'.$start->format('His').'#DTEND;TZID=Europe/Copenhagen:'
-							.$end->format('Ymd').'T'.$end->format('His').'#LOCATION:'.$blank.'#SUMMARY;LANGUAGE=en-us:'.$exp->ResourceName
+							.$end->format('Ymd').'T'.$end->format('His').'#LOCATION:'.$exp->location.'#SUMMARY;LANGUAGE=en-us:'.$exp->ResourceName
 							.'#TRANSP:TRANSPARENT'.'#END:VEVENT';
 			$toWrite = explode("#",$BodyGC[$k]);
 			for ($i = 0; $i <= count($toWrite); $i++) {
@@ -86,21 +87,32 @@
 		return;
 	}
 	
-	//Sets the colros of resources
+	//Sets the colours of resources
 	function colors($presenter, $userSession){
 		//MyCode 4/5/2016
-		$colors = $_POST['colors'];
+		//$colors = $_POST['colors'];
+		$colors = "";
+		foreach($_POST as $key => $value){ 
+		   if (strpos($key, "color") !== false){
+				$colors = $colors."%".$value;
+		   }
+		}
 		$changedSetting = '';
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);
 		//echo '<script type="text/javascript">alert("'.var_dump($existingSettings).'");</script>';
 		if ($colors != ""){
 			//echo '<script type="text/javascript">alert("'.$userSession->FirstName.''.$userSession->LastName.''.$userSession->UserId.'");</script>';
-			$colors = explode("#",$colors);			
-			$newSettings = array();
-			$newSettings[$userSession->FirstName."_".$userSession->LastName."#color#".$colors[0]] = $colors[1];		
+			$colors = explode("%",$colors);
+			$newSettings = array();			
+			foreach ($colors as $color){
+				if ($color != ""){
+					$color = explode("#",$color);				
+					$newSettings[$userSession->UserId."#color#".$color[0]] = $color[1];
+					$changedSetting = $changedSetting."%".$color[0]."#".$color[1];
+				}
+			}				
 			$mergedSettings = array_merge($existingSettings, $newSettings);
-			$presenter->configSettings->WriteSettings($presenter->configFilePath, $mergedSettings);
-			$changedSetting = $colors[0]."#".$colors[1];
+			$presenter->configSettings->WriteSettings($presenter->configFilePath, $mergedSettings);			
 		}
 		return $changedSetting;
 	}
@@ -110,33 +122,44 @@
 		$existingSettings = $presenter->configSettings->GetSettings($presenter->configFilePath);
 		$settingsKeys = array_keys($existingSettings);		
 		foreach ($settingsKeys as $setKey){
-			if (strpos($setKey, $userSession->FirstName."_".$userSession->LastName."#color#") !== false){
+			if (strpos($setKey, $userSession->UserId."#color#") !== false){
 				$rColor = explode("#",$setKey);
 				$colorsToSend[$rColor[2]] = $existingSettings[$setKey];
 			}
-			if (strpos($setKey, $userSession->FirstName."_".$userSession->LastName."#minTime") !== false){
-				$minTime = $existingSettings[$setKey];
-			}
-			if (strpos($setKey, $userSession->FirstName."_".$userSession->LastName."#maxTime") !== false){
-				$maxTime = $existingSettings[$setKey];
-			}				
+			if (strpos($setKey, $userSession->UserId."#Time") !== false){
+				$Time = $existingSettings[$setKey];
+				$Time = explode("#",$Time);
+				$minTime = $Time[0];
+				$maxTime = $Time[1];
+				$presenter->page->SetFirstDay($Time[2]);
+				$format = $Time[3];
+				$weekends = $Time[4];				
+			}			
 		}
 		
 		if ($settingType != ""){
 			if ($settingType == "color"){
-				$changedSetting = explode("#",$changedSetting);
-				$colorsToSend[$changedSetting[0]] = $changedSetting[1];
+				$changedSetting = explode("%",$changedSetting);
+				foreach ($changedSetting as $Setting){
+					$Setting = explode("#",$Setting);
+					$colorsToSend[$Setting[0]] = $Setting[1];
+				}
 			}
 			elseif ($settingType == "time"){
 				$changedSetting = explode("#",$changedSetting);
 				$minTime = $changedSetting[0];
 				$maxTime = $changedSetting[1];
+				$presenter->page->SetFirstDay($changedSetting[2]);
+				$format = $changedSetting[3];
+				$weekends = $changedSetting[4];
 			}
 		}
 		
 		$presenter->page->Set('colorsToSend', $colorsToSend);
 		$presenter->page->Set('minTime', $minTime);
 		$presenter->page->Set('maxTime', $maxTime);
+		$presenter->page->Set('weekends', $weekends);
+		$presenter->page->Set('format', $format);
 		return;
 	}
 	
@@ -212,7 +235,7 @@
 		$presenter->page->Set('reservations2', $reservations_array);
 		$presenter->page->Set('myCal', $myCal);	
 		$presenter->page->Set('UserId', $userSession->UserId);
-
+		$presenter->page->Set('isAdmin', $userSession->IsAdmin);
 		return $calendar;
 	}
 

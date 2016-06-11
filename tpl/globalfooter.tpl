@@ -16,23 +16,33 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+
+	<div class="hiddenDiv" id="stringsFooter">
+		<input id="runString" type="text" value="{translate key="Stop"}">
+		<input id="hideString" type="text" value="{translate key="Hide"}">
+	</div>	
+
 	</div><!-- close content-->
 	</div><!-- close doc-->
 	<div class="push">&nbsp;</div>
 	</div><!-- close wrapper-->
-
+	
 {*Imports*}	
 <link rel="stylesheet" type="text/css" href="css/dashboard.css">
 <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 {jsfile src="js/jquery.qtip.min.js"}
 {jsfile src="dashboard.js"}
+
+{*Enhance*}	
 {jsfile src="enhancement/marquee.js"}
+{jsfile src="enhancement/footerEnhance.js"}
 
 <script type="text/javascript">
 $(document).ready(function() {
 	var dashboardOpts = {};
 	var dashboard = new Dashboard(dashboardOpts);
-	dashboard.init();
+	dashboard.init();	
+	footerEnhance();	
 });
 
 </script>
@@ -49,7 +59,7 @@ $(document).ready(function() {
 	</div>
 {else}
 	<div class="page-footer">
-		&copy; 2011-2016 &nbsp;<a href="http://github.com/JoseTfg/booked3">Booked Scheduler Enhanced v0.9</a>
+		&copy; 2011-2016 &nbsp;<a href="http://github.com/JoseTfg/booked3">Booked Scheduler Enhanced v1.0</a>
     </div>
 {/if}
 </html>

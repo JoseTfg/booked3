@@ -64,8 +64,17 @@ $conf['settings']['api']['enabled'] = 'true';
 
 4/5/2016
 
--config.php:		New parameters to define schedule time and resource colors per user.
+-config.php:		New parameters to define schedule time and resource colours per user.
 
 5/5/2016
 
 -config.php:		Configured for emails notifications.
+
+////////////////////////////////////////V0.9//////////////////////////////////////////////////
+
+-config.php:		User preferences has been redefined, now it follows the following
+					structure: userId#Time = minTime#maxTime#firstDay#timeFormat#weekends
+					
+////////////////////////////////////////V1.0//////////////////////////////////////////////////	
+
+-config.php:		New email configuration, now it uses Gmail SMTP.				

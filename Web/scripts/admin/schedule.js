@@ -128,7 +128,13 @@ function ScheduleManagement(opts)
 		{
 			createQuickLayout();
 			setActiveScheduleId("1");
-			$(this).closest('form').submit();
+			var correctLayout = checkLayout();
+			if (correctLayout){
+				$(this).closest('form').submit();
+			}
+			else{
+				$('.warning').show();
+			}
 		});
 
 		$(".cancel").click(function ()
@@ -406,5 +412,17 @@ function ScheduleManagement(opts)
 		text = text.replace(/\s\s+/g, ' ');
 		text = text.replace(/\s*,\s*/g, '\n');
 		return text;
+	};
+	
+	//MyCode
+	var checkLayout = function(){
+		var start = document.getElementById("quickLayoutStart").value;
+		var end = document.getElementById("quickLayoutEnd").value;
+		if (end>start){
+			return true;
+		}
+		else{
+			return false;
+		}
 	};
 }

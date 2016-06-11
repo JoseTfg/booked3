@@ -34,38 +34,38 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </thead>
 <tbody>
 	{foreach from=$users item=user}
-	{assign var=id value=$user->Id}
-	<tr>
-		<td class="id" align="center"><input type="hidden" class="id" value="{$id}"/></td>
-		<td id="{$id}" align="center">{$user->Username}</td>
-		<td align="center">{fullname first=$user->First last=$user->Last ignorePrivacy="true"}</td>			
-		<td align="center"><a href="mailto:{$user->Email}">{$user->Email}</a></td>
-		<td width="100px" align="center">
-			{if {$id} != "2"}
-				<a href="#" class="update changePermissions">{html_image src='my_edit.png'}</a>
-			{else}
-				--
-			{/if}
-		</td>
-		<td width="100px" align="center">
-			{if {$id} != "2"}
-				<a href="#" class="update changeGroups">{html_image src='my_edit.png'}</a>
-			{else}
-				--
-			{/if}
-		</td>
-		{if {$id} != "2"}
+		{assign var=id value=$user->Id}
+		<tr>
+			<td class="id" align="center"><input type="hidden" class="id" value="{$id}"/></td>
+			<td id="{$id}" align="center">{$user->Username}</td>
+			<td align="center">{fullname first=$user->First last=$user->Last ignorePrivacy="true"}</td>			
+			<td align="center"><a href="mailto:{$user->Email}">{$user->Email}</a></td>
 			<td width="100px" align="center">
-				<a href="#" class="update changeStatus">
-					{if {$statusDescriptions[$user->StatusId]} == {translate key='Active'}} {html_image src='tick-circle.png'}
-					{else} {html_image src='slash.png'}
-					{/if}
-				</a>
+				{if {$id} != "2"}
+					<a href="#" class="update changePermissions">{html_image src='my_edit.png'}</a>
+				{else}
+					--
+				{/if}
 			</td>
-		{else}
-			<td align="center">--</td>
-		{/if}
-	</tr>
+			<td width="100px" align="center">
+				{if {$id} != "2"}
+					<a href="#" class="update changeGroups">{html_image src='my_edit.png'}</a>
+				{else}
+					--
+				{/if}
+			</td>
+			{if {$id} != "2"}
+				<td width="100px" align="center">
+					<a href="#" class="update changeStatus">
+						{if {$statusDescriptions[$user->StatusId]} == {translate key='Active'}} {html_image src='tick-circle.png'}
+						{else} {html_image src='slash.png'}
+						{/if}
+					</a>
+				</td>
+			{else}
+				<td align="center">--</td>
+			{/if}
+		</tr>
 	{/foreach}
 </tbody>
 </table>

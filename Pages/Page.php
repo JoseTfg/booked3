@@ -116,8 +116,18 @@ abstract class Page implements IPage
 		{
 			$this->_announcements = new AnnouncementRepository();
 		}
+		
+		//MyCode
+		//New logos
 		$this->smarty->assign('Announcements', $this->GetFuture());
 		$this->smarty->assign('Logo2', 'booked2.png');
+		
+		//MyCode
+		//Date time
+		$date = date("Y-m-d");
+		$date = explode("-",$date);
+		$date = implode($date);
+		$this->smarty->assign('date', $date);
 	}
 
 	//Sets title

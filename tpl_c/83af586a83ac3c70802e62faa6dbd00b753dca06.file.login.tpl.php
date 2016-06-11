@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2016-06-01 21:57:10
+<?php /* Smarty version Smarty-3.1.16, created on 2016-06-11 17:49:12
          compiled from "/var/www/booked/tpl/login.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1244680884574f3e1685bd38-06847771%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1812323583575c32f88024d9-92859239%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '83af586a83ac3c70802e62faa6dbd00b753dca06' => 
     array (
       0 => '/var/www/booked/tpl/login.tpl',
-      1 => 1464806709,
+      1 => 1465474364,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1244680884574f3e1685bd38-06847771',
+  'nocache_hash' => '1812323583575c32f88024d9-92859239',
   'function' => 
   array (
   ),
@@ -28,9 +28,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_574f3e168c38b8_05016664',
+  'unifunc' => 'content_575c32f8865ea2_97276432',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_574f3e168c38b8_05016664')) {function content_574f3e168c38b8_05016664($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_575c32f8865ea2_97276432')) {function content_575c32f8865ea2_97276432($_smarty_tpl) {?>
 <?php echo $_smarty_tpl->getSubTemplate ('globalheader.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 
 
@@ -43,11 +43,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <div class="container">
     <div class="column-left">
-		<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+		<script language="JavaScript" src="https://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
 	</div>
 	
     <div class="column-right">
-		<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+		<script language="JavaScript" src="https://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
     </div>   
 
 	<div class="column-center">
@@ -93,7 +93,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<?php }?>
 
 					<p class="loginsubmit">					
-						<button type="submit" name="<?php echo Actions::LOGIN;?>
+						<button type="submit" id="loginButton" name="<?php echo Actions::LOGIN;?>
 " class="button" tabindex="100" value="submit"><img src="img/door-open-in.png"/> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'LogIn'),$_smarty_tpl);?>
  </button>
 						<button type="button" id="viewReservations" class="button" tabindex="100"><img src="img/search.png"/> <?php echo $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['translate'][0][0]->SmartyTranslate(array('key'=>'ViewReservations'),$_smarty_tpl);?>
@@ -141,7 +141,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			document.getElementsByClassName("input")[1].value = "password";
 			document.getElementsByClassName("button")[0].click();
 		});
-
 	});
 </script>
 

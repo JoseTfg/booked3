@@ -327,7 +327,13 @@ function GroupManagement(opts) {
 				shortText = newTitle;
 			}
 			elements.membersDialog.dialog("option", "title", elements.membersDialog.dialog("option", "title") + ": " + shortText);
-			firstCheck(addedMembers,removedMembers,0);		
+			firstCheck(addedMembers,removedMembers,0);
+
+			var sizeCheck = elements.membersDialog.outerHeight(); /*MyCode*/
+			if (sizeCheck>window.innerHeight-50){
+				elements.membersDialog.dialog( "option", "height", window.innerHeight-50 );
+				elements.membersDialog.dialog( "option", "width", elements.membersDialog.outerWidth()+50 );			
+			}
 		});
 	};
 
@@ -358,7 +364,7 @@ function GroupManagement(opts) {
 				var resourceLine = elements.removedResources.find('div[resourceId=' + value + ']');
 				resourceLine.appendTo(elements.addedResources);
 			});
-		});
+		});		
 
 		elements.permissionsDialog.dialog('open');
 		elements.permissionsDialog.dialog( "option", "resizable", false );
@@ -373,6 +379,12 @@ function GroupManagement(opts) {
 			}
 		elements.permissionsDialog.dialog("option", "title", elements.permissionsDialog.dialog("option", "title") + ": " + shortText);
 		firstCheck(addedResources,removedResources,2);		
+
+		var sizeCheck = elements.permissionsDialog.outerHeight(); /*MyCode*/
+		if (sizeCheck>window.innerHeight-50){
+			elements.permissionsDialog.dialog( "option", "height", window.innerHeight-50 );
+			elements.permissionsDialog.dialog( "option", "width", elements.permissionsDialog.outerWidth()+50 );			
+		}
 	};
 
 	//Open delete group dialog
@@ -483,9 +495,15 @@ function GroupManagement(opts) {
 			var message = element1.parentNode.children[3+offset];
 			message.style.display = 'none';
 		}
-		if (element2.innerHTML.indexOf("id") == "-1"){
+		else if (element2.innerHTML.indexOf("id") == "-1"){
 			var message = element2.parentNode.children[3+offset];
 			message.style.display = 'block';
+			var message = element2.parentNode.children[0+offset];
+			message.style.display = 'none';
+		}
+		else{
+			var message = element2.parentNode.children[3+offset];
+			message.style.display = 'none';
 			var message = element2.parentNode.children[0+offset];
 			message.style.display = 'none';
 		}

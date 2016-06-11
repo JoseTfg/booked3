@@ -46,7 +46,7 @@ class ReservationApprovalPage extends SecurePage implements IReservationApproval
 			$handler = ReservationHandler::Create($reservationAction, $persistenceService,ServiceLocator::GetServer()->GetUserSession());
 			$auth = new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization());
 			$presenter = new ReservationApprovalPresenter($this, $persistenceService, $handler, $auth, ServiceLocator::GetServer()->GetUserSession());
-			$presenter->PageLoad();
+			$presenter->PageLoad();			
 		} catch (Exception $ex)
 		{
 			Log::Error('ReservationApprovalPage - Critical error saving reservation: %s', $ex);

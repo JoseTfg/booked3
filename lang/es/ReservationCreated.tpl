@@ -16,6 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
+
 	Detalles de la Reserva:
 	<br/>
 	<br/>
@@ -74,6 +75,4 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 	<br/>
 	<br/>
-	<a href="{$ScriptUrl}/{$ReservationUrl}">Ver esta reserva</a> |
-	<a href="{$ScriptUrl}/{$ICalUrl}">Agregar a un calendario</a> |
 	<a href="{$ScriptUrl}">Iniciar sesión en Booked Scheduler</a>

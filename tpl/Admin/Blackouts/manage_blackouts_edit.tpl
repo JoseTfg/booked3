@@ -92,15 +92,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </form>
 
 <script type="text/javascript">
-
-	$("#myLabel").on('click', function() {
-		   if (document.getElementById("myResourceList").style.display == "none"){
-				document.getElementById("myResourceList").style.display = "initial";
-		   }
-		   else{
-				document.getElementById("myResourceList").style.display = "none";
-			}
-		});
 	
 	var recurOpts = {
 		repeatType: '{$RepeatType}',

@@ -279,11 +279,11 @@
         },
         mouseenter: function() {
           if(!button.hasClass('ui-state-disabled')) {
-            //$(this).addClass('ui-state-hover');
+            $(this).addClass('ui-state-hover');
           }
         },
         mouseleave: function() {
-          //$(this).removeClass('ui-state-hover');
+          $(this).removeClass('ui-state-hover');
         },
         focus: function() {
           if(!button.hasClass('ui-state-disabled')) {
@@ -337,8 +337,8 @@
       })
       .delegate('label', 'mouseenter.multiselect', function() {
         if(!$(this).hasClass('ui-state-disabled')) {
-          //self.labels.removeClass('ui-state-hover');
-          //$(this).addClass('ui-state-hover').find('input').focus();
+          self.labels.removeClass('ui-state-hover');
+          $(this).addClass('ui-state-hover').find('input').focus();
         }
       })
       .delegate('label', 'keydown.multiselect', function(e) {

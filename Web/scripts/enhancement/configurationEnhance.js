@@ -5,12 +5,15 @@ var enhance = function(){
 	url = document.URL;
 	
 	//Hides private items
+	
+	//LDAP
 	if(url.indexOf("cf=Authentication%2FLdap") != -1){
 		document.getElementById("scope").style.display = "none";
 		document.getElementById("required.group").style.display = "none";
 		document.getElementById("database.auth.when.ldap.user.not.found").style.display = "none";
 		document.getElementById("ldap.debug.enabled").style.display = "none";
 	}
+	//Config file
 	else{
 		document.getElementById("allow.self.registration").style.display = "none";
 		document.getElementById("admin.email.name").style.display = "none";
@@ -26,12 +29,8 @@ var enhance = function(){
 		document.getElementById("disable.password.reset").style.display = "none";
 		document.getElementById("home.url").style.display = "none";
 
-
-		var userPreferences = $("li[id*='minTime']");
-		for (i=0;i<userPreferences.length;i++){
-			userPreferences[i].style.display = "none";
-		}
-		var userPreferences = $("li[id*='maxTime']");
+		//Hides user preferences
+		var userPreferences = $("li[id*='Time']");
 		for (i=0;i<userPreferences.length;i++){
 			userPreferences[i].style.display = "none";
 		}
@@ -40,6 +39,7 @@ var enhance = function(){
 			userPreferences[i].style.display = "none";
 		}
 	
+		//Hides other options
 		document.getElementById("schedule").style.display = "none";
 		document.getElementById("ics").style.display = "none";
 		document.getElementById("privacy").style.display = "none";

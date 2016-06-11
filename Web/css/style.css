@@ -521,6 +521,7 @@ div.notification-status {
 #help h2 {
 	padding: 2px;
 	background-color: #e8eef2;
+	font-size: 12pt;
 }
 
 /*Help h3*/
@@ -532,7 +533,7 @@ div.notification-status {
 /*Help paragraph*/
 #help p {
 	margin: 10px 20px;
-	font-size: 11pt;
+	font-size: 10pt;
 }
 
 /*Help*/

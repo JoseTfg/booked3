@@ -31,7 +31,7 @@ function ReservationManagement(opts, approval)
 		statusResourceId: $('#statusResourceId'),
 		statusReferenceNumber: $('#statusUpdateReferenceNumber'),
 
-		filterButton: $('#filter'),
+		filterButton: $('#filterButton'),
 		clearFilterButton: $('#clearFilter'),
 		filterTable: $('#filterTable'),
 
@@ -520,28 +520,35 @@ function ReservationManagement(opts, approval)
 	{
 		//MyCode
 		//Allows new reservation view popups
-		var popup = new $.Popup({
-			modal:true
-			});
-			popup.open('http://localhost/booked/Web/reservation.php?rn='+referenceNumber);
-			$('.popup_close').hide();
-			interval = setInterval(function(){
-				popup_status = sessionStorage.getItem("popup_status");
-				if(popup_status == "close"){
-					sessionStorage.setItem("popup_status", "none");
-					popup.close();
-					clearInterval(interval);
-				}
-				if(popup_status == "update"){
-					sessionStorage.setItem("popup_status", "none");
-					popup.close();
-					clearInterval(interval);
-					location.reload();
-				}
-				},100);
+		url = 'https://156.35.41.127/Web/reservation.php?rn='+referenceNumber; 
+		var popup = $('#reservationColorbox')
+			.html('<iframe style="border: 0px; " src="' + url + '" width="100%" height="100%"></iframe>')
+            .dialog({
+                autoOpen: false,
+                modal: true,
+                height: 500,
+                width: 400,
+				resizable: false,
+				draggable: false,
+                title: document.getElementById("dialogString").value
+            });
+		popup.dialog("open");	
+			
+		interval = setInterval(function(){
+		popup_status = sessionStorage.getItem("popup_status");
+			if(popup_status == "update"){
+				sessionStorage.setItem("popup_status", "none");
+				clearInterval(interval);
+				location.reload();
+			}
+		},100);
 		sleep(1000);
 	}
 
+	$('#reservationColorbox').on( "dialogclose", function( event, ui ) {
+		location.reload();
+	});
+	
 	//Approves a reservation
 	function approveReservation(referenceNumber)
 	{

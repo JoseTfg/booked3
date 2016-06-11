@@ -69,8 +69,8 @@ class ReservationDeletePage extends SecurePage implements IReservationDeletePage
 			{
 				//MyCode  (29/3/2016)
 				//Returns directly without sending any message.				
-				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";
-				$this->Display('Ajax/reservation/delete_successful.tpl');						
+				echo "<script type=\"text/javascript\">sessionStorage.setItem('popup_status', 'update');</script>";	
+				$this->Display('Ajax/reservation/save_successful.tpl');
 			}
 			else
 			{

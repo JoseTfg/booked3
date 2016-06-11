@@ -44,7 +44,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 <li>{translate key=ProvideInstallPassword}</li>
                 <li>{translate key=InstallPasswordLocation args="$ConfigPath,$ConfigSetting"}</li>
 				</br>
-                <li>{textbox placeholder="Password" type="password" name="INSTALL_PASSWORD" class="textbox" size="20"}</li>				
+                <li>{textbox placeholder="{translate key=Password}" type="password" name="INSTALL_PASSWORD" class="textbox" size="20"}</li>				
                 <li><button type="submit" name="" class="button" value="submit">{translate key=Next} {html_image src="arrow_large_right.png"}</button></li>
             </ul>
         {/if}
@@ -63,9 +63,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
                 <li>2) {translate key=DatabaseCredentials}</li>
 				</br>
                 <li>{translate key=MySQLUser}</li>
-                <li>{textbox name="INSTALL_DB_USER" placeholder="User" class="textbox" size="20"}</li>
+                <li>{textbox name="INSTALL_DB_USER" placeholder="{translate key=User}" class="textbox" size="20"}</li>
                 <li>{translate key=Password}</li>
-                <li>{textbox type="password" name="INSTALL_DB_PASSWORD" class="textbox" placeholder="Password" size="20"}</li>
+                <li>{textbox type="password" name="INSTALL_DB_PASSWORD" class="textbox" placeholder="{translate key=Password}" size="20"}</li>
                 <li>&nbsp;</li>
 				{if $ShowInstallOptions}
 					<li>3)<i>{translate key=InstallOptionsWarning}</i></li>

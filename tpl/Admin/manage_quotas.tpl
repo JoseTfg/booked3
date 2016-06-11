@@ -24,7 +24,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<div class="warning">{translate key=FieldWarning}</div>
 	<form id="addQuotaForm" method="post">
 	{capture name="resources" assign="resources"}
-		<select class='textbox' {formname key=RESOURCE_ID}>
+		<select style="text-align-last:center" class='textbox' {formname key=RESOURCE_ID}>
 			<option selected='selected' value=''>{translate key=AllResources}</option>
 			{foreach from=$Resources item=resource}
 				<option value='{$resource->GetResourceId()}'>{$resource->GetName()|replace:',':' '}</option>
@@ -33,7 +33,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{/capture}
 
 	{capture name="groups" assign="groups"}
-		<select class='textbox' {formname key=GROUP}>
+		<select style="text-align-last:center" class='textbox' {formname key=GROUP}>
 			<option selected='selected' value=''>{translate key=AllGroups}</option>
 			{foreach from=$Groups item=group}
 				<option value='{$group->Id}'>{$group->Name|replace:',':' '}</option>
@@ -42,18 +42,18 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{/capture}
 
 	{capture name="amount" assign="amount"}
-		<input type='number' class='textbox' value='1' size='5' min='1' max='24' {formname key=LIMIT} />
+		<input type='number' class='textbox' value='1' size='5' min='1' max='99' {formname key=LIMIT} />
 	{/capture}
 
 	{capture name="unit" assign="unit"}
-		<select class='textbox' {formname key=UNIT}>
+		<select style="text-align-last:center" class='textbox' {formname key=UNIT}>
 			<option value='{QuotaUnit::Hours}'>{translate key=hours}</option>
 			<option value='{QuotaUnit::Reservations}'>{translate key=Reservations}</option>
 		</select>
 	{/capture}
 
 	{capture name="duration" assign="duration"}
-		<select class='textbox' {formname key=DURATION}>
+		<select style="text-align-last:center" class='textbox' {formname key=DURATION}>
 			<option value='{QuotaDuration::Day}'>{translate key=day}</option>
 			<option value='{QuotaDuration::Week}'>{translate key=week}</option>
 			<option value='{QuotaDuration::Month}'>{translate key=month}</option>
@@ -70,39 +70,39 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 <table id="quotaTable" class="list">
-<thead>
-	<th> {translate key="Resources"} </th>
-	<th> {translate key="Groups"} </th>
-	<th> {translate key="Amount"} </th>
-	<th> {translate key="Unit"} </th>
-	<th> {translate key="Duration"} </th>
-	<th> {translate key="Delete"} </th>
-</thead>
-<tbody>
-	{foreach from=$Quotas item=quota}		
-	<tr>
-		<td align="center">
-			{if $quota->ResourceName ne ""}
-				{$quota->ResourceName|replace:',':' '}
-			{else}
-				{translate key="AllResources"}
-			{/if}
-		</td>
-		<td align="center">
-			{if $quota->GroupName ne ""}
-				{$quota->GroupName|replace:',':' '}
-			{else}
-				{translate key="AllGroups"}
-			{/if}
-		</td>
+	<thead>
+		<th> {translate key="Resources"} </th>
+		<th> {translate key="Groups"} </th>
+		<th> {translate key="Amount"} </th>
+		<th> {translate key="Unit"} </th>
+		<th> {translate key="Duration"} </th>
+		<th> {translate key="Delete"} </th>
+	</thead>
+	<tbody>
+		{foreach from=$Quotas item=quota}		
+			<tr>
+				<td align="center">
+					{if $quota->ResourceName ne ""}
+						{$quota->ResourceName|replace:',':' '}
+					{else}
+						{translate key="AllResources"}
+					{/if}
+				</td>
+				<td align="center">
+					{if $quota->GroupName ne ""}
+						{$quota->GroupName|replace:',':' '}
+					{else}
+						{translate key="AllGroups"}
+					{/if}
+				</td>
 
-		<td align="center">{$quota->Limit}</td>
-		<td align="center">{translate key=$quota->Unit}</td>
-		<td align="center">{translate key=$quota->Duration}</td>
-		<td align="center"><a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a></td>
-	</tr>
-	{/foreach}
-</tbody>
+				<td align="center">{$quota->Limit}</td>
+				<td align="center">{translate key=$quota->Unit}</td>
+				<td align="center">{translate key=$quota->Duration}</td>
+				<td align="center"><a href="#" quotaId="{$quota->Id}" class="delete">{html_image src="cross-button.png"}</a></td>
+			</tr>
+		{/foreach}
+	</tbody>
 </table>
 
 <button id="newButton" class="button save" type="button">{html_image src="plus-button.png"} {translate key=Add}</button>
@@ -154,4 +154,5 @@ $(document).ready(function(){
 });
 	
 </script>
+
 {include file='globalfooter.tpl'}

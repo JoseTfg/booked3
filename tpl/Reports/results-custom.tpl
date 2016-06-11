@@ -37,6 +37,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 						{translate key=Description}
 					{elseif $column->Title() eq "User"}
 						{translate key=User}
+					{elseif $column->Title() eq "Group"}
+						{translate key=Group}
 					{else}
 						{$smarty.capture.columnTitle}
 					{/if}
@@ -47,8 +49,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{cycle values=',alt' assign=rowCss}
 			<tr class="{$rowCss}">
 				{foreach from=$Definition->GetRow($row) item=cell}
-					<td chart-value="{$cell->ChartValue()}" chart-column-type="{$cell->GetChartColumnType()}"
-						chart-group="{$cell->GetChartGroup()}">{$cell->Value()|escape}</td>
+					<td chart-value="{$cell->ChartValue()}" chart-column-type="{$cell->GetChartColumnType()}"chart-group="{$cell->GetChartGroup()}">{$cell->Value()|escape}</td>
 				{/foreach}
 			</tr>
 		{/foreach}
@@ -62,6 +63,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<input id="TitleString" type="text" value="{translate key="Title"}">
 	<input id="DescriptionString" type="text" value="{translate key="Description"}">
 	<input id="UserString" type="text" value="{translate key="User"}">
+	<input id="GroupString" type="text" value="{translate key="Group"}">
 </div>
 
 <script type="text/javascript">

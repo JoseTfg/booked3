@@ -21,6 +21,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 define('ROOT_DIR', '../../');
 $smartyTemplateCacheDir = ROOT_DIR . 'tpl_c';
 
+//MyCode
+if (file_exists(ROOT_DIR . 'config/config.php'))
+{
+	require_once(ROOT_DIR . 'config/config.php');
+}
+
 /**
  * Checking directory permission
  */

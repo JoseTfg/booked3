@@ -17,5 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <div id="reservationCreated" class="reservationResponseMessage" style="text-align:center;">
+	</br></br></br></br></br></br></br></br></br></br></br></br>
 	{html_image src="dialog-success.png" id="imgReservationSuccess"}
 </div>

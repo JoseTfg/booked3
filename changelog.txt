@@ -1,3 +1,39 @@
+<h4>v1.0	-	10/6/2016:</h4>
+
+-config.php:						New email configuration, now it uses Gmail SMTP.
+-manage_configuration.tpl			Changed text-boxes size.
+-manage_reservations.tpl			Changed header style.
+-manage_resources.tpl				Fields updated.
+-manage_announcements.tpl			Field size updated.
+-manage_quotas.tpl					Updated table content.
+-manage_groups.tpl					Field size updated.
+-manage_schedules.tpl				Updated popup user interaction.
+-manage_users.tpl					Field size updated.
+-mycalendar.common.tpl:				Full translated and responsive to dialog interaction.
+-RecurrenceDiv.tpl:					Changed styles.
+-generate-report.tpl				Changed size.
+-results-custom.tpl					Changed result content. Full translated.
+-create.tpl							Final style. Content updated.
+-view.tpl:							Final style. Content updated.
+-globalheader.tpl:					Final style. Content updated. Full translated
+-support-and-credits.tpl			Updated information. Full translated
+-PersonalCalendarPresenterEnhance.php:	Updated user preferences system.
+-css_enhancement:					Update several styles from all admin views and reservation view.
+-footerEnhance.js					New announcements context menu.
+-announcement.js					Show invalid options message.
+-group.js							Show messages to better display the situation.
+-quota.js							Show invalid options message.
+-reservations.js					Popup updated.
+-resource.js						Show messages to better display the situation.
+-schedule.js						Remove unused options.
+-user.js							Show messages to better display the situation.
+-calendar.js						New color system.
+-calendarEnhance.js					Several changes, please refer to the documentation.
+-configurationEnhance.js			Translate options.
+-createEnhance.js					Finish adapting the popup system.
+-manageBlackoutsEnhance.js			Finish adapting the popup system.
+-scheduleEnhance.js					Show invalid options message.
+
 <h4>v0.9	-	1/6/2016:</h4>
 
 -config.php:						User preferences has been redefined, now it follows the following

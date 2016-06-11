@@ -132,3 +132,8 @@ ul.jqtree-tree .jqtree-toggler {
 	font-size:1.5em;
 	font-weight: bold;
 }
+
+/*UI*/
+.ui-state-hover{
+	font-size:12px;
+}

@@ -92,7 +92,7 @@ function ReportsCommon() {
 						items.push('<div style="display:none" ><label><input type="checkbox"' + 'value="' + title + '"/> ' + title + '</label></div>');
 						showColumn(title, false);
 					}
-					else if(title == "Resource" || title == "Title" || title == "Description" || title == "User"){
+					else if(title == "Resource" || title == "Title" || title == "Description" || title == "User" || title == "Group"){
 						var newTitle = document.getElementById(title+"String");
 						items.push('<div><label><input type="checkbox"' + checked + 'value="' + title + '"/> ' +  newTitle.value + '</label></div>');
 					}

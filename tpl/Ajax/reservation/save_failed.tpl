@@ -17,16 +17,17 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 <div style="text-align:center;">
+	</br></br></br></br></br>
 	{html_image src="dialog-warning.png"}<br/>
 	<h2 id="reservationErrorTitle">{translate key=ReservationFailed}</h2>
 	<div style="max-width:230px" class="error">
 		<ul>
-		{foreach from=$Errors item=each}
-			<li>{$each|nl2br}</li>
-		{/foreach}
+			{foreach from=$Errors item=each}
+				<li>{$each|nl2br}</li>
+			{/foreach}
 		</ul>
 	</div>
 	<div id="reservationError">
-		<button id="btnSaveFailed">{html_image src="arrow_large_left.png"} {translate key='ReservationErrors'}</button>
+		<button style="text-align: center;" id="btnSaveFailed">{html_image src="arrow_large_left.png"} {translate key='ReservationErrors'}</button>
 	</div>
 </div>

@@ -31,42 +31,42 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<td class="action">{translate key='Permissions2'}</th>
 		<td class="action">{translate key='Delete'}</th>
 	</thead>
-{foreach from=$groups item=group}
-	<tr>
-		<td class="id">{$group->Id}<input type="hidden" class="id" value="{$group->Id}"/></td>
-		<td align="center" id="{$group->Id}" ><a href="#" class="update rename">{$group->Name}</a></td>
-		<td width="100px" align="center">
-			{if {$group->Id} != "2"}
-				<a href="#" class="update members">{html_image src='my_edit.png'}</a>
-			{else}
-				--
-			{/if}
-		</td>		
-		{if $CanChangeRoles}
+	{foreach from=$groups item=group}
+		<tr>
+			<td class="id">{$group->Id}<input type="hidden" class="id" value="{$group->Id}"/></td>
+			<td align="center" id="{$group->Id}" ><a href="#" class="update rename">{$group->Name}</a></td>
 			<td width="100px" align="center">
 				{if {$group->Id} != "2"}
-					<a href="#" class="update roles">{html_image src='my_edit.png'}</a>
+					<a href="#" class="update members">{html_image src='my_edit.png'}</a>
+				{else}
+					--
+				{/if}
+			</td>		
+			{if $CanChangeRoles}
+				<td width="100px" align="center">
+					{if {$group->Id} != "2"}
+						<a href="#" class="update roles">{html_image src='my_edit.png'}</a>
+					{else}
+						--
+					{/if}
+				</td>
+			{/if}		
+			<td width="100px" align="center">
+				{if {$group->Id} != "2"}
+					<a href="#" class="update permissions">{html_image src='my_edit.png'}</a>
 				{else}
 					--
 				{/if}
 			</td>
-		{/if}		
-		<td width="100px" align="center">
-			{if {$group->Id} != "2"}
-				<a href="#" class="update permissions">{html_image src='my_edit.png'}</a>
-			{else}
-				--
-			{/if}
-		</td>
-		<td width="100px" align="center">
-			{if {$group->Id} != "2"}
-				<a href="#" class="update delete">{html_image src='cross-button.png'}</a>
-			{else}
-				--
-			{/if}
-		</td>
-	</tr>
-{/foreach}
+			<td width="100px" align="center">
+				{if {$group->Id} != "2"}
+					<a href="#" class="update delete">{html_image src='cross-button.png'}</a>
+				{else}
+					--
+				{/if}
+			</td>
+		</tr>
+	{/foreach}
 </table>
 
 <div class="pagination">
@@ -142,29 +142,29 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 {if $CanChangeRoles}
-<div id="rolesDialog" class="dialog" title="{translate key=Roles}">
-	<form class="hiddenForm" id="rolesForm" method="post">
-		<ul>
+	<div id="rolesDialog" class="dialog" title="{translate key=Roles}">
+		<form class="hiddenForm" id="rolesForm" method="post">
+			<ul>
+				{foreach from=$Roles item=role}
+					<li><label><input type="checkbox" {formname key=ROLE_ID multi=true}" value="{$role->Id}" /> {$role->Name}</label></li>
+				{/foreach}
+				<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
+			</ul>
+		</form>
+		<div id="roleList" class="hidden">
 			{foreach from=$Roles item=role}
-				<li><label><input type="checkbox" {formname key=ROLE_ID multi=true}" value="{$role->Id}" /> {$role->Name}</label></li>
+				{if $role->Id == '2'} 
+					<div class="role-item" roleId="{$role->Id}"><a href="#">&nbsp;</a> <span>{translate key='AppAdmin'}</span></div>
+				{else}
+					<div class="role-item" roleId="{$role->Id}"><a href="#">&nbsp;</a> <span>{translate key='ResAdmin'}</span></div>
+				{/if}
 			{/foreach}
-			<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
-		</ul>
-	</form>
-	<div id="roleList" class="hidden">
-		{foreach from=$Roles item=role}
-			{if $role->Id == '2'} 
-				<div class="role-item" roleId="{$role->Id}"><a href="#">&nbsp;</a> <span>{translate key='AppAdmin'}</span></div>
-			{else}
-				<div class="role-item" roleId="{$role->Id}"><a href="#">&nbsp;</a> <span>{translate key='ResAdmin'}</span></div>
-			{/if}
-		{/foreach}
+		</div>
+		<div class="hiddenDiv" style="text-align:center;">{translate key=NoneSelected}</div>
+		<div id="addedRoles"></div>
+		<div id="removedRoles"></div>
+		<div class="hiddenDiv" style="text-align:center;">{translate key=AllSelected}</div>
 	</div>
-	<div class="hiddenDiv" style="text-align:center;">{translate key=NoneSelected}</div>
-	<div id="addedRoles"></div>
-	<div id="removedRoles"></div>
-	<div class="hiddenDiv" style="text-align:center;">{translate key=AllSelected}</div>
-</div>
 {/if}
 
 <div id="groupAdminDialog" class="dialog" title="{translate key=WhoCanManageThisGroup}">

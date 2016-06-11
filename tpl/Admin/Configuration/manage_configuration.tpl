@@ -24,26 +24,26 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{cycle values=',row1' assign=rowCss}
 		{assign var="name" value=$setting->Name}
 		<li id="{$setting->Key}"><span class="label">{$setting->Key}</span>
-		{if $setting->Key == ConfigKeys::DEFAULT_TIMEZONE}
-            <select name="{$name}" class="textbox" style="width:358px;">
-				{html_options values=$TimezoneValues output=$TimezoneOutput selected=$setting->Value}
-            </select>
-		{elseif $setting->Key == ConfigKeys::LANGUAGE}
-            <select name="{$name}" class="textbox" style="width:358px;">
-				{object_html_options options=$Languages key='GetLanguageCode' label='GetDisplayName' selected=$setting->Value|strtolower}
-            </select>
-		{elseif $setting->Key == ConfigKeys::DEFAULT_HOMEPAGE}
-			<select name="{$name}" class="textbox">
-				{html_options values=$HomepageValues output=$HomepageOutput selected=$setting->Value|strtolower}
-			</select>
-		{elseif $setting->Type == ConfigSettingType::String}
-            <input type="text" size="50" name="{$name}" style="width:350px;" value="{$setting->Value|escape}" class="textbox"/>
-		{else}
-            <label>{translate key="True"}&nbsp;<input type="radio" value="true" name="{$name}"{if $setting->Value == 'true'} checked="checked"{/if} /></label>
-            &nbsp;&nbsp;&nbsp;
-			<label>{translate key="False"}&nbsp;<input type="radio" value="false" name="{$name}"{if $setting->Value == 'false'} checked="checked"{/if} /></label>
-		{/if}
-    </li>
+			{if $setting->Key == ConfigKeys::DEFAULT_TIMEZONE}
+				<select name="{$name}" class="textbox" style="width:358px;">
+					{html_options values=$TimezoneValues output=$TimezoneOutput selected=$setting->Value}
+				</select>
+			{elseif $setting->Key == ConfigKeys::LANGUAGE}
+				<select name="{$name}" class="textbox" style="width:358px;">
+					{object_html_options options=$Languages key='GetLanguageCode' label='GetDisplayName' selected=$setting->Value|strtolower}
+				</select>
+			{elseif $setting->Key == ConfigKeys::DEFAULT_HOMEPAGE}
+				<select name="{$name}" class="textbox">
+					{html_options values=$HomepageValues output=$HomepageOutput selected=$setting->Value|strtolower}
+				</select>
+			{elseif $setting->Type == ConfigSettingType::String}
+				<input type="text" size="50" name="{$name}" style="width:350px;" value="{$setting->Value|escape}" class="textbox"/>
+			{else}
+				<label>{translate key="Yes"}&nbsp;<input type="radio" value="true" name="{$name}"{if $setting->Value == 'true'} checked="checked"{/if} /></label>
+				&nbsp;&nbsp;&nbsp;
+				<label>{translate key="No"}&nbsp;<input type="radio" value="false" name="{$name}"{if $setting->Value == 'false'} checked="checked"{/if} /></label>
+			{/if}
+		</li>
 	{/foreach}
 {/function}
 
@@ -61,8 +61,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 {/if}
 
-{if $IsPageEnabled && $IsConfigFileWritable}
-
 {assign var=HelpUrl value="$ScriptUrl/help.php?ht=admin"}
 
 <div id="updatedMessage" class="success">
@@ -72,9 +70,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <div id="configSettings">
     <form id="frmConfigSettings" method="post" ajaxAction="{ConfigActions::Update}" action="{$smarty.server.SCRIPT_NAME}">
 		<fieldset class="orangeFieldset">
-		<ul class="no-style config-settings">
-			{list_settings settings=$Settings}
-        </ul>
+			<ul class="no-style config-settings">
+				{list_settings settings=$Settings}
+			</ul>
 		</fieldset>
 
 		{foreach from=$SectionSettings key=section item=settings}
@@ -95,11 +93,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<form id="frmConfigFile" method="GET" action="{$SCRIPT_NAME}">
 		{translate key=File}:
 		<select name="cf" id="cf" class="textbox">
-		{foreach from=$ConfigFiles item=file}
-			{assign var=selected value=""}
-			{if $file->Location eq $SelectedFile}{assign var=selected value="selected='selected'"}{/if}
-			<option value="{$file->Location}" {$selected}>{$file->Name}</option>
-		{/foreach}
+			{foreach from=$ConfigFiles item=file}
+				{assign var=selected value=""}
+				{if $file->Location eq $SelectedFile}{assign var=selected value="selected='selected'"}{/if}
+				<option value="{$file->Location}" {$selected}>{$file->Name}</option>
+			{/foreach}
 		</select>
 	</form>
 </div>
@@ -140,12 +138,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <script type="text/javascript">		
 	
-    $(document).ready(function ()
-    {
+    $(document).ready(function (){
         var config = new Configuration();
         config.init();
-    });
-	
+    });	
 	enhance()
 
 </script>
@@ -154,7 +150,5 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
     <h3>{translate key=Working}</h3>
 	{html_image src="reservation_submitting.gif"}
 </div>
-
-{/if}
 
 {include file='globalfooter.tpl'}

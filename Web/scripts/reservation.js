@@ -63,6 +63,12 @@ function Reservation(opts)
 		_ownerId = ownerId;
 		participation.addedUsers.push(ownerId);
 
+		//MyCode
+		popup_status = sessionStorage.getItem("popup_status");
+		if (popup_status == "delete"){
+			$('form').attr("action", options.deleteUrl);
+		}
+		
 		//Dialogs
 		$('.dialog').dialog({
 			bgiframe: true,
@@ -186,15 +192,10 @@ function Reservation(opts)
 			window.location = options.returnUrl;
 		});
 
-		//$('#creatingNotification').hide();
-		$('#result').show();
-		//$('.details').hide();
-		//alert("aa");
+		$('#result').show();;
 		
 		$('#btnSaveFailed').click(function ()
-		{
-			//CloseSaveDialog();
-			//alert("aa");			
+		{		
 			$('.details').show();
 			$('#result').hide();
 			location.reload();
@@ -202,7 +203,7 @@ function Reservation(opts)
 		
 	};
 
-	//Add accesories
+	//Add accessories
 	var AddAccessories = function ()
 	{
 		elements.accessoriesList.empty();
@@ -213,7 +214,7 @@ function Reservation(opts)
 		});
 	};
 
-	//Add accesory
+	//Add accessory
 	Reservation.prototype.addAccessory = function (accessoryId, quantity, name)
 	{
 		AddAccessory(name, accessoryId, quantity);

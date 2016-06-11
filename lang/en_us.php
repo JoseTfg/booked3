@@ -693,7 +693,7 @@ class en_us extends Language
 		$strings['Day'] = 'Day';
 		$strings['Colors'] = 'Colors';
 		$strings['TimeTable'] = 'TimeTable';
-		$strings['TimeTableBoundaries'] = 'Select the boundaries in week and day views';
+		$strings['TimeTableBoundaries'] = 'Select view options';
 		$strings['Export'] = 'ICS File';
 		$strings['DeleteReservation'] = 'Are you sure you want to delete this element?';
 		$strings['Download'] = 'Download';
@@ -704,6 +704,10 @@ class en_us extends Language
 		$strings['selectOptions'] = 'Select resources';
 		$strings['selectText'] = 'selected';
 		$strings['GoDay'] = 'Go to day';
+		$strings['Calendar'] = 'Schedule';
+		$strings['Period'] = 'Period';
+		$strings['Until'] = 'until';
+		$strings['Pending'] = 'Confirmation pending';
 		
 		//Reports
 		$strings['ViewAsList'] = 'View as list';
@@ -752,6 +756,41 @@ class en_us extends Language
 		
 		//Others
 		$strings['ViewReservations'] = 'View Reservations';
+		$strings['Blackout'] = 'Blackout period';
+		$strings['CheckReservation'] = 'Check Reservation';
+		$strings['Monday'] = 'Monday';
+		$strings['Tuesday'] = 'Tuesday';
+		$strings['Wednesday'] = 'Wednesday';
+		$strings['Thursday'] = 'Thursday';
+		$strings['Friday'] = 'Friday';
+		$strings['Saturday'] = 'Saturday';
+		$strings['Sunday'] = 'Sunday';
+		$strings['Weekends'] = 'Display Weekends';
+		$strings['FirstDay'] = 'First day of the week';
+		$strings['Format12'] = '12 hours format';
+		$strings['Format24'] = '24 hours format';
+		$strings['NotAvailable'] = 'Not available';
+		$strings['NoActions'] = 'No available actions';
+		$strings['WorkSchedule'] = 'Work Schedule';
+		$strings['Configuration'] = 'Configuration';
+		$strings['PermissionsAll'] = 'All can reserve it by default';
+		$strings['PermissionsNone'] = 'No one can reserve it by default';			
+		$strings['Reason'] = 'Reason';
+		$strings['Stop'] = 'Stop';	
+		$strings['Hide'] = 'Show / Hide';	
+		
+		//Help
+		$strings['Help2'] = 'User guide';
+		$strings['Help3'] = 'Administration guide';
+		$strings['AboutBookedScheduler'] = 'About Booked Scheduler';
+		$strings['Support'] = 'Support and collaboration';
+		$strings['Credits'] = 'Credits';
+		$strings['OriginalAuthors'] = 'Original Authors';
+		$strings['ExtendedBy'] = 'Extended By';
+		$strings['ThankYou'] = 'Thank you to the following projects and libraries';
+		$strings['License'] = 'License';
+		$strings['License2'] = 'Booked Scheduler free and open source, licenced under the GNU GENERAL PUBLIC LICENSE. Please see the included License file for more details.';
+		
 		
 		$this->Strings = $strings;
 

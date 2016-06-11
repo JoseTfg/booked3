@@ -27,53 +27,48 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/block}
 
 <div>
-{block name=submitButtons}
-	{if $IsRecurring}
-		<button type="button" class="button update prompt" id="submitButton4">
-			<img src="img/tick-circle.png" />
-			{translate key='Update'}
-		</button>
-		<div class="updateButtons hiddenDiv" title="{translate key=ApplyUpdatesTo}">
-			<div style="text-align: center;line-height:50px;">
-				<button type="button" class="button save btnUpdateThisInstance" id="submitButton1">
-					{html_image src="disk-black.png"}
-					{translate key='ThisInstance'}
-				</button>
-				</br>
-				<button type="button" class="button save btnUpdateAllInstances" id="submitButton2">
-					{html_image src="disks-black.png"}
-					{translate key='AllInstances'}
-				</button>
-				</br>
-				<button type="button" class="button save btnUpdateFutureInstances" id="submitButton3">
-					{html_image src="disk-arrow.png"}
-					{translate key='FutureInstances'}
-				</button>
-				</br>
+	{block name=submitButtons}
+		{if $IsRecurring}
+			<button type="button" class="button update prompt" id="submitButton4">
+				<img src="img/tick-circle.png" />
+				{translate key='Update'}
+			</button>
+			<div class="updateButtons hiddenDiv" title="{translate key=ApplyUpdatesTo}">
+				<div style="text-align: center;line-height:50px;">
+					<button type="button" class="button save btnUpdateThisInstance" id="submitButton1">
+						{html_image src="disk-black.png"}
+						{translate key='ThisInstance'}
+					</button>
+					</br>
+					<button type="button" class="button save btnUpdateAllInstances" id="submitButton2">
+						{html_image src="disks-black.png"}
+						{translate key='AllInstances'}
+					</button>
+					</br>
+					<button type="button" class="button save btnUpdateFutureInstances" id="submitButton3">
+						{html_image src="disk-arrow.png"}
+						{translate key='FutureInstances'}
+					</button>
+					</br>
+				</div>
 			</div>
-		</div>
-	{else}
-		<button type="button" id="submitButton" class="button save update btnCreate" style="position: absolute;left: 22%;">
-			<img src="img/disk-black.png" />
-			{translate key='Update'}
-		</button>
-	{/if}
-{/block}
+		{else}
+			<button type="button" id="submitButton" class="button save update btnCreate">
+				<img src="img/disk-black.png" />
+				{translate key='Update'}
+			</button>
+		{/if}
+	{/block}
 </div>
+
 {block name=deleteButtons}
 	{if $IsRecurring}
-		</br>
-		</br>
-		</br>
 		<a href="#" class="delete prompt" style="float:right;" id="delete">
 			{html_image src="cross-button.png"}
 			{translate key='Delete'}
 		</a>
 	{else}
-		</br>
-		</br>
-		</br>
-		<a href="#" class="delete save" style="float:right; id="delete">
+		<a href="#" class="delete save" style="float:right;" id="delete">
 			{html_image src="cross-button.png"}
 			{translate key='Delete'}
 		</a>
@@ -85,7 +80,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/block}
 
 {block name='attachments'}
-<div style="clear:both">&nbsp;</div>
+	<div style="clear:both">&nbsp;</div>
 	<div id="attachmentDiv" class="res-attachments">
 		<span class="heading">{translate key=Attachments} ({$Attachments|count})</span>
 	</div>

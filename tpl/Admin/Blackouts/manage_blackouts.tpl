@@ -83,20 +83,20 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</thead>
 	<tbody>
 	{foreach from=$blackouts item=blackout}
-	{cycle values='row0,row1' assign=rowCss}
-	<tr class="{$rowCss} editable">
-		<td class="id">{$blackout->InstanceId}</td>
-		<td align="center">{$blackout->ResourceName}</td>
-		<td align="center" style="width:150px;">{formatdate date=$blackout->StartDate timezone=$Timezone key=res_popup}</td>
-		<td align="center" style="width:150px;">{formatdate date=$blackout->EndDate timezone=$Timezone key=res_popup}</td>
-		<td align="center">{$blackout->Title}</td>
-		<td align="center">{fullname first=$blackout->FirstName last=$blackout->LastName}</td>
-		{if $blackout->IsRecurring}
-			<td align="center" style="width: 65px;" class="update"><a href="#" class="update delete-recurring">{html_image src='cross-button.png'}</a></td>
-		{else}
-			<td align="center" style="width: 65px;" class="update"><a id="{$blackout->InstanceId}" href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
-		{/if}
-	</tr>
+		{cycle values='row0,row1' assign=rowCss}
+		<tr class="{$rowCss} editable">
+			<td class="id">{$blackout->InstanceId}</td>
+			<td align="center">{$blackout->ResourceName}</td>
+			<td align="center" style="width:150px;">{formatdate date=$blackout->StartDate timezone=$Timezone key=res_popup}</td>
+			<td align="center" style="width:150px;">{formatdate date=$blackout->EndDate timezone=$Timezone key=res_popup}</td>
+			<td align="center">{$blackout->Title}</td>
+			<td align="center">{fullname first=$blackout->FirstName last=$blackout->LastName}</td>
+			{if $blackout->IsRecurring}
+				<td align="center" style="width: 65px;" class="update"><a href="#" class="update delete-recurring">{html_image src='cross-button.png'}</a></td>
+			{else}
+				<td align="center" style="width: 65px;" class="update"><a id="{$blackout->InstanceId}" href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+			{/if}
+		</tr>
 	{/foreach}
 	</tbody>
 </table>

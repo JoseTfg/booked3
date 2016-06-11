@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
-<div id="{$prefix}repeatDiv" style="font-size:12px;">
+<div id="repeatDiv" style="font-size:12px;">
 	<select id="{$prefix}repeatOptions" {formname key=repeat_options} class="pulldown input" style="width:230px;text-align-last:center;">
 		{foreach from=$RepeatOptions key=k item=v}
 			<option value="{$k}">{translate key=$v['key']}</option>
@@ -56,7 +56,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 	<br/>
 </div>
-<div class="reserved">
+<div id ="reserved" class="reserved">
 	</br>
     <input class="reserved" style="width:230px;font-size: 12px;text-align: center" type="text" value="" disabled/>
 	</br>

@@ -18,7 +18,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='globalheader.tpl' cssFiles="css/reports.css,scripts/js/jqplot/jquery.jqplot.min.css"}
 
-<h1>{translate key=GenerateReport}</h1>
+<h1>{translate key=Reports}</h1>
 <fieldset id="customReportInput-container">
 	<form id="customReportInput">
 		<div class="main-div-header"> <a href="#" id="showHideCustom"> {translate key=Filter} </a></div>
@@ -154,6 +154,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				}
 		);
 		common.init();
+		
+		document.getElementById("chartdiv").style.display = "none";
 	});
 </script>
 

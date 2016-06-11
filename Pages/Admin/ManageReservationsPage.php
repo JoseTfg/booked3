@@ -315,6 +315,15 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	//Sends the reservations information to the smarty page
 	public function BindReservations($reservations)
 	{
+		//MyCode
+		//Allows to compare date times
+		foreach ($reservations as $reservation){
+			$date = $reservation->StartDate->ToString();
+			$date = explode("-", $date);
+			$date = implode($date);			
+			$reservation->StartDateNumber = $date;
+		}
+		
 		$this->Set('reservations', $reservations);
 	}
 

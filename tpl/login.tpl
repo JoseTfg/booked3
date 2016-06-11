@@ -26,11 +26,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div class="container">
     <div class="column-left">
-		<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+		<script language="JavaScript" src="https://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fepigijon%2Fagenda&chan=y&num=1&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
 	</div>
 	
     <div class="column-right">
-		<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
+		<script language="JavaScript" src="https://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.uniovi.es%2Fcomunicacion%2Fnoticias%2F-%2Fasset_publisher%2F33ICSSzZmx4V%2Frss%3Fp_p_cacheability%3DcacheLevelPage&chan=y&num=8&utf=y&html=a"  charset="UTF-8" type="text/javascript"></script>
     </div>   
 
 	<div class="column-center">
@@ -66,7 +66,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{/if}
 
 					<p class="loginsubmit">					
-						<button type="submit" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img src="img/door-open-in.png"/> {translate key='LogIn'} </button>
+						<button type="submit" id="loginButton" name="{Actions::LOGIN}" class="button" tabindex="100" value="submit"><img src="img/door-open-in.png"/> {translate key='LogIn'} </button>
 						<button type="button" id="viewReservations" class="button" tabindex="100"><img src="img/search.png"/> {translate key='ViewReservations'} </button>
 						<input type="hidden" name="{FormKeys::RESUME}" value="{$ResumeUrl}"/>
 					</p>
@@ -105,7 +105,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			document.getElementsByClassName("input")[1].value = "password";
 			document.getElementsByClassName("button")[0].click();
 		});
-
 	});
 </script>
 

@@ -22,7 +22,7 @@ jQuery.fn.bindAjaxSubmit = function (updateButton, successElement, modalDiv)
 		hideModal();
 	}
 
-	//Sucess handler
+	//Success handler
 	function successHandler(response)
 	{
 		hideModal();

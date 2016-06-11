@@ -142,16 +142,6 @@ function ResourceManagement(opts) {
 			$(this).find('.removeImageButton').click(function (e) {
 				PerformAsyncAction($(this), getSubmitCallback(options.actions.removeImage), indicator);
 			});
-			
-			//MyCode
-			$(this).find('.view').click(function (e) {
-				var id = $(this).find(':hidden.id').val();
-				//alert(document.getElementsByTagName("img")[id+2].src);
-				alert(document.getElementsByClassName(id).src);
-				//document.getElementById("imageFile").append("<img src="+document.getElementById(id).src+" />");
-				elements.viewImage.dialog("open");
-				elements.viewImage.dialog( "option", "resizable", false ); /*MyCode*/
-			});
 
 			$(this).find('.enableSubscription').click(function (e) {
 				PerformAsyncAction($(this), getSubmitCallback(options.actions.enableSubscription), indicator);
@@ -309,7 +299,7 @@ function ResourceManagement(opts) {
 
 		elements.clearFilterButton.click(function (e) {
 			e.preventDefault();
-			window.location = "http://156.35.41.127/booked/Web/admin/manage_resources.php";
+			window.location = "https://156.35.41.127/Web/admin/manage_resources.php";
 		});
 
 		elements.bulkUpdatePromptButton.click(function(e){
@@ -565,14 +555,12 @@ function ResourceManagement(opts) {
 		var resource = getActiveResource();
 		$('#requiresApproval2').val(resource.requiresApproval);
 		if ($('#requiresApproval2').val() == 0){
-		$('#requiresApproval2').val(1);
+			$('#requiresApproval2').val(1);
 		}
 		else{
-		$('#requiresApproval2').val(0);
+			$('#requiresApproval2').val(0);
 		}
 		elements.approveForm.submit();
-		//elements.approveDialog.dialog("open");
-		//elements.approveDialog.dialog( "option", "resizable", false ); /*MyCode*/
 	};
 
 	//Open dialog for resource rename
@@ -674,6 +662,11 @@ function ResourceManagement(opts) {
 			shortText = newTitle;
 		}
 		elements.groupAdminDialog.dialog("option", "title", elements.groupAdminDialog.dialog("option", "title") + ": " + shortText);
+		var sizeCheck = elements.groupAdminDialog.outerHeight(); /*MyCode*/
+		if (sizeCheck>window.innerHeight-50){
+			elements.groupAdminDialog.dialog( "option", "height", window.innerHeight-50 );
+			elements.groupAdminDialog.dialog( "option", "width", elements.groupAdminDialog.outerWidth()+50 );			
+		}
 	};
 
 	//Open dialog for delete
@@ -878,6 +871,11 @@ function ResourceManagement(opts) {
 			}
 			elements.userDialog.dialog("option", "title", elements.userDialog.dialog("option", "title") + ": " + shortText);
 			firstCheck(addedMembers,removedMembers,0);
+			var sizeCheck = elements.userDialog.outerHeight(); /*MyCode*/
+			if (sizeCheck>window.innerHeight-50){
+				elements.userDialog.dialog( "option", "height", window.innerHeight-50 );
+				elements.userDialog.dialog( "option", "width", elements.userDialog.outerWidth()+50 );			
+			}
 		});
 	};
 
@@ -959,6 +957,11 @@ function ResourceManagement(opts) {
 			}
 			elements.groupDialog.dialog("option", "title", elements.groupDialog.dialog("option", "title") + ": " + shortText);
 			firstCheck(addedGroups,removedGroups,0);
+			var sizeCheck = elements.groupDialog.outerHeight(); /*MyCode*/
+			if (sizeCheck>window.innerHeight-50){
+				elements.groupDialog.dialog( "option", "height", window.innerHeight-50 );
+				elements.groupDialog.dialog( "option", "width", elements.groupDialog.outerWidth()+50 );			
+			}
 		});
 	};
 
@@ -1054,9 +1057,15 @@ function ResourceManagement(opts) {
 			var message = element1.parentNode.children[3+offset];
 			message.style.display = 'none';
 		}
-		if (element2.innerHTML.indexOf("id") == "-1"){
+		else if (element2.innerHTML.indexOf("id") == "-1"){
 			var message = element2.parentNode.children[3+offset];
 			message.style.display = 'block';
+			var message = element2.parentNode.children[0+offset];
+			message.style.display = 'none';
+		}
+		else{
+			var message = element2.parentNode.children[3+offset];
+			message.style.display = 'none';
 			var message = element2.parentNode.children[0+offset];
 			message.style.display = 'none';
 		}

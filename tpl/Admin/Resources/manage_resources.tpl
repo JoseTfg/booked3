@@ -22,179 +22,181 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <h1>{translate key='ManageResources'}</h1>
 
 <div id="addDialog" class="dialog" title="{translate key=AddResource}">
-<div id="addResourceResults" class="error"></div>
-		<form id="addResourceForm" method="post" ajaxAction="{ManageResourcesActions::ActionAdd}">
-			<table class="hiddenDiv">
-				<tr>
-					<th>{translate key='Name'}</th>
-					<th>{translate key='Schedule'}</th>
-					<th>{translate key='ResourcePermissions'}</th>
-					<th>{translate key='ResourceAdministrator'}</th>
-					<th>&nbsp;</th>
-				</tr>
+	<div id="addResourceResults" class="error"></div>
+	<form id="addResourceForm" method="post" ajaxAction="{ManageResourcesActions::ActionAdd}">
+		<table class="hiddenDiv">
+			<tr>
+				<th>{translate key='Name'}</th>
+				<th>{translate key='Schedule'}</th>
+				<th>{translate key='ResourcePermissions'}</th>
+				<th>{translate key='ResourceAdministrator'}</th>
+				<th>&nbsp;</th>
+			</tr>
 
-				<input type="text" placeholder="{translate key=Name}" class="textbox required" maxlength="85" style="width:250px" {formname key=RESOURCE_NAME} /></br></br>
-					
-				<div class="hiddenDiv">
-					<select class="textbox" {formname key=SCHEDULE_ID} style="width:100px">
-						{foreach from=$Schedules item=scheduleName key=scheduleId}
-							<option value="{$scheduleId}">{$scheduleName}</option>
-						{/foreach}
-					</select>
-
-					<select class="textbox" {formname key=AUTO_ASSIGN} style="width:170px">
-						<option value="0">{translate key="ResourcePermissionNotAutoGranted"}</option>
-						<option value="1">{translate key="ResourcePermissionAutoGranted"}</option>
-					</select>
-				</div>
+			<input type="text" placeholder="{translate key=Name}" class="textbox required" maxlength="85" style="width:242px" {formname key=RESOURCE_NAME} />
+			</br></br>
 				
+			<div class="hiddenDiv">
+				<select class="textbox" {formname key=SCHEDULE_ID} style="width:100px">
+					{foreach from=$Schedules item=scheduleName key=scheduleId}
+						<option value="{$scheduleId}">{$scheduleName}</option>
+					{/foreach}
+				</select>
+			</div>
+			<div>
+				<select class="textbox" {formname key=AUTO_ASSIGN} style="width:250px;text-align-last:center">
+					<option value="0">{translate key="PermissionsNone"}</option>
+					<option value="1">{translate key="PermissionsAll"}</option>
+				</select>
+			</div>
+				
+			<div class="hiddenDiv">
 				{translate key='ResourceAdministrator'}<br/>
 				<select class="textbox" {formname key=RESOURCE_ADMIN_GROUP_ID} style="width:170px">
 					<option value="">N/A</option>
 					{foreach from=$AdminGroups item=adminGroup}
 						<option value="{$adminGroup->Id}">{$adminGroup->Name}</option>
 					{/foreach}
-				</select>			
-			</table>
-			</br>
-			<button type="button" class="button save">{html_image src="plus-button.png"} {translate key='AddResource'}</button>
-		</form>
-	</div>
-
+				</select>
+			</div>				
+		</table>
+		</br>
+		<button type="button" class="button save">{html_image src="plus-button.png"} {translate key='AddResource'}</button>
+	</form>
+</div>
 
 <div id="globalError" class="error"></div>
 
 <table id="resourceTable" class="list">
-<thead>
-	<th>{translate key='Name'}</th>
-	{*<th>{translate key='Description'}</th>*}
-	<th>{translate key='Location'}</th>
-	<th>{translate key='RequiresApproval'}</th>
-	<th>{translate key='WhoApproves'}</th>
-	<td class="action">{translate key='UsageConfiguration'}</th>
-	<td class="action">{translate key='Permissions'}</th>
-	<td class="action">{translate key='Status'}</th>
-	<td class="action">{translate key='Delete'}</th>
-</thead>
-<tbody>
-	{foreach from=$Resources item=resource}
-	{cycle values='row0,row1' assign=rowCss}
-<tr>
-	<td>
-	{assign var=id value=$resource->GetResourceId()}
-		<div class="resourceDetails" resourceId="{$id}">
-		<input type="hidden" class="id" value="{$id}"/>
-		<a class="update renameButton" href="javascript:void(0);">{$resource->GetName()|truncate:30:"...":true}</a>
-		</div>
-	</td>
-	{*<td>
-		<div class="resourceDetails" resourceId="{$id}">
-		<input type="hidden" class="id" value="{$id}"/>
-		{if $resource->HasDescription()}
-			<a class="update descriptionButton" href="javascript: void(0);">{$resource->GetDescription()|truncate:30:"...":true}</a>
-		{else}
-			<a class="update descriptionButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
-		{/if}					
-		</div>
-	</td>*}
-	<td>
-		<div class="resourceDetails" resourceId="{$id}">
-		<input type="hidden" class="id" value="{$id}"/>
-		{if $resource->HasLocation()}
-			<a class="update changeLocationButton" href="javascript: void(0);">{$resource->GetLocation()|truncate:30:"...":true}</a>
-		{else}
-			<a class="update changeLocationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
-		{/if}
-		</div>
-	</td>
-	
-	<td width="140px">
-		<div class="resourceDetails" resourceId="{$id}">	
-		<input type="hidden" class="id" value="{$id}"/>	
-		{if $resource->GetRequiresApproval()}
-			<a class="update approve" href="javascript: void(0);">{translate key='Yes'}</a>
-		{else}
-			<a class="update approve" href="javascript: void(0);">{translate key='No'}</a>
-		{/if}
-		</div>
-	</td>
-	
-	<td>
-		<div class="resourceDetails" resourceId="{$id}">
-		<input type="hidden" class="id" value="{$id}"/>
-		{if $resource->GetRequiresApproval()}
-			{if $resource->HasAdminGroup()}
-				{if $GroupLookup[$resource->GetAdminGroupId()] neq ''}
-					<a class="update adminButton" href="javascript: void(0);">{$GroupLookup[$resource->GetAdminGroupId()]->Name}</a>
-				{else}
-					<a class="update adminButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
-				{/if}
-			{else}
-				{if $AdminGroups|count > 0}
-					<a class="update adminButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
-				{else}
-					{translate key='Superuser'}
-				{/if}
-			{/if}
-		{else}
-			N/A
-		{/if}
-		</div>
-	</td>
-	<td width="130px">
-		<div class="resourceDetails" resourceId="{$id}">	
-		<input type="hidden" class="id" value="{$id}"/>	
-		<a class="update changeConfigurationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
-		</div>
-	</td>															 
-	<td width="50px">
-		<div class="resourceDetails" resourceId="{$id}">
-		<input type="hidden" class="id" value="{$id}"/>		
-		<a href="#" class="update changeUsers">{html_image src='user-small.png'}</a> | <a href="#" class="update changeGroups">{html_image src='users.png'}</a>
-		</div>				
-	</td>
+	<thead>
+		<th>{translate key='Name'}</th>
+		{*<th>{translate key='Description'}</th>*}
+		<th>{translate key='Location'}</th>
+		<th>{translate key='RequiresApproval'}</th>
+		<th>{translate key='WhoApproves'}</th>
+		<td class="action">{translate key='UsageConfiguration'}</th>
+		<td class="action">{translate key='Permissions'}</th>
+		<td class="action">{translate key='Status'}</th>
+		<td class="action">{translate key='Delete'}</th>
+	</thead>
+	<tbody>
+		{foreach from=$Resources item=resource}
+		{cycle values='row0,row1' assign=rowCss}
+			<tr>
+				<td>
+				{assign var=id value=$resource->GetResourceId()}
+					<div class="resourceDetails" resourceId="{$id}">
+						<input type="hidden" class="id" value="{$id}"/>
+						<a class="update renameButton" href="javascript:void(0);">{$resource->GetName()|truncate:30:"...":true}</a>
+					</div>
+				</td>
+				{*<td>
+					<div class="resourceDetails" resourceId="{$id}">
+						<input type="hidden" class="id" value="{$id}"/>
+						{if $resource->HasDescription()}
+							<a class="update descriptionButton" href="javascript: void(0);">{$resource->GetDescription()|truncate:30:"...":true}</a>
+						{else}
+							<a class="update descriptionButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
+						{/if}					
+					</div>
+				</td>*}
+				<td>
+					<div class="resourceDetails" resourceId="{$id}">
+					<input type="hidden" class="id" value="{$id}"/>
+					{if $resource->HasLocation()}
+						<a class="update changeLocationButton" href="javascript: void(0);">{$resource->GetLocation()|truncate:30:"...":true}</a>
+					{else}
+						<a class="update changeLocationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
+					{/if}
+					</div>
+				</td>
+				
+				<td width="140px">
+					<div class="resourceDetails" resourceId="{$id}">	
+						<input type="hidden" class="id" value="{$id}"/>	
+						{if $resource->GetRequiresApproval()}
+							<a class="update approve" href="javascript: void(0);">{translate key='Yes'}</a>
+						{else}
+							<a class="update approve" href="javascript: void(0);">{translate key='No'}</a>
+						{/if}
+					</div>
+				</td>
+				
+				<td>
+					<div class="resourceDetails" resourceId="{$id}">
+						<input type="hidden" class="id" value="{$id}"/>
+						{if $resource->GetRequiresApproval()}
+							{if $resource->HasAdminGroup()}
+								{if $GroupLookup[$resource->GetAdminGroupId()] neq ''}
+									<a class="update adminButton" href="javascript: void(0);">{$GroupLookup[$resource->GetAdminGroupId()]->Name}</a>
+								{else}
+									<a class="update adminButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
+								{/if}
+							{else}
+								{if $AdminGroups|count > 0}
+									<a class="update adminButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
+								{else}
+									{translate key='Superuser'}
+								{/if}
+							{/if}
+						{else}
+							N/A
+						{/if}
+					</div>
+				</td>
+				<td width="130px">
+					<div class="resourceDetails" resourceId="{$id}">	
+						<input type="hidden" class="id" value="{$id}"/>	
+						<a class="update changeConfigurationButton" href="javascript: void(0);">{html_image src='my_edit.png'}</a>
+					</div>
+				</td>															 
+				<td width="50px">
+					<div class="resourceDetails" resourceId="{$id}">
+						<input type="hidden" class="id" value="{$id}"/>		
+						<a href="#" class="update changeUsers">{html_image src='user-small.png'}</a> | <a href="#" class="update changeGroups">{html_image src='users.png'}</a>
+					</div>				
+				</td>
 
-	<td width="50px">
-		<div class="resourceDetails" resourceId="{$id}">
-		<input type="hidden" class="id" value="{$id}"/>
-		{if $resource->IsAvailable()}
-			<a class="update changeStatus" href="javascript: void(0);">{html_image src='status.png'}</a>
-		{elseif $resource->IsUnavailable()}
-			<a class="update changeStatus" href="javascript: void(0);">{html_image src='status-busy.png'}</a>
-		{else}
-			<a class="update changeStatus" href="javascript: void(0);">{html_image src='status-offline.png'}</a>
-		{/if}
-		</div>
-	</td>
-	
-	<td width="50px">
-		<div class="resourceDetails" resourceId="{$id}" >
-		<a class="update deleteButton" href="javascript:void(0);">{html_image src="cross-button.png"}</a>
-		<input type="hidden" class="id" value="{$id}"/>	
-		</div>
-	</td>		 
-</div>
-</tr>
-{/foreach}
-</tbody>
+				<td width="50px">
+					<div class="resourceDetails" resourceId="{$id}">
+						<input type="hidden" class="id" value="{$id}"/>
+						{if $resource->IsAvailable()}
+							<a class="update changeStatus" href="javascript: void(0);">{html_image src='status.png'}</a>
+						{elseif $resource->IsUnavailable()}
+							<a class="update changeStatus" href="javascript: void(0);">{html_image src='status-busy.png'}</a>
+						{else}
+							<a class="update changeStatus" href="javascript: void(0);">{html_image src='status-offline.png'}</a>
+						{/if}
+					</div>
+				</td>
+				
+				<td width="50px">
+					<div class="resourceDetails" resourceId="{$id}" >
+						<a class="update deleteButton" href="javascript:void(0);">{html_image src="cross-button.png"}</a>
+						<input type="hidden" class="id" value="{$id}"/>	
+					</div>
+				</td>
+			</tr>
+		{/foreach}
+	</tbody>
 </table>
 
 
 <div class="pagination">
-{pagination pageInfo=$PageInfo}
+	{pagination pageInfo=$PageInfo}
 </div>
 
 <form id="filterForm">			
-		<ul id="filterDiv" style="list-style-type: none;">
-			<li class="leftFloater">
-				<input type="text" placeholder="{translate key=Name}" id="filterResourceName" class="textbox" {formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"/ />
-			</li>
-		</ul>		
-		<button style="height:22px;padding: 0 10px 0 7px;float:left" id="filter" class="button">{translate key=Filter}</button>	
-		<button style="height:22px;padding: 0 10px 0 7px;float:left" id="clearFilter" class="button">{translate key=Reset}</button>
-	</form>
-<button id="addButton" type="button" class="button save">{html_image src="plus-button.png"} {translate key='AddResource'}</button>
+	<ul id="filterDiv" style="list-style-type: none;">
+		<li class="leftFloater">
+			<input type="text" placeholder="{translate key=Name}" id="filterResourceName" class="textbox" {formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"/ />
+		</li>
+	</ul>		
+	<button style="height:22px;padding: 0 10px 0 7px;float:left" id="filter" class="button">{translate key=Filter}</button>	
+	<button style="height:22px;padding: 0 10px 0 7px;float:left" id="clearFilter" class="button">{translate key=Reset}</button>
+</form>
 
+<button id="addButton" type="button" class="button save">{html_image src="plus-button.png"} {translate key='AddResource'}</button>
 <input type="hidden" id="activeId" value="" />
 
 <div id="renameDialog" class="dialog" title="{translate key=Rename}">
@@ -228,85 +230,85 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <div id="configurationDialog" class="dialog" title="{translate key=UsageConfiguration}">
 	<form id="configurationForm" method="post" ajaxAction="{ManageResourcesActions::ActionChangeConfiguration}">
 		<div>
-				<ul>
-					<li>
-						<label>
-							<input type="checkbox" id="noMinimumDuration"/> {translate key=ResourceMinLengthNone}
-						</label>
-						<span class="noMinimumDuration">
-							<br/>
-							{capture name="txtMinDuration" assign="txtMinDuration"}
-								<input type='text' id='minDurationDays' size='3' class='days textbox' maxlength='3'/>
-								<input type='text' id='minDurationHours' size='2' class='hours textbox' maxlength='2'/>
-								<input type='text' id='minDurationMinutes' size='2' class='minutes textbox' maxlength='2'/>
-								<input type='hidden' id='minDuration' class='interval' {formname key=MIN_DURATION} />
-							{/capture}
-							{translate key='ResourceMinLength' args=$txtMinDuration}
-						</span>
-					</li>
-					<li>
-						<label>
-							<input type="checkbox" id="noMaximumDuration"/> {translate key=ResourceMaxLengthNone}
-						</label>
-						<span class="noMaximumDuration">
-							<br/>
-							{capture name="txtMaxDuration" assign="txtMaxDuration"}
-								<input type='text' id='maxDurationDays' size='3' class='days textbox' maxlength='3'/>
-								<input type='text' id='maxDurationHours' size='2' class='hours textbox' maxlength='2'/>
-								<input type='text' id='maxDurationMinutes' size='2' class='minutes textbox' maxlength='2'/>
-								<input type='hidden' id='maxDuration' class='interval' {formname key=MAX_DURATION} />
-							{/capture}
-							{translate key=ResourceMaxLength args=$txtMaxDuration}
-						</span>
-					</li>
-					<li>
-						<label>
-							<input type="checkbox" id="noBufferTime"/> {translate key=ResourceBufferTimeNone}
-						</label>
-						<span class="noBufferTime">
-							<br/>
-							{capture name="txtBufferTime" assign="txtBufferTime"}
-								<input type='text' id='bufferTimeDays' size='3' class='days textbox' maxlength='3'/>
-								<input type='text' id='bufferTimeHours' size='2' class='hours textbox' maxlength='2'/>
-								<input type='text' id='bufferTimeMinutes' size='2' class='minutes textbox' maxlength='2'/>
-								<input type='hidden' id='bufferTime' class='interval' {formname key=BUFFER_TIME} />
-							{/capture}
-							{translate key=ResourceBufferTime args=$txtBufferTime}
-						</span>
-					</li>
-				</ul>
-				<ul>
-					<li>
-						<label>
-							<input type="checkbox" id="noStartNotice" /> {translate key='ResourceMinNoticeNone'}
-						</label>
-						<span class="noStartNotice">
-							<br/>
-							{capture name="txtStartNotice" assign="txtStartNotice"}
-								<input type='text' id='startNoticeDays' size='3' class='days textbox' maxlength='3'/>
-								<input type='text' id='startNoticeHours' size='2' class='hours textbox' maxlength='2'/>
-								<input type='text' id='startNoticeMinutes' size='2' class='minutes textbox' maxlength='2'/>
-								<input type='hidden' id='startNotice' class='interval' {formname key=MIN_NOTICE} />
-							{/capture}
-							{translate key='ResourceMinNotice' args=$txtStartNotice}
-						</span>
-					</li>
-					<li>
-						<label>
-							<input type="checkbox" id="noEndNotice"/> {translate key='ResourceMaxNoticeNone'}
-						</label>
-						<span class="noEndNotice">
-							<br/>
-							{capture name="txtEndNotice" assign="txtEndNotice"}
-								<input type='text' id='endNoticeDays' size='3' class='days textbox' maxlength='3'/>
-								<input type='text' id='endNoticeHours' size='2' class='hours textbox' maxlength='2'/>
-								<input type='text' id='endNoticeMinutes' size='2' class='minutes textbox' maxlength='2'/>
-								<input type='hidden' id='endNotice' class='interval' {formname key=MAX_NOTICE} />
-							{/capture}
-							{translate key='ResourceMaxNotice' args=$txtEndNotice}
-						</span>
-					</li>
-				</ul>			
+			<ul>
+				<li>
+					<label>
+						<input type="checkbox" id="noMinimumDuration"/> {translate key=ResourceMinLengthNone}
+					</label>
+					<span class="noMinimumDuration">
+						<br/>
+						{capture name="txtMinDuration" assign="txtMinDuration"}
+							<input type='text' id='minDurationDays' size='3' class='days textbox' maxlength='3'/>
+							<input type='text' id='minDurationHours' size='2' class='hours textbox' maxlength='2'/>
+							<input type='text' id='minDurationMinutes' size='2' class='minutes textbox' maxlength='2'/>
+							<input type='hidden' id='minDuration' class='interval' {formname key=MIN_DURATION} />
+						{/capture}
+						{translate key='ResourceMinLength' args=$txtMinDuration}
+					</span>
+				</li>
+				<li>
+					<label>
+						<input type="checkbox" id="noMaximumDuration"/> {translate key=ResourceMaxLengthNone}
+					</label>
+					<span class="noMaximumDuration">
+						<br/>
+						{capture name="txtMaxDuration" assign="txtMaxDuration"}
+							<input type='text' id='maxDurationDays' size='3' class='days textbox' maxlength='3'/>
+							<input type='text' id='maxDurationHours' size='2' class='hours textbox' maxlength='2'/>
+							<input type='text' id='maxDurationMinutes' size='2' class='minutes textbox' maxlength='2'/>
+							<input type='hidden' id='maxDuration' class='interval' {formname key=MAX_DURATION} />
+						{/capture}
+						{translate key=ResourceMaxLength args=$txtMaxDuration}
+					</span>
+				</li>
+				<li>
+					<label>
+						<input type="checkbox" id="noBufferTime"/> {translate key=ResourceBufferTimeNone}
+					</label>
+					<span class="noBufferTime">
+						<br/>
+						{capture name="txtBufferTime" assign="txtBufferTime"}
+							<input type='text' id='bufferTimeDays' size='3' class='days textbox' maxlength='3'/>
+							<input type='text' id='bufferTimeHours' size='2' class='hours textbox' maxlength='2'/>
+							<input type='text' id='bufferTimeMinutes' size='2' class='minutes textbox' maxlength='2'/>
+							<input type='hidden' id='bufferTime' class='interval' {formname key=BUFFER_TIME} />
+						{/capture}
+						{translate key=ResourceBufferTime args=$txtBufferTime}
+					</span>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<label>
+						<input type="checkbox" id="noStartNotice" /> {translate key='ResourceMinNoticeNone'}
+					</label>
+					<span class="noStartNotice">
+						<br/>
+						{capture name="txtStartNotice" assign="txtStartNotice"}
+							<input type='text' id='startNoticeDays' size='3' class='days textbox' maxlength='3'/>
+							<input type='text' id='startNoticeHours' size='2' class='hours textbox' maxlength='2'/>
+							<input type='text' id='startNoticeMinutes' size='2' class='minutes textbox' maxlength='2'/>
+							<input type='hidden' id='startNotice' class='interval' {formname key=MIN_NOTICE} />
+						{/capture}
+						{translate key='ResourceMinNotice' args=$txtStartNotice}
+					</span>
+				</li>
+				<li>
+					<label>
+						<input type="checkbox" id="noEndNotice"/> {translate key='ResourceMaxNoticeNone'}
+					</label>
+					<span class="noEndNotice">
+						<br/>
+						{capture name="txtEndNotice" assign="txtEndNotice"}
+							<input type='text' id='endNoticeDays' size='3' class='days textbox' maxlength='3'/>
+							<input type='text' id='endNoticeHours' size='2' class='hours textbox' maxlength='2'/>
+							<input type='text' id='endNoticeMinutes' size='2' class='minutes textbox' maxlength='2'/>
+							<input type='hidden' id='endNotice' class='interval' {formname key=MAX_NOTICE} />
+						{/capture}
+						{translate key='ResourceMaxNotice' args=$txtEndNotice}
+					</span>
+				</li>
+			</ul>			
 		</div>
 		</br>
 		<div class="admin-update-buttons">
@@ -317,11 +319,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="approveDialog" class="dialog" title="{translate key=UsageConfiguration}">
 	<form id="approveForm" method="post" ajaxAction="{ManageResourcesActions::ActionChangeConfiguration}">
-	{translate key='ResourceRequiresApproval'}
-	<select id="requiresApproval2" class="textbox" {formname key=REQUIRES_APPROVAL}>
-		<option value="1">{translate key='Yes'}</option>
-		<option value="0">{translate key='No'}</option>
-	</select>		
+		{translate key='ResourceRequiresApproval'}
+		<select id="requiresApproval2" class="textbox" {formname key=REQUIRES_APPROVAL}>
+			<option value="1">{translate key='Yes'}</option>
+			<option value="0">{translate key='No'}</option>
+		</select>		
 	</form>
 </div>
 

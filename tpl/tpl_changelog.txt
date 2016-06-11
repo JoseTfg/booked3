@@ -3,19 +3,14 @@ Unchanged:
 -delete_failed.tpl			Unchanged
 -reservation_error.tpl		Unchanged
 -save_failed.tpl			Unchanged
--respopup.tpl				Si
 -DatePickerSetup.tpl		Unchanged
 -emailfooter.tpl			Unchanged
 -emailheader.tpl			Unchanged
--configure.tpl				Si
--install.tpl				Si
+-configure.tpl				Unchanged
+-install.tpl				Unchanged
 -migrate.tpl				Unchanged
--chart.tpl					Si
--common-reports.tpl			Si
+-chart.tpl					Unchanged
 -error.tpl					Unchanged
--generate-report.tpl		Si
--print-custom-report.tpl	Unchanged
--results-custom.tpl			Si
 -approve.tpl				Unchanged
 -error.tpl					Unchanged
 -json_data.tpl				Unchanged
@@ -31,7 +26,6 @@ Erased:
 -manage_resource_status.tpl
 -manage_resource_types.tpl
 -manage_accessories.tpl
--manage_schedules.tpl
 -delete_successful.tpl
 -save_successful.tpl
 -update_successful.tpl
@@ -70,6 +64,7 @@ Erased:
 -reservations_csv.tpl
 -custom-csv.tpl
 -saved-reports.tpl
+-common-reports.tpl
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -81,7 +76,7 @@ Changed:
 
 -calendar.common.tpl:			Loads reservation screen on dayClick.
 
--calendar.filter.tpl:			Only loads reources.
+-calendar.filter.tpl:			Only loads resources.
 								Includes a button to swap between my-calendar and calendar.					
 
 -mycalendar.common.tpl:			Loads reservation screen on dayClick.
@@ -96,7 +91,7 @@ Changed:
 
 -schedule-week-condensed.tpl:	No longer in use.
 
--view-schedule.tpl:
+-view-schedule.tpl:				No longer in use.
 
 ////////////////////////////////////////V0.3//////////////////////////////////////////////////
 
@@ -116,12 +111,12 @@ Changed:
 
 13/3/2016
 
--calendar.filter.tpl:			Now itnroduces a new multiselect list.
+-calendar.filter.tpl:			Now introduces a new multiselect list.
 
 15/3/2016
 
--mycalendar.common.tpl:			Pass OwnerName parameter from presenter.
--calendar.common.tpl:			Pass ResourceName parameter from presenter.
+-mycalendar.common.tpl:			Sends OwnerName parameter from presenter.
+-calendar.common.tpl:			Sends ResourceName parameter from presenter.
 
 ////////////////////////////////////////V0.4//////////////////////////////////////////////////
 
@@ -162,26 +157,84 @@ Created:
 -recurrencediv.tpl				View scaled in multireservations display.
 
 18/4/2016
--globalheader.tpl				Updated nav bar.
+-globalheader.tpl				Updated navigation bar.
 
 19/4/2016
--manage_reservations.tpl		Several display changes.
+-manage_reservations.tpl		Changed table and styles.
 
 20/4/2016
--manage_resource_groups.tpl		Several display changes.
--manage_announcements.tpl		Several display changes.
+-manage_groups.tpl				Changed table and add button.
+-manage_announcements.tpl		Changed table and add button.
 
 21/4/2016
--manage_configuration.tpl		Several display changes.
--support-and-credits.tpl		Several display changes.
+-manage_configuration.tpl		Changed page style.
+-support-and-credits.tpl		Changed page style.
 
 22/4/2016
--manage_quotas.tpl				Several display changes.
--manage_groups.tpl				Several display changes.
+-manage_quotas.tpl				Page is now a table.
 
 23/4/2016
--manage_users.tpl				Several display changes.
+-manage_users.tpl				Removed the unused options, such as create user.
 
 25/4/2016
--manage_resources.tpl			Several display changes.
--manage_resources_table.tpl		Several display changes.
+-manage_resources.tpl			Changed into table view.
+
+////////////////////////////////////////V0.7//////////////////////////////////////////////////
+
+-create.tpl:					Sizes adapted to new view.
+-view.tpl:						Sizes adapted to new view.
+-globalheader.tpl:				New icons in the nav bar.
+
+////////////////////////////////////////V0.8//////////////////////////////////////////////////
+
+-manage_reservations.tpl		Changed table and filter.
+-manage_announcements.tpl		Update popup style.
+-manage_configuration.tpl		Updated showing options.
+-manage_quotas.tpl				Update popup style. New add button.
+-manage_groups.tpl				Update popup and table style.
+-manage_users.tpl				Update popup and table style.
+-manage_resources.tpl			Update table content.
+-mycalendar.common.tpl:			New user preferences display.
+
+////////////////////////////////////////V0.9//////////////////////////////////////////////////
+
+-manage_blackouts.tpl			Updated buttons.
+-manage_configuration.tpl		Changed button and general box style.
+-manage_reservations.tpl		Differentiation between user and administrator view.
+-manage_resources.tpl			Updated table content and popup style.
+-manage_announcements.tpl		Updated popup user interaction.
+-manage_quotas.tpl				Updated table content.
+-manage_groups.tpl				Update table content.
+-manage_schedules.tpl			Re-added. Changed several content.
+-manage_users.tpl				Update table content.
+-respopup.tpl					Update popup content.
+-mycalendar.common.tpl:			More responsive to user preferences.
+-RecurrenceDiv.tpl:				Changed styles. It shows disabled text-boxes when not used.
+-generate-report.tpl			Changed style to match with reservations.
+-print-custom-report.tpl		Changed printable content.
+-results-custom.tpl				Changed result content.
+-create.tpl						New jquery dialog style.
+-view.tpl:						New jquery dialog style.
+-globalheader.tpl:				Updated with final options.
+-globalfooter.tpl:				New marquee.
+-login.tpl						View reservations mode button added.
+-support-and-credits.tpl		Updated information.
+
+////////////////////////////////////////V1.0//////////////////////////////////////////////////
+
+-manage_configuration.tpl		Changed text-boxes size.
+-manage_reservations.tpl		Changed header style.
+-manage_resources.tpl			Fields updated.
+-manage_announcements.tpl		Field size updated.
+-manage_quotas.tpl				Updated table content.
+-manage_groups.tpl				Field size updated.
+-manage_schedules.tpl			Updated popup user interaction.
+-manage_users.tpl				Field size updated.
+-mycalendar.common.tpl:			Full translated and responsive to dialog interaction.
+-RecurrenceDiv.tpl:				Changed styles.
+-generate-report.tpl			Changed size.
+-results-custom.tpl				Changed result content. Full translated.
+-create.tpl						Final style. Content updated.
+-view.tpl:						Final style. Content updated.
+-globalheader.tpl:				Final style. Content updated. Full translated
+-support-and-credits.tpl		Updated information. Full translated

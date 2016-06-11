@@ -341,6 +341,12 @@ function UserManagement(opts) {
 			}
 		elements.groupsDialog.dialog("option", "title", elements.groupsDialog.dialog("option", "title") + ": " + shortText);
 		firstCheck(addedGroups,removedGroups,1);
+		
+		var sizeCheck = elements.groupsDialog.outerHeight(); /*MyCode*/
+		if (sizeCheck>window.innerHeight-50){
+			elements.groupsDialog.dialog( "option", "height", window.innerHeight-50 );
+			elements.groupsDialog.dialog( "option", "width", elements.groupsDialog.outerWidth()+50 );			
+		}
 	};
 
 	//Change group
@@ -380,7 +386,13 @@ function UserManagement(opts) {
 				shortText = newTitle;
 			}
 		elements.permissionsDialog.dialog("option", "title", elements.permissionsDialog.dialog("option", "title") + ": " + shortText);
-		firstCheck(addedResources,removedResources,2);		
+		firstCheck(addedResources,removedResources,2);
+
+		var sizeCheck = elements.permissionsDialog.outerHeight(); /*MyCode*/
+		if (sizeCheck>window.innerHeight-50){
+			elements.permissionsDialog.dialog( "option", "height", window.innerHeight-50 );
+			elements.permissionsDialog.dialog( "option", "width", elements.permissionsDialog.outerWidth()+50 );			
+		}
 	};
 
 	//Unused
@@ -454,9 +466,15 @@ function UserManagement(opts) {
 			var message = element1.parentNode.children[3+offset];
 			message.style.display = 'none';
 		}
-		if (element2.innerHTML.indexOf("id") == "-1"){
+		else if (element2.innerHTML.indexOf("id") == "-1"){
 			var message = element2.parentNode.children[3+offset];
 			message.style.display = 'block';
+			var message = element2.parentNode.children[0+offset];
+			message.style.display = 'none';
+		}
+		else{
+			var message = element2.parentNode.children[3+offset];
+			message.style.display = 'none';
 			var message = element2.parentNode.children[0+offset];
 			message.style.display = 'none';
 		}

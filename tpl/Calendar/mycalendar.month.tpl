@@ -29,11 +29,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 
 	<div class="rightFloater">
-		<a href="#" id="goToday" alt="Today" title="Today">{translate key=Today} {html_image src="today.png"}</a>
+		<a href="#" onclick="goToday()" alt="Today" title="Today">{translate key=Today} {html_image src="today.png"}</a>
 		<a href="admin/manage_reservations.php" id="goList" alt="List" title="List">{translate key=List} {html_image src="list.png"}</a>
-		<a href="#" id="goDay" alt="Today" title="Today">{translate key=Day} {html_image src="calendar-day.png"}</a>
-		<a href="#" id="goWeek" alt="Week" title="Week">{translate key=Week} {html_image src="calendar-select-week.png"}</a>
-		<a href="#" id="goMonth" alt="View Month" title="View Month">{translate key=Month} {html_image src="calendar-select-month.png"}</a>
+		<a href="#" onclick="goDay()" alt="Today" title="Today">{translate key=Day} {html_image src="calendar-day.png"}</a>
+		<a href="#" onclick="goWeek()" alt="Week" title="Week">{translate key=Week} {html_image src="calendar-select-week.png"}</a>
+		<a href="#" onclick="goMonth()" alt="View Month" title="View Month">{translate key=Month} {html_image src="calendar-select-month.png"}</a>
 	</div>
 
 	<div class="clear">&nbsp;</div>

@@ -18,7 +18,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='globalheader.tpl' cssFiles='css/admin.css'}
 
-<h1>{translate key=ManageSchedules}</h1>
+<h1>{translate key=WorkSchedule}</h1>
 
 {foreach from=$Schedules item=schedule}
 	{assign var=id value=$schedule->GetId()}
@@ -30,74 +30,84 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{/if}
 	<table class="list">
 		<thead>
+			<th>{translate key='Timezone'}</th>
 			<th>{translate key='BeginDate'}</th>
 			<th>{translate key='EndDate'}</th>
 			<th>{translate key='Available'}</th>
 		</thead>
 		<tbody>	
-		{assign var=first value=true}
-		{foreach from=$Layouts[$id]->GetSlots($day) item=period}
-			{if $first}
-				{cycle values='row0,row1' assign=rowCss}
-				<tr class="{$rowCss}">
-				<td align="center">
-					{$period->Start->Format("H:i")} 
-				</td>
-				{assign var=first value=false}
-				{if $period->IsReservable()}
-					{assign var=display value=false}
-				{else}
-					{assign var=display value=true}
+			{assign var=first value=true}
+			{foreach from=$Layouts[$id]->GetSlots($day) item=period}
+				{if $first}
+					{cycle values='row0,row1' assign=rowCss}
+					<tr class="{$rowCss}">
+					<td align="center">
+						{$schedule->GetTimezone()} 
+					</td>
+					<td align="center">
+						{$period->Start->Format("H:i")} 
+					</td>
+					{assign var=first value=false}
+					{if $period->IsReservable()}
+						{assign var=display value=false}
+					{else}
+						{assign var=display value=true}
+					{/if}
 				{/if}
-			{/if}
-			{if $period->IsReservable() and  $display}
+				{if $period->IsReservable() and  $display}
+					<td align="center">
+						{$period->Start->Format("H:i")} 
+					</td>
+					<td align="center">
+						{html_image src="slash.png"}			
+					</td>
+					</tr>
+					{cycle values='row0,row1' assign=rowCss}
+					<tr class="{$rowCss}">
+					<td align="center">
+						{$schedule->GetTimezone()} 
+					</td>
+					<td align="center">
+						{$period->Start->Format("H:i")} 
+					</td>
+					{assign var=display value=false}
+				{/if}					
+				{if $period->IsReservable() == false and $display == false}					
+					<td align="center">
+						{$period->Start->Format("H:i")}				
+					</td>
+					<td align="center">
+						{html_image src="tick-button.png"}			
+					</td>
+					</tr>
+					{cycle values='row0,row1' assign=rowCss}
+					{assign var=display value=true}
+					<tr class="{$rowCss}">
+					<td align="center">
+						{$schedule->GetTimezone()} 
+					</td>
+					<td align="center">
+						{$period->Start->Format("H:i")} 
+					</td>
+				{/if}
+			{/foreach}				
+			{if $display}
 				<td align="center">
-					{$period->Start->Format("H:i")} 
+					00:00
 				</td>
 				<td align="center">
 					{html_image src="slash.png"}			
 				</td>
 				</tr>
-				{cycle values='row0,row1' assign=rowCss}
-				<tr class="{$rowCss}">
+			{else}
 				<td align="center">
-					{$period->Start->Format("H:i")} 
-				</td>
-				{assign var=display value=false}
-			{/if}					
-			{if $period->IsReservable() == false and $display == false}					
-				<td align="center">
-					{$period->Start->Format("H:i")}				
+					00:00
 				</td>
 				<td align="center">
 					{html_image src="tick-button.png"}			
 				</td>
 				</tr>
-				{cycle values='row0,row1' assign=rowCss}
-				{assign var=display value=true}
-				<tr class="{$rowCss}">
-				<td align="center">
-					{$period->Start->Format("H:i")} 
-				</td>
-			{/if}
-		{/foreach}				
-		{if $display}
-			<td align="center">
-				00:00
-			</td>
-			<td align="center">
-				{html_image src="slash.png"}			
-			</td>
-			</tr>
-		{else}
-			<td align="center">
-				00:00
-			</td>
-			<td align="center">
-				{html_image src="tick-button.png"}			
-			</td>
-			</tr>
-		{/if}				
+			{/if}				
 		</tbody>
 	</table>
     <div class="scheduleDetails">
@@ -152,10 +162,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <input type="hidden" id="activeId" value=""/>
 
 <div id="changeLayoutDialog" class="dialog" title="{translate key=ChangeLayout}">
-    <form id="changeLayoutForm" method="post">
-        <div class="validationSummary">
-            <ul>{async_validator id="layoutValidator" key="ValidLayoutRequired"}</ul>
-        </div>
+    <div class="warning hiddenDiv">{translate key=FieldWarning}</div>
+	<form id="changeLayoutForm" method="post">
         <div class="clear;display:block; hiddenDiv">
             <label>{translate key=UseSameLayoutForAllDays} <input type="checkbox" id="usesSingleLayout" {formname key=USING_SINGLE_LAYOUT}></label>
         </div>
@@ -165,13 +173,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{if $day!=null}
 				{assign var=suffix value="_$day"}
 			{/if}
-            <div class="hiddenDiv" style="float:left;">
-                <h5>{translate key=ReservableTimeSlots}</h5>
-                <textarea class="reservableEdit" id="reservableEdit{$suffix}" name="{FormKeys::SLOTS_RESERVABLE}{$suffix}"></textarea>
+            <div style="visibility:hidden;" class="leftFloater">
+                <textarea style="resize:none;height:1px" class="reservableEdit" id="reservableEdit{$suffix}" name="{FormKeys::SLOTS_RESERVABLE}{$suffix}"></textarea>
             </div>
-            <div class="hiddenDiv" style="float:right;">
-                <h5>{translate key=BlockedTimeSlots}</h5>
-                <textarea class="blockedEdit" id="blockedEdit{$suffix}" name="{FormKeys::SLOTS_BLOCKED}{$suffix}"></textarea>
+            <div style="visibility:hidden;" class="rightFloater">
+                <textarea style="resize:none;height:1px" class="blockedEdit" id="blockedEdit{$suffix}" name="{FormKeys::SLOTS_BLOCKED}{$suffix}"></textarea>
             </div>
         </div>
 	{/function}
@@ -208,25 +214,33 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 					{display_slot_inputs day='6'}
                 </div>
             </div>
-        </div>
-	{display_slot_inputs id="staticSlots" day=null}
+        </div>		
+		{display_slot_inputs id="staticSlots" day=null}		
         <div style="clear:both;height:0;">&nbsp</div>
+		</br>
+		</br>
         <div style="margin-top:5px;">
 			{translate key=Timezone}
-            <select {formname key=TIMEZONE} id="layoutTimezone" class="input">
+            <select style="text-align-last:center" {formname key=TIMEZONE} id="layoutTimezone" class="input">
 				{html_options values=$TimezoneValues output=$TimezoneOutput}
             </select>
         </div>
 		</br>
         <div style="margin-top:2px;">
 			{capture name="layoutConfig" assign="layoutConfig"}
-                <input type='text' value='30' id='quickLayoutConfig' size='5' />
+                {*<input type='text' value='30' id='quickLayoutConfig' size='5' />*}
+				 <select style="text-align-last:center" id='quickLayoutConfig' class="input">
+					<option value='30'> 30 </option>
+					<option value='60'> 60 </option>
+				</select>				
 			{/capture}
 			{capture name="layoutStart" assign="layoutStart"}
-                <input type='text' value='08:00' id='quickLayoutStart' size='10'/>
+                {*<input type='text' value='08:00' id='quickLayoutStart' size='10'/>*}
+				<select style="text-align-last:center" id='quickLayoutStart' class="input"></select>
 			{/capture}
 			{capture name="layoutEnd" assign="layoutEnd"}
-                <input type='text' value='18:00' id='quickLayoutEnd' size='10'/>
+                {*<input type='text' value='18:00' id='quickLayoutEnd' size='10'/>*}
+				<select style="text-align-last:center" id='quickLayoutEnd' class="input"></select>
 			{/capture}
 			{translate key=QuickSlotCreation args="$layoutConfig,$layoutStart,$layoutEnd"}
         </div>
@@ -249,6 +263,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {jsfile src="admin/schedule.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}
 
+{*Enhance*}
+{jsfile src="enhancement/scheduleEnhance.js"}
+
+{*Code*}
 <script type="text/javascript">
 
     $(document).ready(function ()
@@ -269,6 +287,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
         var scheduleManagement = new ScheduleManagement(opts);
         scheduleManagement.init();
+		
+		enhance();
     });
 
 </script>
